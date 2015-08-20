@@ -2,6 +2,13 @@ import sqlalchemy
 import sqlalchemy.orm
 import uuid
 import configmanager
+import tables
+import os.path
+
+CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/"))
+print(CONFIG_PATH)
+configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
+config = configs["database"]
 
 class ConnectionManager():
 	_connections = {}
@@ -12,7 +19,7 @@ class ConnectionManager():
 			if type(connection) == DatabaseConnection:
 				_connections[connectionName] = connection
 				return connectionName
-			else if type(connection) == str:
+			elif type(connection) == str:
 				c = DatabaseConnection(connection)
 				_connections[connectionName] = connection
 				return connectionName
@@ -39,14 +46,19 @@ class ConnectionManager():
 			raise ValueError("connectionName must be of type str, not %s", type(name))
 
 class DatabaseConnection():
-	def __init__(self, connectionString):
-		self.connectionString = configs['connection_string']
-		self.engine = sqlalchemy.create_engine(bind = self.connectionString)
-		self._Session = sqlalchemy.orm.create_session(bind = engine)
-		self.session = Session()
+	def __init__(self, connectionString = config["connection_string"], createTables = True):
+		self.connectionString = connectionString
+		print(self.connectionString)
+		self.engine = sqlalchemy.create_engine(self.connectionString)
+		self._Session = sqlalchemy.orm.sessionmaker(bind = self.engine)
+		self.session = self._Session()
+		#Create all tables
+		if createTables:
+			for table in tables.ALL_TABLES:
+				table.metadata.create_all(self.engine)	
 		
 	def getSelectedDatabase(self):
-		result = session.execute("SELECT DATABASE()").fetchone()
+		result = self.session.execute("SELECT DATABASE()").fetchone()
 		if result != None:
 			return result[0]
 		return None
