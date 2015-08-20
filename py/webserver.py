@@ -1,7 +1,6 @@
 import cherrypy
 import jinja2
 import os.path
-import configmanager
 import database
 
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/"))
@@ -15,8 +14,6 @@ CHERRYPY_CONFIG = {
 	}
 
 }
-
-configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
 
 class WebServer():
 	def __init__(self, serverConfig = CHERRYPY_CONFIG):
