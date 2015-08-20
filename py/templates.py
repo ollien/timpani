@@ -7,8 +7,8 @@ templateConfig = configs["templates"]
 templatePath = os.path.abspath(os.path.join(os.path.dirname(__file__), "../", templateConfig["template_directory"]))
 
 class TemplateManager():
-	def __init__(self):
-		self.environment = jinja2.Environment(loader = jinja2.FileSystemLoader(templatePath))
+	def __init__(self, path = templatePath):
+		self.environment = jinja2.Environment(loader = jinja2.FileSystemLoader(path))
 
 	def __getitem__(self, attr):
 		try:
