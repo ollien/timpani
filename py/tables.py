@@ -9,7 +9,8 @@ class Post(Base):
 	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
 	title = sqlalchemy.Column(sqlalchemy.String)
 	body = sqlalchemy.Column(sqlalchemy.Text,) #Should be text to avoid length problems
-	time_posted = sqlalchemy.Column(sqlalchemy.Time)
+	time_posted = sqlalchemy.Column(sqlalchemy.DateTime)
+	author = sqlalchemy.Column(sqlalchemy.String)
 
 class Tag(Base):
 	__tablename__ = "tags"
