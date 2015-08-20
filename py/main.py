@@ -1,0 +1,22 @@
+import os.path
+import webserver
+import database
+import configmanager
+
+#Setup Config manager
+configs = configmanager.ConfigManager(os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs")))
+databaseConfig = configs["database"]
+print("[Timpani] Configs loaded.")
+
+#Register a connection to our database
+databaseConnection = database.DatabaseConnection(connectionString = databaseConfig["connection_string"])
+database.ConnectionManager.addConnection(databaseConnection, "main")
+print("[Timpani] Database sessions started.")
+
+#Start Webserver.
+server = webserver.WebServer()
+application = server.run()
+
+#This will run after server.run finishes, as in, after the server shuts down.
+print("[Timpani] Closing database sessions")
+database.ConnectionManager.closeConnection("main")
