@@ -1,0 +1,17 @@
+<html>
+<head>
+	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/posts.css" rel="stylesheet">
+</head>
+<body>
+	{% for post in posts %}
+	<div class="post" id="{{post.id}}">
+		<h3 class="post-title title">{{post.title}}<h3>
+		<h6 class="timestamp">by {{post.author}} at {{post.time_posted}}</h6>
+		<div class="post-body well">
+			{{post.body}}
+		</div>
+	</div>
+	{% endfor %}
+</body>
+</html>

@@ -1,7 +1,7 @@
 import cherrypy
-import jinja2
 import os.path
 import database
+import templates
 
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/"))
 FILE_LOCATION = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -18,6 +18,7 @@ CHERRYPY_CONFIG = {
 class WebServer():
 	def __init__(self, serverConfig = CHERRYPY_CONFIG):
 		self.config = serverConfig	
+		self.templates = templates.TemplateManager()
 	
 	def run(self):
 		application = cherrypy.tree.mount(self, "/", config = self.config)
@@ -27,7 +28,11 @@ class WebServer():
 
 	@cherrypy.expose
 	def index(self):
-		return "Hello World"
+		databaseConnection = database.ConnectionManager.getConnection("main")
+		posts = databaseConnection.session.query(database.tables.Post).all()
+		#Posts must go newest first.
+		posts.reverse()
+		return self.templates["posts"].render(posts = posts)
 
 
 if __name__ == "__main__":

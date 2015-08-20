@@ -1,0 +1,10 @@
+div.post {
+  margin-left: 10%;
+  margin-right: 10%; }
+  div.post div.post-body {
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 12pt;
+    font-weight: 200; }
+
+/*# sourceMappingURL=posts.css.map */
