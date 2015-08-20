@@ -17,7 +17,6 @@ CHERRYPY_CONFIG = {
 }
 
 configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
-databaseConfig = configs["database"]
 
 class WebServer():
 	def __init__(self, serverConfig = CHERRYPY_CONFIG):
@@ -35,6 +34,5 @@ class WebServer():
 
 
 if __name__ == "__main__":
-	databaseConnection = database.DatabaseConnection(connectionString = databaseConfig["connection_string"])
 	server = WebServer()
 	server.run()
