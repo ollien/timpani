@@ -31,7 +31,10 @@ def validateUser(username, password):
 
 	return False
 
-def createSession(username, sessionId = uuid.uuid4().hex):
+def generateSessionId():
+	return ''.join([uuid.uuid4().hex for i in range(16)])
+
+def createSession(username, sessionId = generateSessionId()):
 	username = username.lower()
 	databaseConnection = database.ConnectionManager.getConnection("main")
 	query = databaseConnection.session.query(database.tables.User).filter(database.tables.User.username == username)
