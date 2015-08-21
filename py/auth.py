@@ -43,6 +43,7 @@ def createSession(username, sessionId = uuid.uuid4().hex):
 		sessionObj = database.tables.Session(user_id = userId, session_id = sessionId, expires = expires)
 		databaseConnection.session.add(sessionObj)
 		databaseConnection.session.commit()
+		return sessionId
 	else:
 		raise ValueError("username does not exist.")
 
