@@ -1,5 +1,7 @@
 import bcrypt
 import database
+import uuid
+import datetime
 
 def createUser(username, password, can_change_settings, can_write_posts):
 	username = username.lower()
@@ -28,3 +30,18 @@ def validateUser(username, password):
 			return True
 
 	return False
+
+def createSession(username, sessionId = uuid.uuid4().hex):
+	username = username.lower()
+	databaseConnection = database.ConnectionManager.getConnection("main")
+	query = databaseConnection.session.query(database.tables.User).filter(database.tables.User.username == username)
+
+	if query.count() > 0:
+		userObject = query.first()
+		userId = userObject.id
+		expires = datetime.datetime.now() + datetime.timedelta(0, 0, 0, 0, 0, 0, 2) #Now plus two weeks.
+		sessionObj = database.tables.Session(user_id = userId, session_id = sessionId, expires = expires)
+		databaseConnection.session.add(sessionObj)
+		databaseConnection.session.commit()
+	else:
+		raise ValueError("username does not exist.")
