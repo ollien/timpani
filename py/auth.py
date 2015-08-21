@@ -45,3 +45,14 @@ def createSession(username, sessionId = uuid.uuid4().hex):
 		databaseConnection.session.commit()
 	else:
 		raise ValueError("username does not exist.")
+
+def validateSession(sessionId):
+	databaseConnection = database.ConnectionManager.getConnection("main")
+	query = databaseConnection.session.query(database.tables.Session).filter(database.tables.Session.session_id == sessionId)
+
+	if query.count() > 0:
+		userId = query.first().user_id
+		userQuery = databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == userId)
+		if userQuery.count() > 0:
+			return userQuery.first()
+	return None
