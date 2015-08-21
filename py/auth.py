@@ -51,8 +51,11 @@ def validateSession(sessionId):
 	query = databaseConnection.session.query(database.tables.Session).filter(database.tables.Session.session_id == sessionId)
 
 	if query.count() > 0:
-		userId = query.first().user_id
-		userQuery = databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == userId)
-		if userQuery.count() > 0:
-			return userQuery.first()
+		sessionObj = query.first()
+		userId = sessionObj.user_id
+		if datetime.datetime.now() < sessionObj.expires:
+			userQuery = databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == userId)
+			if userQuery.count() > 0:
+				return userQuery.first()
+
 	return None
