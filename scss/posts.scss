@@ -1,8 +1,16 @@
+@import "base";
+
+body {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: 300;
+}
+
 div.post {
 	margin-left: 10%;
 	margin-right: 10%;
 	
-	h3.post-title {
+	h2.post-title {
+		font-weight: 400;
 		margin-bottom: 0px;	
 		padding-bottom: 0px;
 	}
@@ -16,6 +24,7 @@ div.post {
 	}
 
 	div.post-body {
+		@extend .well;
 		width:100%;
 		word-wrap: break-word;
 		font-size: 12pt;

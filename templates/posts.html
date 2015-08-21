@@ -1,14 +1,13 @@
 <html>
 <head>
-	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="/static/css/posts.css" rel="stylesheet">
 </head>
 <body>
 	{% for post in posts %}
 	<div class="post" id="{{post.id}}">
-		<h3 class="post-title title">{{post.title}}</h3>
+		<h2 class="post-title title">{{post.title}}</h2>
 		<div class="post-metadata"> by <span class="author">{{post.author}}</span> at <span class="timestamp">{{post.time_posted.strftime("%A %B %w at %I:%M %p")}}</span></div>
-		<div class="post-body well">
+		<div class="post-body">
 			{{post.body}}
 		</div>
 	</div>
