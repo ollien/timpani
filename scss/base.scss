@@ -1,3 +1,5 @@
+$default-background-color: #F5F5F5;
+
 @mixin vendor-prefix($name, $argument) {
   -webkit-#{$name}: #{$argument};
   -ms-#{$name}: #{$argument};
@@ -9,6 +11,10 @@
 body {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 	font-weight: 300;
+}
+
+button.pure-button{
+	border-radius: 5px;
 }
 
 .well {

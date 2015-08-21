@@ -39,12 +39,19 @@ class WebServer():
 	@cherrypy.expose
 	def login(self, username = None, password = None):
 		if cherrypy.request.method == "GET":
+			if "sessionId" in cherrypy.request.cookie:
+				user = auth.validateSession(cherrypy.request.cookie["sessionId"].value)
+				if user != None:
+					print(user)
+					return self.templates["manage"].render(username = user.username)
 			return self.templates["login"].render()
 		elif cherrypy.request.method == "POST":
 			if username == None or password == None:
 				raise cherrypy.HTTPRedirect("/login")	
 			if auth.validateUser(username, password):
-				return "Success!"
+				sessionId = auth.createSession(username)
+				cherrypy.response.cookie["sessionId"] = sessionId
+				return self.templates["manage"].render(username = username)
 			else:
 				return self.templates["login"].render(error = "Invalid username or password")
 				

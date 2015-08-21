@@ -12,4 +12,15 @@ button.pure-button {
   border-radius: 5px;
   box-shadow: inset 0 1px 1px 1px rgba(0, 0, 0, 0.03); }
 
-/*# sourceMappingURL=base.css.map */
+div#buttons {
+  text-align: center; }
+  div#buttons div#post-buttons {
+    display: inline-block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto; }
+  div#buttons button {
+    font-size: 18pt;
+    margin: 5px; }
+
+/*# sourceMappingURL=manage.css.map */
