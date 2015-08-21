@@ -28,6 +28,13 @@ class WebServer():
 		cherrypy.engine.block()
 		return application
 
+	def checkForSession(self):
+		if "sessionId" in cherrypy.request.cookie:
+			session = auth.validateSession(cherrypy.request.cookie["sessionId"].value)
+			if session != None:
+				return session
+		return None
+
 	@cherrypy.expose
 	def index(self):
 		databaseConnection = database.ConnectionManager.getConnection("main")
@@ -39,24 +46,29 @@ class WebServer():
 	@cherrypy.expose
 	def login(self, username = None, password = None):
 		if cherrypy.request.method == "GET":
-			if "sessionId" in cherrypy.request.cookie:
-				user = auth.validateSession(cherrypy.request.cookie["sessionId"].value)
-				if user != None:
-					print(user)
-					return self.templates["manage"].render(username = user.username)
+			if self.checkForSession() != None:
+				raise cherrypy.HTTPRedirect("/manage")	
 			return self.templates["login"].render()
 		elif cherrypy.request.method == "POST":
 			if username == None or password == None:
 				raise cherrypy.HTTPRedirect("/login")	
-			if auth.validateUser(username, password):
+			if aurh.validateUser(username, password):
 				sessionId = auth.createSession(username)
 				cherrypy.response.cookie["sessionId"] = sessionId
 				return self.templates["manage"].render(username = username)
 			else:
 				return self.templates["login"].render(error = "Invalid username or password")
-				
-	
 
+	@cherrypy.expose
+	def manage(self):
+		session = self.checkForSession()
+		if session != None:
+			user = auth.getUserFromSession(session)
+			return self.templates["manage"].render(user = user)
+		else:
+			raise cherrypy.HTTPRedirect("/login")
+		
+				
 
 if __name__ == "__main__":
 	server = WebServer()
