@@ -1,6 +1,15 @@
 div.post {
   margin-left: 10%;
   margin-right: 10%; }
+  div.post h3.post-title {
+    margin-bottom: 0px;
+    padding-bottom: 0px; }
+  div.post div.post-metadata {
+    font-size: 13pt;
+    font-weight: 300;
+    margin-top: 5px;
+    /*Fixes inequality between h3 and top of text */
+    margin-bottom: 10px; }
   div.post div.post-body {
     width: 100%;
     word-wrap: break-word;

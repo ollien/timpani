@@ -6,8 +6,8 @@
 <body>
 	{% for post in posts %}
 	<div class="post" id="{{post.id}}">
-		<h3 class="post-title title">{{post.title}}<h3>
-		<h6 class="timestamp">by {{post.author}} at {{post.time_posted}}</h6>
+		<h3 class="post-title title">{{post.title}}</h3>
+		<div class="post-metadata"> by <span class="author">{{post.author}}</span> at <span class="timestamp">{{post.time_posted.strftime("%A %B %w at %I:%M %p")}}</span></div>
 		<div class="post-body well">
 			{{post.body}}
 		</div>
