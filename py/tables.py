@@ -32,8 +32,8 @@ class User(Base):
 	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
 	username = sqlalchemy.Column(sqlalchemy.String)
 	password = sqlalchemy.Column(sqlalchemy.String)
-	can_change_settings = sqlalchemy.column(sqlalchemy.Boolean)
-	can_write_posts = sqlalchemy.column(sqlalchemy.Boolean)
+	can_change_settings = sqlalchemy.Column(sqlalchemy.Boolean)
+	can_write_posts = sqlalchemy.Column(sqlalchemy.Boolean)
 
 #The Following tables will only be the ones added to the database
 ALL_TABLES = [Post, Tag, TagRelation]
