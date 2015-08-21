@@ -6,9 +6,9 @@
 <body>
 	<div id="login-bounding">
 		<h2 id="login">Login</h2>
-		<form class="pure-form" id="login-form">
-			<input type="text" placeholder="Username">
-			<input type="password" placeholder="Password">
+		<form class="pure-form" id="login-form" action="/login" method="POST">
+			<input type="text" name="username" placeholder="Username">
+			<input type="password" name="password" placeholder="Password">
 			<button type="submit" class="pure-button pure-button-primary">Login</button>
 		</form>
 	</div>

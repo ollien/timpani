@@ -2,6 +2,7 @@ import cherrypy
 import os.path
 import database
 import templates
+import auth
 
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/"))
 FILE_LOCATION = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -36,8 +37,17 @@ class WebServer():
 		return self.templates["posts"].render(posts = posts)
 
 	@cherrypy.expose
-	def login(self):
-		return self.templates["login"].render()
+	def login(self, username = None, password = None):
+		if cherrypy.request.method == "GET":
+			return self.templates["login"].render()
+		elif cherrypy.request.method == "POST":
+			if username == None or password == None:
+				raise cherrypy.HTTPRedirect("/login")	
+			if auth.validateUser(username, password):
+				return "Success!"
+			else:
+				return "Failure!"
+				
 	
 
 
