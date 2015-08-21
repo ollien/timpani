@@ -30,10 +30,18 @@ class User(Base):
 	__tablename__ = "users"
 
 	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
-	username = sqlalchemy.Column(sqlalchemy.String)
-	password = sqlalchemy.Column(sqlalchemy.String)
+	username = sqlalchemy.Column(sqlalchemy.String, nullable = False)
+	password = sqlalchemy.Column(sqlalchemy.String, nullable = False)
 	can_change_settings = sqlalchemy.Column(sqlalchemy.Boolean)
 	can_write_posts = sqlalchemy.Column(sqlalchemy.Boolean)
+
+class Session(Base):
+	__tablename__ = "sessions"
+
+	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
+	user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(User.__table__.columns.id))
+	session_id = sqlalchemy.Column(sqlalchemy.String, nullable = False)
+	expires = sqlalchemy.Column(sqlalchemy.DateTime, nullable = False)
 
 #The Following tables will only be the ones added to the database
 ALL_TABLES = [Post, Tag, TagRelation]
