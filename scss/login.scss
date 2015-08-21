@@ -1,0 +1,32 @@
+@import "base";
+
+body {
+	position: relative;
+	background-color:#F5F5F5;
+}
+
+div#login-bounding {
+	position:absolute;
+	min-width: 350px;
+	width: 25%;
+	top: 50%;
+	left: 50%;
+	@include vendor-prefix(transform, translate(-50%, -75%));
+
+	h2#login {
+		text-align: center;
+	}
+
+	form#login-form {
+		$vertical-margin: 5px;
+		input {
+			width: 100%;	
+			margin-top: $vertical-margin;
+			margin-bottom: $vertical-margin;
+		}	
+		button {
+			float:right;	
+		}
+	}
+}
+

@@ -1,3 +1,16 @@
+@mixin vendor-prefix($name, $argument) {
+  -webkit-#{$name}: #{$argument};
+  -ms-#{$name}: #{$argument};
+  -moz-#{$name}: #{$argument};
+  -o-#{$name}: #{$argument};
+  #{$name}: #{$argument};
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-weight: 300;
+}
+
 .well {
 	padding: 20px;
 	background-color: #f5f5f5;

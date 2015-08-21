@@ -22,6 +22,7 @@ class WebServer():
 	
 	def run(self):
 		application = cherrypy.tree.mount(self, "/", config = self.config)
+		cherrypy.server.socket_host = '0.0.0.0'
 		cherrypy.engine.start()
 		cherrypy.engine.block()
 		return application
@@ -33,6 +34,11 @@ class WebServer():
 		#Posts must go newest first.
 		posts.reverse()
 		return self.templates["posts"].render(posts = posts)
+
+	@cherrypy.expose
+	def login(self):
+		return self.templates["login"].render()
+	
 
 
 if __name__ == "__main__":
