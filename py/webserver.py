@@ -52,7 +52,7 @@ class WebServer():
 		elif cherrypy.request.method == "POST":
 			if username == None or password == None:
 				raise cherrypy.HTTPRedirect("/login")	
-			if aurh.validateUser(username, password):
+			if auth.validateUser(username, password):
 				sessionId = auth.createSession(username)
 				cherrypy.response.cookie["sessionId"] = sessionId
 				return self.templates["manage"].render(username = username)
