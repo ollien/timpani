@@ -29,13 +29,9 @@ div#main-container {
     text-align: center; }
   div#main-container div#buttons {
     text-align: center; }
-    div#main-container div#buttons div#post-buttons {
-      display: inline-block;
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto; }
     div#main-container div#buttons button {
       font-size: 18pt;
-      margin: 5px; }
+      margin: 5px;
+      width: 500px; }
 
 /*# sourceMappingURL=manage.css.map */

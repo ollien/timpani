@@ -17,15 +17,10 @@ div#main-container{
 	div#buttons {
 		text-align: center;
 
-		div#post-buttons{
-			display:inline-block;
-			width:100%;
-			margin-left: auto;
-			margin-right: auto;
-		}
 		button {
 			font-size: 18pt;
 			margin: 5px;
+			width: 500px;
 		}	
 	}
 }
