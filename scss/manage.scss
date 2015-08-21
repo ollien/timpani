@@ -1,15 +1,31 @@
 @import "base";
 
-div#buttons {
-	text-align: center;
-	div#post-buttons{
-		display:inline-block;
-		width:100%;
-		margin-left: auto;
-		margin-right: auto;
+body {
+	position: relative;
+	background-color: $default-background-color;
+}
+ 
+div#main-container{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	@include vendor-prefix(transform, translate(-50%, -50%));
+	h2#title{
+		text-align: center;
 	}
-	button {
-		font-size: 18pt;
-		margin: 5px;
-	}	
+
+	div#buttons {
+		text-align: center;
+
+		div#post-buttons{
+			display:inline-block;
+			width:100%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		button {
+			font-size: 18pt;
+			margin: 5px;
+		}	
+	}
 }
