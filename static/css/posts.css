@@ -25,6 +25,11 @@ div.post {
   div.post div.post-body {
     width: 100%;
     word-wrap: break-word;
+    -webkit-hyphen: auto;
+    -ms-hyphen: auto;
+    -moz-hyphen: auto;
+    -o-hyphen: auto;
+    hyphen: auto;
     font-size: 12pt;
     font-weight: 200; }
 

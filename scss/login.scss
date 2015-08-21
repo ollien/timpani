@@ -16,6 +16,17 @@ div#login-bounding {
 	h2#login {
 		text-align: center;
 	}
+	
+	div#error{
+		@extend .well;
+		$vertical-margin: 5px;
+		padding: 5px;
+		margin-top: $vertical-margin;
+		margin-bottom: $vertical-margin;
+		border: 1px solid #FF6956;
+		background-color: #FE7F70;
+		text-align: center;
+	}
 
 	form#login-form {
 		$vertical-margin: 5px;

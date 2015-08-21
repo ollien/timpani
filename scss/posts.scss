@@ -22,6 +22,7 @@ div.post {
 		@extend .well;
 		width:100%;
 		word-wrap: break-word;
+		@include vendor-prefix(hyphen, auto);
 		font-size: 12pt;
 		font-weight: 200;
 	}

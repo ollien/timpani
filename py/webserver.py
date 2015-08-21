@@ -46,7 +46,7 @@ class WebServer():
 			if auth.validateUser(username, password):
 				return "Success!"
 			else:
-				return "Failure!"
+				return self.templates["login"].render(error = "Invalid username or password")
 				
 	
 
