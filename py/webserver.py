@@ -55,7 +55,7 @@ class WebServer():
 			if auth.validateUser(username, password):
 				sessionId = auth.createSession(username)
 				cherrypy.response.cookie["sessionId"] = sessionId
-				return self.templates["manage"].render(username = username)
+				raise cherrypy.HTTPRedirect("/manage")	
 			else:
 				return self.templates["login"].render(error = "Invalid username or password")
 
