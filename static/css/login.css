@@ -36,11 +36,17 @@ div#login-bounding {
     border: 1px solid #FF6956;
     background-color: #FE7F70;
     text-align: center; }
-  div#login-bounding form#login-form input {
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 5px; }
-  div#login-bounding form#login-form button {
-    float: right; }
+  div#login-bounding form#login-form {
+    /*Overrides Pure's invalid property, which I don't want to use.*/ }
+    div#login-bounding form#login-form input {
+      width: 100%;
+      margin-top: 5px;
+      margin-bottom: 5px; }
+    div#login-bounding form#login-form input.error {
+      border-color: #FF2222 !important; }
+    div#login-bounding form#login-form input:focus:invalid {
+      border-color: #129FEA; }
+    div#login-bounding form#login-form button {
+      float: right; }
 
 /*# sourceMappingURL=login.css.map */

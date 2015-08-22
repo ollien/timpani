@@ -35,6 +35,13 @@ div#login-bounding {
 			margin-top: $vertical-margin;
 			margin-bottom: $vertical-margin;
 		}	
+		input.error{
+			border-color: #FF2222 !important;
+		}
+		/*Overrides Pure's invalid property, which I don't want to use.*/
+		input:focus:invalid{
+			border-color: #129FEA;
+		}
 		button {
 			float:right;	
 		}

@@ -2,6 +2,7 @@
 <head>
 	<link href="/static/css/pure.min.css" rel="stylesheet">
 	<link href="/static/css/login.css" rel="stylesheet">
+	<script src="/static/js/login.js"></script>
 </head>
 <body>
 	<div id="login-bounding">
@@ -12,8 +13,8 @@
 		</div>
 		{% endif %}
 		<form class="pure-form" id="login-form" action="/login" method="POST">
-			<input type="text" name="username" placeholder="Username">
-			<input type="password" name="password" placeholder="Password">
+			<input type="text" id="username-field" name="username" placeholder="Username" required>
+			<input type="password" id="password-field" name="password" placeholder="Password" required>
 			<button type="submit" class="pure-button pure-button-primary">Login</button>
 		</form>
 	</div>
