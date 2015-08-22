@@ -27,7 +27,7 @@ div#login-bounding {
   -moz-transform: translate(-50%, -75%);
   -o-transform: translate(-50%, -75%);
   transform: translate(-50%, -75%); }
-  div#login-bounding h2#login {
+  div#login-bounding h2#login, div#login-bounding h2#welcome {
     text-align: center; }
   div#login-bounding div#error {
     padding: 5px;

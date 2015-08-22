@@ -13,7 +13,7 @@ div#login-bounding {
 	left: 50%;
 	@include vendor-prefix(transform, translate(-50%, -75%));
 
-	h2#login {
+	h2#login, h2#welcome{
 		text-align: center;
 	}
 	
