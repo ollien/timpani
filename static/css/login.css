@@ -5,7 +5,7 @@ body {
 button.pure-button {
   border-radius: 5px; }
 
-.well, div#login-bounding div#error {
+.well, div#login-bounding div#main-wrapper div#error {
   padding: 20px;
   background-color: #f5f5f5;
   border: 1px solid #e3e3e3;
@@ -13,40 +13,41 @@ button.pure-button {
   box-shadow: inset 0 1px 1px 1px rgba(0, 0, 0, 0.03); }
 
 body {
-  position: relative;
   background-color: #F5F5F5; }
 
 div#login-bounding {
-  position: absolute;
-  min-width: 350px;
-  width: 25%;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
-  div#login-bounding h2#login, div#login-bounding h2#welcome {
-    text-align: center; }
-  div#login-bounding div#error {
-    padding: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border: 1px solid #FF6956;
-    background-color: #FE7F70;
-    text-align: center; }
-  div#login-bounding form#login-form {
-    /*Overrides Pure's invalid property, which I don't want to use.*/ }
-    div#login-bounding form#login-form input {
-      width: 100%;
+  display: table;
+  height: 100%;
+  width: 100%; }
+  div#login-bounding div#main-wrapper {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle; }
+    div#login-bounding div#main-wrapper div#error {
+      width: 25%;
+      min-width: 400px;
+      padding: 5px;
       margin-top: 5px;
-      margin-bottom: 5px; }
-    div#login-bounding form#login-form input.error {
-      border-color: #FF2222 !important; }
-    div#login-bounding form#login-form input:focus:invalid {
-      border-color: #129FEA; }
-    div#login-bounding form#login-form button {
-      float: right; }
+      margin-bottom: 5px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #FF6956;
+      background-color: #FE7F70; }
+    div#login-bounding div#main-wrapper form#login-form {
+      width: 25%;
+      min-width: 350px;
+      margin-left: auto;
+      margin-right: auto;
+      /*Overrides Pure's invalid property, which I don't want to use.*/ }
+      div#login-bounding div#main-wrapper form#login-form input {
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 5px; }
+      div#login-bounding div#main-wrapper form#login-form input.error {
+        border-color: #FF2222 !important; }
+      div#login-bounding div#main-wrapper form#login-form input:focus:invalid {
+        border-color: #129FEA; }
+      div#login-bounding div#main-wrapper form#login-form button {
+        float: right; }
 
 /*# sourceMappingURL=login.css.map */
