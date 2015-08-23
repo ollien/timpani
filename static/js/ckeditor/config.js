@@ -34,5 +34,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.skin = 'flat';
 	config.extraPlugins = 'widget,lineutils,codesnippet'
 	config.codeSnippet_theme = 'github-gist';
+	config.tabSpaces = 4;
 
 };
