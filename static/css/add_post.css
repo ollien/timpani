@@ -24,8 +24,12 @@ div#form-bounding {
     margin-left: 10%;
     margin-right: 10%; }
     div#form-bounding div#main-wrapper form {
-      height: 80%; }
+      height: 80%;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto; }
       div#form-bounding div#main-wrapper form textarea#post-body {
-        height: 60%; }
+        width: 100%;
+        height: 80%; }
 
 /*# sourceMappingURL=add_post.css.map */
