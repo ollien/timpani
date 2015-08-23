@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event){
-	CKEDITOR.replace("post-body")
+	var editorContainer = document.querySelector("div#main-wrapper")
+	var containerStyle = getComputedStyle(editorContainer)
+	var editor = CKEDITOR.replace("post-body", {width: containerStyle.width, height: containerStyle.height})
 	hljs.initHighlightingOnLoad()
 })
