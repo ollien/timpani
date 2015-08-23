@@ -18,6 +18,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'others' },
 		{ name: 'styles' },
 		{ name: 'colors' },
+		{ name: 'tools' }
 	];
 
 	// Remove some buttons provided by the standard plugins, which are

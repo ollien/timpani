@@ -12,10 +12,20 @@ button.pure-button {
   border-radius: 5px;
   box-shadow: inset 0 1px 1px 1px rgba(0, 0, 0, 0.03); }
 
-div#form-bounding div#main-wrapper {
-  width: 80%;
-  height: 50%;
-  margin-left: 10%;
-  margin-right: 10%; }
+div#form-bounding {
+  display: table;
+  height: 100%;
+  width: 100%; }
+  div#form-bounding div#main-wrapper {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%; }
+    div#form-bounding div#main-wrapper form {
+      height: 80%; }
+      div#form-bounding div#main-wrapper form textarea#post-body {
+        height: 60%; }
 
 /*# sourceMappingURL=add_post.css.map */
