@@ -36,4 +36,9 @@ CKEDITOR.editorConfig = function( config ) {
 	config.codeSnippet_theme = 'github-gist';
 	config.tabSpaces = 4;
 
+	config.keystrokes = [
+		[CKEDITOR.CTRL+76, null],
+		[CKEDITOR.CTRL+75, 'link']	
+	]
+
 };
