@@ -40,9 +40,12 @@ class WebServer():
 	def index(self):
 		databaseConnection = database.ConnectionManager.getConnection("main")
 		posts = databaseConnection.session.query(database.tables.Post).all()
+		for post in posts:
+			databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == post.author).first()
 		#Posts must go newest first.
+		getPostAuthor = lambda id: databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == id).first().username
 		posts.reverse()
-		return self.templates["posts"].render(posts = posts)
+		return self.templates["posts"].render(posts = posts, getPostAuthor = getPostAuthor)
 
 	@cherrypy.expose
 	def login(self, username = None, password = None):
