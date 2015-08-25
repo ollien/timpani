@@ -88,13 +88,18 @@ class WebServer():
 			else:
 				raise cherrypy.HTTPRedirect("/login")
 		else:
-			databaseConnection = database.ConnectionManager.getConnection("main")
-			postObj = database.tables.Post(title = postTitle, body = postBody, time_posted = datetime.datetime.now())
-			databaseConnection.session.add(postObj)
-			databaseConnection.session.commit()
-			print(postObj.id)
-			#TODO: Add tag parsing here.
-			raise cherrypy.HTTPRedirect("/")
+			session = self.checkForSession()
+			if session != None:
+				user = auth.getUserFromSession(session)
+				databaseConnection = database.ConnectionManager.getConnection("main")
+				postObj = database.tables.Post(title = postTitle, body = postBody, time_posted = datetime.datetime.now(), author = user.id)
+				databaseConnection.session.add(postObj)
+				databaseConnection.session.commit()
+				print(postObj.id)
+				#TODO: Add tag parsing here.
+				raise cherrypy.HTTPRedirect("/")
+			else:
+				raise cherrypy.HTTPRedirect("/login")
 if __name__ == "__main__":
 	server = WebServer()
 	server.run()
