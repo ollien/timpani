@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var tagsInput = document.getElementById("tags-input")
 	var placeholderTagsInput = document.getElementById("placeholder-tags-input")
 	var tagsInputPlugin = insignia(tagsInput, {deletion: true});
+	var form = document.getElementById("form#post-form") 
+
 	tagsInput.addEventListener("focus", function(event){
 		var div = document.getElementById("tag-input-div")
 		div.style.border = "1px solid #129FEA"
@@ -18,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 	});
 
 	tagsInput.addEventListener("insignia-evaluated", function(event){
-		placeholderTagsInput.value = tagsInputPlugin.value()
 		tags = Array.prototype.slice.call(tagsInput.parentNode.querySelectorAll("span.nsg-tag"))
 		tags.forEach(function(node){
 			var removeButton = node.querySelector(".nsg-tag-remove")	
@@ -34,6 +35,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 				})
 			}
 		})
+	})
+
+	form.addEventListener("submit", function(event){
+		placeholderTagsInput.value = tagsInputPlugin.value()
 	})
 
 })
