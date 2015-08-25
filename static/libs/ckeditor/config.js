@@ -33,8 +33,9 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.skin = 'flat';
 	config.extraPlugins = 'widget,lineutils,codesnippet'
-	config.codeSnippet_theme = 'github-gist';
+	config.codeSnippet_theme = 'github';
 	config.tabSpaces = 4;
+	config.removePlugins = "contextmenu";
 
 	config.keystrokes = [
 		[CKEDITOR.CTRL+76, null],
