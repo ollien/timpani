@@ -71,8 +71,12 @@ class WebServer():
 	@cherrypy.expose
 	def add_post(self, postTitle = None, postBody = None, postTags = None):
 		if cherrypy.request.method == "GET":
-			#TODO: Check for session. For dev purposes, this just renders the css
-			return self.templates["add_post"].render()
+			session = self.checkForSession()
+			if session != None:
+				user = auth.getUserFromSession(session)
+				return self.templates["add_post"].render()
+			else:
+				raise cherrypy.HTTPRedirect("/login")
 		else:
 			print(postTitle)
 			print(postBody)
