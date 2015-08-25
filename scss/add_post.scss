@@ -35,6 +35,58 @@ div#form-bounding{
 				height: 70%;
 			}
 
+			input#placeholder-tags-input {
+				display: none;	
+			}
+
+			div#tag-input-div {
+				display: inline-block;
+				padding: 0px;
+				margin-top: $vertical-margin + 5px;
+				border: 1px solid #ccc;
+				box-shadow: inset 0 1px 3px #ddd;
+				border-radius: 4px;
+				vertical-align: middle;
+				@include vendor-prefix(box-sizing, border-box);
+				width: 95%;
+				background-color: #fff;
+				text-align: left;
+
+				$tag-color: #5597CF;
+				.nsg-tag:before {
+					content: '#';
+				}
+
+				.nsg-tag-remove:after {
+					background-color: $tag-color;
+				}
+
+				.nsg-tag {
+					background-color: $tag-color;	
+					border: 1px solid $tag-color;
+					font-size: 13pt;
+					border-radius: 4px;
+					color: #fff;
+					transition-property: opacity color;
+					transition-duration: 250ms;
+				}
+
+				.nsg-tag.faded {
+					opacity: .6;
+					
+					.nsg-tag-remove {
+						color: #FE6570;
+					}
+				}
+
+			}
+
+			input#tags-input { 
+				border: 0px;	
+				box-shadow: inset 0px 0px 0px #fff;
+				font-size: 13pt;
+			}
+
 			div#cke_post-body {
 				box-shadow: 1px 2px 5px 2px #AAAAAA;
 			}

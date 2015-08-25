@@ -3,8 +3,10 @@
 	<link href="/static/css/pure.min.css" rel="stylesheet">
 	<link href="/static/css/add_post.css" rel="stylesheet">
 	<link href="/static/libs/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
+	<link href="/static/libs/insignia/insignia.min.css" rel="stylesheet">
 	<script src="/static/libs/ckeditor/ckeditor.js"></script>
 	<script src="/static/libs/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+	<script src="/static/libs/insignia/insignia.min.js"></script>
 	<script src="/static/js/add_post.js"></script>
 </head>
 <body>
@@ -12,8 +14,12 @@
 		<div id="main-wrapper">	
 		<h2 id="welcome">Submit a post to Timpani.</h2>
 			<form class="pure-form" id="post-form" action="/add_post"method="POST">
-				<input name="post-title" id="title-input" class="pure-input" placeholder="Post Title">
-				<textarea name="post-body" id="post-body"></textarea>
+				<input name="postTitle" id="title-input" class="pure-input" placeholder="Post Title">
+				<textarea name="postBody" id="post-body"></textarea>
+				<div id="tag-input-div">
+					<input id="tags-input" placeholder="Tags">
+				</div>
+				<input name="postTags" id="placeholder-tags-input">
 				<button type="submit" id="submit-post" class="pure-button pure-button-primary">Submit Post</button>
 			</form>
 		</div>

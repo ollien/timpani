@@ -38,6 +38,44 @@ div#form-bounding {
       div#form-bounding div#main-wrapper form textarea#post-body {
         width: 100%;
         height: 70%; }
+      div#form-bounding div#main-wrapper form input#placeholder-tags-input {
+        display: none; }
+      div#form-bounding div#main-wrapper form div#tag-input-div {
+        display: inline-block;
+        padding: 0px;
+        margin-top: 25px;
+        border: 1px solid #ccc;
+        box-shadow: inset 0 1px 3px #ddd;
+        border-radius: 4px;
+        vertical-align: middle;
+        -webkit-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 95%;
+        background-color: #fff;
+        text-align: left; }
+        div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag:before {
+          content: '#'; }
+        div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag-remove:after {
+          background-color: #5597CF; }
+        div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag {
+          background-color: #5597CF;
+          border: 1px solid #5597CF;
+          font-size: 13pt;
+          border-radius: 4px;
+          color: #fff;
+          transition-property: opacity color;
+          transition-duration: 250ms; }
+        div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag.faded {
+          opacity: .6; }
+          div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag.faded .nsg-tag-remove {
+            color: #FE6570; }
+      div#form-bounding div#main-wrapper form input#tags-input {
+        border: 0px;
+        box-shadow: inset 0px 0px 0px #fff;
+        font-size: 13pt; }
       div#form-bounding div#main-wrapper form div#cke_post-body {
         box-shadow: 1px 2px 5px 2px #AAAAAA; }
       div#form-bounding div#main-wrapper form button#submit-post {
