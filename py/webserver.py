@@ -1,5 +1,6 @@
 import cherrypy
 import os.path
+import datetime
 import database
 import templates
 import auth
@@ -78,13 +79,13 @@ class WebServer():
 			else:
 				raise cherrypy.HTTPRedirect("/login")
 		else:
-			print(postTitle)
-			print(postBody)
-			print(postTags)
-			return "printed"
-		
-				
-
+			databaseConnection = database.ConnectionManager.getConnection("main")
+			postObj = database.tables.Post(title = postTitle, body = postBody, time_posted = datetime.datetime.now())
+			databaseConnection.session.add(postObj)
+			databaseConnection.session.commit()
+			print(postObj.id)
+			#TODO: Add tag parsing here.
+			raise cherrypy.HTTPRedirect("/")
 if __name__ == "__main__":
 	server = WebServer()
 	server.run()
