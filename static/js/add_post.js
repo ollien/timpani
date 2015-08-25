@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var tagsInput = document.getElementById("tags-input")
 	var placeholderTagsInput = document.getElementById("placeholder-tags-input")
 	var tagsInputPlugin = insignia(tagsInput, {deletion: true});
-	var form = document.getElementById("form#post-form") 
+	var form = document.getElementById("post-form") 
 
 	tagsInput.addEventListener("focus", function(event){
 		var div = document.getElementById("tag-input-div")
