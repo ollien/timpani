@@ -42,8 +42,14 @@ class WebServer():
 		posts = databaseConnection.session.query(database.tables.Post).all()
 		for post in posts:
 			databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == post.author).first()
+
+		#If the config says to display the full name, we will return that instead of the username.
+		if templates.templateConfig["display_full_name"]:
+			getPostAuthor = lambda id: databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == id).first().full_name
+		else:
+			getPostAuthor = lambda id: databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == id).first().username
+
 		#Posts must go newest first.
-		getPostAuthor = lambda id: databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == id).first().username
 		posts.reverse()
 		return self.templates["posts"].render(posts = posts, getPostAuthor = getPostAuthor)
 
