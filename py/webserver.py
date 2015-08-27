@@ -1,6 +1,7 @@
 import cherrypy
 import os.path
 import datetime
+import urllib.parse
 import database
 import templates
 import auth
@@ -37,9 +38,9 @@ class WebServer():
 		return None
 
 	#Allow the user to be redirected and once this page is done being used (in this case login), is redirected back, for something like a login page
-	def redirectToLoginAndSave(self, currentPage):
-		cherrypy.response.cookie["donePage"] = currentPage
-		raise cherrypy.HTTPRedirect("/login")	
+	def redirectToLoginAndSave(self):
+		cherrypy.response.cookie["donePage"] = urllib.parse.urlparse(cherrypy.url()).path
+		raise cherrypy.HTTPRedirect("/login")
 	
 	#The sister function to redirectToLoginAndSave, which sends the user back after the action has been completed.
 	def recoverFromRedirect(self, redirect = True):
@@ -100,7 +101,7 @@ class WebServer():
 			user = auth.getUserFromSession(session)
 			return self.templates["manage"].render(user = user)
 		else:
-			redirectToLoginAndSave("/manage")
+			redirectToLoginAndSave()
 
 	@cherrypy.expose
 	def add_post(self, postTitle = None, postBody = None, postTags = None):
@@ -110,7 +111,7 @@ class WebServer():
 				user = auth.getUserFromSession(session)
 				return self.templates["add_post"].render()
 			else:
-				self.redirectToLoginAndSave("/add_post")
+				self.redirectToLoginAndSave()
 		else:
 			session = self.checkForSession()
 			if session != None:
@@ -124,7 +125,7 @@ class WebServer():
 				raise cherrypy.HTTPRedirect("/")
 			else:
 				#TODO: See if there's a nice way to store post content in a scenario like this
-				self.redirectToLoginAndSave("/add_post")
+				self.redirectToLoginAndSave()
 if __name__ == "__main__":
 	server = WebServer()
 	server.run()
