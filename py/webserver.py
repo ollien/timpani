@@ -119,9 +119,15 @@ class WebServer():
 				databaseConnection = database.ConnectionManager.getConnection("main")
 				postObj = database.tables.Post(title = postTitle, body = postBody, time_posted = datetime.datetime.now(), author = user.id)
 				databaseConnection.session.add(postObj)
+				databaseConnection.session.flush()
+				postTags = postTags.split(" ")
+				for tag in postTags:
+					tag = database.tables.Tag(name=tag)
+					databaseConnection.session.add(tag)
+					databaseConnection.session.flush()
+					relation = database.tables.TagRelation(post_id = postObj.id, tag_id = tag.id)
+					databaseConnection.session.add(relation)
 				databaseConnection.session.commit()
-				print(postObj.id)
-				#TODO: Add tag parsing here.
 				raise cherrypy.HTTPRedirect("/")
 			else:
 				#TODO: See if there's a nice way to store post content in a scenario like this
