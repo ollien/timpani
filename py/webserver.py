@@ -36,6 +36,26 @@ class WebServer():
 				return session
 		return None
 
+	#Allow the user to be redirected and once this page is done being used (in this case login), is redirected back, for something like a login page
+	def redirectToLoginAndSave(self, currentPage):
+		cherrypy.response.cookie["donePage"] = currentPage
+		raise cherrypy.HTTPRedirect("/login")	
+	
+	#The sister function to redirectToLoginAndSave, which sends the user back after the action has been completed.
+	def recoverFromRedirect(self, redirect = True):
+		donePage = cherrypy.request.cookie["donePage"].value
+		del cherrypy.request.cookie["donePage"]
+		print(donePage)
+		if redirect:
+			raise cherrypy.HTTPRedirect(donePage)
+		else:
+			return donePage
+	
+	def canRecoverFromRedirect(self):
+		print("donePage" in cherrypy.request.cookie)
+		print(cherrypy.request.cookie.keys())
+		return "donePage" in cherrypy.request.cookie
+
 	@cherrypy.expose
 	def index(self):
 		databaseConnection = database.ConnectionManager.getConnection("main")
@@ -65,7 +85,11 @@ class WebServer():
 			if auth.validateUser(username, password):
 				sessionId = auth.createSession(username)
 				cherrypy.response.cookie["sessionId"] = sessionId
-				raise cherrypy.HTTPRedirect("/manage")	
+
+				if self.canRecoverFromRedirect():
+					self.recoverFromRedirect()
+				else:
+					raise cherrypy.HTTPRedirect("/manage")	
 			else:
 				return self.templates["login"].render(error = "Invalid username or password")
 
@@ -76,7 +100,7 @@ class WebServer():
 			user = auth.getUserFromSession(session)
 			return self.templates["manage"].render(user = user)
 		else:
-			raise cherrypy.HTTPRedirect("/login")
+			redirectToLoginAndSave("/manage")
 
 	@cherrypy.expose
 	def add_post(self, postTitle = None, postBody = None, postTags = None):
@@ -86,7 +110,7 @@ class WebServer():
 				user = auth.getUserFromSession(session)
 				return self.templates["add_post"].render()
 			else:
-				raise cherrypy.HTTPRedirect("/login")
+				self.redirectToLoginAndSave("/add_post")
 		else:
 			session = self.checkForSession()
 			if session != None:
@@ -99,7 +123,8 @@ class WebServer():
 				#TODO: Add tag parsing here.
 				raise cherrypy.HTTPRedirect("/")
 			else:
-				raise cherrypy.HTTPRedirect("/login")
+				#TODO: See if there's a nice way to store post content in a scenario like this
+				self.redirectToLoginAndSave("/add_post")
 if __name__ == "__main__":
 	server = WebServer()
 	server.run()
