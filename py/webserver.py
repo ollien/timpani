@@ -5,6 +5,7 @@ import urllib.parse
 import database
 import templates
 import auth
+import blog
 
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/"))
 FILE_LOCATION = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -115,16 +116,7 @@ class WebServer():
 				user = auth.getUserFromSession(session)
 				databaseConnection = database.ConnectionManager.getConnection("main")
 				postObj = database.tables.Post(title = postTitle, body = postBody, time_posted = datetime.datetime.now(), author = user.id)
-				databaseConnection.session.add(postObj)
-				databaseConnection.session.flush()
-				postTags = postTags.split(" ")
-				for tag in postTags:
-					tag = database.tables.Tag(name=tag)
-					databaseConnection.session.add(tag)
-					databaseConnection.session.flush()
-					relation = database.tables.TagRelation(post_id = postObj.id, tag_id = tag.id)
-					databaseConnection.session.add(relation)
-				databaseConnection.session.commit()
+				blog.addPost(postTitle, postBody, datetime.datetime.now(), user.id, postTags)
 				raise cherrypy.HTTPRedirect("/")
 			else:
 				#TODO: See if there's a nice way to store post content in a scenario like this
