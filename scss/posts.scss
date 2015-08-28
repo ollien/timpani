@@ -1,38 +1,42 @@
 @import "base";
 
-div.post {
-	margin-left: 10%;
-	margin-right: 10%;
+ul#posts-list{
+	list-style-type: none;
 	
-	h2.post-title {
-		font-weight: 400;
-		margin-bottom: 0px;	
-		padding-bottom: 0px;
-	}
+	li.post {
+		margin-left: 10%;
+		margin-right: 10%;
+		
+		h2.post-title {
+			font-weight: 400;
+			margin-bottom: 0px;	
+			padding-bottom: 0px;
+		}
 
-	div.post-metadata {
-		$vertical-margin: 10px;
-		font-size: 13pt;
-		font-weight: 300;
-		margin-top: $vertical-margin - 5px; /*Fixes inequality between h3 and top of text */
-		margin-bottom: $vertical-margin;
-	}
+		div.post-metadata {
+			$vertical-margin: 10px;
+			font-size: 13pt;
+			font-weight: 300;
+			margin-top: $vertical-margin - 5px; /*Fixes inequality between h3 and top of text */
+			margin-bottom: $vertical-margin;
+		}
 
-	div.post-body {
-		@extend .well;
-		width:100%;
-		word-wrap: break-word;
-		@include vendor-prefix(hyphen, auto);
-		font-size: 12pt;
-		font-weight: 200;
-	}
+		div.post-body {
+			@extend .well;
+			width:100%;
+			word-wrap: break-word;
+			@include vendor-prefix(hyphen, auto);
+			font-size: 12pt;
+			font-weight: 200;
+		}
 
-	blockquote {
-		padding-left: 8px;
-		border-left: 5px solid #ccc;
-	}
+		blockquote {
+			padding-left: 8px;
+			border-left: 5px solid #ccc;
+		}
 
-	pre[class*="language-"]	{
-		border-radius: 5px;	
+		pre[class*="language-"]	{
+			border-radius: 5px;	
+		}
 	}
 }
