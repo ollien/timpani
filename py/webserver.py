@@ -46,15 +46,12 @@ class WebServer():
 	def recoverFromRedirect(self, redirect = True):
 		donePage = cherrypy.request.cookie["donePage"].value
 		del cherrypy.request.cookie["donePage"]
-		print(donePage)
 		if redirect:
 			raise cherrypy.HTTPRedirect(donePage)
 		else:
 			return donePage
 	
 	def canRecoverFromRedirect(self):
-		print("donePage" in cherrypy.request.cookie)
-		print(cherrypy.request.cookie.keys())
 		return "donePage" in cherrypy.request.cookie
 
 	@cherrypy.expose
