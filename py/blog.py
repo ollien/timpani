@@ -13,6 +13,7 @@ def getPosts(connection = mainConnection):
 		connection = mainConnection
 	posts = {} #Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}}
 	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.TagRelation, database.tables.Tag)
+	#Groups posts and tags in posts dict.
 	for result in postsAndTags:
 		post, tag = result
 		if post.id in posts.keys():
@@ -26,14 +27,15 @@ def getPosts(connection = mainConnection):
 def addPost(title, body, time_posted, author, tags, connection = mainConnection):
 	global mainConnection
 	if connection == mainConnection and mainConnection == None:
-		print("setting...")
 		mainConnection = getMainConnection()
 		connection = mainConnection
 	if type(tags) == str:
 		tags = tags.split(" ")
+	#Create the post object
 	post = database.tables.Post(title = title, body = body, time_posted = time_posted, author = author) 
 	connection.session.add(post)
 	connection.session.flush()
+	#Parse the tags, and add them to the relations table for our many to many relationship.
 	for tag in tags:
 		tag = database.tables.Tag(name = tag)
 		connection.session.add(tag)
