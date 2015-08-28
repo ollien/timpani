@@ -15,3 +15,17 @@ def getPosts(connection = mainConnection):
 			if tag != None:
 				posts[post.id]["tags"].append(tag)
 	return posts
+
+def addPost(title, body, time_posted, author, tags, connection = mainConnection):
+	if type(tags) == str:
+		tags = tags.split(" ")
+	post = database.tables.Post(title = title, body = body, time_posted = time_posted, author = author) 
+	connection.session.add(post)
+	connection.session.flush()
+	for tag in tags:
+		tag = database.tables.Tag(name = tag)
+		connection.session.add(tag)
+		connection.session.flush()
+		relation = database.tables.TagRelation(post_id = post.id, tag_id = tag.id)
+		connection.session.add(relation)
+	connection.session.commit()
