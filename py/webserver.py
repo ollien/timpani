@@ -51,25 +51,20 @@ class WebServer():
 			raise cherrypy.HTTPRedirect(donePage)
 		else:
 			return donePage
-	
+
 	def canRecoverFromRedirect(self):
 		return "donePage" in cherrypy.request.cookie
 
 	@cherrypy.expose
 	def index(self):
 		databaseConnection = database.ConnectionManager.getConnection("main")
-		posts = databaseConnection.session.query(database.tables.Post).all()
-		for post in posts:
-			databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == post.author).first()
-
+		posts = blog.getPosts()
 		#If the config says to display the full name, we will return that instead of the username.
 		if templates.templateConfig["display_full_name"]:
 			getPostAuthor = lambda id: databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == id).first().full_name
 		else:
 			getPostAuthor = lambda id: databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == id).first().username
 
-		#Posts must go newest first.
-		posts.reverse()
 		return self.templates["posts"].render(posts = posts, getPostAuthor = getPostAuthor)
 
 	@cherrypy.expose
@@ -121,6 +116,7 @@ class WebServer():
 			else:
 				#TODO: See if there's a nice way to store post content in a scenario like this
 				self.redirectToLoginAndSave()
+
 if __name__ == "__main__":
 	server = WebServer()
 	server.run()
