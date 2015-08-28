@@ -1,9 +1,16 @@
 import database
 import configmanager
 
-mainConnection = database.ConnectionManager.getConnection("main")
+def getMainConnection():
+	return database.ConnectionManager.getConnection("main")
+
+mainConnection = getMainConnection() 
 
 def getPosts(connection = mainConnection):
+	global mainConnection
+	if connection == mainConnection and mainConnection == None:
+		mainConnection = getMainConnection()
+		connection = mainConnection
 	posts = {} #Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}}
 	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.TagRelation, database.tables.Tag)
 	for result in postsAndTags:
@@ -17,6 +24,11 @@ def getPosts(connection = mainConnection):
 	return posts
 
 def addPost(title, body, time_posted, author, tags, connection = mainConnection):
+	global mainConnection
+	if connection == mainConnection and mainConnection == None:
+		print("setting...")
+		mainConnection = getMainConnection()
+		connection = mainConnection
 	if type(tags) == str:
 		tags = tags.split(" ")
 	post = database.tables.Post(title = title, body = body, time_posted = time_posted, author = author) 
