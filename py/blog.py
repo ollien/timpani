@@ -13,7 +13,7 @@ def getPosts(connection = mainConnection):
 		mainConnection = getMainConnection()
 		connection = mainConnection
 	posts = collections.OrderedDict() #Will be an ordered dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}}
-	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.TagRelation, database.tables.Tag).filter(database.tables.Post != None).all()
+	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post != None).all()
 	postsAndTags.sort(key = lambda x: x[0].time_posted, reverse = True)
 	#Groups posts and tags in posts dict.
 	for result in postsAndTags:
