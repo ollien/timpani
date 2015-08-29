@@ -12,7 +12,7 @@
 			<h2 class="post-title title">{{post.title}}</h2>
 			<div class="post-metadata"> by <span class="author">{{getPostAuthor(post.author)}}</span> at <span class="timestamp">{{post.time_posted.strftime("%A %B %w at %I:%M %p")}}</span></div>
 			<div class="post-body">
-				{{post.body}}
+				{{post.body|safe}}
 			</div>
 		</li>
 		{% endfor %}
