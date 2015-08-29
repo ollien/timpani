@@ -1,4 +1,4 @@
-import cherrypy
+import flask
 import os.path
 import datetime
 import urllib.parse
@@ -10,14 +10,6 @@ import blog
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/"))
 FILE_LOCATION = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 STATIC_ROOT = os.path.abspath(os.path.join(FILE_LOCATION, "static"))
-
-CHERRYPY_CONFIG = {
-	"/static": {
-		"tools.staticdir.on": True,
-		"tools.staticdir.dir": STATIC_ROOT
-	}
-
-}
 
 class WebServer():
 	def __init__(self, serverConfig = CHERRYPY_CONFIG):
