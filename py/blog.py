@@ -38,3 +38,25 @@ def addPost(title, body, time_posted, author, tags, connection = None):
 		tag = database.tables.Tag(post_id = post.id, name = tag)
 		connection.session.add(tag)
 	connection.session.commit()
+
+def getAuthorUsername(user, connection = None):
+	if connection == None:
+		connection = getMainConnection()
+
+	if type(user) == int:
+		user = connection.session.query(database.tables.User).filter(database.tables.User.id == user).first()
+	elif type(user) != database.tables.User:
+		raise ValueError("User must be of type User, not %s" % type(user).__name__)
+
+	return user.username
+		
+def getAuthorFullname(user, connection = None):
+	if connection == None:
+		connection = getMainConnection()
+
+	if type(user) == int:
+		user = connection.session.query(database.tables.User).filter(database.tables.User.id == user).first()
+	elif type(user) != database.tables.User:
+		raise ValueError("User must be of type User, not %s" % type(user).__name__)
+
+	return user.full_name
