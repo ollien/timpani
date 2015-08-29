@@ -5,13 +5,10 @@ import configmanager
 def getMainConnection():
 	return database.ConnectionManager.getConnection("main")
 
-mainConnection = getMainConnection() 
-
-def getPosts(connection = mainConnection):
-	global mainConnection
-	if connection == mainConnection and mainConnection == None:
-		mainConnection = getMainConnection()
-		connection = mainConnection
+def getPosts(connection = None):
+	#Functions are not re-run if they are default arguments.
+	if connection == None:
+		connection = getMainConnection()
 	posts = {} #Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}
 	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post != None).all()
 	#Groups posts and tags in posts dict.
@@ -26,11 +23,10 @@ def getPosts(connection = mainConnection):
 
 	return sorted(list(posts.values()), key = lambda x: x["post"].time_posted, reverse = True)
 
-def addPost(title, body, time_posted, author, tags, connection = mainConnection):
-	global mainConnection
-	if connection == mainConnection and mainConnection == None:
-		mainConnection = getMainConnection()
-		connection = mainConnection
+def addPost(title, body, time_posted, author, tags, connection = None):
+	#Functions are not re-run if they are default arguments.
+	if connection == None:
+		connection = getMainConnection()
 	if type(tags) == str:
 		tags = tags.split(" ")
 	#Create the post object
