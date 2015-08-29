@@ -27,15 +27,8 @@ class Tag(Base):
 	__tablename__ = "tags"
 
 	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
-	name = sqlalchemy.Column(sqlalchemy.Text)
-
-#Used to relate tags to posts.
-class TagRelation(Base):
-	__tablename__ = "tag_relations"
-
-	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
 	post_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(Post.__table__.columns.id))
-	tag_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(Tag.__table__.columns.id))
+	name = sqlalchemy.Column(sqlalchemy.Text)
 
 class Session(Base):
 	__tablename__ = "sessions"
