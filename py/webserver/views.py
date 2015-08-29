@@ -11,7 +11,7 @@ TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../templates"))
 
 configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
 templateConfig = configs["templates"]
-print(TEMPLATE_PATH)
+
 blueprint = flask.Blueprint("blogViews", __name__, template_folder = TEMPLATE_PATH)
 
 @blueprint.route("/")
