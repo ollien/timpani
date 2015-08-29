@@ -12,9 +12,8 @@ def getPosts(connection = mainConnection):
 	if connection == mainConnection and mainConnection == None:
 		mainConnection = getMainConnection()
 		connection = mainConnection
-	posts = collections.OrderedDict() #Will be an ordered dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}}
+	posts = {} #Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}
 	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post != None).all()
-	postsAndTags.sort(key = lambda x: x[0].time_posted, reverse = True)
 	#Groups posts and tags in posts dict.
 	for result in postsAndTags:
 		post, tag = result
@@ -24,7 +23,8 @@ def getPosts(connection = mainConnection):
 			posts[post.id] = {"post": post, "tags": []}
 			if tag != None:
 				posts[post.id]["tags"].append(tag)
-	return list(posts.values())
+
+	return sorted(list(posts.values()), key = lambda x: x["post"].time_posted, reverse = True)
 
 def addPost(title, body, time_posted, author, tags, connection = mainConnection):
 	global mainConnection
