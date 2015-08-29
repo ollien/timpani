@@ -53,9 +53,9 @@ class WebServer():
 		posts = blog.getPosts()
 		#If the config says to display the full name, we will return that instead of the username.
 		if templates.templateConfig["display_full_name"]:
-			getPostAuthor = lambda id: databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == id).first().full_name
+			getPostAuthor = blog.getAuthorFullname
 		else:
-			getPostAuthor = lambda id: databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == id).first().username
+			getPostAuthor = blog.getAuthorUsername
 
 		return self.templates["posts"].render(posts = posts, getPostAuthor = getPostAuthor)
 
