@@ -4,6 +4,7 @@ import database
 import auth
 import blog
 import configmanager
+from . import webfunctions
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../configs/"))
@@ -19,3 +20,29 @@ def show_posts():
 	posts = blog.getPosts()
 	getPostAuthor = blog.getAuthorFullname if templateConfig["display_full_name"] else blog.getAuthorUsername
 	return flask.render_template("posts.html", posts = posts, getPostAuthor = getPostAuthor)
+
+@blueprint.route("/login", methods=["GET", "POST"])
+def login():
+	if flask.request.method == "GET":
+		if webfunctions.checkForSession(flask.request):
+			return flask.redirect("/manage")	
+		else:
+			return flask.render_template("login.html")
+	elif flask.request.method == "POST":
+		if "username" not in flask.request.form or "password" not in flask.request.form:
+			return flask.redirect("/login")	
+
+		elif auth.validateUser(flask.request.form["username"], flask.request.form["password"]):
+			#TODO: Add recover from redirect here.	
+			resp = flask.make_response(flask.redirect("/manage"))
+			resp.set_cookie("sessionId", auth.createSession(flask.request.form["username"]))
+			return resp	
+
+@blueprint.route("/manage")
+def manage():
+	session = webfunctions.checkForSession(flask.request)
+	if session != None:
+		user = auth.getUserFromSession(session)
+		return flask.render_template("manage.html", user = user)
+	else:
+		return flask.redirect("/login")
