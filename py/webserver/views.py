@@ -1,5 +1,6 @@
 import flask
 import os.path
+import datetime
 import database
 import auth
 import blog
@@ -49,3 +50,26 @@ def manage():
 		return flask.render_template("manage.html", user = user)
 	else:
 		return webfunctions.redirectAndSave("/login")
+
+@blueprint.route("/add_post", methods=["GET", "POST"])
+def addPost():
+	if flask.request.method == "GET":
+		session = webfunctions.checkForSession()
+		if session != None:
+			return flask.render_template("add_post.html")
+
+		else:
+			webfunctions.redirectAndSave("/login")
+
+	else:
+		session = webfunctions.checkForSession()
+		if session != None:
+			user = auth.getUserFromSession(session)
+			postTitle = flask.request.form["post-title"]
+			postBody = flask.request.form["post-body"]
+			postTags = flask.request.form["post-tags"]
+			blog.addPost(postTitle, postBody, datetime.datetime.now(), user.id, postTags)
+			return flask.redirect("/")
+
+		else:
+			webfunctions.redirectAndSave("/login")
