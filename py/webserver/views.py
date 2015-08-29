@@ -25,7 +25,7 @@ def show_posts():
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
 	if flask.request.method == "GET":
-		if webfunctions.checkForSession(flask.request):
+		if webfunctions.checkForSession():
 			return flask.redirect("/manage")	
 		else:
 			return flask.render_template("login.html")
@@ -44,7 +44,7 @@ def login():
 
 @blueprint.route("/manage")
 def manage():
-	session = webfunctions.checkForSession(flask.request)
+	session = webfunctions.checkForSession()
 	if session != None:
 		user = auth.getUserFromSession(session)
 		return flask.render_template("manage.html", user = user)
@@ -61,7 +61,7 @@ def addPost():
 		else:
 			webfunctions.redirectAndSave("/login")
 
-	else:
+	elif flask.request.method == "POST":
 		session = webfunctions.checkForSession()
 		if session != None:
 			user = auth.getUserFromSession(session)
