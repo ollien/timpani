@@ -39,4 +39,4 @@ class Session(Base):
 	expires = sqlalchemy.Column(sqlalchemy.DateTime, nullable = False)
 
 #The Following tables will only be the ones added to the database
-ALL_TABLES = [Post, Tag, TagRelation]
+ALL_TABLES = [Post, Tag, Session, User]

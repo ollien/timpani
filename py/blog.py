@@ -39,9 +39,6 @@ def addPost(title, body, time_posted, author, tags, connection = mainConnection)
 	connection.session.flush()
 	#Parse the tags, and add them to the relations table for our many to many relationship.
 	for tag in tags:
-		tag = database.tables.Tag(name = tag)
+		tag = database.tables.Tag(post_id = post.id, name = tag)
 		connection.session.add(tag)
-		connection.session.flush()
-		relation = database.tables.TagRelation(post_id = post.id, tag_id = tag.id)
-		connection.session.add(relation)
 	connection.session.commit()
