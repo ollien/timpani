@@ -5,7 +5,7 @@ import database
 import auth
 import blog
 import configmanager
-from . import webfunctions
+from . import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../configs/"))
@@ -25,7 +25,7 @@ def show_posts():
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
 	if flask.request.method == "GET":
-		if webfunctions.checkForSession():
+		if webhelpers.checkForSession():
 			return flask.redirect("/manage")	
 		else:
 			return flask.render_template("login.html")
@@ -35,7 +35,7 @@ def login():
 			return flask.render_template("login.html", error = "A username and password must be provided.")
 
 		elif auth.validateUser(flask.request.form["username"], flask.request.form["password"]):
-			resp = webfunctions.recoverFromRedirect() if webfunctions.canRecoverFromRedirect() else flask.make_response(flask.redirect("/manage"))
+			resp = webhelpers.recoverFromRedirect() if webhelpers.canRecoverFromRedirect() else flask.make_response(flask.redirect("/manage"))
 			resp.set_cookie("sessionId", auth.createSession(flask.request.form["username"]))
 			return resp	
 
@@ -44,25 +44,25 @@ def login():
 
 @blueprint.route("/manage")
 def manage():
-	session = webfunctions.checkForSession()
+	session = webhelpers.checkForSession()
 	if session != None:
 		user = auth.getUserFromSession(session)
 		return flask.render_template("manage.html", user = user)
 	else:
-		return webfunctions.redirectAndSave("/login")
+		return webhelpers.redirectAndSave("/login")
 
 @blueprint.route("/add_post", methods=["GET", "POST"])
 def addPost():
 	if flask.request.method == "GET":
-		session = webfunctions.checkForSession()
+		session = webhelpers.checkForSession()
 		if session != None:
 			return flask.render_template("add_post.html")
 
 		else:
-			return webfunctions.redirectAndSave("/login")
+			return webhelpers.redirectAndSave("/login")
 
 	elif flask.request.method == "POST":
-		session = webfunctions.checkForSession()
+		session = webhelpers.checkForSession()
 		if session != None:
 			user = auth.getUserFromSession(session)
 			postTitle = flask.request.form["post-title"]
@@ -72,4 +72,4 @@ def addPost():
 			return flask.redirect("/")
 
 		else:
-			return webfunctions.redirectAndSave("/login")
+			return webhelpers.redirectAndSave("/login")
