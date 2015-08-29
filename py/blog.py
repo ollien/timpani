@@ -24,7 +24,7 @@ def getPosts(connection = mainConnection):
 			posts[post.id] = {"post": post, "tags": []}
 			if tag != None:
 				posts[post.id]["tags"].append(tag)
-	return posts
+	return list(posts.values())
 
 def addPost(title, body, time_posted, author, tags, connection = mainConnection):
 	global mainConnection
