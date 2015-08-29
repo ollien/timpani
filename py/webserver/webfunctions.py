@@ -2,7 +2,7 @@ import flask
 import auth
 import urllib.parse
 
-def checkForSession(request):
+def checkForSession():
 	if "sessionId" in flask.request.cookies:
 		session = auth.validateSession(flask.request.cookies["sessionId"])
 		if session != None:
