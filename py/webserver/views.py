@@ -28,15 +28,18 @@ def login():
 			return flask.redirect("/manage")	
 		else:
 			return flask.render_template("login.html")
+
 	elif flask.request.method == "POST":
 		if "username" not in flask.request.form or "password" not in flask.request.form:
-			return flask.redirect("/login")	
+			return flask.render_template("login.html", error = "A username and password must be provided.")
 
 		elif auth.validateUser(flask.request.form["username"], flask.request.form["password"]):
-			#TODO: Add recover from redirect here.	
-			resp = flask.make_response(flask.redirect("/manage"))
+			resp = webfunctions.recoverFromRedirect() if webfunctions.canRecoverFromRedirect() else flask.make_response(flask.redirect("/manage"))
 			resp.set_cookie("sessionId", auth.createSession(flask.request.form["username"]))
 			return resp	
+
+		else:
+			flask.render_template("login.html", error = "Invalid username or password.")
 
 @blueprint.route("/manage")
 def manage():
@@ -45,4 +48,4 @@ def manage():
 		user = auth.getUserFromSession(session)
 		return flask.render_template("manage.html", user = user)
 	else:
-		return flask.redirect("/login")
+		return webfunctions.redirectAndSave("/login")
