@@ -59,7 +59,7 @@ def addPost():
 			return flask.render_template("add_post.html")
 
 		else:
-			webfunctions.redirectAndSave("/login")
+			return webfunctions.redirectAndSave("/login")
 
 	elif flask.request.method == "POST":
 		session = webfunctions.checkForSession()
@@ -72,4 +72,4 @@ def addPost():
 			return flask.redirect("/")
 
 		else:
-			webfunctions.redirectAndSave("/login")
+			return webfunctions.redirectAndSave("/login")
