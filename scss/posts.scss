@@ -41,14 +41,11 @@ ul#posts-list{
 	}
 
 	ul#tags-list{
-		@extend .well;
-
 		list-style-type: none;
 		width: 100%;
-		$vertical-padding: 7px;
-		margin-top: 8px;
-		padding-top: $vertical-padding;
-		padding-bottom: $vertical-padding;
+		border-top: 1px solid #DFDFDF;
+		padding-left: 0;
+		padding-top: 15px;
 
 		li.tag{
 			display: inline;

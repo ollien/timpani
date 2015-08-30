@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	hljs.initHighlightingOnLoad()
 	var tagsInput = document.getElementById("tags-input")
 	var placeholderTagsInput = document.getElementById("placeholder-tags-input")
-	var tagsInputPlugin = insignia(tagsInput, {deletion: true});
+	var tagsInputPlugin = insignia(tagsInput);
 	var form = document.getElementById("post-form") 
 
 	tagsInput.addEventListener("focus", function(event){

@@ -58,14 +58,11 @@ div#form-bounding {
         text-align: left; }
         div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag:before {
           content: '#'; }
-        div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag-remove:after {
-          background-color: #A8C1C1; }
         div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag {
-          background-color: #A8C1C1;
-          border: 1px solid #A8C1C1;
           font-size: 13pt;
-          border-radius: 4px;
-          color: #fff;
+          color: #6F6F6F;
+          border: 0px;
+          margin: 2px;
           transition-property: opacity color;
           transition-duration: 250ms; }
         div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag.faded {

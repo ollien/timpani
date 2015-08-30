@@ -52,21 +52,15 @@ div#form-bounding{
 				background-color: #fff;
 				text-align: left;
 
-				$tag-color: #A8C1C1;
 				.nsg-tag:before {
 					content: '#';
 				}
 
-				.nsg-tag-remove:after {
-					background-color: $tag-color;
-				}
-
 				.nsg-tag {
-					background-color: $tag-color;	
-					border: 1px solid $tag-color;
 					font-size: 13pt;
-					border-radius: 4px;
-					color: #fff;
+					color: #6F6F6F;
+					border: 0px;
+					margin: 2px;
 					transition-property: opacity color;
 					transition-duration: 250ms;
 				}

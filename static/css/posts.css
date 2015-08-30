@@ -5,7 +5,7 @@ body {
 button.pure-button {
   border-radius: 5px; }
 
-.well, ul#posts-list li.post div.post-body, ul#posts-list ul#tags-list {
+.well, ul#posts-list li.post div.post-body {
   padding: 20px;
   background-color: #f5f5f5;
   border: 1px solid #e3e3e3;
@@ -44,9 +44,9 @@ ul#posts-list {
   ul#posts-list ul#tags-list {
     list-style-type: none;
     width: 100%;
-    margin-top: 8px;
-    padding-top: 7px;
-    padding-bottom: 7px; }
+    border-top: 1px solid #DFDFDF;
+    padding-left: 0;
+    padding-top: 15px; }
     ul#posts-list ul#tags-list li.tag {
       display: inline;
       margin-left: 0px;
