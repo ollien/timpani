@@ -2,10 +2,10 @@
 
 ul#posts-list{
 	list-style-type: none;
-	
+	margin-left: 10%;
+	margin-right: 10%;
+
 	li.post {
-		margin-left: 10%;
-		margin-right: 10%;
 		
 		h2.post-title {
 			font-weight: 400;
@@ -23,7 +23,7 @@ ul#posts-list{
 
 		div.post-body {
 			@extend .well;
-			width:100%;
+			width: 100%;
 			word-wrap: break-word;
 			@include vendor-prefix(hyphen, auto);
 			font-size: 12pt;
@@ -37,6 +37,23 @@ ul#posts-list{
 
 		pre[class*="language-"]	{
 			border-radius: 5px;	
+		}
+	}
+
+	ul#tags-list{
+		@extend .well;
+
+		list-style-type: none;
+		width: 100%;
+		$vertical-padding: 7px;
+		margin-top: 8px;
+		padding-top: $vertical-padding;
+		padding-bottom: $vertical-padding;
+
+		li.tag{
+			display: inline;
+			margin-left: 0px;
+			margin-right: 10px;
 		}
 	}
 }
