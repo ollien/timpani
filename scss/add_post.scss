@@ -75,6 +75,10 @@ div#form-bounding{
 
 			}
 
+			div#tag-input-div.focused {
+				border: 1px solid #129FEA;	
+			}
+
 			input#post-validity {
 				height: 0;
 				width: 100%;

@@ -18,12 +18,12 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	tagsInput.addEventListener("focus", function(event){
 		var div = document.getElementById("tag-input-div")
-		div.style.border = "1px solid #129FEA"
+		div.classList.add("focused")
 	});
 
 	tagsInput.addEventListener("blur", function(event){
 		var div = document.getElementById("tag-input-div")
-		div.style.border = "1px solid #ccc"
+		div.classList.remove("focused")
 	});
 
 	form.addEventListener("submit", function(event){

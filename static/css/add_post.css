@@ -69,6 +69,8 @@ div#form-bounding {
           opacity: .6; }
           div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag.faded .nsg-tag-remove {
             color: #FE6570; }
+      div#form-bounding div#main-wrapper form div#tag-input-div.focused {
+        border: 1px solid #129FEA; }
       div#form-bounding div#main-wrapper form input#post-validity {
         height: 0;
         width: 100%;
