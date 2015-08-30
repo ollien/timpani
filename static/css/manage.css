@@ -29,11 +29,14 @@ div#main-container {
       margin-left: auto;
       margin-right: auto;
       max-width: 450px; }
+      div#main-container div#content-wrapper div#buttons a {
+        text-decoration: none; }
       div#main-container div#content-wrapper div#buttons button {
         display: block;
         font-size: 18pt;
         margin-top: 5px;
         margin-bottom: 5px;
-        width: 100%; }
+        width: 100%;
+        text-decoration: none; }
 
 /*# sourceMappingURL=manage.css.map */

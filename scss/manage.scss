@@ -20,6 +20,11 @@ div#main-container{
 			margin-left: auto;
 			margin-right: auto;
 			max-width: 450px;
+
+			a {
+				text-decoration: none;	
+			}
+
 			button {
 				$vertical-margin: 5px;
 				display: block;
@@ -27,6 +32,7 @@ div#main-container{
 				margin-top: $vertical-margin;
 				margin-bottom: $vertical-margin;
 				width: 100%;
+				text-decoration: none;
 			}	
 		}
 	}
