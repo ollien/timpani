@@ -69,10 +69,19 @@ div#form-bounding {
           opacity: .6; }
           div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag.faded .nsg-tag-remove {
             color: #FE6570; }
+      div#form-bounding div#main-wrapper form input#post-validity {
+        height: 0;
+        width: 100%;
+        border: 0;
+        padding: 0;
+        padding-bottom: 1px; }
       div#form-bounding div#main-wrapper form input#tags-input {
         border: 0px;
         box-shadow: inset 0px 0px 0px #fff;
         font-size: 13pt; }
+      div#form-bounding div#main-wrapper form input:focus:invalid {
+        border-color: #129FEA;
+        color: #000; }
       div#form-bounding div#main-wrapper form div#cke_post-body {
         box-shadow: 1px 2px 5px 2px #AAAAAA; }
       div#form-bounding div#main-wrapper form button#submit-post {

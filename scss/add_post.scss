@@ -75,10 +75,23 @@ div#form-bounding{
 
 			}
 
+			input#post-validity {
+				height: 0;
+				width: 100%;
+				border: 0;
+				padding: 0;
+				padding-bottom: 1px;
+			}
+
 			input#tags-input { 
 				border: 0px;	
 				box-shadow: inset 0px 0px 0px #fff;
 				font-size: 13pt;
+			}
+
+			input:focus:invalid{
+				border-color: #129FEA;
+				color: #000;
 			}
 
 			div#cke_post-body {

@@ -14,8 +14,10 @@
 		<div id="main-wrapper">	
 		<h2 id="welcome">Submit a post to Timpani.</h2>
 			<form class="pure-form" id="post-form" action="/add_post"method="POST">
-				<input name="post-title" id="title-input" class="pure-input" placeholder="Post Title">
-				<textarea name="post-body" id="post-body"></textarea>
+				<input name="post-title" id="title-input" class="pure-input" placeholder="Title" required>
+				<textarea name="post-body" id="post-body" required></textarea>
+				<!-- This is used to display an invalid message on the post body, since we can't set one on CKEditor-->
+				<input id="post-validity">
 				<div id="tag-input-div">
 					<input id="tags-input" placeholder="Tags">
 				</div>
