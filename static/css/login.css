@@ -46,7 +46,8 @@ div#login-bounding {
       div#login-bounding div#main-wrapper form#login-form input.error {
         border-color: #FF2222 !important; }
       div#login-bounding div#main-wrapper form#login-form input:focus:invalid {
-        border-color: #129FEA; }
+        border-color: #129FEA;
+        color: #000; }
       div#login-bounding div#main-wrapper form#login-form button {
         float: right; }
 
