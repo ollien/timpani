@@ -19,24 +19,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 		div.style.border = "1px solid #ccc"
 	});
 
-	tagsInput.addEventListener("insignia-evaluated", function(event){
-		tags = Array.prototype.slice.call(tagsInput.parentNode.querySelectorAll("span.nsg-tag"))
-		tags.forEach(function(node){
-			var removeButton = node.querySelector(".nsg-tag-remove")	
-			//This attribute is set to make sure we don't have multiple listeners
-			var attr = removeButton.getAttribute("listener")
-			if (attr == null || attr != "set"){
-				removeButton.setAttribute("listener", "set")
-				removeButton.addEventListener("mouseenter", function(event){
-					node.classList.add("faded")
-				})
-				removeButton.addEventListener("mouseleave", function(event){
-					node.classList.remove("faded")
-				})
-			}
-		})
-	})
-
 	form.addEventListener("submit", function(event){
 		placeholderTagsInput.value = tagsInputPlugin.value()
 	})
