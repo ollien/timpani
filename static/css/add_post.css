@@ -59,10 +59,10 @@ div#form-bounding {
         div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag:before {
           content: '#'; }
         div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag-remove:after {
-          background-color: #5597CF; }
+          background-color: #A8C1C1; }
         div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag {
-          background-color: #5597CF;
-          border: 1px solid #5597CF;
+          background-color: #A8C1C1;
+          border: 1px solid #A8C1C1;
           font-size: 13pt;
           border-radius: 4px;
           color: #fff;
