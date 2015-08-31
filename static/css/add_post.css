@@ -1,81 +1,93 @@
-/*
-Error: Undefined variable: "$vertical-margin".
-        on line 33 of scss/add_post.scss
+body {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 300; }
 
-28: 	width: 80%;
-29: 	margin-left: auto;
-30: 	margin-right: auto;
-31: 
-32: 	input#title-input {
-33: 		margin-bottom: $vertical-margin;	
-34: 		width: 95%;
-35: 		font-size: 15pt;
-36: 	}
-37: 
-38: 	textarea#post-body {
+button.pure-button {
+  border-radius: 5px; }
 
-Backtrace:
-scss/add_post.scss:33
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/script/tree/variable.rb:49:in `_perform'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/script/tree/node.rb:50:in `perform'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:394:in `visit_prop'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:79:in `block in with_base'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:115:in `with_frame'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:79:in `with_base'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:430:in `map'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:79:in `block in with_base'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:115:in `with_frame'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:79:in `with_base'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:430:in `block (2 levels) in visit_rule'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:430:in `map'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:430:in `block in visit_rule'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:428:in `visit_rule'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:79:in `block in with_base'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:115:in `with_frame'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/stack.rb:79:in `with_base'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:158:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/base.rb:52:in `map'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/base.rb:36:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:157:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/visitors/perform.rb:8:in `visit'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/root_node.rb:36:in `css_tree'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/engine.rb:378:in `_render_with_sourcemap'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/engine.rb:295:in `render_with_sourcemap'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/plugin/compiler.rb:209:in `each'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/lib/sass/plugin/compiler.rb:328:in `block in watch'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/vendor/listen/lib/listen/listener.rb:252:in `call'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/vendor/listen/lib/listen/listener.rb:252:in `on_change'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/vendor/listen/lib/listen/adapters/polling.rb:48:in `call'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/vendor/listen/lib/listen/adapters/polling.rb:48:in `poll_changed_directories'
-/Users/Nick/.rvm/gems/ruby-2.2.1/gems/sass-3.4.16/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Undefined variable: \"$vertical-margin\".\A         on line 33 of scss/add_post.scss\A \A 28: 	width: 80%;\A 29: 	margin-left: auto;\A 30: 	margin-right: auto;\A 31: \A 32: 	input#title-input {\A 33: 		margin-bottom: $vertical-margin;	\A 34: 		width: 95%;\A 35: 		font-size: 15pt;\A 36: 	}\A 37: \A 38: 	textarea#post-body {"; }
+.well {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 1px 1px rgba(0, 0, 0, 0.03); }
+
+body {
+  background-color: #F5F5F5; }
+
+div#form-bounding {
+  display: table;
+  height: 100%;
+  width: 100%; }
+  div#form-bounding div#main-wrapper {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%; }
+
+form#post-form {
+  height: 70%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto; }
+  form#post-form input#title-input {
+    margin-bottom: 20px;
+    width: 95%;
+    font-size: 15pt; }
+  form#post-form textarea#post-body {
+    width: 100%;
+    height: 70%; }
+  form#post-form input#placeholder-tags-input {
+    display: none; }
+  form#post-form div#tag-input-div {
+    display: inline-block;
+    padding: 0px;
+    margin-top: 25px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+    vertical-align: middle;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 95%;
+    background-color: #fff;
+    text-align: left; }
+    form#post-form div#tag-input-div .nsg-tag:before {
+      content: '#'; }
+    form#post-form div#tag-input-div .nsg-tag {
+      font-size: 13pt;
+      color: #6F6F6F;
+      border: 0px;
+      margin: 2px;
+      transition-property: opacity color;
+      transition-duration: 250ms; }
+    form#post-form div#tag-input-div .nsg-tag.faded {
+      opacity: .6; }
+      form#post-form div#tag-input-div .nsg-tag.faded .nsg-tag-remove {
+        color: #FE6570; }
+  form#post-form div#tag-input-div.focused {
+    border: 1px solid #129FEA; }
+  form#post-form input#post-validity {
+    height: 0;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    padding-bottom: 1px; }
+  form#post-form input#tags-input {
+    border: 0px;
+    box-shadow: inset 0px 0px 0px #fff;
+    font-size: 13pt; }
+  form#post-form input:focus:invalid {
+    border-color: #129FEA;
+    color: #000; }
+  form#post-form div#cke_post-body {
+    box-shadow: 1px 2px 5px 2px #AAAAAA; }
+  form#post-form button#submit-post {
+    margin-top: 20px; }
+
+/*# sourceMappingURL=add_post.css.map */
