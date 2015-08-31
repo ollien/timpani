@@ -5,16 +5,20 @@
 </head>
 <body>
 	<div id="main-container">
-		<h2 id="title">Manage posts.</h2>
-		<ul id="posts-list">
-			{% for post in posts %}
-				<li class="post">
-					<span class="post-title">{{post.title}}</span>
-					<span class="fa fa-pencil-square-o"></span>	
-					<span class="fa fa-times-circle"></span>	
-				</li>
-			{% endfor %}
-		</ul>
+		<div id="content-container">
+			<h2 id="title">Manage posts.</h2>
+			<ul id="posts-list">
+				{% for post in posts %}
+					<li class="post">
+						<span class="post-title">{{post.title}}</span>
+						<span class="buttons">
+							<span class="button edit fa fa-pencil-square-o"></span>	
+							<span class="button delete fa fa-times-circle"></span>	
+						</span>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 </body>
 </html>
