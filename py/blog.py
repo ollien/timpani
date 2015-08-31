@@ -29,14 +29,18 @@ def getPosts(tags = True, connection = None):
 		return sorted(posts, key = lambda x: x.id, reverse = True)
 
 #Gets a post form the database, and returns None if there is none with such an id
-def getPostById(postId, connection = None):
+def getPostById(postId, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
-	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post.id == postId).all()
+	if tags:
+		postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post.id == postId).all()
 
-	if len(postsAndTags) == 0:
-		return None
-	return {"post": postsAndTags[0][0], "tags": [item[1] for item in postsAndTags if item[1] != None]}
+		if len(postsAndTags) == 0:
+			return None
+
+		return {"post": postsAndTags[0][0], "tags": [item[1] for item in postsAndTags if item[1] != None]}
+	else:
+		return connection.session.query(database.tables.Post).filter(database.tables.Post.id == postId).first()
 
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
