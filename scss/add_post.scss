@@ -5,7 +5,7 @@ body {
 }
 
 
-div#form-bounding{
+div#form-bounding {
 	display: table;
 	height: 100%;
 	width: 100%;
@@ -96,7 +96,7 @@ form#post-form {
 		font-size: 13pt;
 	}
 
-	input:focus:invalid{
+	input:focus:invalid {
 		border-color: #129FEA;
 		color: #000;
 	}

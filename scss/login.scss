@@ -9,7 +9,7 @@ div#login-bounding {
 	height: 100%;
 	width: 100%;
 
-	div#main-wrapper{
+	div#main-wrapper {
 		display: table-cell;
 		text-align: center;
 		vertical-align: middle;
@@ -17,7 +17,7 @@ div#login-bounding {
 }
 
 
-div#error{
+div#error {
 	@extend .well;
 	$vertical-margin: 5px;
 	width: 25%;
@@ -42,11 +42,11 @@ form#login-form {
 		margin-top: $vertical-margin;
 		margin-bottom: $vertical-margin;
 	}	
-	input.error{
+	input.error {
 		border-color: #FF2222 !important;
 	}
 	/*Overrides Pure's invalid property, which I don't want to use.*/
-	input:focus:invalid{
+	input:focus:invalid {
 		border-color: #129FEA;
 		color: #000;
 	}
