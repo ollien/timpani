@@ -23,6 +23,14 @@ def getPosts(connection = None):
 
 	return sorted(list(posts.values()), key = lambda x: x["post"].time_posted, reverse = True)
 
+#Gets a post form the database, and returns None if there is none with such an id
+def getPostById(postId, connection = None):
+	if connection == None:
+		connection = getMainConnection()
+	post = connection.session.query(database.tables.Post).filter(database.tables.Post.id == postId).first()
+	tags = connection.session.query(database.tables.Tag).filter(database.tables.Tag.post_id == postId).all()
+	return {"post": post, "tags": tags}
+
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
 	if connection == None:
