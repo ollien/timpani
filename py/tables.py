@@ -1,4 +1,5 @@
 import sqlalchemy
+import sqlalchemy.orm
 import sqlalchemy.ext.declarative
 
 Base = sqlalchemy.ext.declarative.declarative_base()
@@ -21,7 +22,8 @@ class Post(Base):
 	title = sqlalchemy.Column(sqlalchemy.String)
 	body = sqlalchemy.Column(sqlalchemy.Text,) #Should be text to avoid length problems
 	time_posted = sqlalchemy.Column(sqlalchemy.DateTime)
-	author = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(User.__table__.columns.id))
+	author_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(User.__table__.columns.id))
+	author = sqlalchemy.orm.relationship("User", foreign_keys = author_id)	
 
 class Tag(Base):
 	__tablename__ = "tags"
