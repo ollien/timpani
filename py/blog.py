@@ -5,24 +5,28 @@ import configmanager
 def getMainConnection():
 	return database.ConnectionManager.getConnection("main")
 
-def getPosts(connection = None):
+def getPosts(tags = True, connection = None):
 	#Functions are not re-run if they are default arguments.
 	if connection == None:
 		connection = getMainConnection()
 	posts = {} #Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}
-	#Gets all the posts using a join. We won't use getPostById in a loop to prevent many queries.
-	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post != None).all()
-	#Groups posts and tags in posts dict.
-	for result in postsAndTags:
-		post, tag = result
-		if post.id in posts.keys():
-			posts[post.id]["tags"].append(tag)
-		else:
-			posts[post.id] = {"post": post, "tags": []}
-			if tag != None:
+	if tags:
+		#Gets all the posts using a join. We won't use getPostById in a loop to prevent many queries.
+		postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post != None).all()
+		#Groups posts and tags in posts dict.
+		for result in postsAndTags:
+			post, tag = result
+			if post.id in posts.keys():
 				posts[post.id]["tags"].append(tag)
+			else:
+				posts[post.id] = {"post": post, "tags": []}
+				if tag != None:
+					posts[post.id]["tags"].append(tag)
 
-	return sorted(list(posts.values()), key = lambda x: x["post"].time_posted, reverse = True)
+		return sorted(list(posts.values()), key = lambda x: x["post"].time_posted, reverse = True)
+	else:
+		posts = connection.session.query(database.tables.Post).all()
+		return sorted(posts, key = lambda x: x.id, reverse = True)
 
 #Gets a post form the database, and returns None if there is none with such an id
 def getPostById(postId, connection = None):
