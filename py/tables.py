@@ -38,6 +38,7 @@ class Session(Base):
 
 	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
 	user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(User.__table__.columns.id))
+	user = sqlalchemy.orm.relationship("User", foreign_keys = user_id)
 	session_id = sqlalchemy.Column(sqlalchemy.String, nullable = False)
 	expires = sqlalchemy.Column(sqlalchemy.DateTime, nullable = False)
 
