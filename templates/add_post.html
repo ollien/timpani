@@ -12,10 +12,14 @@
 <body>
 	<div id="form-bounding" class="container">
 		<div id="main-wrapper">	
-			<h2 id="welcome">Submit a post to Timpani.</h2>
+			{% if post is defined %}
+				<h2 id="welcome">Edit your post.</h2>
+			{% else %}
+				<h2 id="welcome">Submit a post to Timpani.</h2>
+			{% endif %}
 			<form class="pure-form" id="post-form" action="/add_post"method="POST">
-				<input name="post-title" id="title-input" class="pure-input" placeholder="Title" required>
-				<textarea name="post-body" id="post-body" required></textarea>
+				<input name="post-title" id="title-input" class="pure-input" placeholder="Title" {% if post is defined %} value="{{post['post'].title}}" {% endif %} required>
+				<textarea name="post-body" id="post-body" required>{% if post is defined %}{{post["post"].body}}{% endif %}</textarea>
 				<!-- This is used to display an invalid message on the post body, since we can't set one on CKEditor-->
 				<input id="post-validity">
 				<div id="tag-input-div">
