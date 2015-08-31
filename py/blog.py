@@ -10,6 +10,7 @@ def getPosts(connection = None):
 	if connection == None:
 		connection = getMainConnection()
 	posts = {} #Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}
+	#Gets all the posts using a join. We won't use getPostById in a loop to prevent many queries.
 	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post != None).all()
 	#Groups posts and tags in posts dict.
 	for result in postsAndTags:
