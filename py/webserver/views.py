@@ -82,4 +82,5 @@ def addPost():
 @blueprint.route("/manage_posts")
 def managePosts():
 	#TODO: Check for login. Renders template for dev purposes.
-	return flask.render_template("manage_posts.html")
+	posts = blog.getPosts()
+	return flask.render_template("manage_posts.html", posts = [post["post"] for post in posts])

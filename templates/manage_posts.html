@@ -1,10 +1,20 @@
 <html>
 <head>
 	<link href="/static/css/manage_posts.css" rel="stylesheet">
+	<link href="/static/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
 	<div id="main-container">
 		<h2 id="title">Manage posts.</h2>
+		<ul id="posts-list">
+			{% for post in posts %}
+				<li class="post">
+					<span class="post-title">{{post.title}}</span>
+					<span class="fa fa-pencil-square-o"></span>	
+					<span class="fa fa-times-circle"></span>	
+				</li>
+			{% endfor %}
+		</ul>
 	</div>
 </body>
 </html>
