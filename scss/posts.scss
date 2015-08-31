@@ -1,6 +1,6 @@
 @import "base";
 
-ul#posts-list{
+ul#posts-list {
 	list-style-type: none;
 	margin-left: 10%;
 	margin-right: 10%;
@@ -40,14 +40,14 @@ ul#posts-list{
 		}
 	}
 
-	ul#tags-list{
+	ul#tags-list {
 		list-style-type: none;
 		width: 100%;
 		border-top: 1px solid #DFDFDF;
 		padding-left: 0;
 		padding-top: 15px;
 
-		li.tag{
+		li.tag {
 			display: inline;
 			margin-left: 0px;
 			margin-right: 10px;

@@ -26,67 +26,68 @@ div#form-bounding {
     width: 80%;
     margin-left: 10%;
     margin-right: 10%; }
-    div#form-bounding div#main-wrapper form {
-      height: 70%;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto; }
-      div#form-bounding div#main-wrapper form input#title-input {
-        margin-bottom: 20px;
-        width: 95%;
-        font-size: 15pt; }
-      div#form-bounding div#main-wrapper form textarea#post-body {
-        width: 100%;
-        height: 70%; }
-      div#form-bounding div#main-wrapper form input#placeholder-tags-input {
-        display: none; }
-      div#form-bounding div#main-wrapper form div#tag-input-div {
-        display: inline-block;
-        padding: 0px;
-        margin-top: 25px;
-        border: 1px solid #ccc;
-        box-shadow: inset 0 1px 3px #ddd;
-        border-radius: 4px;
-        vertical-align: middle;
-        -webkit-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -o-box-sizing: border-box;
-        box-sizing: border-box;
-        width: 95%;
-        background-color: #fff;
-        text-align: left; }
-        div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag:before {
-          content: '#'; }
-        div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag {
-          font-size: 13pt;
-          color: #6F6F6F;
-          border: 0px;
-          margin: 2px;
-          transition-property: opacity color;
-          transition-duration: 250ms; }
-        div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag.faded {
-          opacity: .6; }
-          div#form-bounding div#main-wrapper form div#tag-input-div .nsg-tag.faded .nsg-tag-remove {
-            color: #FE6570; }
-      div#form-bounding div#main-wrapper form div#tag-input-div.focused {
-        border: 1px solid #129FEA; }
-      div#form-bounding div#main-wrapper form input#post-validity {
-        height: 0;
-        width: 100%;
-        border: 0;
-        padding: 0;
-        padding-bottom: 1px; }
-      div#form-bounding div#main-wrapper form input#tags-input {
-        border: 0px;
-        box-shadow: inset 0px 0px 0px #fff;
-        font-size: 13pt; }
-      div#form-bounding div#main-wrapper form input:focus:invalid {
-        border-color: #129FEA;
-        color: #000; }
-      div#form-bounding div#main-wrapper form div#cke_post-body {
-        box-shadow: 1px 2px 5px 2px #AAAAAA; }
-      div#form-bounding div#main-wrapper form button#submit-post {
-        margin-top: 20px; }
+
+form#post-form {
+  height: 70%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto; }
+  form#post-form input#title-input {
+    margin-bottom: 20px;
+    width: 95%;
+    font-size: 15pt; }
+  form#post-form textarea#post-body {
+    width: 100%;
+    height: 70%; }
+  form#post-form input#placeholder-tags-input {
+    display: none; }
+  form#post-form div#tag-input-div {
+    display: inline-block;
+    padding: 0px;
+    margin-top: 25px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+    vertical-align: middle;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 95%;
+    background-color: #fff;
+    text-align: left; }
+    form#post-form div#tag-input-div .nsg-tag:before {
+      content: '#'; }
+    form#post-form div#tag-input-div .nsg-tag {
+      font-size: 13pt;
+      color: #6F6F6F;
+      border: 0px;
+      margin: 2px;
+      transition-property: opacity color;
+      transition-duration: 250ms; }
+    form#post-form div#tag-input-div .nsg-tag.faded {
+      opacity: .6; }
+      form#post-form div#tag-input-div .nsg-tag.faded .nsg-tag-remove {
+        color: #FE6570; }
+  form#post-form div#tag-input-div.focused {
+    border: 1px solid #129FEA; }
+  form#post-form input#post-validity {
+    height: 0;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    padding-bottom: 1px; }
+  form#post-form input#tags-input {
+    border: 0px;
+    box-shadow: inset 0px 0px 0px #fff;
+    font-size: 13pt; }
+  form#post-form input:focus:invalid {
+    border-color: #129FEA;
+    color: #000; }
+  form#post-form div#cke_post-body {
+    box-shadow: 1px 2px 5px 2px #AAAAAA; }
+  form#post-form button#submit-post {
+    margin-top: 20px; }
 
 /*# sourceMappingURL=add_post.css.map */
