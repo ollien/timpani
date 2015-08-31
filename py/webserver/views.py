@@ -19,8 +19,7 @@ blueprint = flask.Blueprint("blogViews", __name__, template_folder = TEMPLATE_PA
 @blueprint.route("/")
 def show_posts():
 	posts = blog.getPosts()
-	getPostAuthor = blog.getAuthorFullname if templateConfig["display_full_name"] else blog.getAuthorUsername
-	return flask.render_template("posts.html", posts = posts, getPostAuthor = getPostAuthor)
+	return flask.render_template("posts.html", posts = posts)
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
