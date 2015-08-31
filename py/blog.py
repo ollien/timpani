@@ -32,11 +32,7 @@ def getPostById(postId, connection = None):
 
 	if len(postsAndTags) == 0:
 		return None
-
-	post = {"post": postsAndTags[0][0], "tags": []}
-	for result in postsAndTags:
-		post["tags"].append(result[1])
-	return post
+	return {"post": postsAndTags[0][0], "tags": [item[1] for item in postsAndTags if item[1] != None]}
 
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
