@@ -38,8 +38,11 @@ class ConnectionManager():
 	@staticmethod	
 	def closeConnection(connectionName):
 		if type(connectionName) == str:
-			ConnectionManager._connections[connectionName].session.close()
-			del ConnectionManager._connections[connectionName]
+			connection = ConnectionManager.getConnection(connectionName)
+			if connection != None:
+				del ConnectionManager._connections[connectionName]
+			else:
+				raise ValueError("connectionName does not exist, or is already closed.")
 		else:
 			raise ValueError("connectionName must be of type str, not %s", type(name))
 
