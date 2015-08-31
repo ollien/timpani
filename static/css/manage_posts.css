@@ -37,6 +37,8 @@ ul#posts-list {
     font-size: 15pt; }
     ul#posts-list li.post span.buttons {
       float: right; }
+      ul#posts-list li.post span.buttons a {
+        color: #000; }
     ul#posts-list li.post span.button.edit {
       margin-left: 80px; }
     ul#posts-list li.post span.button.edit:hover {
