@@ -78,3 +78,8 @@ def addPost():
 
 		else:
 			return webhelpers.redirectAndSave("/login")
+
+@blueprint.route("/manage_posts")
+def managePosts():
+	#TODO: Check for login. Renders template for dev purposes.
+	return flask.render_template("manage_posts.html")
