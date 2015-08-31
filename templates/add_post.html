@@ -23,7 +23,7 @@
 				<!-- This is used to display an invalid message on the post body, since we can't set one on CKEditor-->
 				<input id="post-validity">
 				<div id="tag-input-div">
-					<input id="tags-input" placeholder="Tags">
+					<input id="tags-input" {% if post is defined %} value="{% for tag in post['tags'] %}{{tag.name}} {%endfor%}" {% endif %} placeholder="Tags">
 				</div>
 				<input name="post-tags" id="placeholder-tags-input">
 				<button type="submit" id="submit-post" class="pure-button pure-button-primary">Submit Post</button>
