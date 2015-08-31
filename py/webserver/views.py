@@ -45,8 +45,7 @@ def login():
 def manage():
 	session = webhelpers.checkForSession()
 	if session != None:
-		user = auth.getUserFromSession(session)
-		return flask.render_template("manage.html", user = user)
+		return flask.render_template("manage.html", user = session.user)
 	else:
 		return webhelpers.redirectAndSave("/login")
 
@@ -63,11 +62,10 @@ def addPost():
 	elif flask.request.method == "POST":
 		session = webhelpers.checkForSession()
 		if session != None:
-			user = auth.getUserFromSession(session)
 			postTitle = flask.request.form["post-title"]
 			postBody = flask.request.form["post-body"]
 			postTags = flask.request.form["post-tags"]
-			blog.addPost(postTitle, postBody, datetime.datetime.now(), user.id, postTags)
+			blog.addPost(postTitle, postBody, datetime.datetime.now(), session.user, postTags)
 			return flask.redirect("/")
 
 		else:
