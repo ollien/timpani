@@ -13,44 +13,44 @@ div#login-bounding {
 		display: table-cell;
 		text-align: center;
 		vertical-align: middle;
-
-		div#error{
-			@extend .well;
-			$vertical-margin: 5px;
-			width: 25%;
-			min-width: 400px;
-			padding: 5px;
-			margin-top: $vertical-margin;
-			margin-bottom: $vertical-margin;
-			margin-left: auto;
-			margin-right: auto;
-			border: 1px solid #FF6956;
-			background-color: #FE7F70;
-		}
-
-		form#login-form {
-			width: 25%;
-			min-width: 350px;
-			$vertical-margin: 5px;
-			margin-left: auto;
-			margin-right: auto;
-			input {
-				width: 100%;	
-				margin-top: $vertical-margin;
-				margin-bottom: $vertical-margin;
-			}	
-			input.error{
-				border-color: #FF2222 !important;
-			}
-			/*Overrides Pure's invalid property, which I don't want to use.*/
-			input:focus:invalid{
-				border-color: #129FEA;
-				color: #000;
-			}
-			button {
-				float:right;	
-			}
-		}
 	}
 }
 
+
+div#error{
+	@extend .well;
+	$vertical-margin: 5px;
+	width: 25%;
+	min-width: 400px;
+	padding: 5px;
+	margin-top: $vertical-margin;
+	margin-bottom: $vertical-margin;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #FF6956;
+	background-color: #FE7F70;
+}
+
+form#login-form {
+	width: 25%;
+	min-width: 350px;
+	$vertical-margin: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	input {
+		width: 100%;	
+		margin-top: $vertical-margin;
+		margin-bottom: $vertical-margin;
+	}	
+	input.error{
+		border-color: #FF2222 !important;
+	}
+	/*Overrides Pure's invalid property, which I don't want to use.*/
+	input:focus:invalid{
+		border-color: #129FEA;
+		color: #000;
+	}
+	button {
+		float:right;	
+	}
+}
