@@ -84,8 +84,8 @@ def managePosts():
 	if flask.request.method == "GET":
 		session = webhelpers.checkForSession()
 		if session != None:
-			posts = blog.getPosts()
-			return flask.render_template("manage_posts.html", posts = [post["post"] for post in posts])
+			posts = blog.getPosts(tags = False)
+			return flask.render_template("manage_posts.html", posts = posts)
 
 		else:
 			return webhelpers.redirectAndSave("/login")
