@@ -33,7 +33,8 @@ ul#posts-list {
   ul#posts-list li.post {
     text-align: left;
     margin-left: auto;
-    margin-left: auto; }
+    margin-left: auto;
+    font-size: 15pt; }
     ul#posts-list li.post span.buttons {
       float: right; }
     ul#posts-list li.post span.button.edit {
