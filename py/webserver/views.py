@@ -19,8 +19,7 @@ blueprint = flask.Blueprint("blogViews", __name__, template_folder = TEMPLATE_PA
 @blueprint.route("/")
 def show_posts():
 	posts = blog.getPosts()
-	getPostAuthor = blog.getAuthorFullname if templateConfig["display_full_name"] else blog.getAuthorUsername
-	return flask.render_template("posts.html", posts = posts, getPostAuthor = getPostAuthor)
+	return flask.render_template("posts.html", posts = posts)
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
@@ -46,8 +45,7 @@ def login():
 def manage():
 	session = webhelpers.checkForSession()
 	if session != None:
-		user = auth.getUserFromSession(session)
-		return flask.render_template("manage.html", user = user)
+		return flask.render_template("manage.html", user = session.user)
 	else:
 		return webhelpers.redirectAndSave("/login")
 
@@ -64,11 +62,10 @@ def addPost():
 	elif flask.request.method == "POST":
 		session = webhelpers.checkForSession()
 		if session != None:
-			user = auth.getUserFromSession(session)
 			postTitle = flask.request.form["post-title"]
 			postBody = flask.request.form["post-body"]
 			postTags = flask.request.form["post-tags"]
-			blog.addPost(postTitle, postBody, datetime.datetime.now(), user.id, postTags)
+			blog.addPost(postTitle, postBody, datetime.datetime.now(), session.user, postTags)
 			return flask.redirect("/")
 
 		else:

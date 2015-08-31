@@ -1,4 +1,5 @@
 import sqlalchemy
+import sqlalchemy.orm
 import sqlalchemy.ext.declarative
 
 Base = sqlalchemy.ext.declarative.declarative_base()
@@ -21,13 +22,15 @@ class Post(Base):
 	title = sqlalchemy.Column(sqlalchemy.String)
 	body = sqlalchemy.Column(sqlalchemy.Text,) #Should be text to avoid length problems
 	time_posted = sqlalchemy.Column(sqlalchemy.DateTime)
-	author = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(User.__table__.columns.id))
+	author_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(User.__table__.columns.id))
+	author = sqlalchemy.orm.relationship("User", foreign_keys = author_id)	
 
 class Tag(Base):
 	__tablename__ = "tags"
 
 	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
 	post_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(Post.__table__.columns.id))
+	post = sqlalchemy.orm.relationship("Post", foreign_keys = post_id)
 	name = sqlalchemy.Column(sqlalchemy.Text)
 
 class Session(Base):
@@ -35,6 +38,7 @@ class Session(Base):
 
 	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
 	user_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(User.__table__.columns.id))
+	user = sqlalchemy.orm.relationship("User", foreign_keys = user_id)
 	session_id = sqlalchemy.Column(sqlalchemy.String, nullable = False)
 	expires = sqlalchemy.Column(sqlalchemy.DateTime, nullable = False)
 

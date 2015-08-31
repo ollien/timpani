@@ -63,15 +63,3 @@ def validateSession(sessionId):
 				return sessionObj
 
 	return None
-
-def getUserFromSession(session):
-	databaseConnection = database.ConnectionManager.getConnection("main")
-	if type(session) == database.tables.Session:
-			userQuery = databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == session.user_id)
-			if userQuery.count() > 0:
-				return userQuery.first()
-	else:
-		sessionObj = validateSession(session)
-		userQuery = databaseConnection.session.query(database.tables.User).filter(database.tables.User.id == sessionObj.user_id)
-		if userQuery.count() > 0:
-			return userQuery.first()
