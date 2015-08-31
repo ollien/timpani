@@ -81,14 +81,13 @@ def addPost():
 
 @blueprint.route("/manage_posts")
 def managePosts():
-	if flask.request.method == "GET":
-		session = webhelpers.checkForSession()
-		if session != None:
-			posts = blog.getPosts(tags = False)
-			return flask.render_template("manage_posts.html", posts = posts)
+	session = webhelpers.checkForSession()
+	if session != None:
+		posts = blog.getPosts(tags = False)
+		return flask.render_template("manage_posts.html", posts = posts)
 
-		else:
-			return webhelpers.redirectAndSave("/login")
+	else:
+		return webhelpers.redirectAndSave("/login")
 
 @blueprint.route("/edit_post/<int:postId>")
 def editPost(postId):
