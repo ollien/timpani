@@ -5,7 +5,7 @@ body {
 button.pure-button {
   border-radius: 5px; }
 
-.well, div#error {
+.well, div#login-bounding div#main-wrapper div#error {
   padding: 20px;
   background-color: #f5f5f5;
   border: 1px solid #e3e3e3;
@@ -23,17 +23,16 @@ div#login-bounding {
     display: table-cell;
     text-align: center;
     vertical-align: middle; }
-
-div#error {
-  width: 25%;
-  min-width: 400px;
-  padding: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid #FF6956;
-  background-color: #FE7F70; }
+    div#login-bounding div#main-wrapper div#error {
+      width: 25%;
+      min-width: 400px;
+      padding: 5px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid #FF6956;
+      background-color: #FE7F70; }
 
 form#login-form {
   width: 25%;
