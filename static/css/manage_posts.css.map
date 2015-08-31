@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAUA,IAAK;EACJ,WAAW,EAAE,uCAAuC;EACpD,WAAW,EAAE,GAAG;;AAGjB,kBAAmB;EAClB,aAAa,EAAE,GAAG;;AAGnB,KAAM;EACL,OAAO,EAAE,IAAI;EACb,gBAAgB,EAAE,OAAO;EACzB,MAAM,EAAE,iBAAiB;EACzB,aAAa,EAAE,GAAG;EAClB,UAAU,EAAE,uCAAsC;;ACtBnD,IAAK;EACJ,gBAAgB,EDHU,OAAO;;ACOlC,kBAAkB;EACjB,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EAEZ,2BAAS;IACR,UAAU,EAAE,MAAM",
+"sources": ["../../scss/base.scss","../../scss/manage_posts.scss"],
 "names": [],
 "file": "manage_posts.css"
 }
