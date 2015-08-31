@@ -28,9 +28,15 @@ def getPosts(connection = None):
 def getPostById(postId, connection = None):
 	if connection == None:
 		connection = getMainConnection()
-	post = connection.session.query(database.tables.Post).filter(database.tables.Post.id == postId).first()
-	tags = connection.session.query(database.tables.Tag).filter(database.tables.Tag.post_id == postId).all()
-	return {"post": post, "tags": tags}
+	postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post.id == postId).all()
+
+	if len(postsAndTags) == 0:
+		return None
+
+	post = {"post": postsAndTags[0][0], "tags": []}
+	for result in postsAndTags:
+		post["tags"].append(result[1])
+	return post
 
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
