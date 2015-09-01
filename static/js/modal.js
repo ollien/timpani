@@ -58,9 +58,9 @@ Modal.prototype.hide = function() {
 
 Modal.prototype.toggle = function() {
 	if (this.element.classList.contains("active")) {
-		this.element.classList.remove("active")
+		this.hide();
 	}
 	else {
-		this.element.classList.add("active")	
+		this.show();
 	}
 }
