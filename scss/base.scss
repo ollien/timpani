@@ -28,11 +28,15 @@ button.pure-button {
 div.modal {
 	position: fixed;
 	width: 40%;
-	top: 50%;
-	left: 50%;
+	top: 40%;
+	left: 50%; 
 	transform: translate(-50%, -50%);
 	padding: 20px;
 	background-color: white;
+	visibility: hidden;
+	opacity: 0;
+	transition-property: top, visibility, opacity;
+	transition-duration: 250ms;
 
 	h3.modal-title {
 		width: 100%;
@@ -48,4 +52,10 @@ div.modal {
 	div.modal-buttons {
 		float: right;	
 	}
+}
+
+div.modal.active {
+	visibility: visible;
+	opacity: 1;
+	top: 50%;	
 }

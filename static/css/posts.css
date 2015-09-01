@@ -15,11 +15,15 @@ button.pure-button {
 div.modal {
   position: fixed;
   width: 40%;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  background-color: white; }
+  background-color: white;
+  visibility: hidden;
+  opacity: 0;
+  transition-property: top, visibility, opacity;
+  transition-duration: 250ms; }
   div.modal h3.modal-title {
     width: 100%;
     padding-bottom: 5px;
@@ -29,6 +33,11 @@ div.modal {
     margin-bottom: 20px; }
   div.modal div.modal-buttons {
     float: right; }
+
+div.modal.active {
+  visibility: visible;
+  opacity: 1;
+  top: 50%; }
 
 ul#posts-list {
   list-style-type: none;
