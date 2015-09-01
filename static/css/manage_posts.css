@@ -62,27 +62,56 @@ body {
   background-color: #F5F5F5; }
 
 div#main-container {
-  display: table;
   width: 100%;
-  height: 100%; }
-  div#main-container div#content-wrapper {
-    display: table-cell;
-    vertical-align: middle; }
-    div#main-container div#content-wrapper h2#title {
-      text-align: center; }
-    div#main-container div#content-wrapper div#buttons {
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 450px; }
-      div#main-container div#content-wrapper div#buttons a {
-        text-decoration: none; }
-      div#main-container div#content-wrapper div#buttons button {
-        display: block;
-        font-size: 18pt;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        width: 100%;
-        text-decoration: none; }
+  width: 100%;
+  text-align: center; }
 
-/*# sourceMappingURL=manage.css.map */
+div#content-container {
+  display: inline-block; }
+  div#content-container h2#title {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; }
+
+ul#posts-list {
+  padding-left: 0;
+  list-style-type: none; }
+  ul#posts-list li.post {
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    height: 18pt;
+    font-size: 15pt;
+    opacity: 1;
+    transition-property: opacity, visibility, height;
+    transition-duration: 100ms, 100ms, 250ms; }
+    ul#posts-list li.post span.buttons {
+      display: inline-block;
+      height: 18pt;
+      float: right;
+      color: #000; }
+      ul#posts-list li.post span.buttons a {
+        color: #000; }
+    ul#posts-list li.post span.button:hover {
+      cursor: pointer !important; }
+    ul#posts-list li.post span.button.edit {
+      margin-left: 80px; }
+    ul#posts-list li.post span.button.edit:hover {
+      color: #3533FF; }
+    ul#posts-list li.post span.button.delete:hover {
+      color: #FF3533; }
+  ul#posts-list li.post.deleting {
+    opacity: 0;
+    height: 0;
+    visibility: hidden; }
+  ul#posts-list li.post.deleting > * {
+    height: 0 !important; }
+
+button.delete {
+  color: white;
+  background-color: #EA3C3C; }
+
+span.can-not {
+  font-weight: 500; }
+
+/*# sourceMappingURL=manage_posts.css.map */

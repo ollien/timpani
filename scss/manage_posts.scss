@@ -1,0 +1,89 @@
+@import "base";
+
+body {
+	background-color: $default-background-color;
+}
+
+
+div#main-container{
+	width: 100%;
+	width: 100%;
+	text-align: center;
+}
+
+div#content-container{
+	display:inline-block;
+
+	h2#title { 
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;	
+	}
+}
+
+ul#posts-list { 
+	padding-left: 0;
+	list-style-type: none;	
+
+	li.post {
+		$font-size: 15pt;
+		$fade-time: 100ms;
+		$slide-time: 250ms;
+		text-align: left;
+		margin-left: auto;
+		margin-right: auto;
+		height: $font-size + 3pt;
+		font-size: $font-size;
+		opacity: 1;
+		transition-property: opacity, visibility, height;
+		transition-duration: $fade-time, $fade-time, $slide-time;
+
+		span.buttons {
+			display: inline-block;
+			height: $font-size + 3pt;
+			float: right;
+			color: #000;
+
+			a {
+				color: #000;
+			}
+		}
+	
+		span.button:hover {
+			cursor: pointer !important;	
+		}
+
+		span.button.edit {
+			margin-left: 80px;	
+		}
+
+		span.button.edit:hover {
+			color: #3533FF;	
+		}
+
+		span.button.delete:hover {
+			color: #FF3533;	
+
+		}
+	}
+
+	li.post.deleting {
+		opacity: 0;	
+		height: 0;
+		visibility: hidden;
+	}
+
+	li.post.deleting > * {
+		height: 0 !important;	
+	}
+}
+
+button.delete {
+	color: white;
+	background-color: #EA3C3C;
+
+}
+
+span.can-not {
+	font-weight: 500;
+}

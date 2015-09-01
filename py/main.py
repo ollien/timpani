@@ -15,7 +15,7 @@ database.ConnectionManager.addConnection(databaseConnection, "main")
 print("[Timpani] Database sessions started.")
 
 #Start Webserver.
-webserver.start(port = 8080)
+webserver.start(port = 8080, host="0.0.0.0")
 
 #This will run after server.run finishes, as in, after the server shuts down.
 print("[Timpani] Closing database sessions")

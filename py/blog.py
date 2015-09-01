@@ -46,6 +46,7 @@ def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
 	if connection == None:
 		connection = getMainConnection()
+
 	if type(tags) == str:
 		tags = tags.split(" ")
 	#Create the post object
@@ -57,4 +58,44 @@ def addPost(title, body, time_posted, author, tags, connection = None):
 		if len(tag) > 0:
 			tag = database.tables.Tag(post_id = post.id, name = tag)
 			connection.session.add(tag)
+	connection.session.commit()
+
+def editPost(postId, title, body, tags, connection = None):
+	if connection == None:
+		connection = getMainConnection()
+
+	if type(tags) == str:
+		tags = tags.split(" ")
+	
+	post = getPostById(postId)["post"]
+	post.title = title
+	post.body = body
+	
+	currentTags = connection.session.query(database.tables.Tag).filter(database.tables.Tag.post_id == postId)
+
+	for tag in currentTags:
+		if tag.name not in currentTags:
+			connection.session.delete(tag)
+
+	connection.session.flush()	
+	currentTagNames = connection.session.query(database.tables.Tag.name).filter(database.tables.Tag.post_id == postId)
+
+	for tag in tags:
+		if len(tag) > 0 and tag not in currentTagNames:
+			tag = database.tables.Tag(post_id = post.id, name = tag)
+			connection.session.add(tag)
+
+	connection.session.commit()
+	
+def deletePost(post, connection = None):
+	if connection == None:
+		connection = getMainConnection()
+
+	if type(post) == int:
+		post = getPostById(post, tags = False)
+
+	if type(post) != database.tables.Post:
+		raise ValueError("post must be of type int or Post, not %s" % type(post))
+			
+	connection.session.delete(post)	
 	connection.session.commit()
