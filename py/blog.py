@@ -92,7 +92,7 @@ def deletePost(post, connection = None):
 		connection = getMainConnection()
 
 	if type(post) == int:
-		post = getPostById(post)
+		post = getPostById(post, tags = False)
 
 	if type(post) != database.tables.Post:
 		raise ValueError("post must be of type int or Post, not %s" % type(post))
