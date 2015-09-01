@@ -87,5 +87,14 @@ def editPost(postId, title, body, tags, connection = None):
 
 	connection.session.commit()
 	
-	
+def deletePost(post, connection = None):
+	if connection == None:
+		connection = getMainConnection()
+
+	if type(post) == int:
+		post = getPostById(post)
+
+	if type(post) != database.tables.Post:
+		raise ValueError("post must be of type int or Post, not %s" % type(post))
 			
+	connection.session.delete(post)	
