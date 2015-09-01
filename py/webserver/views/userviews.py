@@ -1,7 +1,5 @@
 import flask
 import os.path
-import json
-import datetime
 import database
 import auth
 import blog
