@@ -98,3 +98,4 @@ def deletePost(post, connection = None):
 		raise ValueError("post must be of type int or Post, not %s" % type(post))
 			
 	connection.session.delete(post)	
+	connection.session.commit()
