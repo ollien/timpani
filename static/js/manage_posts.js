@@ -7,8 +7,17 @@ document.addEventListener("DOMContentLoaded", function(event){
 		request.open("POST", "/delete_post/"+postId)
 		request.addEventListener("load", function(event){
 			var res = JSON.parse(request.responseText)
-			if res.error == 1:
+			if (res.error === 0){
+				var li = document.querySelector("li[post-id=\""+postId+"\"]")		
+				console.log(li);
+				li.addEventListener("transitionend", function(event){
+					this.remove()
+				})
+				li.classList.add("deleting")
+			}
+			else if (res.error === 1) {
 				window.location = "/login"
+			}
 		})
 		request.send();
 	})

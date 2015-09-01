@@ -79,15 +79,19 @@ ul#posts-list {
   ul#posts-list li.post {
     text-align: left;
     margin-left: auto;
-    margin-left: auto;
-    font-size: 15pt; }
+    margin-right: auto;
+    height: 18pt;
+    font-size: 15pt;
+    opacity: 1;
+    transition-property: opacity, visibility, height;
+    transition-duration: 100ms, 100ms, 250ms; }
     ul#posts-list li.post span.buttons {
+      display: inline-block;
+      height: 18pt;
       float: right;
       color: #000; }
       ul#posts-list li.post span.buttons a {
         color: #000; }
-    ul#posts-list li.post soan.button {
-      display: block; }
     ul#posts-list li.post span.button:hover {
       cursor: pointer !important; }
     ul#posts-list li.post span.button.edit {
@@ -96,6 +100,12 @@ ul#posts-list {
       color: #3533FF; }
     ul#posts-list li.post span.button.delete:hover {
       color: #FF3533; }
+  ul#posts-list li.post.deleting {
+    opacity: 0;
+    height: 0;
+    visibility: hidden; }
+  ul#posts-list li.post.deleting > * {
+    height: 0 !important; }
 
 button.delete {
   color: white;
