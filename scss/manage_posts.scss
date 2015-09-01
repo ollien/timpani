@@ -33,9 +33,19 @@ ul#posts-list {
 
 		span.buttons {
 			float: right;
+			color: #000;
+
 			a {
 				color: #000;
 			}
+		}
+	
+		soan.button {
+			display: block;
+		}
+
+		span.button:hover {
+			cursor: pointer !important;	
 		}
 
 		span.button.edit {

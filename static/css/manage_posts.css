@@ -82,9 +82,14 @@ ul#posts-list {
     margin-left: auto;
     font-size: 15pt; }
     ul#posts-list li.post span.buttons {
-      float: right; }
+      float: right;
+      color: #000; }
       ul#posts-list li.post span.buttons a {
         color: #000; }
+    ul#posts-list li.post soan.button {
+      display: block; }
+    ul#posts-list li.post span.button:hover {
+      cursor: pointer !important; }
     ul#posts-list li.post span.button.edit {
       margin-left: 80px; }
     ul#posts-list li.post span.button.edit:hover {
