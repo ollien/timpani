@@ -9,8 +9,8 @@ import configmanager
 from . import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
-CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../configs/"))
-TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../templates"))
+CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../configs/"))
+TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../templates"))
 
 configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
 templateConfig = configs["templates"]
