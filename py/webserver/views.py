@@ -107,7 +107,7 @@ def deletePost(postId):
 	session = webhelpers.checkForSession()
 	if session != None:
 		blog.deletePost(postId)
-		return json.loads("{\"error\": 0}")
+		return json.dumps({"error": 0})
 
 	else:
-		return json.loads("{\"error\": 1}"), 403
+		return json.dumps({"error": 1}), 403
