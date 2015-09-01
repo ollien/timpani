@@ -22,7 +22,8 @@ div.modal {
   background-color: white; }
   div.modal h3.modal-title {
     width: 100%;
-    border-bottom: #ddd; }
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee; }
   div.modal div.modal-body {
     height: 100%;
     margin-bottom: 20px; }
