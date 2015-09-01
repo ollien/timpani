@@ -96,4 +96,7 @@ button.delete {
   color: white;
   background-color: #EA3C3C; }
 
+span.can-not {
+  font-weight: 500; }
+
 /*# sourceMappingURL=manage_posts.css.map */
