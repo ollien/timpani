@@ -12,7 +12,7 @@
 			<h2 id="title">Manage posts.</h2>
 			<ul id="posts-list">
 				{% for post in posts %}
-					<li class="post">
+					<li post-id="{{post.id}}" class="post">
 						<span class="post-title">{{post.title}}</span>
 						<span class="buttons">
 							<a href="/edit_post/{{post.id}}"><span class="button edit fa fa-pencil-square-o"></span></a>
