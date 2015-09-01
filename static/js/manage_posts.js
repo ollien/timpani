@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", function(event){
 		var postId = modal.element.getAttribute("post-id")
 		var request = new XMLHttpRequest();
 		request.open("POST", "/delete_post/"+postId)
+		request.addEventListener("load", function(event){
+			var res = JSON.parse(request.responseText)
+			if res.error == 1:
+				window.location = "/login"
+		})
 		request.send();
 	})
 
