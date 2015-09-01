@@ -49,18 +49,22 @@ function Modal(element) {
 Modal.prototype.show = function() {
 	this.element.classList.add("active")
 	document.body.appendChild(this.overlay);
+	this.overlay.classList.add("active")
 }
 
 Modal.prototype.hide = function() {
 	this.element.classList.remove("active")
-	this.overlay.remove()
+	this.overlay.addEventListener("transitionend webkitTransitionEnd", function(event){
+		this.remove()
+	})
+	this.overlay.classList.remove("active")
 }
 
 Modal.prototype.toggle = function() {
 	if (this.element.classList.contains("active")) {
-		this.element.classList.remove("active")
+		this.hide();
 	}
 	else {
-		this.element.classList.add("active")	
+		this.show();
 	}
 }

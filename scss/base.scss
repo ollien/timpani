@@ -25,6 +25,8 @@ button.pure-button {
 	box-shadow: inset 0 1px 1px 1px rgba(0, 0, 0, .03);
 }
 
+$modal-transition-duration: 250ms;
+
 div.modal {
 	position: fixed;
 	width: 40%;
@@ -35,8 +37,9 @@ div.modal {
 	background-color: white;
 	visibility: hidden;
 	opacity: 0;
+	border-radius: 6px;
 	transition-property: top, visibility, opacity;
-	transition-duration: 250ms;
+	transition-duration: $modal-transition-duration;
 
 	h3.modal-title {
 		width: 100%;
@@ -60,12 +63,18 @@ div.modal.active {
 	top: 50%;	
 }
 
-div.modal-overlay{
+div.modal-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
 	height: 100%;
 	width: 100%;
 	background-color: black;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: $modal-transition-duration;
+}
+
+div.modal-overlay.active {
 	opacity: .15;
 }
