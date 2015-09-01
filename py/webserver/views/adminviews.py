@@ -2,7 +2,6 @@ import flask
 import os.path
 import json
 import datetime
-import database
 import blog
 from .. import webhelpers
 

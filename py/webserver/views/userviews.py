@@ -1,6 +1,5 @@
 import flask
 import os.path
-import database
 import auth
 import blog
 import configmanager
