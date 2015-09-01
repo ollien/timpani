@@ -12,6 +12,23 @@ button.pure-button {
   border-radius: 5px;
   box-shadow: inset 0 1px 1px 1px rgba(0, 0, 0, 0.03); }
 
+div.modal {
+  position: fixed;
+  width: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white; }
+  div.modal h3.modal-title {
+    width: 100%;
+    border-bottom: #ddd; }
+  div.modal div.modal-body {
+    height: 100%;
+    margin-bottom: 20px; }
+  div.modal div.modal-buttons {
+    float: right; }
+
 body {
   background-color: #F5F5F5; }
 
