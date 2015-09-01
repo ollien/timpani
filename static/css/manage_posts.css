@@ -82,4 +82,8 @@ ul#posts-list {
     ul#posts-list li.post span.button.delete:hover {
       color: #FF3533; }
 
+button.delete {
+  color: white;
+  background-color: #EA3C3C; }
+
 /*# sourceMappingURL=manage_posts.css.map */
