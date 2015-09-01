@@ -39,6 +39,15 @@ div.modal.active {
   opacity: 1;
   top: 50%; }
 
+div.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: .15; }
+
 ul#posts-list {
   list-style-type: none;
   margin-left: 10%;
