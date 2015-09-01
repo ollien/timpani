@@ -1,5 +1,6 @@
 import flask
 import os.path
+import json
 import datetime
 import database
 import auth
@@ -99,3 +100,14 @@ def editPost(postId):
 			return flask.redirect("/")
 	else:
 		webhelpers.redirectAndSave("/login")
+
+#Returns a JSON Object based on whether or not the user is logged in.
+@blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
+def deletePost(postId):
+	session = webhelpers.checkForSession()
+	if session != None:
+		blog.deletePost(postId)
+		return json.loads("{\"error\": 0}")
+
+	else:
+		return json.loads("{\"error\": 1}")
