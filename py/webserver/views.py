@@ -110,4 +110,4 @@ def deletePost(postId):
 		return json.loads("{\"error\": 0}")
 
 	else:
-		return json.loads("{\"error\": 1}")
+		return json.loads("{\"error\": 1}"), 403
