@@ -4,7 +4,6 @@ import json
 import datetime
 import database
 import blog
-import configmanager
 from .. import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
