@@ -47,6 +47,11 @@ div.modal-overlay {
   height: 100%;
   width: 100%;
   background-color: black;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 250ms; }
+
+div.modal-overlay.active {
   opacity: .15; }
 
 ul#posts-list {
