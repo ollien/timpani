@@ -11,4 +11,5 @@ CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../configs/"))
 
 app = flask.Flask(__name__, static_folder = STATIC_PATH)
 app.register_blueprint(views.userviews.blueprint)
+app.register_blueprint(views.adminviews.blueprint)
 app.debug = True
