@@ -22,6 +22,7 @@ div.modal {
   background-color: white;
   visibility: hidden;
   opacity: 0;
+  border-radius: 6px;
   transition-property: top, visibility, opacity;
   transition-duration: 250ms; }
   div.modal h3.modal-title {
