@@ -6,25 +6,32 @@ import sqlalchemy
 def getMainConnection():
 	return database.ConnectionManager.getConnection("main")
 
+#Groups posts and tags in posts dict.
+#Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}
+def _getDictFromJoin(results):
+	posts = {}
+
+	for result in results:
+		post, tag = result
+		if post.id in posts.keys():
+			posts[post.id]["tags"].append(tag)
+		else:
+			posts[post.id] = {"post": post, "tags": []}
+			if tag != None:
+				posts[post.id]["tags"].append(tag)
+
+	return sorted(list(posts.values()), key = lambda x: x["post"].time_posted, reverse = True)
+
+
 def getPosts(tags = True, connection = None):
 	#Functions are not re-run if they are default arguments.
 	if connection == None:
 		connection = getMainConnection()
-	posts = {} #Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}
 	if tags:
 		#Gets all the posts using a join. We won't use getPostById in a loop to prevent many queries.
 		postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post != None).all()
-		#Groups posts and tags in posts dict.
-		for result in postsAndTags:
-			post, tag = result
-			if post.id in posts.keys():
-				posts[post.id]["tags"].append(tag)
-			else:
-				posts[post.id] = {"post": post, "tags": []}
-				if tag != None:
-					posts[post.id]["tags"].append(tag)
+		return _getDictFromJoin(postsAndTags)	
 
-		return sorted(list(posts.values()), key = lambda x: x["post"].time_posted, reverse = True)
 	else:
 		posts = connection.session.query(database.tables.Post).all()
 		return sorted(posts, key = lambda x: x.id, reverse = True)
