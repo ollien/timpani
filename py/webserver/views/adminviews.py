@@ -32,8 +32,8 @@ def addPost():
 			blog.addPost(postTitle, postBody, datetime.datetime.now(), session.user, postTags)
 			return flask.redirect("/")
 
-		else:
-			return webhelpers.redirectAndSave("/login")
+	else:
+		return webhelpers.redirectAndSave("/login")
 
 @blueprint.route("/manage_posts")
 def managePosts():
