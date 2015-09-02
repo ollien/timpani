@@ -100,6 +100,12 @@ ul#posts-list {
       color: #3533FF; }
     ul#posts-list li.post span.button.delete:hover {
       color: #FF3533; }
+    ul#posts-list li.post a.post-title {
+      text-decoration: none;
+      color: #000; }
+    ul#posts-list li.post a.post-title:hover {
+      text-decoration: underline;
+      color: #000; }
   ul#posts-list li.post.deleting {
     opacity: 0;
     height: 0;

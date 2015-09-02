@@ -65,6 +65,16 @@ ul#posts-list {
 			color: #FF3533;	
 
 		}
+
+		a.post-title { 
+			text-decoration: none;
+			color: #000;
+		}
+
+		a.post-title:hover { 
+			text-decoration: underline;
+			color: #000;
+		}
 	}
 
 	li.post.deleting {

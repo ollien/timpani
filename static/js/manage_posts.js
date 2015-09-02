@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	Array.prototype.slice.call(deleteButtons).forEach(function(button){
 		button.addEventListener("click", function(event){
 			var li = button.parentNode.parentNode;
-			var title = li.querySelector("span.post-title").textContent
+			var title = li.querySelector("a.post-title").textContent
 			modalElement.setAttribute("post-id", li.getAttribute("post-id"))
 			deletePostTitle.textContent = title
 			modal.show();

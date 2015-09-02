@@ -13,7 +13,7 @@
 			<ul id="posts-list">
 				{% for post in posts %}
 					<li post-id="{{post.id}}" class="post">
-						<span class="post-title">{{post.title}}</span>
+						<a href="/post/{{post.id}}" class="post-title">{{post.title}}</a>
 						<span class="buttons">
 							<a href="/edit_post/{{post.id}}"><span class="button edit fa fa-pencil-square-o"></span></a>
 							<span class="button delete fa fa-times-circle"></span>	
