@@ -50,11 +50,16 @@ def getPostById(postId, tags = True, connection = None):
 	else:
 		return connection.session.query(database.tables.Post).filter(database.tables.Post.id == postId).first()
 
-def getPostsWithTag(tag, connection = None):
+def getPostsWithTag(tag, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
-	posts = connection.session.query(database.tables.Post).join(database.tables.Tag).filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
-	return posts.all()
+	if tags:
+		postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).join(database.tables.Tag).filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower()).all()
+		return _getDictFromJoin(postsAndTags)
+
+	else:
+		posts = connection.session.query(database.tables.Post).join(database.tables.Tag).filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
+		return posts.all()
 
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
