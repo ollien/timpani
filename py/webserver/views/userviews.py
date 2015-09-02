@@ -46,13 +46,3 @@ def login():
 
 		else:
 			flask.render_template("login.html", error = "Invalid username or password.")
-
-@blueprint.route("/manage")
-def manage():
-	session = webhelpers.checkForSession()
-	if session != None:
-		return flask.render_template("manage.html", user = session.user)
-	else:
-		return webhelpers.redirectAndSave("/login")
-
-

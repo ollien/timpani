@@ -10,6 +10,14 @@ TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../templates"
 
 blueprint = flask.Blueprint("adminViews", __name__, template_folder = TEMPLATE_PATH)
 
+@blueprint.route("/manage")
+def manage():
+	session = webhelpers.checkForSession()
+	if session != None:
+		return flask.render_template("manage.html", user = session.user)
+	else:
+		return webhelpers.redirectAndSave("/login")
+
 @blueprint.route("/add_post", methods=["GET", "POST"])
 def addPost():
 	session = webhelpers.checkForSession()
