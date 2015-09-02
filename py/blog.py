@@ -1,6 +1,7 @@
 import collections
 import database
 import configmanager
+import sqlalchemy
 
 def getMainConnection():
 	return database.ConnectionManager.getConnection("main")
@@ -41,6 +42,12 @@ def getPostById(postId, tags = True, connection = None):
 		return {"post": postsAndTags[0][0], "tags": [item[1] for item in postsAndTags if item[1] != None]}
 	else:
 		return connection.session.query(database.tables.Post).filter(database.tables.Post.id == postId).first()
+
+def getPostsWithTag(tag, connection = None):
+	if connection == None:
+		connection = getMainConnection()
+	posts = connection.session.query(database.tables.Post).join(database.tables.Tag).filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
+	return posts.all()
 
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
