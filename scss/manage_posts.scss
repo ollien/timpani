@@ -45,23 +45,20 @@ ul#posts-list {
 			color: #000;
 
 			a {
+				text-decoration: none;
 				color: #000;
 			}
 		}
 	
-		span.button:hover {
-			cursor: pointer !important;	
-		}
-
-		span.button.edit {
+		a.button.edit {
 			margin-left: 80px;	
 		}
 
-		span.button.edit:hover {
+		a.button.edit:hover {
 			color: #3533FF;	
 		}
 
-		span.button.delete:hover {
+		a.button.delete:hover {
 			color: #FF3533;	
 
 		}

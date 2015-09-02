@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		request.send();
 	})
 
-	var deleteButtons = document.querySelectorAll("span.button.delete")
+	var deleteButtons = document.querySelectorAll("a.button.delete")
 	var deletePostTitle = document.querySelector("span.delete-post-title")
 	Array.prototype.slice.call(deleteButtons).forEach(function(button){
 		button.addEventListener("click", function(event){

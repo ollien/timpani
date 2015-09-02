@@ -91,14 +91,13 @@ ul#posts-list {
       float: right;
       color: #000; }
       ul#posts-list li.post span.buttons a {
+        text-decoration: none;
         color: #000; }
-    ul#posts-list li.post span.button:hover {
-      cursor: pointer !important; }
-    ul#posts-list li.post span.button.edit {
+    ul#posts-list li.post a.button.edit {
       margin-left: 80px; }
-    ul#posts-list li.post span.button.edit:hover {
+    ul#posts-list li.post a.button.edit:hover {
       color: #3533FF; }
-    ul#posts-list li.post span.button.delete:hover {
+    ul#posts-list li.post a.button.delete:hover {
       color: #FF3533; }
     ul#posts-list li.post a.post-title {
       text-decoration: none;
