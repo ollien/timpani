@@ -15,12 +15,12 @@ templateConfig = configs["templates"]
 blueprint = flask.Blueprint("userViews", __name__, template_folder = TEMPLATE_PATH)
 
 @blueprint.route("/")
-def show_posts():
+def showPosts():
 	posts = blog.getPosts()
 	return flask.render_template("posts.html", posts = posts)
 
 @blueprint.route("/post/<int:postId>")
-def show_post(postId):
+def showPost(postId):
 	post = blog.getPostById(postId)
 	if post == None:
 		flask.abort(404)
