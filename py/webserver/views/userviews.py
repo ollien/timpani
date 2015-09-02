@@ -27,6 +27,11 @@ def show_post(postId):
 	else:
 		return flask.render_template("posts.html", posts = [post])
 
+@blueprint.route("/tag/<tag>")
+def showPostsWithTag(tag):
+	posts = blog.getPostsWithTag(tag)
+	return flask.render_template("posts.html", posts = posts)
+
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
 	if flask.request.method == "GET":

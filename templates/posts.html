@@ -17,7 +17,7 @@
 					{% if tags|length > 0 %}
 						<ul id="tags-list">
 							{% for tag in tags %}
-								<li class="tag">#{{tag.name}}</li>
+								<li class="tag"> <a href="/tag/{{tag.name}}">#{{tag.name}}</a> </li>
 							{% endfor %}
 						</ul>
 					{% endif %}
