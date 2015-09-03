@@ -24,7 +24,11 @@
 					<button type="button" class="ql-underline fa fa-underline pure-button"></button>
 					<button type="button" class="ql-link fa fa-link pure-button"></button>
 					<button type="button" class="ql-font pure-button"></button>
-					<button type="button" class="ql-size pure-button"></button>
+					<select class="ql-size">
+						{% for i in range(17) %}
+							<option value="{{12+4*i}}">{{8+4*i}}</option>
+						{% endfor %}
+					</select>
 					<button type="button" class="ql-color fa fa-font pure-button"></button>
 				</div>
 
