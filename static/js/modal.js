@@ -38,7 +38,9 @@ function Modal(element) {
 					secondaryEvent.el = button;
 					_this.element.dispatchEvent(secondaryEvent)
 				}
-				_this.hide()
+				if (!mainEvent.defaultPrevented && (secondaryEvent != null && !secondaryEvent.defaultPrevented)){
+					_this.hide()
+				}
 			})
 		})
 	}
