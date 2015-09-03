@@ -16,7 +16,7 @@ function Modal(element) {
 		}
 	}
 
-	if (this.overlay.style.zIndex === undefined){
+	if (this.overlay.style.zIndex === undefined || this.overlay.style.zIndex === ""){
 		this.overlay.style.zIndex = 0
 	}
 	this.element.style.zIndex = this.overlay.style.zIndex + 1
