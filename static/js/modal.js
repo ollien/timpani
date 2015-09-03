@@ -1,7 +1,6 @@
 function Modal(element) {
 	this.overlay = document.createElement("div");
 	this.overlay.classList.add("modal-overlay");
-	this.overlay.style.zIndex = -1;
 
 	if (element instanceof HTMLElement) {
 		this.element = element	
@@ -16,6 +15,11 @@ function Modal(element) {
 			throw new Error("element must have class modal")	
 		}
 	}
+
+	if (this.overlay.style.zIndex === undefined){
+		this.overlay.style.zIndex = 0
+	}
+	this.element.style.zIndex = this.overlay.style.zIndex + 1
 
 	buttonsEl = this.element.querySelector(".modal-buttons")
 	if (buttonsEl != null){
