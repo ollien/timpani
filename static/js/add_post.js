@@ -1,9 +1,12 @@
 document.addEventListener("DOMContentLoaded", function(event){
+	var editor = new Quill("div#editor")
 	var validityInput = document.getElementById("post-validity")
 	var tagsInput = document.getElementById("tags-input")
 	var placeholderTagsInput = document.getElementById("placeholder-tags-input")
 	var tagsInputPlugin = insignia(tagsInput);
 	var form = document.getElementById("post-form") 
+	
+	editor.addModule("toolbar", {container: "div#toolbar"})
 
 	tagsInput.addEventListener("focus", function(event){
 		var div = document.getElementById("tag-input-div")
