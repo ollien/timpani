@@ -39,7 +39,7 @@
 				</div>
 
 				<div id="editor">
-					<div></div>
+					<div>{% if post is defined %}{{ post["post"].body }}{% endif %}</div>
 				</div>
 				<!-- This is used to display an invalid message on the post body, since we can't set one on CKEditor-->
 				<input id="post-validity">
