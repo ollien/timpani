@@ -23,7 +23,13 @@
 					<button type="button" class="ql-italic fa fa-italic pure-button"></button>
 					<button type="button" class="ql-underline fa fa-underline pure-button"></button>
 					<button type="button" class="ql-link fa fa-link pure-button"></button>
-					<button type="button" class="ql-font pure-button"></button>
+					<select class="ql-font">
+						<option value="Arial">Arial</option>	
+						<option value="Courier">Courier</option>
+						<option value="Georgia">Georgia</option>
+						<option value="Helvetica">Helvetica</option>
+						<option value="Times New Roman">Times New Roman</option>
+					</select>
 					<select class="ql-size">
 						{% for i in range(17) %}
 							<option value="{{12+4*i}}">{{8+4*i}}</option>
