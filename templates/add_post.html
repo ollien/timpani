@@ -2,10 +2,9 @@
 <head>
 	<link href="/static/css/pure.min.css" rel="stylesheet">
 	<link href="/static/css/add_post.css" rel="stylesheet">
-	<link href="/static/libs/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
+	<link href="/static/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/static/libs/insignia/insignia.min.css" rel="stylesheet">
-	<script src="/static/libs/ckeditor/ckeditor.js"></script>
-	<script src="/static/libs/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+	<script src="/static/libs/quill/quill.min.js"></script>
 	<script src="/static/libs/insignia/insignia.min.js"></script>
 	<script src="/static/js/add_post.js"></script>
 </head>
@@ -19,7 +18,15 @@
 			{% endif %}
 			<form class="pure-form" id="post-form" {% if post is defined %} action="/edit_post/{{post['post'].id}}" {% else %} action="/add_post" {% endif %} method="POST">
 				<input name="post-title" id="title-input" class="pure-input" placeholder="Title" {% if post is defined %} value="{{post['post'].title}}" {% endif %} required>
-				<textarea name="post-body" id="post-body" required>{% if post is defined %}{{post["post"].body}}{% endif %}</textarea>
+				<div class="toolbar">
+					<button class="ql-bold fa fa-bold pure-button"></button>
+					<button class="ql-italic fa fa-italic pure-button"></button>
+					<button class="ql-underline fa fa-underline pure-button"></button>
+					<button class="ql-link fa fa-link pure-button"></button>
+					<button class="ql-font pure-button"></button>
+					<button class="ql-size pure-button"></button>
+					<button class="ql-color fa fa-font pure-button"></button>
+				</div>
 				<!-- This is used to display an invalid message on the post body, since we can't set one on CKEditor-->
 				<input id="post-validity">
 				<div id="tag-input-div">
