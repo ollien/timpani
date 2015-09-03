@@ -96,6 +96,10 @@ form#post-form {
 		padding-bottom: 1px;
 	}
 
+	input#post-body {
+		display: none;	
+	}
+
 	input#tags-input { 
 		border: 0px;	
 		box-shadow: inset 0px 0px 0px #fff;
@@ -105,10 +109,6 @@ form#post-form {
 	input:focus:invalid {
 		border-color: #129FEA;
 		color: #000;
-	}
-
-	div#cke_post-body {
-		box-shadow: 1px 2px 5px 2px #AAAAAA;
 	}
 
 	button#submit-post {

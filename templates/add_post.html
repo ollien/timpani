@@ -6,6 +6,7 @@
 	<link href="/static/libs/insignia/insignia.min.css" rel="stylesheet">
 	<script src="/static/libs/quill/quill.min.js"></script>
 	<script src="/static/libs/insignia/insignia.min.js"></script>
+	<script src="/static/js/modal.js"></script>
 	<script src="/static/js/add_post.js"></script>
 </head>
 <body>
@@ -42,6 +43,7 @@
 				</div>
 				<!-- This is used to display an invalid message on the post body, since we can't set one on CKEditor-->
 				<input id="post-validity">
+				<input id="post-body" name="post-body">
 				<div id="tag-input-div">
 					<input id="tags-input" {% if post is defined %} value="{% for tag in post['tags'] %}{{tag.name}} {%endfor%}" {% endif %} placeholder="Tags">
 				</div>

@@ -129,6 +129,8 @@ form#post-form {
     border: 0;
     padding: 0;
     padding-bottom: 1px; }
+  form#post-form input#post-body {
+    display: none; }
   form#post-form input#tags-input {
     border: 0px;
     box-shadow: inset 0px 0px 0px #fff;
@@ -136,8 +138,6 @@ form#post-form {
   form#post-form input:focus:invalid {
     border-color: #129FEA;
     color: #000; }
-  form#post-form div#cke_post-body {
-    box-shadow: 1px 2px 5px 2px #AAAAAA; }
   form#post-form button#submit-post {
     margin-top: 10px; }
 
