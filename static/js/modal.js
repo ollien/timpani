@@ -60,7 +60,7 @@ Modal.prototype.show = function() {
 
 Modal.prototype.hide = function() {
 	this.element.classList.remove("active")
-	this.overlay.addEventListener("transitionend webkitTransitionEnd", function(event){
+	this.overlay.addEventListener("transitionend", function(event){
 		this.remove()
 	})
 	this.overlay.classList.remove("active")
