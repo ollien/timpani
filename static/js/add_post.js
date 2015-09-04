@@ -31,12 +31,14 @@ document.addEventListener("DOMContentLoaded", function(event){
 			editor.setSelection(null)
 			//This basically indicates that we don't actually have a selection.
 			if (selection.end - selection.start === 0){
-				console.log(linkModalInput.value)
-				console.log(selection.start)
-				console.log(linkModalInput.value)
 				editor.insertText(selection.start, linkModalInput.value, "link", linkModalInput.value)	
 			}
 		}
+	})
+
+	linkModal.element.addEventListener("hide", function(event){
+		linkModalInput.value = ""
+		linkModalError.classList.remove("active")
 	})
 
 	tagsInput.addEventListener("focus", function(event){
