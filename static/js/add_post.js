@@ -9,20 +9,21 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var linkButton = document.getElementById("add-link")
 	var linkModalElement = document.getElementById("link-modal")
 	var linkModal = new Modal(linkModalElement)
-	var modalInput = linkModalElement.querySelector("input#modal-link")	
+	var linkModalInput = linkModalElement.querySelector("input#modal-link")	
+	var linkModalError = linkModalElement.querySelector("div.modal-error")
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
 
 	linkButton.addEventListener("click", function(event){
 		//Once the input is focused, we will lose our selection. We need to get it now.
 		linkModal.show()
-		modalInput.focus()
+		linkModalInput.focus()
 	})
 
 	linkModal.element.addEventListener("positive-pressed", function(event){
-		if (modalInput.value.length === 0) {
-			modalInput.setCustomValidity("Please enter a link")	
-			event.preventDefault()
+		if (linkModalInput.value.trim().length === 0) {
+			linkModalError.classList.add("active")
+			event.preventDefault();
 		}
 		else {
 			editor.focus()
@@ -30,10 +31,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 			editor.setSelection(null)
 			//This basically indicates that we don't actually have a selection.
 			if (selection.end - selection.start === 0){
-				console.log(modalInput.value)
+				console.log(linkModalInput.value)
 				console.log(selection.start)
-				console.log(modalInput.value)
-				editor.insertText(selection.start, modalInput.value, "link", modalInput.value)	
+				console.log(linkModalInput.value)
+				editor.insertText(selection.start, linkModalInput.value, "link", linkModalInput.value)	
 			}
 		}
 	})
