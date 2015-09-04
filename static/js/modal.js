@@ -55,8 +55,6 @@ function Modal(element) {
 						secondaryEvent.el = this
 						_this.element.dispatchEvent(secondaryEvent)
 					}
-					console.log(mainEvent.defaultPrevented)
-					console.log(secondaryEvent.defaultPrevented)
 					if (!(mainEvent.defaultPrevented || (secondaryEvent != null && secondaryEvent.defaultPrevented))){
 						_this.hide()
 					}
