@@ -30,6 +30,15 @@ function Modal(element) {
 		buttons.forEach(function(button){
 			//Checks if the button is actually an element.
 			if (button.nodeType == 1){
+				if (button.classList.contains("positive")){
+					document.addEventListener("keyup", function(event){
+						if (event.keyCode == 13){ //Enter
+							event.preventDefault()
+							button.click()
+						}
+					})
+				}
+
 				button.addEventListener("click", function(event){
 					var mainEvent = new Event("pressed")
 					mainEvent.el = this
