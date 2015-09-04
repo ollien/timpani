@@ -74,3 +74,7 @@ Modal.prototype.toggle = function() {
 		this.show();
 	}
 }
+
+Modal.prototype.addEventListener = function(){
+	this.element.addEventListener.apply(this, arguments)
+}
