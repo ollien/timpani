@@ -54,6 +54,22 @@ form#post-form {
 		display: none;	
 	}
 
+	span#align {
+		ul.pure-menu-children {
+			width: 100%;
+			li {
+				width: 100%;
+				display: block;	
+				text-align: center;
+				a{
+					margin: 0;	
+					padding-left: 32px;
+					padding-right: 32px;
+				}
+			}	
+		}
+	}
+
 	div#tag-input-div {
 		display: inline-block;
 		padding: 0px;
