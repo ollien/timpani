@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event){
-	var editor = new Quill("div#editor")
+	var editorDiv = document.getElementById("editor")
+	var editor = new Quill(editorDiv)
 	var postBodyInput = document.getElementById("post-body")
 	var validityInput = document.getElementById("post-validity")
 	var tagsInput = document.getElementById("tags-input")
