@@ -40,14 +40,14 @@ function Modal(element) {
 				}
 
 				button.addEventListener("click", function(event){
-					var mainEvent = new Event("pressed")
+					var mainEvent = new Event("pressed", {cancelable: true})
 					mainEvent.el = this
 					if (this.classList.contains("positive")){
-						var secondaryEvent = new Event("positive-pressed")
+						var secondaryEvent = new Event("positive-pressed", {cancelable: true})
 					}
 
 					else if (this.classList.contains("negative")){
-						var secondaryEvent = new Event("negative-pressed")
+						var secondaryEvent = new Event("negative-pressed", {cancelable: true})
 					}	
 					
 					_this.element.dispatchEvent(mainEvent)
@@ -55,6 +55,8 @@ function Modal(element) {
 						secondaryEvent.el = this
 						_this.element.dispatchEvent(secondaryEvent)
 					}
+					console.log(mainEvent.defaultPrevented)
+					console.log(secondaryEvent.defaultPrevented)
 					if (!(mainEvent.defaultPrevented || (secondaryEvent != null && secondaryEvent.defaultPrevented))){
 						_this.hide()
 					}
@@ -91,3 +93,4 @@ Modal.prototype.toggle = function() {
 Modal.prototype.addEventListener = function(){
 	this.element.addEventListener.apply(this, arguments)
 }
+
