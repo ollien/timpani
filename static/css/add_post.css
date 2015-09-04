@@ -90,7 +90,11 @@ form#post-form {
     margin-bottom: 10px;
     text-align: left;
     background-color: #fff;
-    border-radius: 5px; }
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd; }
+  form#post-form div#editor.focused {
+    border-color: #129FEA; }
   form#post-form input#placeholder-tags-input {
     display: none; }
   form#post-form div#tag-input-div {
