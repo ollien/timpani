@@ -73,6 +73,7 @@ div.modal-overlay {
 	opacity: 0;
 	transition-property: opacity;
 	transition-duration: $modal-transition-duration;
+	z-index: 99999;
 }
 
 div.modal-overlay.active {

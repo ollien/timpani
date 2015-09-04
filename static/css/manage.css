@@ -53,7 +53,8 @@ div.modal-overlay {
   background-color: black;
   opacity: 0;
   transition-property: opacity;
-  transition-duration: 250ms; }
+  transition-duration: 250ms;
+  z-index: 99999; }
 
 div.modal-overlay.active {
   opacity: .15; }

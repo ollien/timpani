@@ -6,8 +6,15 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var placeholderTagsInput = document.getElementById("placeholder-tags-input")
 	var tagsInputPlugin = insignia(tagsInput);
 	var form = document.getElementById("post-form") 
-	
+	var linkButton = document.getElementById("add-link")
+	var linkModalElement = document.getElementById("link-modal")
+	var linkModal = new Modal(linkModalElement)
+
 	editor.addModule("toolbar", {container: "div#toolbar"})
+
+	linkButton.addEventListener("click", function(event){
+		linkModal.show()
+	})
 
 	tagsInput.addEventListener("focus", function(event){
 		var div = document.getElementById("tag-input-div")
