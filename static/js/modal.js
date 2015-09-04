@@ -1,6 +1,6 @@
 function Modal(element) {
-	this.overlay = document.createElement("div");
-	this.overlay.classList.add("modal-overlay");
+	this.overlay = document.createElement("div")
+	this.overlay.classList.add("modal-overlay")
 
 	if (element instanceof HTMLElement) {
 		this.element = element	
@@ -16,45 +16,49 @@ function Modal(element) {
 		}
 	}
 
+
 	if (this.overlay.style.zIndex === undefined || this.overlay.style.zIndex === ""){
 		this.overlay.style.zIndex = 0
 	}
+
 	this.element.style.zIndex = this.overlay.style.zIndex + 1
 
 	buttonsEl = this.element.querySelector(".modal-buttons")
 	if (buttonsEl != null){
 		buttons = Array.prototype.slice.call(buttonsEl.childNodes)
-		var _this = this;
+		var _this = this
 		buttons.forEach(function(button){
-			button.addEventListener("click", function(event){
-				var mainEvent = new Event("pressed")
-				mainEvent.el = button
-				if (button.classList.contains("positive")){
-					var secondaryEvent = new Event("positive-pressed");
-				}
+			//Checks if the button is actually an element.
+			if (button.nodeType == 1){
+				button.addEventListener("click", function(event){
+					var mainEvent = new Event("pressed")
+					mainEvent.el = this
+					if (this.classList.contains("positive")){
+						var secondaryEvent = new Event("positive-pressed")
+					}
 
-				else if (button.classList.contains("negative")){
-					var secondaryEvent = new Event("negative-pressed");
-				}	
-				
-				_this.element.dispatchEvent(mainEvent)
-				if (secondaryEvent != null){
-					secondaryEvent.el = button;
-					_this.element.dispatchEvent(secondaryEvent)
-				}
-				if (!(mainEvent.defaultPrevented || (secondaryEvent != null && secondaryEvent.defaultPrevented))){
-					_this.hide()
-				}
-			})
+					else if (this.classList.contains("negative")){
+						var secondaryEvent = new Event("negative-pressed")
+					}	
+					
+					_this.element.dispatchEvent(mainEvent)
+					if (secondaryEvent != null){
+						secondaryEvent.el = this
+						_this.element.dispatchEvent(secondaryEvent)
+					}
+					if (!(mainEvent.defaultPrevented || (secondaryEvent != null && secondaryEvent.defaultPrevented))){
+						_this.hide()
+					}
+				})
+			}
 		})
 	}
-	
 }
 
 
 Modal.prototype.show = function() {
 	this.element.classList.add("active")
-	document.body.appendChild(this.overlay);
+	document.body.appendChild(this.overlay)
 	this.overlay.classList.add("active")
 }
 
@@ -68,10 +72,10 @@ Modal.prototype.hide = function() {
 
 Modal.prototype.toggle = function() {
 	if (this.element.classList.contains("active")) {
-		this.hide();
+		this.hide()
 	}
 	else {
-		this.show();
+		this.show()
 	}
 }
 
