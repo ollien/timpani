@@ -15,6 +15,17 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
 
+	editor.on("selection-change", function(range){
+		if (range == null){
+			editorDiv.classList.remove("focused")
+		}
+
+		else {
+			editorDiv.classList.add("focused")
+		}
+	})
+
+
 	linkButton.addEventListener("click", function(event){
 		//Once the input is focused, we will lose our selection. We need to get it now.
 		linkModal.show()
