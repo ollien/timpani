@@ -68,17 +68,25 @@ function Modal(element) {
 
 
 Modal.prototype.show = function() {
-	this.element.classList.add("active")
-	document.body.appendChild(this.overlay)
-	this.overlay.classList.add("active")
+	var event = new Event("show", {cancelable: true})
+	this.element.dispatchEvent(event)
+	if (!event.defaultPrevented){
+		this.element.classList.add("active")
+		document.body.appendChild(this.overlay)
+		this.overlay.classList.add("active")
+	}
 }
 
 Modal.prototype.hide = function() {
-	this.element.classList.remove("active")
-	this.overlay.addEventListener("transitionend", function(event){
-		this.remove()
-	})
-	this.overlay.classList.remove("active")
+	var event = new Event("hide", {cancelable: true})	
+	this.element.dispatchEvent(event)
+	if (!event.defaultPrevented){
+		this.element.classList.remove("active")
+		this.overlay.addEventListener("transitionend", function(event){
+			this.remove()
+		})
+		this.overlay.classList.remove("active")
+	}
 }
 
 Modal.prototype.toggle = function() {
