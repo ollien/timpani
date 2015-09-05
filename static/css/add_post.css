@@ -98,27 +98,38 @@ form#post-form {
   form#post-form input#placeholder-tags-input {
     display: none; }
   form#post-form span#align {
-    display: inline !important;
-    padding: 7px 0px;
-    /*for some reason, the height can't set to be one less than it is, so the next best thing is to knocn one off its vertical padding.*/
-    margin-right: 4px;
-    border-radius: 4px; }
-    form#post-form span#align li.pure-menu-item {
-      position: relative;
-      top: -2px;
-      height: auto !important; }
-      form#post-form span#align li.pure-menu-item a.pure-menu-link:hover {
-        background-color: transparent; }
-      form#post-form span#align li.pure-menu-item ul.pure-menu-children {
+    width: 80px;
+    height: 32px;
+    border-radius: 4px;
+    padding: 0; }
+    form#post-form span#align ul.pure-menu-list {
+      width: 100% !important;
+      height: 100% !important; }
+      form#post-form span#align ul.pure-menu-list li.pure-menu-item {
+        height: 100%;
         width: 100%; }
-        form#post-form span#align li.pure-menu-item ul.pure-menu-children li.pure-menu-item {
-          width: 100%;
-          display: block;
-          text-align: center; }
-          form#post-form span#align li.pure-menu-item ul.pure-menu-children li.pure-menu-item a {
-            margin: 0;
-            padding-left: 32px;
-            padding-right: 32px; }
+        form#post-form span#align ul.pure-menu-list li.pure-menu-item a.pure-menu-link#align-text {
+          position: relative;
+          padding: 0;
+          top: 7px; }
+        form#post-form span#align ul.pure-menu-list li.pure-menu-item a.pure-menu-link:hover {
+          background-color: transparent; }
+        form#post-form span#align ul.pure-menu-list li.pure-menu-item ul.pure-menu-children {
+          border: 1px solid #EFEFEF;
+          position: relative;
+          top: 14px; }
+          form#post-form span#align ul.pure-menu-list li.pure-menu-item ul.pure-menu-children li.pure-menu-item {
+            width: 100%;
+            display: block;
+            text-align: center;
+            border-top: 1px solid #EFEFEF;
+            border-bottom: 1px solid #EFEFEF;
+            padding-top: 1px;
+            padding-bottom: 1px; }
+            form#post-form span#align ul.pure-menu-list li.pure-menu-item ul.pure-menu-children li.pure-menu-item a {
+              margin: 0; }
+          form#post-form span#align ul.pure-menu-list li.pure-menu-item ul.pure-menu-children li.pure-menu-item:hover {
+            background-color: #ddd; }
   form#post-form div#tag-input-div {
     display: inline-block;
     padding: 0px;

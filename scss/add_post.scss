@@ -55,30 +55,53 @@ form#post-form {
 	}
 
 	span#align {
-		display: inline !important;
-		padding: 7px 0px; /*for some reason, the height can't set to be one less than it is, so the next best thing is to knocn one off its vertical padding.*/
-		margin-right: 4px;
+		width: 80px;
+		height: 32px;
 		border-radius: 4px;
+		padding: 0;
 
-		li.pure-menu-item {
-			position: relative;
-			top: -2px;
-			height: auto !important; 
-			a.pure-menu-link:hover{
-				background-color: transparent;
-			}
-			ul.pure-menu-children {
+		ul.pure-menu-list {
+			width: 100% !important;
+			height: 100% !important;
+
+			li.pure-menu-item {
+				height: 100%; 
 				width: 100%;
-				li.pure-menu-item {
-					width: 100%;
-					display: block;	
-					text-align: center;
-					a {
-						margin: 0;	
-						padding-left: 32px;
-						padding-right: 32px;
+
+				a.pure-menu-link#align-text {
+					position: relative;
+					padding: 0;	
+					top: 7px;
+				}
+
+				a.pure-menu-link:hover {
+					background-color: transparent;
+				}
+
+				ul.pure-menu-children {
+					$border: 1px solid #EFEFEF;
+					border: $border;
+					position: relative;
+					top: 14px;
+					
+					li.pure-menu-item {
+						$vertical-padding: 1px;
+						width: 100%;
+						display: block;	
+						text-align: center;
+						border-top: $border;
+						border-bottom: $border;
+						padding-top: $vertical-padding;
+						padding-bottom: $vertical-padding;
+						a {
+							margin: 0;	
+						}
+					}	
+
+					li.pure-menu-item:hover {
+						background-color: #ddd;	
 					}
-				}	
+				}
 			}
 		}
 	}
