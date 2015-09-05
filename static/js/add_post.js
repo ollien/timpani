@@ -12,9 +12,13 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var linkModal = new Modal(linkModalElement)
 	var linkModalInput = linkModalElement.querySelector("input#modal-link")	
 	var linkModalError = linkModalElement.querySelector("div.modal-error")
+	var alignLeft = document.getElementById("align-left")
+	var alignCenter = document.getElementById("align-center")
+	var alignRight = document.getElementById("align-right")
+	var alignJustify = document.getElementById("align-justify")
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
-
+	console.log(editor)
 	editor.on("selection-change", function(range){
 		if (range == null){
 			editorDiv.classList.remove("focused")
@@ -30,6 +34,40 @@ document.addEventListener("DOMContentLoaded", function(event){
 		//Once the input is focused, we will lose our selection. We need to get it now.
 		linkModal.show()
 		linkModalInput.focus()
+	})
+
+	alignLeft.addEventListener("click", function(event){
+		editor.focus()
+		var selection = editor.getSelection()
+		if (selection != null){
+			editor.formatLine(selection.start, selection.end, "align", "left")	
+		}
+	})
+
+	alignCenter.addEventListener("click", function(event){
+		editor.focus()
+		var selection = editor.getSelection()
+		if (selection != null){
+			editor.formatLine(selection.start, selection.end, "align", "center")	
+		}
+	})
+
+	alignRight.addEventListener("click", function(event){
+		editor.focus()
+		var selection = editor.getSelection()
+		if (selection != null){
+			editor.formatLine(selection.start, selection.end, "align", "right")	
+		}
+	})
+
+	alignJustify.addEventListener("click", function(event){
+		editor.focus()
+		var selection = editor.getSelection()
+		if (selection != null){
+			editor.formatText(selection.start, selection.end+1, "align", "justify")	
+			console.log(selection)
+			console.log("formatted")
+		}
 	})
 
 	linkModal.element.addEventListener("positive-pressed", function(event){
@@ -75,3 +113,4 @@ document.addEventListener("DOMContentLoaded", function(event){
 	})
 
 })
+
