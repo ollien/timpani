@@ -130,6 +130,8 @@ form#post-form {
               margin: 0; }
           form#post-form span#align ul.pure-menu-list li.pure-menu-item ul.pure-menu-children li.pure-menu-item:hover {
             background-color: #ddd; }
+  form#post-form select.ql-font, form#post-form select.ql-size {
+    height: 32px; }
   form#post-form div#tag-input-div {
     display: inline-block;
     padding: 0px;

@@ -106,6 +106,10 @@ form#post-form {
 		}
 	}
 
+	select.ql-font, select.ql-size {
+		height: 32px;	
+	}
+
 	div#tag-input-div {
 		display: inline-block;
 		padding: 0px;
