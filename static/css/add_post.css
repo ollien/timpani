@@ -97,16 +97,18 @@ form#post-form {
     border-color: #129FEA; }
   form#post-form input#placeholder-tags-input {
     display: none; }
-  form#post-form span#align ul.pure-menu-children {
-    width: 100%; }
-    form#post-form span#align ul.pure-menu-children li {
-      width: 100%;
-      display: block;
-      text-align: center; }
-      form#post-form span#align ul.pure-menu-children li a {
-        margin: 0;
-        padding-left: 32px;
-        padding-right: 32px; }
+  form#post-form span#align li.pure-menu-item {
+    height: auto !important; }
+    form#post-form span#align li.pure-menu-item ul.pure-menu-children {
+      width: 100%; }
+      form#post-form span#align li.pure-menu-item ul.pure-menu-children li.pure-menu-item {
+        width: 100%;
+        display: block;
+        text-align: center; }
+        form#post-form span#align li.pure-menu-item ul.pure-menu-children li.pure-menu-item a {
+          margin: 0;
+          padding-left: 32px;
+          padding-right: 32px; }
   form#post-form div#tag-input-div {
     display: inline-block;
     padding: 0px;

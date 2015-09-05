@@ -55,18 +55,21 @@ form#post-form {
 	}
 
 	span#align {
-		ul.pure-menu-children {
-			width: 100%;
-			li {
+		li.pure-menu-item {
+			height: auto !important;
+			ul.pure-menu-children {
 				width: 100%;
-				display: block;	
-				text-align: center;
-				a{
-					margin: 0;	
-					padding-left: 32px;
-					padding-right: 32px;
-				}
-			}	
+				li.pure-menu-item {
+					width: 100%;
+					display: block;	
+					text-align: center;
+					a {
+						margin: 0;	
+						padding-left: 32px;
+						padding-right: 32px;
+					}
+				}	
+			}
 		}
 	}
 
