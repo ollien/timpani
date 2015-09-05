@@ -8,10 +8,15 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var tagsInputPlugin = insignia(tagsInput);
 	var form = document.getElementById("post-form") 
 	var linkButton = document.getElementById("add-link")
+	var imageButton = document.getElementById("add-image")
 	var linkModalElement = document.getElementById("link-modal")
 	var linkModal = new Modal(linkModalElement)
 	var linkModalInput = linkModalElement.querySelector("input#modal-link")	
 	var linkModalError = linkModalElement.querySelector("div.modal-error")
+	var imageModalElement = document.getElementById("image-modal")
+	var imageModal = new Modal(imageModalElement)
+	var imageModalLinkInput = imageModalElement.querySelector("input#image-url")
+	var imageModalFileInput = imageModalElement.querySelector("input#file-input")
 	var alignLeft = document.getElementById("align-left")
 	var alignCenter = document.getElementById("align-center")
 	var alignRight = document.getElementById("align-right")
@@ -29,11 +34,14 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
-
 	linkButton.addEventListener("click", function(event){
 		//Once the input is focused, we will lose our selection. We need to get it now.
 		linkModal.show()
 		linkModalInput.focus()
+	})
+
+	imageButton.addEventListener("click", function(event){
+		imageModal.show()	
 	})
 
 	alignLeft.addEventListener("click", function(event){
