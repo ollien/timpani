@@ -97,18 +97,26 @@ form#post-form {
     border-color: #129FEA; }
   form#post-form input#placeholder-tags-input {
     display: none; }
-  form#post-form span#align li.pure-menu-item {
-    height: auto !important; }
-    form#post-form span#align li.pure-menu-item ul.pure-menu-children {
-      width: 100%; }
-      form#post-form span#align li.pure-menu-item ul.pure-menu-children li.pure-menu-item {
-        width: 100%;
-        display: block;
-        text-align: center; }
-        form#post-form span#align li.pure-menu-item ul.pure-menu-children li.pure-menu-item a {
-          margin: 0;
-          padding-left: 32px;
-          padding-right: 32px; }
+  form#post-form span#align {
+    display: inline !important;
+    padding: 7px 0px;
+    /*for some reason, the height can't set to be one less than it is, so the next best thing is to knocn one off its vertical padding.*/ }
+    form#post-form span#align li.pure-menu-item {
+      position: relative;
+      top: -2px;
+      height: auto !important; }
+      form#post-form span#align li.pure-menu-item a.pure-menu-link:hover {
+        background-color: transparent; }
+      form#post-form span#align li.pure-menu-item ul.pure-menu-children {
+        width: 100%; }
+        form#post-form span#align li.pure-menu-item ul.pure-menu-children li.pure-menu-item {
+          width: 100%;
+          display: block;
+          text-align: center; }
+          form#post-form span#align li.pure-menu-item ul.pure-menu-children li.pure-menu-item a {
+            margin: 0;
+            padding-left: 32px;
+            padding-right: 32px; }
   form#post-form div#tag-input-div {
     display: inline-block;
     padding: 0px;
