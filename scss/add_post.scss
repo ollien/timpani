@@ -197,3 +197,26 @@ div#link-modal {
 		opacity: 1;
 	}
 }
+
+div#image-modal{
+	$vertical-margin: 10px;
+
+	label {
+		display: block;	
+		margin-bottom: $vertical-margin;
+	}
+	
+	input#image-url{
+		width: 100%;	
+	}
+
+	div#or {
+		font-weight: 500;	
+		margin-top: $vertical-margin;
+		margin-bottom: $vertical-margin; 
+	}
+
+	input#image-upload {
+		width: 100%;	
+	}
+}

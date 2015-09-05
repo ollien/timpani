@@ -193,4 +193,16 @@ div#link-modal div.modal-error.active {
   font-size: 12pt;
   opacity: 1; }
 
+div#image-modal label {
+  display: block;
+  margin-bottom: 10px; }
+div#image-modal input#image-url {
+  width: 100%; }
+div#image-modal div#or {
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 10px; }
+div#image-modal input#image-upload {
+  width: 100%; }
+
 /*# sourceMappingURL=add_post.css.map */
