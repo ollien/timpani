@@ -104,6 +104,17 @@ document.addEventListener("DOMContentLoaded", function(event){
 		imageModalLinkInput.disabled = true	
 	})
 
+	imageModal.element.addEventListener("positive-pressed", function(event){
+		if (!imageModalLinkInput.disabled && imageModalLinkInput.value.length > 0) { 
+			editor.focus()
+			var selection = editor.getSelection()
+			editor.insertEmbed(selection.end, "image", imageModalLinkInput.value)
+		}
+		else if (!imageModalFileInput.disabled && imageModalFileInput.value.length > 0) {
+			event.preventDefault() //We're gonna need to do this on our own.
+		}
+	})
+
 	imageModal.element.addEventListener("hide", function(event){
 		imageModalLinkInput.disabled = false
 		imageModalLinkInput.value = ""
