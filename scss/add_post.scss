@@ -219,4 +219,43 @@ div#image-modal{
 	input#image-upload {
 		width: 100%;	
 	}
+
+	$disable-duration: 350ms;
+	div.modal-buttons {
+		button {
+			opacity: 1;	
+		}
+
+		button[disabled] {
+			transition-property: opacity;
+			transition-duration: $disable-duration;
+		}	
+
+		button.neutral {
+			position:relative;
+			right: 0;
+			transition-property: right, opacity;
+			transition-duration: $disable-duration;
+		}
+
+		button.neutral[disabled] {
+			opacity: 0;
+			right: -60px;
+		}
+	}
+
+	div.modal-spinner {
+		position: absolute;
+		bottom: 36px;
+		right: 50px;
+		margin: 0;
+		opacity: 0;
+		float: right;
+		transition-property: opacity;
+		transition-duration: $disable-duration;
+	}
+
+	div.modal-spinner.active {
+		opacity: 1;	
+	}
 }
