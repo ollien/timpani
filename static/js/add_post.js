@@ -99,6 +99,13 @@ document.addEventListener("DOMContentLoaded", function(event){
 		linkModalError.classList.remove("active")
 	})
 
+	imageModalLinkInput.on("input", function(event){
+		imageModalFileInput.disabled = true	
+	})
+
+	imageModalFileInput.on("change", function(event){
+		imageModalLinkInput.disabled = true	
+	})
 
 	imageModal.on("hide", function(event){
 		imageModalLinkInput.disabled = false
