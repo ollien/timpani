@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var imageModalElement = document.getElementById("image-modal")
 	var imageModal = new Modal(imageModalElement)
 	var imageModalLinkInput = imageModalElement.querySelector("input#image-url")
-	var imageModalFileInput = imageModalElement.querySelector("input#file-input")
+	var imageModalFileInput = imageModalElement.querySelector("input#image-upload")
 	var alignLeft = document.getElementById("align-left")
 	var alignCenter = document.getElementById("align-center")
 	var alignRight = document.getElementById("align-right")
@@ -99,17 +99,17 @@ document.addEventListener("DOMContentLoaded", function(event){
 		linkModalError.classList.remove("active")
 	})
 
-	imageModalLinkInput.on("input", function(event){
+	imageModalLinkInput.addEventListener("input", function(event){
 		imageModalFileInput.disabled = true	
 	})
 
-	imageModalFileInput.on("change", function(event){
+	imageModalFileInput.addEventListener("change", function(event){
 		imageModalLinkInput.disabled = true	
 	})
 
-	imageModal.on("hide", function(event){
+	imageModal.element.addEventListener("hide", function(event){
 		imageModalLinkInput.disabled = false
-		imagemodalLinkInput.value = ""
+		imageModalLinkInput.value = ""
 		imageModalFileInput.disabled = false
 		imageModalFileInput.value = null
 	})
