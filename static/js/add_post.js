@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var alignJustify = document.getElementById("align-justify")
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
-	console.log(editor)
 	editor.on("selection-change", function(range){
 		if (range == null){
 			editorDiv.classList.remove("focused")
@@ -73,8 +72,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 		var selection = editor.getSelection()
 		if (selection != null){
 			editor.formatText(selection.start, selection.end+1, "align", "justify")	
-			console.log(selection)
-			console.log("formatted")
 		}
 	})
 
