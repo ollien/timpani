@@ -8,6 +8,14 @@ $default-background-color: #F5F5F5;
   #{$name}: #{$argument};
 }
 
+@mixin keyframes($name) {
+  @-moz-keyframes #{$name} { @content; }
+  @-webkit-keyframes #{$name} { @content; }
+  @-o-keyframes #{$name} { @content; }
+  @-ms-keyframes #{$name} { @content; }
+  @keyframes #{$name} { @content; }
+}
+
 body {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 	font-weight: 300;
