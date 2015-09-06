@@ -99,6 +99,14 @@ document.addEventListener("DOMContentLoaded", function(event){
 		linkModalError.classList.remove("active")
 	})
 
+
+	imageModal.on("hide", function(event){
+		imageModalLinkInput.disabled = false
+		imagemodalLinkInput.value = ""
+		imageModalFileInput.disabled = false
+		imageModalFileInput.value = null
+	})
+
 	tagsInput.addEventListener("focus", function(event){
 		var div = document.getElementById("tag-input-div")
 		div.classList.add("focused")
