@@ -104,6 +104,9 @@ document.addEventListener("DOMContentLoaded", function(event){
 			if (selection.end - selection.start === 0){
 				editor.insertText(selection.start, linkModal.input.value, "link", linkModal.input.value)	
 			}
+			else {
+				editor.formatText(selection.start, selection.end, "link", linkModal.input.value)	
+			}
 		}
 	})
 
