@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var validityInput = document.getElementById("post-validity")
 	var tagsInput = document.getElementById("tags-input")
 	var placeholderTagsInput = document.getElementById("placeholder-tags-input")
-	var tagsInputPlugin = insignia(tagsInput);
+	var tagsInputPlugin = insignia(tagsInput)
 	var form = document.getElementById("post-form") 
 	var linkButton = document.getElementById("add-link")
 	var imageButton = document.getElementById("add-image")
@@ -51,13 +51,12 @@ document.addEventListener("DOMContentLoaded", function(event){
 	})
 
 	linkButton.addEventListener("click", function(event){
-		//Once the input is focused, we will lose our selection. We need to get it now.
-		linkModal.show()
-		linkModalInput.focus()
+		linkModal.modal.show()
+		linkModal.input.focus()
 	})
 
 	imageButton.addEventListener("click", function(event){
-		imageModal.show()	
+		imageModal.modal.show()	
 	})
 
 	alignLeftButton.addEventListener("click", function(event){
@@ -93,9 +92,9 @@ document.addEventListener("DOMContentLoaded", function(event){
 	})
 
 	linkModal.element.addEventListener("positive-pressed", function(event){
-		if (linkModalInput.value.trim().length === 0) {
-			linkModalError.classList.add("active")
-			event.preventDefault();
+		if (linkModal.input.value.trim().length === 0) {
+			linkModal.errorDiv.classList.add("active")
+			event.preventDefault()
 		}
 		else {
 			editor.focus()
@@ -103,84 +102,84 @@ document.addEventListener("DOMContentLoaded", function(event){
 			editor.setSelection(null)
 			//This basically indicates that we don't actually have a selection.
 			if (selection.end - selection.start === 0){
-				editor.insertText(selection.start, linkModalInput.value, "link", linkModalInput.value)	
+				editor.insertText(selection.start, linkModal.input.value, "link", linkModal.input.value)	
 			}
 		}
 	})
 
 	linkModal.element.addEventListener("hide", function(event){
-		linkModalInput.value = ""
-		linkModalError.classList.remove("active")
+		linkModal.input.value = ""
+		linkModal.errorDiv.classList.remove("active")
 	})
 
-	imageModalLinkInput.addEventListener("input", function(event){
-		imageModalFileInput.disabled = true	
+	imageModal.linkInput.addEventListener("input", function(event){
+		imageModal.fileInput.disabled = true	
 	})
 
-	imageModalFileInput.addEventListener("change", function(event){
-		imageModalLinkInput.disabled = true	
+	imageModal.fileInput.addEventListener("change", function(event){
+		imageModal.linkInput.disabled = true	
 	})
 
 	imageModal.element.addEventListener("positive-pressed", function(event){
-		if (!imageModalLinkInput.disabled && imageModalLinkInput.value.length > 0) { 
+		if (!imageModal.linkInput.disabled && imageModal.linkInput.value.length > 0) { 
 			editor.focus()
 			var selection = editor.getSelection()
-			editor.insertEmbed(selection.end, "image", imageModalLinkInput.value)
+			editor.insertEmbed(selection.end, "image", imageModal.linkInput.value)
 		}
-		else if (!imageModalFileInput.disabled && imageModalFileInput.value.length > 0) {
+		else if (!imageModal.fileInput.disabled && imageModal.fileInput.value.length > 0) {
 			event.preventDefault() //We're gonna need to do this on our own.
-			var imageUploadRequest = new XMLHttpRequest()
-			var formData = new FormData();
-			formData.append("image", imageModalFileInput.files[0])
-			imageUploadRequest.open("POST", "/upload_image")
+			imageModal.uploadRequest = new XMLHttpRequest()
+			var formData = new FormData()
+			formData.append("image", imageModal.fileInput.files[0])
+			imageModal.uploadRequest.open("POST", "/upload_image")
 
-			imageUploadRequest.onload =  function(){
-				var data = JSON.parse(imageUploadRequest.responseText);
+			imageModal.uploadRequest.onload = function(){
+				var data = JSON.parse(imageModal.uploadRequest.responseText)
 				if (data.error == 0) {
 					editor.focus()
 					var selection = editor.getSelection()
 					editor.insertEmbed(selection.end, "image", data.url)
-					imageModal.hide()	
+					imageModal.modal.hide()	
 				}
-				imageUploadRequest = null
+				imageModal.uploadRequest = null
 				//TODO: implement error handling
 			}
 
-			imageUploadRequest.send(formData)
-			imageModalPositiveButton.classList.add("uploading")
-			imageModalPositiveButton.disabled = true;
+			imageModal.uploadRequest.send(formData)
+			imageModal.positiveButton.classList.add("uploading")
+			imageModal.positiveButton.disabled = true
 		}
 	})
 
 	imageModal.element.addEventListener("hide", function(event){
-		imageModalLinkInput.disabled = false
-		imageModalLinkInput.value = ""
-		imageModalFileInput.disabled = false
-		imageModalFileInput.value = null
-		imageModalPositiveButton.classList.remove("uploading")
-		imageModalPositiveButton.disabled = false;
-		if (imageUploadRequest != null) {
-			imageUploadRequest.abort()	
+		imageModal.linkInput.disabled = false
+		imageModal.linkInput.value = ""
+		imageModal.fileInput.disabled = false
+		imageModal.fileInput.value = null
+		imageModal.positiveButton.classList.remove("uploading")
+		imageModal.positiveButton.disabled = false
+		if (imageModal.uploadRequest != null) {
+			imageModal.uploadRequest.abort()	
 		}
 	})
 
 	tagsInput.addEventListener("focus", function(event){
 		var div = document.getElementById("tag-input-div")
 		div.classList.add("focused")
-	});
+	})
 
 	tagsInput.addEventListener("blur", function(event){
 		var div = document.getElementById("tag-input-div")
 		div.classList.remove("focused")
-	});
+	})
 
 	form.addEventListener("submit", function(event){
 		if (editor.getText().trim().length == 0) {
 			validityInput.setCustomValidity("Please fill out a post body.")		
-			event.preventDefault();
+			event.preventDefault()
 		}
 		else {
-			postBodyInput.value = editor.getHTML();	
+			postBodyInput.value = editor.getHTML()
 			placeholderTagsInput.value = tagsInputPlugin.value()
 		}
 	})
