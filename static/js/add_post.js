@@ -17,6 +17,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var imageModal = new Modal(imageModalElement)
 	var imageModalLinkInput = imageModalElement.querySelector("input#image-url")
 	var imageModalFileInput = imageModalElement.querySelector("input#image-upload")
+	var imageModalPositiveButton = imageModalElement.querySelector("button.positive")
+	var imageUploadRequest = null //This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
 	var alignLeft = document.getElementById("align-left")
 	var alignCenter = document.getElementById("align-center")
 	var alignRight = document.getElementById("align-right")
@@ -112,6 +114,26 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 		else if (!imageModalFileInput.disabled && imageModalFileInput.value.length > 0) {
 			event.preventDefault() //We're gonna need to do this on our own.
+			var imageUploadRequest = new XMLHttpRequest()
+			var formData = new FormData();
+			formData.append("image", imageModalFileInput.files[0])
+			imageUploadRequest.open("POST", "/upload_image")
+
+			imageUploadRequest.onload =  function(){
+				var data = JSON.parse(imageUploadRequest.responseText);
+				if (data.error == 0) {
+					editor.focus()
+					var selection = editor.getSelection()
+					editor.insertEmbed(selection.end, "image", data.url)
+					imageModal.hide()	
+				}
+				imageUploadRequest = null
+				//TODO: implement error handling
+			}
+
+			imageUploadRequest.send(formData)
+			imageModalPositiveButton.classList.add("uploading")
+			imageModalPositiveButton.disabled = true;
 		}
 	})
 
@@ -120,6 +142,11 @@ document.addEventListener("DOMContentLoaded", function(event){
 		imageModalLinkInput.value = ""
 		imageModalFileInput.disabled = false
 		imageModalFileInput.value = null
+		imageModalPositiveButton.classList.remove("uploading")
+		imageModalPositiveButton.disabled = false;
+		if (imageUploadRequest != null) {
+			imageUploadRequest.abort()	
+		}
 	})
 
 	tagsInput.addEventListener("focus", function(event){
