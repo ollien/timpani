@@ -37,9 +37,9 @@ $modal-transition-duration: 250ms;
 
 div.modal {
 	position: fixed;
-	width: 40%;
 	top: 40%;
 	left: 50%; 
+	-webkit-font-smoothing: subpixel-antialiased;
 	@include vendor-prefix(transform, translate(-50%, -50%));
 	padding: 20px;
 	background-color: white;

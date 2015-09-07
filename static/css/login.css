@@ -14,9 +14,9 @@ button.pure-button {
 
 div.modal {
   position: fixed;
-  width: 40%;
   top: 40%;
   left: 50%;
+  -webkit-font-smoothing: subpixel-antialiased;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
