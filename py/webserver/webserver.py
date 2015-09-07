@@ -14,5 +14,4 @@ app = flask.Flask(__name__, static_folder = STATIC_PATH)
 app.register_blueprint(views.userviews.blueprint)
 app.register_blueprint(views.adminviews.blueprint)
 app.register_blueprint(endpoints.adminendpoints.blueprint)
-app.register_blueprint(endpoints.userendpoints.blueprint)
 app.debug = True
