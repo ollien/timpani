@@ -9,17 +9,21 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var form = document.getElementById("post-form") 
 	var linkButton = document.getElementById("add-link")
 	var imageButton = document.getElementById("add-image")
-	var linkModalElement = document.getElementById("link-modal")
-	var linkModal = new Modal(linkModalElement)
-	var linkModalInput = linkModalElement.querySelector("input#modal-link")	
-	var linkModalError = linkModalElement.querySelector("div.modal-error")
-	var imageModalElement = document.getElementById("image-modal")
-	var imageModal = new Modal(imageModalElement)
-	var imageModalLinkInput = imageModalElement.querySelector("input#image-url")
-	var imageModalFileInput = imageModalElement.querySelector("input#image-upload")
-	var imageModalPositiveButton = imageModalElement.querySelector("button.positive")
-	var imageUploadRequest = null //This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
-	var alignLeft = document.getElementById("align-left")
+	var linkModal = {
+		element: document.getElementById("link-modal"),
+		modal: new Modal(linkModal.element),
+		input: document.getElementById("modal-link"),
+		error: linkModal.element.querySelector("div.modal-error")
+	}
+
+	var imageModal = {
+		element: document.getElementById("link-modal"),
+		modal: new Modal(imageModal.element),
+		linkInput: document.getElementById("image-url"),
+		fileInput: document.getElementById("image-uload"),
+		positiveButton: imageModal.element.querySelector("button.positive"), //We need to do some styling with this button, so it's better to find it now rather than later.
+		uploadRequest: null //This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
+	}
 	var alignCenter = document.getElementById("align-center")
 	var alignRight = document.getElementById("align-right")
 	var alignJustify = document.getElementById("align-justify")
