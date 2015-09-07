@@ -16,19 +16,27 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	var linkModal = {
 		element: document.getElementById("link-modal"),
-		modal: new Modal(linkModal.element),
 		input: document.getElementById("modal-link"),
-		error: linkModal.element.querySelector("div.modal-error")
-	}
+		init: function() { //We needt o access some objects within this obect upon initialization, so we use this function to do that.
+			this.modal = new Modal(this.element)
+			this.errorDiv = this.element.querySelector("div.modal-error")
+			delete this.init
+			return this
+		}
+	}.init()
 
 	var imageModal = {
-		element: document.getElementById("link-modal"),
-		modal: new Modal(imageModal.element),
+		element: document.getElementById("image-modal"),
 		linkInput: document.getElementById("image-url"),
-		fileInput: document.getElementById("image-uload"),
-		positiveButton: imageModal.element.querySelector("button.positive"), //We need to do some styling with this button, so it's better to find it now rather than later.
-		uploadRequest: null //This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
-	}
+		fileInput: document.getElementById("image-upload"),
+		uploadRequest: null, //This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
+		init: function(){ //We need to access some objects within this object upon initializaton, so we use this function to do that.
+			this.modal = new Modal(this.element)
+			this.positiveButton = this.element.querySelector("button.positive") //We need to do some styling with this button, so it's better to find it now rather than later.
+			delete this.init
+			return this
+		},
+	}.init()
 	
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
