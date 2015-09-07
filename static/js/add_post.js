@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var form = document.getElementById("post-form") 
 	var linkButton = document.getElementById("add-link")
 	var imageButton = document.getElementById("add-image")
+	var alignLeftButton = document.getElementById("align-left")
+	var alignCenterButton = document.getElementById("align-center")
+	var alignRightButton = document.getElementById("align-right")
+	var alignJustifyButton = document.getElementById("align-justify")
+
 	var linkModal = {
 		element: document.getElementById("link-modal"),
 		modal: new Modal(linkModal.element),
@@ -24,9 +29,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		positiveButton: imageModal.element.querySelector("button.positive"), //We need to do some styling with this button, so it's better to find it now rather than later.
 		uploadRequest: null //This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
 	}
-	var alignCenter = document.getElementById("align-center")
-	var alignRight = document.getElementById("align-right")
-	var alignJustify = document.getElementById("align-justify")
+	
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
 	editor.on("selection-change", function(range){
@@ -49,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		imageModal.show()	
 	})
 
-	alignLeft.addEventListener("click", function(event){
+	alignLeftButton.addEventListener("click", function(event){
 		editor.focus()
 		var selection = editor.getSelection()
 		if (selection != null){
@@ -57,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
-	alignCenter.addEventListener("click", function(event){
+	alignCenterButton.addEventListener("click", function(event){
 		editor.focus()
 		var selection = editor.getSelection()
 		if (selection != null){
@@ -65,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
-	alignRight.addEventListener("click", function(event){
+	alignRightButton.addEventListener("click", function(event){
 		editor.focus()
 		var selection = editor.getSelection()
 		if (selection != null){
@@ -73,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
-	alignJustify.addEventListener("click", function(event){
+	alignJustifyButton.addEventListener("click", function(event){
 		editor.focus()
 		var selection = editor.getSelection()
 		if (selection != null){
