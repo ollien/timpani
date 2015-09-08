@@ -185,6 +185,21 @@ form#post-form {
 	}
 }
 
+
+div.modal-error {
+	color: #FF0000;
+	opacity: 0;
+	font-size: 0;
+	transition-property: opacity, height;
+	transition-duration: 250ms;
+	margin-bottom: 10px;
+}
+
+div.modal-error.active {
+	font-size: 12pt;
+	opacity: 1;
+}
+
 div#link-modal {
 
 	div.modal-body {
@@ -193,18 +208,6 @@ div#link-modal {
 			width: 100%;	
 		}
 
-		div.modal-error {
-			color: #FF0000;
-			opacity: 0;
-			font-size: 0;
-			transition-property: opacity, height;
-			transition-duration: 250ms;
-		}
-
-		div.modal-error.active {
-			font-size: 12pt;
-			opacity: 1;
-		}
 	}
 }
 

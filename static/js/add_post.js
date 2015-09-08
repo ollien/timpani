@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		init: function(){ //We need to access some objects within this object upon initializaton, so we use this function to do that.
 			this.modal = new Modal(this.element)
 			this.positiveButton = this.element.querySelector("button.positive") //We need to do some styling with this button, so it's better to find it now rather than later.
+			this.errorDiv = this.element.querySelector("div.modal-error")
 			delete this.init
 			return this
 		},
@@ -139,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 			imageModal.uploadRequest.open("POST", "/upload_image")
 
 			imageModal.uploadRequest.onload = function(){
+				console.log("hm")
 				var data = JSON.parse(imageModal.uploadRequest.responseText)
 				if (data.error == 0) {
 					editor.focus()
@@ -146,8 +148,15 @@ document.addEventListener("DOMContentLoaded", function(event){
 					editor.insertEmbed(selection.end, "image", data.url)
 					imageModal.modal.hide()	
 				}
+
+				else if (data.error == 2){
+					imageModal.errorDiv.textContent = "Image must be a JPG, PNG, or GIF."
+					imageModal.errorDiv.classList.add("active")
+					imageModal.positiveButton.classList.remove("uploading")
+					imageModal.positiveButton.disabled = false
+				}
+
 				imageModal.uploadRequest = null
-				//TODO: implement error handling
 			}
 
 			imageModal.uploadRequest.send(formData)
@@ -163,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		imageModal.fileInput.value = null
 		imageModal.positiveButton.classList.remove("uploading")
 		imageModal.positiveButton.disabled = false
+		imageModal.errorDiv.classList.remove("active")
 		if (imageModal.uploadRequest != null) {
 			imageModal.uploadRequest.abort()	
 		}
@@ -171,8 +181,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	tagsInput.addEventListener("focus", function(event){
 		var div = document.getElementById("tag-input-div")
 		div.classList.add("focused")
-	})
-
+	}) 
 	tagsInput.addEventListener("blur", function(event){
 		var div = document.getElementById("tag-input-div")
 		div.classList.remove("focused")

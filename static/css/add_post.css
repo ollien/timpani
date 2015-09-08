@@ -186,19 +186,22 @@ form#post-form {
   form#post-form button#submit-post {
     margin-top: 10px; }
 
+div.modal-error {
+  color: #FF0000;
+  opacity: 0;
+  font-size: 0;
+  transition-property: opacity, height;
+  transition-duration: 250ms;
+  margin-bottom: 10px; }
+
+div.modal-error.active {
+  font-size: 12pt;
+  opacity: 1; }
+
 div#link-modal div.modal-body {
   width: 300px; }
   div#link-modal div.modal-body input#modal-link {
     width: 100%; }
-  div#link-modal div.modal-body div.modal-error {
-    color: #FF0000;
-    opacity: 0;
-    font-size: 0;
-    transition-property: opacity, height;
-    transition-duration: 250ms; }
-  div#link-modal div.modal-body div.modal-error.active {
-    font-size: 12pt;
-    opacity: 1; }
 
 div#image-modal div.modal-body {
   width: 450px; }
