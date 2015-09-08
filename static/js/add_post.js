@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
 	editor.addFormat("quote", {"class": "quote"})
-	editor.addFormat("code", {"class": "code-"})
+	editor.addFormat("code", {"class": "language-"})
 
 	codeEditor.getSession().setUseWorker(false)
 
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	codeModal.element.addEventListener("positive-pressed", function(event){
 		editor.focus()
 		var selection = editor.getSelection()
-		edtor.setSelection(null)
+		editor.setSelection(null)
 		editor.insertText(selection.end, codeEditor.getValue(), "code", codeModal.selectLanguage.value)
 	})
 
