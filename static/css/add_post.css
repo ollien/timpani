@@ -324,5 +324,11 @@ div#image-modal div.modal-buttons button.positive.uploading:before {
     -o-transform: scale(1);
     transform: scale(1);
     border-radius: 5px; } }
+div#code-modal div.modal-body {
+  width: 600px;
+  height: 550px; }
+  div#code-modal div.modal-body div#code-editor {
+    width: 100%;
+    height: 100%; }
 
 /*# sourceMappingURL=add_post.css.map */
