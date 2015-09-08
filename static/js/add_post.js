@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	var codeModal = {
 		element: document.getElementById("code-modal"),
+		selectLanguage: document.getElementById("select-language"),
 		init: function() { //We need to access some objects within this object upon initializatoin, so we use this function to do that.
 			this.modal = new Modal(this.element, {keyboard: false})	
 			delete this.init
@@ -201,7 +202,14 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
+	codeModal.selectLanguage.addEventListener("change", function(event){
+		console.log("ace/mode/"+codeModal.selectLanguage.value)
+		codeEditor.getSession().setMode("ace/mode/"+codeModal.selectLanguage.value)	
+	})
+
 	codeModal.element.addEventListener("hide", function(event){
+		codeEditor.getSession().setMode("ace/mode/plain_text")
+		codeModal.selectLanguage.selectedIndex = "0"
 		codeEditor.setValue("")
 	})
 
