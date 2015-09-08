@@ -292,7 +292,8 @@ div#code-modal {
 	div.modal-body {
 		width: 600px;
 		height: 550px;
-
+		box-sizing: border-box;
+		padding-bottom: 80px;
 		label {
 			display: block;
 			margin-bottom: 5px;

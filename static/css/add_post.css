@@ -329,7 +329,9 @@ div#image-modal div.modal-buttons button.positive.uploading:before {
     border-radius: 5px; } }
 div#code-modal div.modal-body {
   width: 600px;
-  height: 550px; }
+  height: 550px;
+  box-sizing: border-box;
+  padding-bottom: 80px; }
   div#code-modal div.modal-body label {
     display: block;
     margin-bottom: 5px; }
