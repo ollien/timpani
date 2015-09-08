@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var codeModal = {
 		element: document.getElementById("code-modal"),
 		init: function() { //We need to access some objects within this object upon initializatoin, so we use this function to do that.
-			this.modal = new Modal(this.element)	
+			this.modal = new Modal(this.element, {keyboard: false})	
 			delete this.init
 			return this
 		}
@@ -199,6 +199,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 		if (imageModal.uploadRequest != null) {
 			imageModal.uploadRequest.abort()	
 		}
+	})
+
+	codeModal.element.addEventListener("hide", function(event){
+		codeEditor.setValue("")
 	})
 
 	tagsInput.addEventListener("focus", function(event){
