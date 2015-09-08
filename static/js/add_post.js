@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var form = document.getElementById("post-form") 
 	var linkButton = document.getElementById("add-link")
 	var imageButton = document.getElementById("add-image")
+	var quoteButton = document.getElementById("add-quote")
 	var alignLeftButton = document.getElementById("align-left")
 	var alignCenterButton = document.getElementById("align-center")
 	var alignRightButton = document.getElementById("align-right")
@@ -46,10 +47,17 @@ document.addEventListener("DOMContentLoaded", function(event){
 	editor.on("selection-change", function(range){
 		if (range == null){
 			editorDiv.classList.remove("focused")
+			quoteButton.disabled = true
 		}
 
 		else {
 			editorDiv.classList.add("focused")
+			if (range.end - range.start > 0){
+				quoteButton.disabled = false
+			}
+			else {
+				quoteButton.disabled = true
+			}
 		}
 	})
 
