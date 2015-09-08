@@ -205,6 +205,12 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
+
+	codeModal.element.addEventListener("show", function(event){
+		editor.setSelection(null)
+		codeEditor.focus()	
+	})
+
 	codeModal.selectLanguage.addEventListener("change", function(event){
 		console.log("ace/mode/"+codeModal.selectLanguage.value)
 		codeEditor.getSession().setMode("ace/mode/"+codeModal.selectLanguage.value)	
@@ -213,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	codeModal.element.addEventListener("positive-pressed", function(event){
 		editor.focus()
 		var selection = editor.getSelection()
+		edtor.setSelection(null)
 		editor.insertText(selection.end, codeEditor.getValue(), "code", codeModal.selectLanguage.value)
 	})
 
