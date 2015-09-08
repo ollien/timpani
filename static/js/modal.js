@@ -35,12 +35,21 @@ function Modal(element, config) {
 	if (buttonsEl != null){
 		buttons = Array.prototype.slice.call(buttonsEl.childNodes)
 		var _this = this
+
+		document.addEventListener("keyup", function(event){
+			if (this.config.keyboard){
+				if (event.keyCode == 27) {
+					event.preventDefault()	
+					this.hide()
+				}
+			}
+		})
 		buttons.forEach(function(button){
 			//Checks if the button is actually an element.
 			if (button.nodeType == 1){
 				if (button.classList.contains("positive")){
 					document.addEventListener("keyup", function(event){
-						if (!this.config.keyboard){
+						if (this.config.keyboard){
 							if (event.keyCode == 13){ //Enter
 								event.preventDefault()
 								button.click()
