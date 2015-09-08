@@ -1,6 +1,14 @@
-function Modal(element) {
+function Modal(element, config) {
 	this.overlay = document.createElement("div")
 	this.overlay.classList.add("modal-overlay")
+
+	if (config == null) {
+		this.config = {keyboard: true}	
+	}
+
+	else {
+		this.config = config	
+	}
 
 	if (element instanceof HTMLElement) {
 		this.element = element	
@@ -32,9 +40,11 @@ function Modal(element) {
 			if (button.nodeType == 1){
 				if (button.classList.contains("positive")){
 					document.addEventListener("keyup", function(event){
-						if (event.keyCode == 13){ //Enter
-							event.preventDefault()
-							button.click()
+						if (!this.config.keyboard){
+							if (event.keyCode == 13){ //Enter
+								event.preventDefault()
+								button.click()
+							}
 						}
 					})
 				}
