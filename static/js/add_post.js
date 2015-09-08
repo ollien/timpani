@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	var linkButton = document.getElementById("add-link")
 	var imageButton = document.getElementById("add-image")
 	var quoteButton = document.getElementById("add-quote")
+	var codeButton = document.getElementById("add-code")
 	var alignLeftButton = document.getElementById("align-left")
 	var alignCenterButton = document.getElementById("align-center")
 	var alignRightButton = document.getElementById("align-right")
@@ -38,6 +39,15 @@ document.addEventListener("DOMContentLoaded", function(event){
 			delete this.init
 			return this
 		},
+	}.init()
+
+	var codeModal = {
+		element: document.getElementById("code-modal"),
+		init: function() { //We need to access some objects within this object upon initializatoin, so we use this function to do that.
+			this.modal = new Modal(this.element)	
+			delete this.init
+			return this
+		}
 	}.init()
 	
 
@@ -68,6 +78,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	imageButton.addEventListener("click", function(event){
 		imageModal.modal.show()	
+	})
+
+	codeButton.addEventListener("click", function(event){
+		codeModal.modal.show()	
 	})
 
 	alignLeftButton.addEventListener("click", function(event){
