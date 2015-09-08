@@ -69,9 +69,11 @@ document.addEventListener("DOMContentLoaded", function(event){
 			editorDiv.classList.add("focused")
 			if (range.end - range.start > 0){
 				quoteButton.disabled = false
+				codeButton.disabled = true
 			}
 			else {
 				quoteButton.disabled = true
+				codeButton.disabled = false
 			}
 		}
 	})
