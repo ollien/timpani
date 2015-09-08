@@ -83,8 +83,10 @@ ul#posts-list {
     hyphen: auto;
     font-size: 12pt;
     font-weight: 200; }
-  ul#posts-list li.post blockquote {
-    padding-left: 8px;
+  ul#posts-list li.post [class*="quote"] {
+    display: block;
+    margin-left: 40px;
+    padding-left: 10px;
     border-left: 5px solid #ccc; }
   ul#posts-list li.post pre[class*="language-"] {
     border-radius: 5px; }

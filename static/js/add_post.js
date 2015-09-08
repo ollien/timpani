@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 	
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
+	editor.addFormat("quote", {"class": "quote"})
+
 	editor.on("selection-change", function(range){
 		if (range == null){
 			editorDiv.classList.remove("focused")
