@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	editor.addModule("toolbar", {container: "div#toolbar"})
 	editor.addFormat("quote", {"class": "quote"})
+	codeEditor.getSession().setUseWorker(false)
 
 	editor.on("selection-change", function(range){
 		if (range == null){
