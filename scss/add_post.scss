@@ -292,6 +292,16 @@ div#code-modal {
 	div.modal-body {
 		width: 600px;
 		height: 550px;
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		select#select-language{
+			margin-bottom: 10px;	
+		}
+
 		div#code-editor {
 			width: 100%;
 			height: 100%;

@@ -48,6 +48,9 @@ div.modal {
 	border-radius: 6px;
 	transition-property: top, visibility, opacity;
 	transition-duration: $modal-transition-duration;
+	overflow-y: auto;
+	max-width: 100%;
+	max-height: 100%;
 
 	h3.modal-title {
 		width: 100%;
