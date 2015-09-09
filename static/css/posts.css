@@ -91,8 +91,10 @@ ul#posts-list {
     margin-left: 40px;
     padding-left: 10px;
     border-left: 5px solid #ccc; }
-  ul#posts-list li.post pre[class*="language-"] {
-    border-radius: 5px; }
+  ul#posts-list li.post [class*="language"] {
+    display: block;
+    background-color: #E4E4E4;
+    padding: 5px; }
   ul#posts-list ul#tags-list {
     list-style-type: none;
     width: 100%;
