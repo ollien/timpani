@@ -231,9 +231,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 		input = input.join("\n")
 		editor.insertText(selection.end, input, "code", codeModal.selectLanguage.value)
 		var code = document.querySelectorAll("[class*=language-]")
-		Array.prototype.slice.call(code).forEach(function(element){
-			Prism.highlightElement(element)	
-		})
 	})
 
 	codeModal.element.addEventListener("hide", function(event){
