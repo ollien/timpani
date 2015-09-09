@@ -214,7 +214,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 	})
 
 	codeModal.selectLanguage.addEventListener("change", function(event){
-		console.log("ace/mode/"+codeModal.selectLanguage.value)
 		codeEditor.getSession().setMode("ace/mode/"+codeModal.selectLanguage.value)	
 	})
 
@@ -222,10 +221,17 @@ document.addEventListener("DOMContentLoaded", function(event){
 		editor.focus()
 		var selection = editor.getSelection()
 		editor.setSelection(null)
-		editor.insertText(selection.end, codeEditor.getValue(), "code", codeModal.selectLanguage.value)
-		var code = document.querySelectorAll("[class*=language-")
+		//Workaround to get blank lines to display
+		var input = codeEditor.getValue().split("\n")
+		for (var i = 0; i < input.length; i++) {
+			if (input[i].length == 0) {
+				input[i] = "  "	
+			}
+		}
+		input = input.join("\n")
+		editor.insertText(selection.end, input, "code", codeModal.selectLanguage.value)
+		var code = document.querySelectorAll("[class*=language-]")
 		Array.prototype.slice.call(code).forEach(function(element){
-			console.log(element)
 			Prism.highlightElement(element)	
 		})
 	})
