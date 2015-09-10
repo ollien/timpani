@@ -1,0 +1,29 @@
+language: python
+
+services:
+    - docker
+
+python: 
+    - "3.0"
+    - "3.1"
+    - "3.2"
+    - "3.3"
+    - "3.4"
+
+before_install:
+    - "docker pull ollien/postgres"
+    - "docker run -d -name postgres -p 127.0.0.1:5432:5432 -p 5433:5433 postgres"
+    - "docker start postgres"
+    - "mkdir config"
+    - "echo \"{\"connection_string\": \"postgresql://root@127.0.0.1/blog\"}\" > configs/database.json"
+    - "echo \"{\"display_full_name\": true}\" > configs/templates.json"
+
+install:
+    - "pip install -r py_dependencies.py"
+
+before_script:
+    - "cd $TRAVIS_BUILD_DIR/src/backend/py/"
+    - "python3 main.py"
+
+script: 
+
