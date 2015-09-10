@@ -40,4 +40,12 @@ gulp.task("watch", function () {
 		change_type[0] = change_type[0].toUpperCase();
 		console.log(change_type + " detected on " + event.path + ". Running sass.");
 	});
+
+	//Watch JS for changes.
+	var jsWatch = gulp.watch(JS_SRC, ["js"]);
+	jsWatch.on("change", function(event) {
+		var change_type = event.type;
+		change_type[0] = change_type[0].toUpperCase();
+		console.log(change_type + " detected on " + event.path + ". Running js.");
+	})
 });
