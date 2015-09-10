@@ -50,4 +50,4 @@ def login():
 			return resp	
 
 		else:
-			flask.render_template("login.html", error = "Invalid username or password.")
+			return flask.render_template("login.html", error = "Invalid username or password.")

@@ -1,6 +1,14 @@
-function Modal(element) {
+function Modal(element, config) {
 	this.overlay = document.createElement("div")
 	this.overlay.classList.add("modal-overlay")
+
+	if (config == null) {
+		this.config = {keyboard: true}	
+	}
+
+	else {
+		this.config = config	
+	}
 
 	if (element instanceof HTMLElement) {
 		this.element = element	
@@ -27,14 +35,25 @@ function Modal(element) {
 	if (buttonsEl != null){
 		buttons = Array.prototype.slice.call(buttonsEl.childNodes)
 		var _this = this
+
+		document.addEventListener("keyup", function(event){
+			if (_this.config.keyboard){
+				if (event.keyCode == 27 && this.element.classList.contains("active")) {
+					event.preventDefault()	
+					_this.hide()
+				}
+			}
+		})
 		buttons.forEach(function(button){
 			//Checks if the button is actually an element.
 			if (button.nodeType == 1){
 				if (button.classList.contains("positive")){
 					document.addEventListener("keyup", function(event){
-						if (event.keyCode == 13){ //Enter
-							event.preventDefault()
-							button.click()
+						if (_this.config.keyboard){
+							if (event.keyCode == 13 && _this.element.classList.contains("active")){ //Enter
+								event.preventDefault()
+								button.click()
+							}
 						}
 					})
 				}

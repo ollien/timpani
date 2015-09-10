@@ -1,12 +1,15 @@
 <html>
 <head>
 	<link href="/static/css/pure.min.css" rel="stylesheet">
-	<link href="/static/css/add_post.css" rel="stylesheet">
-	<link href="/static/libs/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
+	<link href="/static/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/static/libs/insignia/insignia.min.css" rel="stylesheet">
-	<script src="/static/libs/ckeditor/ckeditor.js"></script>
-	<script src="/static/libs/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+	<link href="/static/libs/prism/prism.css" rel="stylesheet">
+	<link href="/static/css/add_post.css" rel="stylesheet">
+	<script src="/static/libs/prism/prism.min.js"></script>
+	<script src="/static/libs/quill/quill.min.js"></script>
+	<script src="/static/libs/ace/js/ace.js"></script>
 	<script src="/static/libs/insignia/insignia.min.js"></script>
+	<script src="/static/js/modal.js"></script>
 	<script src="/static/js/add_post.js"></script>
 </head>
 <body>
@@ -19,15 +22,218 @@
 			{% endif %}
 			<form class="pure-form" id="post-form" {% if post is defined %} action="/edit_post/{{post['post'].id}}" {% else %} action="/add_post" {% endif %} method="POST">
 				<input name="post-title" id="title-input" class="pure-input" placeholder="Title" {% if post is defined %} value="{{post['post'].title}}" {% endif %} required>
-				<textarea name="post-body" id="post-body" required>{% if post is defined %}{{post["post"].body}}{% endif %}</textarea>
+				<div id="toolbar">
+					<button type="button" class="ql-bold fa fa-bold pure-button"></button>
+					<button type="button" class="ql-italic fa fa-italic pure-button"></button>
+					<button type="button" class="ql-underline fa fa-underline pure-button"></button>
+					<select class="ql-size">
+						{% for i in range(17) %}
+							<option value="{{12+4*i}}">{{8+4*i}}</option>
+						{% endfor %}
+					</select>
+					<select class="ql-font">
+						<option value="Arial">Arial</option>	
+						<option value="Courier">Courier</option>
+						<option value="Georgia">Georgia</option>
+						<option value="Helvetica">Helvetica</option>
+						<option value="Times New Roman">Times New Roman</option>
+					</select>					<span class="pure-button pure-menu pure-menu-horizontal" id="align">
+					<ul class="pure-menu-list">
+						<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+						<a href="#" class="pure-menu-link" id="align-text">Align</a>
+						<ul class="pure-menu-children">
+							<li class="pure-menu-item" id="align-left"><a href="#" class="pure-menu-link fa fa-align-left"></a></li>
+							<li class="pure-menu-item" id="align-center"><a href="#" class="pure-menu-link fa fa-align-center"></a></li>
+							<li class="pure-menu-item" id="align-right"><a href="#" class="pure-menu-link fa fa-align-right"></a></li>
+							<li class="pure-menu-item" id="align-justify"><a href="#" class="pure-menu-link fa fa-align-justify"></a></li>
+						</ul>
+						</li>
+					</ul>
+					</span>
+					<button type="button" id="add-link" class="ql-link fa fa-link pure-button"></button>
+					<button type="button" id="add-image" class="ql-image fa fa-picture-o pure-button"></button>
+					<button type="button" id="add-quote" class="ql-quote fa fa-indent pure-button" disabled></button>
+					<button type="button" id="add-code" class="ql-code fa fa-code pure-button"></button>
+
+				</div>
+
+				<div id="editor">
+					<div>{% if post is defined %}{{ post["post"].body }}{% endif %}</div>
+				</div>
 				<!-- This is used to display an invalid message on the post body, since we can't set one on CKEditor-->
 				<input id="post-validity">
+				<input id="post-body" name="post-body">
 				<div id="tag-input-div">
 					<input id="tags-input" {% if post is defined %} value="{% for tag in post['tags'] %}{{tag.name}} {%endfor%}" {% endif %} placeholder="Tags">
 				</div>
 				<input name="post-tags" id="placeholder-tags-input">
 				<button type="submit" id="submit-post" class="pure-button pure-button-primary">Submit Post</button>
 			</form>
+		</div>
+	</div>
+
+	<div class="modal" id="link-modal">
+		<h3 class="modal-title">Add link</h3>
+		<div class="modal-body">
+			<div class="modal-error">Please enter a link.</div>
+			<input class="pure-input" id="modal-link" placeholder="http://example.com">	
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button neutral">Cancel</button>
+			<button class="pure-button pure-button-primary positive">Add</button>
+		</div>
+	</div>
+
+	<div class="modal" id="image-modal">
+		<h3 class="modal-title">Add Image</h3>
+		<div class="modal-body">
+			<div class="modal-error"></div>
+			<div id="url-input">
+				<label for="image-url">Enter an image url</label>
+				<input id="image-url" type="url" placeholder="http://">
+			</div>
+			<div id="or">or</div>
+			<div id="file-input">
+				<label for="image-upload">Upload an image</label>
+				<input id="image-upload" type="file">
+			</div>
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button neutral">Cancel</button>
+			<button class="pure-button pure-button-primary positive">Add</button>
+		</div>
+		<div class="modal-spinner"><div></div></div>
+	</div>
+
+	<div class="modal" id="code-modal">
+		<h3 class="modal-title">Add code block</h3>
+		<div class="modal-body">
+			<label for="select-language">Language</label>
+			<select id="select-language">
+				<option value="plain_text">Plain Text</option>
+				<option value="c_cpp">C/C++</option>
+				<option value="css">CSS</option>
+				<option value="html">HTML</option>
+				<option value="java">Java</option>
+				<option value="javascript">Javascript</option>
+				<option value="json">JSON</option>
+				<option value="mysql">MySQL</option>
+				<option value="php">PHP</option>
+				<option value="pgsql">PostgreSQL</option>
+				<option value="python">Python</option>
+				<option value="ruby">Ruby</option>
+				<option value="sql">SQL</option>
+				<option value="sh">Shell</option>
+				<option value="xml">XML</option>
+				<option value="plain_text" disabled>---------------------------------------</option>
+				<option value="gitignore">.gitignore</option>
+				<option value="abap">ABAP</option>
+				<option value="abc">ABC</option>
+				<option value="actionscript">ActionScript</option>
+				<option value="ada">Ada</option>
+				<option value="apache_conf">Apache Configuration</option>
+				<option value="applescript">AppleScript</option>
+				<option value="asciidoc">AsciiDoc</option>
+				<option value="assembly_x86">Assembly_x86</option>
+				<option value="autohotkey">AutoHotKey</option>
+				<option value="batchfile">Batch File</option>
+				<option value="csharp">C#</option>
+				<option value="cirru">Cirru</option>
+				<option value="clojure">Clojure</option>
+				<option value="cobol">COBOL</option>
+				<option value="coffee">CoffeeScript</option>
+				<option value="coldfusion">ColdFusion</option>
+				<option value="curly">Curly</option>
+				<option value="d">D</option>
+				<option value="dart">Dart</option>
+				<option value="diff">Diff</option>
+				<option value="dockerfile">DockerFile</option>
+				<option value="doc_comment">Documentation Comments</option>
+				<option value="dot">DOT</option>
+				<option value="eiffel">Eiffel</option>
+				<option value="elixir">Elixir</option>
+				<option value="elm">Elm</option>
+				<option value="html_ruby">ERB</option>
+				<option value="erlang">Erlang</option>
+				<option value="forth">Forth</option>
+				<option value="ftl">FTL</option>
+				<option value="gcode">G-Code</option>
+				<option value="gherkin">Gherkin</option>
+				<option value="glsl">GLSL</option>
+				<option value="golang">Go</option>
+				<option value="groovy">Groovy</option>
+				<option value="haml">HAML</option>
+				<option value="handlebars">Handlebars</option>
+				<option value="haskell">Haskell</option>
+				<option value="haxe">Haxe</option>
+				<option value="ini">INI</option>
+				<option value="io">IO</option>
+				<option value="jack">Jack</option>
+				<option value="jade">Jade</option>
+				<option value="js_regex">Javascript Regular Expressions</option>
+				<option value="jsx">JAX</option>
+				<option value="jsp">JSP</option>
+				<option value="julia">Julia</option>
+				<option value="latex">LaTeX</option>
+				<option value="lean">Lean</option>
+				<option value="less">Less</option>
+				<option value="liquid">Liquid</option>
+				<option value="lisp">Lisp</option>
+				<option value="logiql">LogiQL</option>
+				<option value="lsl">LSL</option>
+				<option value="lua">Lua</option>
+				<option value="luapage">Lua Page</option>
+				<option value="lucene">Lucene</option>
+				<option value="makefile">Makefile</option>
+				<option value="markdown">Markdown</option>
+				<option value="mask">Mask</option>
+				<option value="matlab">MATLAB</option>
+				<option value="mel">MEL</option>
+				<option value="mushcode">MUSHCode</option>
+				<option value="nix">nix</option>
+				<option value="objectivec">Objective-C</option>
+				<option value="ocaml">OCaml</option>
+				<option value="pascal">Pascal</option>
+				<option value="perl">Perl</option>
+				<option value="powershell">Powershell</option>
+				<option value="praat">Praat</option>
+				<option value="prolog">Prolog</option>
+				<option value="properties">Properties</option>
+				<option value="protobuf">Protobuf</option>
+				<option value="r">R</option>
+				<option value="rdoc">RDoc</option>
+				<option value="rhtml">RHTML</option>
+				<option value="rust">Rust</option>
+				<option value="sass">Sass</option>
+				<option value="scad">SCAD</option>
+				<option value="scala">Scala</option>
+				<option value="scheme">Scheme</option>
+				<option value="scss">SCSS</option>
+				<option value="sjs">SJS</option>
+				<option value="smarty">Smarty</option>
+				<option value="soy_template">Soy Template</option>
+				<option value="sqlserver">SQL Server</option>
+				<option value="stylus">Stylus</option>
+				<option value="svg">SVG</option>
+				<option value="tcl">Tcl</option>
+				<option value="tex">TeX</option>
+				<option value="textile">Textile</option>
+				<option value="toml">TOML</option>
+				<option value="twig">Twig</option>
+				<option value="typescript">TypeScript</option>
+				<option value="vala">Vala</option>
+				<option value="vbscript">VBScript</option>
+				<option value="velocity">Velocity</option>
+				<option value="verilog">Verilog</option>
+				<option value="vhdl">VHDL</option>
+				<option value="space">Whitespace</option>
+				<option value="yaml">YAML</option>
+			</select>
+			<div id="code-editor"></div>
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button neutral">Cancel</button>
+			<button class="pure-button pure-button-primary positive">Add</button>
 		</div>
 	</div>
 

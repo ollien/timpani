@@ -33,13 +33,94 @@ form#post-form {
 		font-size: 15pt;
 	}
 
-	textarea#post-body {
+	div#editor {
 		width: 100%;
 		height: 70%;
+		$vertical-margin: 10px;
+		margin-top: $vertical-margin;
+		margin-bottom: $vertical-margin;
+		text-align: left;
+		background-color: #fff;
+		border-radius: 4px;
+		border: 1px solid #ccc;
+		box-shadow: inset 0 1px 3px #ddd;
+
+		[class*="quote"] {
+			display: block;
+			margin-left: 40px;
+			padding-left: 10px;
+			border-left: 5px solid #ccc;
+		}
+
+		[class*="language"] {
+			display: block;
+			background-color: #E4E4E4;
+			padding: 5px;
+		}
+	}
+
+	div#editor.focused { 
+		border-color: #129FEA;
 	}
 
 	input#placeholder-tags-input {
 		display: none;	
+	}
+
+	span#align {
+		width: 80px;
+		height: 32px;
+		border-radius: 4px;
+		padding: 0;
+
+		ul.pure-menu-list {
+			width: 100% !important;
+			height: 100% !important;
+
+			li.pure-menu-item {
+				height: 100%; 
+				width: 100%;
+
+				a.pure-menu-link#align-text {
+					position: relative;
+					padding: 0;	
+					top: 7px;
+				}
+
+				a.pure-menu-link:hover {
+					background-color: transparent;
+				}
+
+				ul.pure-menu-children {
+					$border: 1px solid #EFEFEF;
+					border: $border;
+					position: relative;
+					top: 14px;
+					
+					li.pure-menu-item {
+						$vertical-padding: 1px;
+						width: 100%;
+						display: block;	
+						text-align: center;
+						border-top: $border;
+						border-bottom: $border;
+						padding-top: $vertical-padding;
+						padding-bottom: $vertical-padding;
+						a {
+							margin: 0;	
+						}
+					}	
+
+					li.pure-menu-item:hover {
+						background-color: #ddd;	
+					}
+				}
+			}
+		}
+	}
+
+	select.ql-font, select.ql-size {
+		height: 32px;	
 	}
 
 	div#tag-input-div {
@@ -90,6 +171,10 @@ form#post-form {
 		padding-bottom: 1px;
 	}
 
+	input#post-body {
+		display: none;	
+	}
+
 	input#tags-input { 
 		border: 0px;	
 		box-shadow: inset 0px 0px 0px #fff;
@@ -101,11 +186,132 @@ form#post-form {
 		color: #000;
 	}
 
-	div#cke_post-body {
-		box-shadow: 1px 2px 5px 2px #AAAAAA;
-	}
-
 	button#submit-post {
 		margin-top: $vertical-margin;
+	}
+}
+
+
+div.modal-error {
+	color: #FF0000;
+	opacity: 0;
+	font-size: 0;
+	transition-property: opacity, height;
+	transition-duration: 250ms;
+	margin-bottom: 10px;
+}
+
+div.modal-error.active {
+	font-size: 12pt;
+	opacity: 1;
+}
+
+div#link-modal {
+
+	div.modal-body {
+		width: 300px;
+		input#modal-link {
+			width: 100%;	
+		}
+
+	}
+}
+
+div#image-modal{
+	$vertical-margin: 10px;
+
+	div.modal-body {
+		width: 450px;
+		label {
+			display: block;	
+			margin-bottom: $vertical-margin;
+		}
+		
+		input#image-url{
+			width: 100%;	
+		}
+
+		div#or {
+			font-weight: 500;	
+			margin-top: $vertical-margin;
+			margin-bottom: $vertical-margin; 
+		}
+
+		input#image-upload {
+			width: 100%;	
+		}
+
+	}
+	div.modal-buttons {
+		$initial-opacity: .8;
+		$initial-scale: .95;
+		$button-width: 80px;
+		$button-height: 34px;
+		$spinner-radius: $button-height;
+		$spinner-width: $button-width;
+		$spinner-height: $button-height;
+		$disable-duration: 350ms;
+
+		button {
+			opacity: 1;
+			width: $button-width;
+			height: $button-height;
+		}
+
+		button[disabled] {
+			transition-property: opacity;
+			transition-duration: $disable-duration;
+		}
+
+		button.positive.uploading:before {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			background-color: white;
+			content:"";
+			display: block;
+			width: $spinner-width;
+			height: $spinner-height;
+			@include vendor-prefix(transform, scale($spinner-height / $spinner-width * $initial-scale, $initial-scale));
+			border-radius: 100%;
+			opacity: $initial-opacity;
+			@include vendor-prefix(animation, ripple 1.25s cubic-bezier(0, 1.69, 0.7,-0.44)infinite);
+		
+		}
+
+		@include keyframes(ripple) {
+			0% {
+				opacity: $initial-opacity;
+				@include vendor-prefix(transform, scale($spinner-height / $spinner-width * $initial-scale, $initial-scale)); 
+			}
+			100% {
+				 opacity: 0;
+				 @include vendor-prefix(transform, scale(1));
+				 border-radius: 5px;
+			}
+		}
+
+	}
+}
+
+div#code-modal {
+	div.modal-body {
+		width: 600px;
+		height: 550px;
+		box-sizing: border-box;
+		padding-bottom: 80px;
+		label {
+			display: block;
+			margin-bottom: 5px;
+		}
+
+		select#select-language{
+			margin-bottom: 10px;	
+		}
+
+		div#code-editor {
+			width: 100%;
+			height: 100%;
+		}
 	}
 }

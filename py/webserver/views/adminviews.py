@@ -27,7 +27,7 @@ def addPost():
 
 		elif flask.request.method == "POST":
 			postTitle = flask.request.form["post-title"]
-			postBody = flask.request.form["post-body"]
+			postBody = flask.request.form["post-body"].replace("\t", "&emsp;").replace("    ", "&emsp;")
 			postTags = flask.request.form["post-tags"]
 			blog.addPost(postTitle, postBody, datetime.datetime.now(), session.user, postTags)
 			return flask.redirect("/")
@@ -54,7 +54,7 @@ def editPost(postId):
 			return flask.render_template("add_post.html", post = post)
 		elif flask.request.method == "POST":
 			postTitle = flask.request.form["post-title"]
-			postBody = flask.request.form["post-body"]
+			postBody = flask.request.form["post-body"].replace("\t", "&emsp;").replace("    ", "&emsp;")
 			postTags = flask.request.form["post-tags"]
 			blog.editPost(postId, postTitle, postBody, postTags)
 			return flask.redirect("/")

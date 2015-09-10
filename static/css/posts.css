@@ -14,9 +14,9 @@ button.pure-button {
 
 div.modal {
   position: fixed;
-  width: 40%;
   top: 40%;
   left: 50%;
+  -webkit-font-smoothing: subpixel-antialiased;
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -28,7 +28,10 @@ div.modal {
   opacity: 0;
   border-radius: 6px;
   transition-property: top, visibility, opacity;
-  transition-duration: 250ms; }
+  transition-duration: 250ms;
+  overflow-y: auto;
+  max-width: 100%;
+  max-height: 100%; }
   div.modal h3.modal-title {
     width: 100%;
     padding-bottom: 5px;
@@ -53,7 +56,8 @@ div.modal-overlay {
   background-color: black;
   opacity: 0;
   transition-property: opacity;
-  transition-duration: 250ms; }
+  transition-duration: 250ms;
+  z-index: 99999; }
 
 div.modal-overlay.active {
   opacity: .15; }
@@ -82,11 +86,15 @@ ul#posts-list {
     hyphen: auto;
     font-size: 12pt;
     font-weight: 200; }
-  ul#posts-list li.post blockquote {
-    padding-left: 8px;
+  ul#posts-list li.post [class*="quote"] {
+    display: block;
+    margin-left: 40px;
+    padding-left: 10px;
     border-left: 5px solid #ccc; }
-  ul#posts-list li.post pre[class*="language-"] {
-    border-radius: 5px; }
+  ul#posts-list li.post [class*="language"] {
+    display: block;
+    background-color: #E4E4E4;
+    padding: 5px; }
   ul#posts-list ul#tags-list {
     list-style-type: none;
     width: 100%;
