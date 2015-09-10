@@ -25,7 +25,7 @@ ul#posts-list {
 			@extend .well;
 			width: 100%;
 			word-wrap: break-word;
-			@include vendor-prefix(hyphen, auto);
+			hyphens: auto;
 			font-size: 12pt;
 			font-weight: 200;
 		}
