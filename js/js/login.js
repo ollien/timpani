@@ -1,19 +1,19 @@
 /*jshint eqnull: true */
-document.addEventListener('DOMContentLoaded', function (event) {
-	var form = document.getElementById('login-form');
-	var usernameInput = document.getElementById('username-field');
-	var passwordInput = document.getElementById('password-field');
+document.addEventListener("DOMContentLoaded", function(event) {
+	var form = document.getElementById("login-form");
+	var usernameInput = document.getElementById("username-field");
+	var passwordInput = document.getElementById("password-field");
 
-	var addInvalid = function (event) {
-		this.classList.add('error');
+	var addInvalid = function(event) {
+		this.classList.add("error");
 	};
 
-	var resetInvalid = function (event) {
-		this.classList.remove('error');
+	var resetInvalid = function(event) {
+		this.classList.remove("error");
 	};
 
-	usernameInput.addEventListener('invalid', addInvalid);
-	passwordInput.addEventListener('invalid', addInvalid);
-	usernameInput.addEventListener('input', resetInvalid);
-	passwordInput.addEventListener('input', resetInvalid);
+	usernameInput.addEventListener("invalid", addInvalid);
+	passwordInput.addEventListener("invalid", addInvalid);
+	usernameInput.addEventListener("input", resetInvalid);
+	passwordInput.addEventListener("input", resetInvalid);
 });
