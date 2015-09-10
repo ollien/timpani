@@ -1,21 +1,5 @@
 $default-background-color: #F5F5F5;
 
-@mixin vendor-prefix($name, $argument) {
-  -webkit-#{$name}: #{$argument};
-  -ms-#{$name}: #{$argument};
-  -moz-#{$name}: #{$argument};
-  -o-#{$name}: #{$argument};
-  #{$name}: #{$argument};
-}
-
-@mixin keyframes($name) {
-  @-moz-keyframes #{$name} { @content; }
-  @-webkit-keyframes #{$name} { @content; }
-  @-o-keyframes #{$name} { @content; }
-  @-ms-keyframes #{$name} { @content; }
-  @keyframes #{$name} { @content; }
-}
-
 body {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
 	font-weight: 300;
@@ -40,7 +24,7 @@ div.modal {
 	top: 40%;
 	left: 50%; 
 	-webkit-font-smoothing: subpixel-antialiased;
-	@include vendor-prefix(transform, translate(-50%, -50%));
+	transform: translate(-50%, -50%);
 	padding: 20px;
 	background-color: white;
 	visibility: hidden;
