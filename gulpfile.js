@@ -15,7 +15,8 @@ gulp.task("sass", function () {
 				"IE 9"
 			]
 		}))
-		.pipe(minifyCss()).pipe(gulp.dest(SASS_DEST));
+		.pipe(minifyCss())
+		.pipe(gulp.dest(SASS_DEST));
 });
 
 gulp.task("watch", function () {
