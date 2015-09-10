@@ -5,7 +5,7 @@ import configmanager
 import webserver
 
 #Setup Config manager
-configs = configmanager.ConfigManager(os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs")))
+configs = configmanager.ConfigManager(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../configs")))
 databaseConfig = configs["database"]
 print("[Timpani] Configs loaded.")
 

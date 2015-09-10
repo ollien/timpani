@@ -8,7 +8,7 @@ import mimetypes
 from .. import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
-UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../static/uploads"))
+UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../../../static/uploads"))
 
 blueprint = flask.Blueprint("adminEndpoints", __name__)
 
