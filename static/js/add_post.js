@@ -132,12 +132,17 @@ document.addEventListener("DOMContentLoaded", function(event){
 			editor.focus()
 			var selection = editor.getSelection()
 			editor.setSelection(null)
+			link = linkModal.input.value
+			if (!link.match(/^.+:\/\//)){
+				link = "//" + link	
+			}
 			//This basically indicates that we don't actually have a selection.
 			if (selection.end - selection.start === 0){
-				editor.insertText(selection.start, linkModal.input.value, "link", linkModal.input.value)	
+				editor.insertText(selection.start, linkModal.input.value, "link", link)
 			}
+
 			else {
-				editor.formatText(selection.start, selection.end, "link", linkModal.input.value)	
+				editor.formatText(selection.start, selection.end, "link", link)	
 			}
 		}
 	})
