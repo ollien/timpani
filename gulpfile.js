@@ -8,8 +8,8 @@ var uglify = require("gulp-uglify");
 
 var SASS_SRC = "./src/web/scss/*.scss";
 var SASS_DEST = "./static/css";
-var JS_SRC = "./src/web/js/*.js"
-var JS_DEST = "./static/js"
+var JS_SRC = "./src/web/js/*.js";
+var JS_DEST = "./static/js";
 
 gulp.task("sass", function () {
 	return gulp.src(SASS_SRC).pipe(sass())
@@ -30,7 +30,7 @@ gulp.task("js", function() {
 		.pipe(jshint.reporter("fail"))
 		.pipe(uglify())	
 		.pipe(gulp.dest(JS_DEST));
-})
+});
 
 gulp.task("watch", function () {
 	//Watch Sass for changes.
@@ -43,5 +43,5 @@ gulp.task("watch", function () {
 	var jsWatch = gulp.watch(JS_SRC, ["js"]);
 	jsWatch.on("change", function(event) {
 		console.log("Event '"+ event.type + "' detected on " + event.path + ". Running js.");
-	})
+	});
 });
