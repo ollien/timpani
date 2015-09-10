@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		if (range == null){
 			editorDiv.classList.remove("focused")
 			quoteButton.disabled = true
+			codeButton.disabled = false
 		}
 
 		else {
@@ -77,6 +78,19 @@ document.addEventListener("DOMContentLoaded", function(event){
 				quoteButton.disabled = true
 				codeButton.disabled = false
 			}
+		}
+	})
+
+	editor.on("text-change", function(){
+		var range = editor.getSelection()
+		if (range == null || range.end - range.start == 0){
+				quoteButton.disabled = true
+				codeButton.disabled = false
+		}
+
+		else{
+				quoteButton.disabled = false
+				codeButton.disabled = true
 		}
 	})
 
