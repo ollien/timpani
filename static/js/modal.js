@@ -35,7 +35,7 @@ function Modal(element, config) {
 	if (buttonsEl != null) {
 		buttons = Array.prototype.slice.call(buttonsEl.childNodes);
 		var _this = this;
-		document.addEventListener("keyup", function (event) {
+		document.addEventListener("keyup", function(event) {
 			if (_this.config.keyboard) {
 				if (event.keyCode == 27 && this.element.classList.contains("active")) {
 					event.preventDefault();
@@ -43,11 +43,11 @@ function Modal(element, config) {
 				}
 			}
 		});
-		buttons.forEach(function (button) {
+		buttons.forEach(function(button) {
 			//Checks if the button is actually an element.
 			if (button.nodeType == 1) {
 				if (button.classList.contains("positive")) {
-					document.addEventListener("keyup", function (event) {
+					document.addEventListener("keyup", function(event) {
 						if (_this.config.keyboard) {
 							if (event.keyCode == 13 && _this.element.classList.contains("active")) {
 								//Enter
@@ -58,7 +58,7 @@ function Modal(element, config) {
 					});
 				}
 
-				button.addEventListener("click", function (event) {
+				button.addEventListener("click", function(event) {
 					var mainEvent = new Event("pressed", { cancelable: true });
 					var secondaryEvent = null;
 					mainEvent.el = this;
@@ -87,7 +87,7 @@ function Modal(element, config) {
 	}
 }
 
-Modal.prototype.show = function () {
+Modal.prototype.show = function() {
 	var event = new Event("show", { cancelable: true });
 	this.element.dispatchEvent(event);
 	if (!event.defaultPrevented) {
@@ -97,19 +97,19 @@ Modal.prototype.show = function () {
 	}
 };
 
-Modal.prototype.hide = function () {
+Modal.prototype.hide = function() {
 	var event = new Event("hide", { cancelable: true });
 	this.element.dispatchEvent(event);
 	if (!event.defaultPrevented) {
 		this.element.classList.remove("active");
-		this.overlay.addEventListener("transitionend", function (event) {
+		this.overlay.addEventListener("transitionend", function(event) {
 			this.remove();
 		});
 		this.overlay.classList.remove("active");
 	}
 };
 
-Modal.prototype.toggle = function () {
+Modal.prototype.toggle = function() {
 	if (this.element.classList.contains("active")) {
 		this.hide();
 	}
@@ -119,6 +119,6 @@ Modal.prototype.toggle = function () {
 	}
 };
 
-Modal.prototype.addEventListener = function () {
+Modal.prototype.addEventListener = function() {
 	this.element.addEventListener.apply(this, arguments);
 };

@@ -1,6 +1,6 @@
 /*jshint eqnull: true */
 
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function(event) {
 	var editorDiv = document.getElementById("editor");
 	var editor = new Quill(editorDiv);
 	var codeEditor = ace.edit("code-editor");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 	var linkModal = {
 		element: document.getElementById("link-modal"),
 		input: document.getElementById("modal-link"),
-		init: function () {
+		init: function() {
 			//We needt o access some objects within this obect upon initialization, so we use this function to do that.
 			this.modal = new Modal(this.element);
 			this.errorDiv = this.element.querySelector("div.modal-error");
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		fileInput: document.getElementById("image-upload"),
 		uploadRequest: null,
 		//This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
-		init: function () {
+		init: function() {
 			//We need to access some objects within this object upon initializaton, so we use this function to do that.
 			this.modal = new Modal(this.element);
 			this.positiveButton = this.element.querySelector("button.positive");
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 	var codeModal = {
 		element: document.getElementById("code-modal"),
 		selectLanguage: document.getElementById("select-language"),
-		init: function () {
+		init: function() {
 			//We need to access some objects within this object upon initializatoin, so we use this function to do that.
 			this.modal = new Modal(this.element, { keyboard: false });
 			this.positiveButton = this.element.querySelector("button.positive");
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 	editor.addFormat("code", { "class": "language-" });
 	codeEditor.getSession().setUseWorker(false);
 	
-	editor.on("selection-change", function (range) {
+	editor.on("selection-change", function(range) {
 		if (range == null) {
 			editorDiv.classList.remove("focused");
 			quoteButton.disabled = true;
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	});
 	
-	editor.on("text-change", function () {
+	editor.on("text-change", function() {
 		var range = editor.getSelection();
 		if (range == null || range.end - range.start === 0) {
 			quoteButton.disabled = true;
@@ -99,20 +99,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	});
 	
-	linkButton.addEventListener("click", function (event) {
+	linkButton.addEventListener("click", function(event) {
 		linkModal.modal.show();
 		linkModal.input.focus();
 	});
 	
-	imageButton.addEventListener("click", function (event) {
+	imageButton.addEventListener("click", function(event) {
 		imageModal.modal.show();
 	});
 	
-	codeButton.addEventListener("click", function (event) {
+	codeButton.addEventListener("click", function(event) {
 		codeModal.modal.show();
 	});
 	
-	alignLeftButton.addEventListener("click", function (event) {
+	alignLeftButton.addEventListener("click", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
 		if (selection != null) {
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	});
 	
-	alignCenterButton.addEventListener("click", function (event) {
+	alignCenterButton.addEventListener("click", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
 		if (selection != null) {
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	});
 	
-	alignRightButton.addEventListener("click", function (event) {
+	alignRightButton.addEventListener("click", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
 		if (selection != null) {
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	});
 	
-	alignJustifyButton.addEventListener("click", function (event) {
+	alignJustifyButton.addEventListener("click", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
 		if (selection != null) {
@@ -144,12 +144,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	});
 	
-	linkModal.element.addEventListener("show", function (event) {
+	linkModal.element.addEventListener("show", function(event) {
 		linkModal.input.value = "";
 		linkModal.errorDiv.classList.remove("active");
 	});
 	
-	linkModal.element.addEventListener("positive-pressed", function (event) {
+	linkModal.element.addEventListener("positive-pressed", function(event) {
 		if (linkModal.input.value.trim().length === 0) {
 			linkModal.errorDiv.classList.add("active");
 			event.preventDefault();
@@ -175,11 +175,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	});
 	
-	linkModal.element.addEventListener("hide", function (event) {
+	linkModal.element.addEventListener("hide", function(event) {
 		linkModal.positiveButton.blur();
 	});
 	
-	imageModal.element.addEventListener("show", function (event) {
+	imageModal.element.addEventListener("show", function(event) {
 		imageModal.linkInput.disabled = false;
 		imageModal.linkInput.value = "";
 		imageModal.fileInput.disabled = false;
@@ -189,15 +189,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		imageModal.errorDiv.classList.remove("active");
 	});
 	
-	imageModal.linkInput.addEventListener("input", function (event) {
+	imageModal.linkInput.addEventListener("input", function(event) {
 		imageModal.fileInput.disabled = true;
 	});
 	
-	imageModal.fileInput.addEventListener("change", function (event) {
+	imageModal.fileInput.addEventListener("change", function(event) {
 		imageModal.linkInput.disabled = true;
 	});
 	
-	imageModal.element.addEventListener("positive-pressed", function (event) {
+	imageModal.element.addEventListener("positive-pressed", function(event) {
 		if (!imageModal.linkInput.disabled && imageModal.linkInput.value.length > 0) {
 			editor.focus();
 			var selection = editor.getSelection();
@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 			formData.append("image", imageModal.fileInput.files[0]);
 			imageModal.uploadRequest.open("POST", "/upload_image");
 			
-			imageModal.uploadRequest.onload = function () {
+			imageModal.uploadRequest.onload = function() {
 				var data = JSON.parse(imageModal.uploadRequest.responseText);
 
 				if (data.error === 0) {
@@ -237,25 +237,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		}
 	});
 	
-	imageModal.element.addEventListener("hide", function (event) {
+	imageModal.element.addEventListener("hide", function(event) {
 		imageModal.positiveButton.blur();
 		if (imageModal.uploadRequest != null) {
 			imageModal.uploadRequest.abort();
 		}
 	});
 	
-	codeModal.element.addEventListener("show", function (event) {
+	codeModal.element.addEventListener("show", function(event) {
 		editor.setSelection(null);
 		codeModal.selectLanguage.selectedIndex = "0";
 		codeEditor.setValue("");
 		codeEditor.focus();
 	});
 	
-	codeModal.selectLanguage.addEventListener("change", function (event) {
+	codeModal.selectLanguage.addEventListener("change", function(event) {
 		codeEditor.getSession().setMode("ace/mode/" + codeModal.selectLanguage.value);
 	});
 	
-	codeModal.element.addEventListener("positive-pressed", function (event) {
+	codeModal.element.addEventListener("positive-pressed", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
 		editor.setSelection(null);
@@ -270,22 +270,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
 		editor.insertText(selection.end, input, "code", codeModal.selectLanguage.value);
 	});
 
-	codeModal.element.addEventListener("hide", function (event) {
+	codeModal.element.addEventListener("hide", function(event) {
 		codeModal.positiveButton.blur();
 		codeEditor.getSession().setMode("ace/mode/plain_text");
 	});
 
-	tagsInput.addEventListener("focus", function (event) {
+	tagsInput.addEventListener("focus", function(event) {
 		var div = document.getElementById("tag-input-div");
 		div.classList.add("focused");
 	});
 
-	tagsInput.addEventListener("blur", function (event) {
+	tagsInput.addEventListener("blur", function(event) {
 		var div = document.getElementById("tag-input-div");
 		div.classList.remove("focused");
 	});
 
-	form.addEventListener("submit", function (event) {
+	form.addEventListener("submit", function(event) {
 		if (editor.getText().trim().length === 0) {
 			validityInput.setCustomValidity("Please fill out a post body.");
 			event.preventDefault();

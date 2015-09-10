@@ -1,14 +1,14 @@
 /*jshint eqnull: true */
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function(event) {
 	var form = document.getElementById("login-form");
 	var usernameInput = document.getElementById("username-field");
 	var passwordInput = document.getElementById("password-field");
 
-	var addInvalid = function (event) {
+	var addInvalid = function(event) {
 		this.classList.add("error");
 	};
 
-	var resetInvalid = function (event) {
+	var resetInvalid = function(event) {
 		this.classList.remove("error");
 	};
 
