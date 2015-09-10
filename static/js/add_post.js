@@ -123,16 +123,22 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
+	linkModal.element.addEventListener("show", function(event){
+		linkModal.input.value = ""
+		linkModal.errorDiv.classList.remove("active")
+	})
+
 	linkModal.element.addEventListener("positive-pressed", function(event){
 		if (linkModal.input.value.trim().length === 0) {
 			linkModal.errorDiv.classList.add("active")
 			event.preventDefault()
 		}
+
 		else {
 			editor.focus()
 			var selection = editor.getSelection()
 			editor.setSelection(null)
-			link = linkModal.input.value
+			var link = linkModal.input.value.trim()
 			if (!link.match(/^.+:\/\//)){
 				link = "//" + link	
 			}
@@ -147,9 +153,15 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
-	linkModal.element.addEventListener("hide", function(event){
-		linkModal.input.value = ""
-		linkModal.errorDiv.classList.remove("active")
+
+	imageModal.element.addEventListener("show", function(event){
+		imageModal.linkInput.disabled = false
+		imageModal.linkInput.value = ""
+		imageModal.fileInput.disabled = false
+		imageModal.fileInput.value = null
+		imageModal.positiveButton.classList.remove("uploading")
+		imageModal.positiveButton.disabled = false
+		imageModal.errorDiv.classList.remove("active")
 	})
 
 	imageModal.linkInput.addEventListener("input", function(event){
@@ -174,7 +186,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 			imageModal.uploadRequest.open("POST", "/upload_image")
 
 			imageModal.uploadRequest.onload = function(){
-				console.log("hm")
 				var data = JSON.parse(imageModal.uploadRequest.responseText)
 				if (data.error == 0) {
 					editor.focus()
@@ -200,13 +211,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	})
 
 	imageModal.element.addEventListener("hide", function(event){
-		imageModal.linkInput.disabled = false
-		imageModal.linkInput.value = ""
-		imageModal.fileInput.disabled = false
-		imageModal.fileInput.value = null
-		imageModal.positiveButton.classList.remove("uploading")
-		imageModal.positiveButton.disabled = false
-		imageModal.errorDiv.classList.remove("active")
+
 		if (imageModal.uploadRequest != null) {
 			imageModal.uploadRequest.abort()	
 		}
@@ -215,6 +220,8 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	codeModal.element.addEventListener("show", function(event){
 		editor.setSelection(null)
+		codeModal.selectLanguage.selectedIndex = "0"
+		codeEditor.setValue("")
 		codeEditor.focus()	
 	})
 
@@ -240,8 +247,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 
 	codeModal.element.addEventListener("hide", function(event){
 		codeEditor.getSession().setMode("ace/mode/plain_text")
-		codeModal.selectLanguage.selectedIndex = "0"
-		codeEditor.setValue("")
 	})
 
 	tagsInput.addEventListener("focus", function(event){
