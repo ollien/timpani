@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		init: function() { //We needt o access some objects within this obect upon initialization, so we use this function to do that.
 			this.modal = new Modal(this.element)
 			this.errorDiv = this.element.querySelector("div.modal-error")
+			this.positiveButton = this.element.querySelector("button.positive") 
 			delete this.init
 			return this
 		}
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		uploadRequest: null, //This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
 		init: function(){ //We need to access some objects within this object upon initializaton, so we use this function to do that.
 			this.modal = new Modal(this.element)
-			this.positiveButton = this.element.querySelector("button.positive") //We need to do some styling with this button, so it's better to find it now rather than later.
+			this.positiveButton = this.element.querySelector("button.positive") 
 			this.errorDiv = this.element.querySelector("div.modal-error")
 			delete this.init
 			return this
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 		selectLanguage: document.getElementById("select-language"),
 		init: function() { //We need to access some objects within this object upon initializatoin, so we use this function to do that.
 			this.modal = new Modal(this.element, {keyboard: false})	
+			this.positiveButton = this.element.querySelector("button.positive") 
 			delete this.init
 			return this
 		}
@@ -153,6 +155,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 	})
 
+	linkModal.element.addEventListener("hide", function(event){
+		linkModal.positiveButton.blur()
+	})
+
 
 	imageModal.element.addEventListener("show", function(event){
 		imageModal.linkInput.disabled = false
@@ -211,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 	})
 
 	imageModal.element.addEventListener("hide", function(event){
-
+		imageModal.positiveButton.blur()
 		if (imageModal.uploadRequest != null) {
 			imageModal.uploadRequest.abort()	
 		}
@@ -242,10 +248,10 @@ document.addEventListener("DOMContentLoaded", function(event){
 		}
 		input = input.join("\n")
 		editor.insertText(selection.end, input, "code", codeModal.selectLanguage.value)
-		var code = document.querySelectorAll("[class*=language-]")
 	})
 
 	codeModal.element.addEventListener("hide", function(event){
+		codeModal.positiveButton.blur()
 		codeEditor.getSession().setMode("ace/mode/plain_text")
 	})
 

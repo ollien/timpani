@@ -38,7 +38,7 @@ function Modal(element, config) {
 
 		document.addEventListener("keyup", function(event){
 			if (_this.config.keyboard){
-				if (event.keyCode == 27) {
+				if (event.keyCode == 27 && this.element.classList.contains("active")) {
 					event.preventDefault()	
 					_this.hide()
 				}
@@ -50,7 +50,7 @@ function Modal(element, config) {
 				if (button.classList.contains("positive")){
 					document.addEventListener("keyup", function(event){
 						if (_this.config.keyboard){
-							if (event.keyCode == 13){ //Enter
+							if (event.keyCode == 13 && _this.element.classList.contains("active")){ //Enter
 								event.preventDefault()
 								button.click()
 							}
