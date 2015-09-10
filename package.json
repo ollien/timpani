@@ -1,8 +1,10 @@
 {
-  "name": "timpan-dev",
+  "name": "timpani-dev",
   "version": "0.0.0",
   "main": "null",
-  "dependencies": {}, //This is a dev repo, and all the node_modules are thigns like gulp. We don't need dependencies
+  "dependencies": {
+    "//": "This is a dev repo, and all the node_modules are thigns like gulp. We don't need dependencies"
+  },
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.1",
@@ -10,8 +12,6 @@
     "gulp-sass": "^2.0.4",
     "gulp-uglify": "^1.4.1"
   },
-
   "author": "ollien",
-  "license": "MIT",
-  "homepage": "https://github.com/ollien/Timpani#readme"
+  "license": "MIT"
 }
