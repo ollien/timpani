@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(e){var t=document.querySelectorAll('[class*="language-"]');Array.prototype.slice.call(t).forEach(function(e){Prism.highlightElement(e)})});
