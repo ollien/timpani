@@ -1,0 +1,22 @@
+language: python
+
+services:
+    - docker
+
+python: 
+    - "3.2"
+    - "3.3"
+    - "3.4"
+
+before_install:
+    - "./tests/travis-setup.sh"
+
+install:
+    - "pip install -r py_dependencies.py"
+
+before_script:
+    - "docker start postgres"
+    - "./run"
+
+script: 
+    - "./tests.py"
