@@ -19,7 +19,7 @@ before_install:
     - "./tests/travis-setup.sh"
 
 install:
-    - "pip install -r py_dependencies.py"
+    - "pip install -r py_dependencies.txt"
 
 before_script:
     - "docker start postgres"
