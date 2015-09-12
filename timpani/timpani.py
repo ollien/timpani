@@ -3,7 +3,7 @@ from . import database
 from . import configmanager
 from . import webserver
 
-def run():
+def run(host = "0.0.0.0", port = 8080):
 	#Setup Config manager
 	configs = configmanager.ConfigManager(os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs")))
 	databaseConfig = configs["database"]
@@ -15,7 +15,7 @@ def run():
 	print("[Timpani] Database sessions started.")
 
 	#Start Webserver.
-	webserver.start(port = 8080, host="0.0.0.0")
+	webserver.start(host = host, port = port)
 
 	#This will run after server.run finishes, as in, after the server shuts down.
 	print("[Timpani] Closing database sessions")
