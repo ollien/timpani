@@ -1,6 +1,5 @@
-import collections
-import database
-import configmanager
+from . import database
+from . import configmanager
 import sqlalchemy
 
 def getMainConnection():

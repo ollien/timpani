@@ -2,7 +2,7 @@ import flask
 import os.path
 import datetime
 import urllib.parse
-import configmanager
+from .. import configmanager
 from . import views
 from . import endpoints
 

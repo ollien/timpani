@@ -1,7 +1,7 @@
 import flask
 import os.path
 import json
-import blog
+from ... import blog
 import uuid
 import magic
 import mimetypes

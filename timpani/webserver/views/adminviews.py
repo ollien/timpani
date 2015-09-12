@@ -1,7 +1,7 @@
 import flask
 import os.path
 import datetime
-import blog
+from ... import blog
 from .. import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))

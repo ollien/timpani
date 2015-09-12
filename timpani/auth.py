@@ -1,5 +1,5 @@
 import bcrypt
-import database
+from . import database
 import uuid
 import datetime
 

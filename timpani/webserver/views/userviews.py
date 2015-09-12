@@ -1,8 +1,8 @@
 import flask
 import os.path
-import auth
-import blog
-import configmanager
+from ... import auth
+from ... import blog
+from ... import configmanager
 from .. import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
