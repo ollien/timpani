@@ -40,6 +40,7 @@ class ConnectionManager():
 		if type(connectionName) == str:
 			connection = ConnectionManager.getConnection(connectionName)
 			if connection != None:
+				connection.close()
 				del ConnectionManager._connections[connectionName]
 			else:
 				raise ValueError("connectionName does not exist, or is already closed.")
@@ -62,3 +63,6 @@ class DatabaseConnection():
 		if result != None:
 			return result[0]
 		return None
+	
+	def close(self):
+		self.session.close()
