@@ -1,9 +1,7 @@
-import selenium
-
 def test(driver, username, password):
 	driver.get("http://127.0.0.1:8080/login")
 	
-	assert driver.title == "Login"
+	assert driver.title == "Login - Timpani"
 
 	loginForm = driver.find_element_by_id("login-form")
 	usernameField = driver.find_element_by_id("username-field")
@@ -29,4 +27,4 @@ def test(driver, username, password):
 	passwordField.send_keys(password)
 	loginForm.submit()
 
-	assert driver.title == "Manage"
+	assert driver.title == "Manage Blog - Timpani"
