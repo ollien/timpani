@@ -3,6 +3,13 @@ language: python
 services:
     - docker
 
+addons:
+    sauce_connect:
+        username:
+            secure: "Fb2jXpyoN8EfaSc2I4Z4CED8lVYFUhWO+qmjNoLB3yrNPGeAnEx/s/168ktcUkjHAlRLAZKvlDzuuEN3rnBarfRYOnSrK2U/BA5ozjr5VgJFifqKnUWWxdNn7S0QtBoJIAersy7NMjt5VgtIVTrW90s3pTS1693M9ZKOAyftu4qlIGC5pS3DRUjO3rCOTuoDavlPmMihm0BpuRLCdFodbJiKNRFEc1YvrCB52YrarImXuyqovF1INaOHzDqELWRhLqBXB1Sr0CttG+0PcO1LVV9THNzWROVfas6L5HKJ+Ya4dde9SnnqTb0VSwLyZZ5Fn00KZvTaRkoIPDdtFllLDowzvQ0H5jbAvPIyUQgydK8pR0yAVneDl8A1qST11KGwP/W7No39n0mtVxh15qSXEVrw/FPsfx+scmYpyATAN1wtOCPHNYOEoGZx2+NhzCWwKBpBJ/zC1mlHbLLQk56kOAePMZ4C0eQn8TWklDYwMUgGIbO/+N8BItm6SRGRSwYb2nnaNul8Le85JbdrRUwVciHWScB9yJjLLTsEXfI9Gb+k847NPbyhT7Wq9v1rgbnXVpFtDIheWhAIPDv+A3f/Zd2+JSdSM0M8KuQ00ZDnirneRdeKqHvKvSvEPU+k+wm1sekZQqzvfgjsmPiJxFEDLAlV+6bnU+xrZOGmqOufPC8="
+        access_key:
+           secure: "Zhl6vNgEoIggqdCGZm9/ztiG4i5vfhGB7qaSTCMvYkNOp6GbnwU11jiwEE62q0pXTH9fKJonRU8igYv7YM02wCBbc2+TJgcQtvEycXAzqH9gnfJOcytz5w42IR4K+jZfKO6Dzq+hTIc+u40ksxOW+NlDHrsjozaJ9Q6a1KGwjyTqMfyivF+hosQ5Qp8StXbcU2m5H337N6zJZU5LgYQF6dYhmjfByxe8ypbPnPrRhpvJZspP4EEP+25PlO7kAy3YBiwG30q+chshGpwrNU1qGWa7L28cIn9Tl68FWfN6jVDpmlLPv8TOO+mwDdbda9B8ysunoqczoEchWJ3NWo82Nlw4Xc97/KOt4zuFRqxCAWb33jYLXO1rT+ScAwQaOivzAIp1TbC8wMB9YmSZQDdcXrIlp5AciRIbmbz9+e1Cmuj/qi72HpcQJP0Vsr8BorA1Cr+poSKTCAKSNgC84oDW2Xv4zPV9Hnu8lohyyVYen26XoeFHeoqz1hhjYMvJk8YER79amkq7BAsHr4JOxYJddBoj4zCsgxoCrsrVORZoY0pnOeZQuf5wEHPDPgWR7JTQSpqfn8rZOB812vYYj2ijedFxuxhIhdCBZN3z0aSnoHBEnIndHp1gmFzD+U/0hngHDpXs1CbIiAhrOXOOdugbaLn0TGJjEJ3OjhK/i2Undsk=" 
+
 python: 
     - "3.2"
     - "3.3"
