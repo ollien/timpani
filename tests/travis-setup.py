@@ -1,12 +1,10 @@
 import bcrypt
 import sys
 import os
-sys.path.insert(0, "..")
-import database
+from timpani import database
 
-os.chdir("..")
 connection = database.DatabaseConnection()
-user = databse.tables.User("tests", "Timpani Tests", "password", True, True)
+user = database.tables.User(username = "tests", password = "password", full_name = "Timpani Tests", can_change_settings = True, can_write_posts = True)
 connection.session.add(user)
 connection.session.commit()
 connection.close()
