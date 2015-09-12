@@ -6,9 +6,9 @@ var jshint = require("gulp-jshint");
 var stylishJshint = require("jshint-stylish");
 var uglify = require("gulp-uglify");
 
-var SASS_SRC = "./src/web/scss/*.scss";
+var SASS_SRC = "./web-src/scss/*.scss";
 var SASS_DEST = "./static/css";
-var JS_SRC = "./src/web/js/*.js";
+var JS_SRC = "./web-src/js/*.js";
 var JS_DEST = "./static/js";
 
 gulp.task("sass", function () {

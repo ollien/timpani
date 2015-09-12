@@ -1,5 +1,5 @@
 import flask
-import auth
+from .. import auth
 import urllib.parse
 
 def checkForSession():

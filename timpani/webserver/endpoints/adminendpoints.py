@@ -1,14 +1,14 @@
 import flask
 import os.path
 import json
-import blog
+from ... import blog
 import uuid
 import magic
 import mimetypes
 from .. import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
-UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../../static/uploads"))
+UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../static/uploads"))
 
 blueprint = flask.Blueprint("adminEndpoints", __name__)
 

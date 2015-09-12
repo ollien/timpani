@@ -1,11 +1,11 @@
 import sqlalchemy
 import sqlalchemy.orm
 import uuid
-import configmanager
-import tables
 import os.path
+from . import configmanager
+from . import tables
 
-CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../configs/"))
+CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/"))
 configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
 config = configs["database"]
 

@@ -1,12 +1,12 @@
 import flask
 import os.path
 import datetime
-import blog
+from ... import blog
 from .. import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
-CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../../configs/"))
-TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../../templates"))
+CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../configs/"))
+TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../templates"))
 
 blueprint = flask.Blueprint("adminViews", __name__, template_folder = TEMPLATE_PATH)
 
