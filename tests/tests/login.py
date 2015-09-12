@@ -1,3 +1,5 @@
+from termcolor import cprint
+
 def test(driver, username, password):
 	driver.get("http://127.0.0.1:8080/login")
 	
@@ -28,3 +30,5 @@ def test(driver, username, password):
 	loginForm.submit()
 
 	assert driver.title == "Manage Blog - Timpani"
+
+	cprint("Login test passed!", "green")
