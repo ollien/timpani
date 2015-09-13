@@ -12,7 +12,7 @@ def test(driver, username, password):
 	databaseConnection = database.DatabaseConnection()
 	driver.get("http://127.0.0.1:8080/add_post")	
 	#Check that we were redirected to the login page, as we are not logged in.	
-	assert driver.title == "Login - Timpani"
+	assert driver.title == "Login - Timpani", "Title is %s" % driver.title
 
 	loginForm = driver.find_element_by_id("login-form")
 	usernameField = driver.find_element_by_id("username-field")
@@ -21,7 +21,8 @@ def test(driver, username, password):
 	passwordField.send_keys(password)
 	loginForm.submit()
 	#We should have been redirected to the add_post page.
-	assert driver.title == "Add Post - Timpani" 
+	assert driver.title == "Add Post - Timpani", "Title is %s" % driver.title
+ 
 
 	postForm = driver.find_element_by_id("post-form")
 	titleInput = driver.find_element_by_id("title-input")
@@ -50,7 +51,7 @@ def test(driver, username, password):
 	tags = [tag[0] for tag in tags] #Resolve sqlalchemy tuples
 
 	assert post != None
-	assert post.title == POST_TITLE
-	assert tags == POST_TAGS
+	assert post.title == POST_TITLE, "Title is %s" % post.title
+	assert tags == POST_TAGS, "Tags are %s" % tags
 
 	cprint("add_post test passed!", "green")

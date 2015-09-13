@@ -1,9 +1,11 @@
+from selenium.common import exceptions
 from termcolor import cprint
 
 def test(driver, username, password):
 	driver.get("http://127.0.0.1:8080/login")
 	
-	assert driver.title == "Login - Timpani"
+	assert driver.title == "Login - Timpani", "Title is %s" % driver.title
+
 
 	loginForm = driver.find_element_by_id("login-form")
 	usernameField = driver.find_element_by_id("username-field")
@@ -16,11 +18,11 @@ def test(driver, username, password):
 	try:
 		errorDiv = driver.find_element_by_id("error")
 
-	except NoSuchElementException:
+	except exceptions.NoSuchElementException:
 		#This will be asserted in a moment. It's ok to pass this.	
 		pass
 	
-	assert errorDiv != None
+	assert errorDiv is not None
 
 	loginForm = driver.find_element_by_id("login-form")
 	usernameField = driver.find_element_by_id("username-field")
@@ -29,6 +31,6 @@ def test(driver, username, password):
 	passwordField.send_keys(password)
 	loginForm.submit()
 
-	assert driver.title == "Manage Blog - Timpani"
+	assert driver.title == "Manage Blog - Timpani", "Title is %s" % driver.title
 
 	cprint("Login test passed!", "green")

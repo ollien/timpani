@@ -1,14 +1,12 @@
 language: python
 
-services:
-    - docker
-
 addons:
+    postgresql: "9.4"
     sauce_connect:
         username:
-            secure: "tCYSU/673IJ0LC7qdEk6yVtojB8GhkyJLIO1e5yeRgo/rhNE1vzh33luo2xGmaV/oFY8nhK6NJotnVB366nrDS4JrrsKrcXNqodNTnorTP2UVN+4Ggl533pypLnuXRDKcJQGWHaqAtO4zfvynOiJxemsKIucJcY3SWfGP7dJEeRhOnc3WNuq8tztTiyRo6AfsKyDMPN90AEgUbMXPBB62LsTvKbfHjNKoKXPN+8gl4+PVjeNifSXp6u1daThdBtIdAtazQqdaJKS8hEACsra0s3zvp+scSQSlEl0qZYz18bb9lpGJr+rUIIqbWKA3m+aZwcMjmwjiUCPvaF/FgsPLFNKVKM44o+7hX2tFjth/zMA/IfWRfd0agkTVC9d0E+qfphN23sE0VM3qOz24Z2ZuQWzh47KbxWHUIxvaJakBh1H5M+qngc0dmjx3IuJ224FG3ujUkdwOfazLLW28RdZ/pZJnNZr0TYS/69C0M4a013AzS8m0FAmeMr3j77OAE9DvgDdwF6zRdZlSdeh4qqwBNSEXUCADP4jVJUK4dQedkvX1VWQhaKrF1OaZnSp7dTdIfE9Y4sK0JmdFRnn28Sr8ccZ5YL0zl8xpHVfdn4sxq29QSJILdiM4M3v261Kdd236p4MxKCkhTUWhLWV5hVuRGx327tuxNSdLbHpoXKDLZE="
+            secure: "uM1EHGkGf/IZbdy0C5jZgjTnQBckE4NIe1xa7OVLnS8NveTodkNn49paT1mGUn7VVfP/1INfS/sBoFNsaCyunPShr5skserqQgsBm2zN2gzfaNco3ruUF22HXIYAL08IDXxpkJd2FWy02kbZD0oYKOyLdTJDZCweIAt4y5OuC0u9CmBDik5mMrLh+XcZl1wg8j69z4cdnfi5x4XD31B4sPDLFMjIE2szPZr9IYWfzhTaakPoLb9P1eHkIvTnGH72+Bv5Wj3miiBSR9wvyhKK24hlqdIehY1UMZJiaTmwGMxwHpF9SfFqlp1iFAuuuWchm8yPmYffxoh2nIdUn3BdLrQ/M/hkD3q+/49FAW7+FjjpjdD6CaLheD9kmrWjALkkaOY71gqIVCRs9pMJ389RhyFPKu0IAnhMYzWvprbuZ0W5FV7z2P8pvppXr9tvDMgHmLJLlIAFqERI1rs5l8wgdMMJeuROvJSmzjNy2s1jWC8PtPo1pOJizwtgj9mVCHx6Ss8lzV6f2J1qAemHFrWAktLZXdL4y5mkNd56iZmdxX+iBRbiHTwBnYWTfFPTy+xWmJ8XSZvULdnuhNg+TrnhkCcSn2u2XAOygW2siLqofyID0KFPHyv1FObsCRLf6Qn+dtZ6xGUCFpPR76rko46mos4x/Djva9l6q15erY7Kc78="
         access_key:
-           secure: "tjWSHomShYoJCol3YhMxkWCgJL6j54xzCyrOHYXrhJUedU/0JioTEc6Zbu1iqD46zpXRfIxFXPto8mMi68Awz6SPmRJyQV29pVzYGEBVITRIpyX1qdXC048LMKAeAUfdOsaukDdR24v3uwSABWRBsygKSBKhX5PWju3rQh4E9TFwBx0WEXJHF0WsTyQFbh2SgA/sdjDkXxQYUETpTGZTAO+uZhDRr6rn8iO7iKCYRm5rrBhWvoIqE1Cir8BaIJZvsSHBsOWQ+skIiQKD48wvGSW5okqUnKjXIx4za5D6FpMFnRVRhGtlShTw40ZyETVM7+ywOXSH5S3G+1KatO3zZ8j2l3EKG1Nk14LojZ1Y4c0Jp/PxYIrILDE6kn/e1n+oqM04A1rzFJL/BLH9qvuXDUOQsqPRaa9UH3qFIOqw4A23ftsHYRu0GWlGGQvFa5BFEjv8cFgSJ6E1wl2cQRmhP8J661hNrT/wcxzE4KhboYz3+kmtctG34dTQbGngnd4bU8WMpxvi+DP3tdCokjl8HGeALPaw4y3jo9Xqw40yvNsV0qa8NtlNocN7qYI2taiSr+ehabfjZvUkxojOSvezhGbEuq5nR+eYjEjiEjAWk6iYNAd07nNNgOQQNXZFVLmAYcqvdmcgpDCtbD/okdnyxkfEaqr+U7h0ItOCN0wJq78="
+           secure: "Gc/0MEtlkzMD+2HiImOaB1YQULDjpowVQZkhLYflouvaJXZfk+1D81l52TwrCzJLXUS6hzT83l8rbeCLH9ixILNv2+iC91zlptM8cLpq24GwvqsoX4vJvZOPHrPJXcvqbrn/zn+esWu7woHfCiGhZz0U3sYU1beOz1xDAOwB1PGuhrX7eR7l9OmxJjNZYevD4acOK7U2ITXiF/bwCGflDGXsL/gloexyn0ttKN6LYSltCUjA9j+1RfC3tOkfas7CYNFzaihMdaDONpEcOilh8N/n7NQ4G0y/JGA/kv7No1GubcgLkUlix2Xu9NosVWLPkeRahghXFvuRyTaYUoz3tGTRJj6s2whVEXnsZI0Za9fhCcoqy4fbsxn2qx6p8LZsXJsjgGUKl92gO7RawmfWdBRqCKVWDbAeH2J1xSG2YNhFokhsWgrUEmAfXdhtkXQP2/BeweH6mob5Fm0DJBMJVYiv3Z8j4f2cioJ5xzinO3Ht3rUKsuHxuTn+xlZD9CZVQF8BBkBn4yb0FTzDNtEoAWR0PxfCXUUa5n2UM3XObMV9gNbfPBsgTWG9xJQ6mJ+aAity8iv4rp+irXVGiMx4KCiIpXBMUmFiSuc26LygxFYX5T/bDX3z0OfKcaSS1B24GhU3sFjuVKzcUMieK/MLFmQxQ9d41iypYXwfs2/iqrk="
 
 python: 
     - "3.3"
@@ -16,13 +14,17 @@ python:
 
 before_install:
     - "pip install -r py_dependencies.txt"
-    
+    - "psql -c 'CREATE DATABASE blog'"
+    - "mkdir configs"
+    - "echo '{\"connection_string\": \"postgresql://postgres@127.0.0.1:5432/blog\"}' > configs/database.json"
+    - "echo '{\"display_full_name\": true}' > configs/templates.json"
+
 install:
-    - "./tests/travis-setup.sh"
+    - "cd $TRAVIS_BUILD_DIR/tests"
+    - "python3 ./travis-setup.py"
 
 before_script:
-    - "docker start postgres"
-    - "./run"
+    - "$TRAVIS_BUILD_DIR/run &"
 
 script: 
-    - "./tests/tests.py"
+    - "python3 $TRAVIS_BUILD_DIR/tests/tests.py"
