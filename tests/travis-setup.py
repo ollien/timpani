@@ -1,6 +1,7 @@
 import bcrypt
 import sys
 import os
+sys.path.insert(0, "..")
 from timpani import database
 
 connection = database.DatabaseConnection()
