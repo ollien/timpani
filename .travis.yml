@@ -1,31 +1,28 @@
 language: python
 
-env:
-    global:
-      - secure: RvH06PdPz1a37IWqCnGaB3Yw05cMMAa4kJdWwTVmrdwh28WwvlwvyMxIdZycjnxszM89fVl4HOIBaw3Wqc/GEwQ3gZAKPsnVMll3JbeAvaUxYQskVgJtCtm/uyK8fKR1w+UbTQx4Mu1K42CJoPy5Bcv2uEScIy70OKYfSeMXTI9U5l39ysi/Xi3MhFyHtVbd6B20E6MlxSjqDeFTnX7gVMaJ/etjrgfo6DWu2HjHvDDZaTZgueiXRoEn+pRwCkhPKoQail5cyDaWXO028QtPbhLcpvMje3ckQHz5kWd7LNmzfwnMqwFq/6zb01rV9cQgZ0n8hhsGszH+sRVvZ6qCzXVQwVRKl9e1gK+0Q0j2lOY65Eu9KB01328gMQp2TXEW0GA9jfjD1frVDVDsDxxP3DP6kFr99gs0gotffSliK8iXl/+actMIfNYGBw/FoI1U6YO0ywwszszalCawRtQXotHqWPL1uzfc6+CKt9y2UjcJNycIL8+yuc4glPcgrqZKYw3jzx6TwokLbTKzYsttzLBBLjPsbK2+HWS7Feogxst0pIe6InYU2pH1XA7gRGxjeh3Dct73h5X4LO3rIisnkaRoyKFcLdWx9ke4sbhbO8m7r+FE6BuepaT8on7vcN1yAaXaTjViMR6IICxLiiIk16/peA6P0v01IdtFNZwYzPU=
-      - secure: lPpKzCH2Y+KGNLoxFGVprL0GcNizLR5mx3s9Ey4e/25jElv+4L0TyslrYN/RyCCPEcN2BK4sL1FO/yKXeI1umU1Z/UTSApDM3XQooSz/IAjWL5k31R7H/KTQlExedoQqM3i3phuajQSwyzUYw+BJxcslFZPU2smK1IDYFHvIqEQTFPjrqh0hhdIaCACfqEiiSRgxayYVqlsxcSImH5tNoS94hJPS6PVHqg5ExuoDImFWiJ9//7nR6btANNFqG1thjxIPxZQOn9ZVhc9SlYOZLUvO6e3Eb9FrWUqIjCOSgf6HUdXMluNel/ioVXhBoTKwnASYldvLi/lhfHOcGw1wRm6GIbREmjT2pV0Xb+ghEchuHQpPtZxHZrfLOd4tTih/N5E1PY3WTX/wfiuton4pO+pGq8GWA5Wp7oMr0FaQVS1G6I/pldm4lMy3QojOX98Fk39qRDGEW+UsHvQdKQysnyarvRevKY0fIMRdLcsvSh1o/IPkF1XCYBDkgk/DnM9iJk6gP43Y+26YJlh2cQsuwwvtlrUPGr4L8ug582Wqcytqs/xQx77uXJ6ZPh9S/cGA6wF4ogjP0sYnGCv/LjlXvKXMpvdVNdUpwfRhG9U05eFnYnD3iGA3NUKulxVpSfmDH4Dr69Mlj+FocaYaso08XUA0Ak9hmlKOEx1iuj9aGSw=
-
 services:
     - docker
 
 addons:
-  sauce_connect: true
-
-python:
-    - '3.2'
-    - '3.3'
-    - '3.4'
+    sauce_connect:
+        username:
+            secure: "tCYSU/673IJ0LC7qdEk6yVtojB8GhkyJLIO1e5yeRgo/rhNE1vzh33luo2xGmaV/oFY8nhK6NJotnVB366nrDS4JrrsKrcXNqodNTnorTP2UVN+4Ggl533pypLnuXRDKcJQGWHaqAtO4zfvynOiJxemsKIucJcY3SWfGP7dJEeRhOnc3WNuq8tztTiyRo6AfsKyDMPN90AEgUbMXPBB62LsTvKbfHjNKoKXPN+8gl4+PVjeNifSXp6u1daThdBtIdAtazQqdaJKS8hEACsra0s3zvp+scSQSlEl0qZYz18bb9lpGJr+rUIIqbWKA3m+aZwcMjmwjiUCPvaF/FgsPLFNKVKM44o+7hX2tFjth/zMA/IfWRfd0agkTVC9d0E+qfphN23sE0VM3qOz24Z2ZuQWzh47KbxWHUIxvaJakBh1H5M+qngc0dmjx3IuJ224FG3ujUkdwOfazLLW28RdZ/pZJnNZr0TYS/69C0M4a013AzS8m0FAmeMr3j77OAE9DvgDdwF6zRdZlSdeh4qqwBNSEXUCADP4jVJUK4dQedkvX1VWQhaKrF1OaZnSp7dTdIfE9Y4sK0JmdFRnn28Sr8ccZ5YL0zl8xpHVfdn4sxq29QSJILdiM4M3v261Kdd236p4MxKCkhTUWhLWV5hVuRGx327tuxNSdLbHpoXKDLZE="
+        access_key:
+           secure: "tjWSHomShYoJCol3YhMxkWCgJL6j54xzCyrOHYXrhJUedU/0JioTEc6Zbu1iqD46zpXRfIxFXPto8mMi68Awz6SPmRJyQV29pVzYGEBVITRIpyX1qdXC048LMKAeAUfdOsaukDdR24v3uwSABWRBsygKSBKhX5PWju3rQh4E9TFwBx0WEXJHF0WsTyQFbh2SgA/sdjDkXxQYUETpTGZTAO+uZhDRr6rn8iO7iKCYRm5rrBhWvoIqE1Cir8BaIJZvsSHBsOWQ+skIiQKD48wvGSW5okqUnKjXIx4za5D6FpMFnRVRhGtlShTw40ZyETVM7+ywOXSH5S3G+1KatO3zZ8j2l3EKG1Nk14LojZ1Y4c0Jp/PxYIrILDE6kn/e1n+oqM04A1rzFJL/BLH9qvuXDUOQsqPRaa9UH3qFIOqw4A23ftsHYRu0GWlGGQvFa5BFEjv8cFgSJ6E1wl2cQRmhP8J661hNrT/wcxzE4KhboYz3+kmtctG34dTQbGngnd4bU8WMpxvi+DP3tdCokjl8HGeALPaw4y3jo9Xqw40yvNsV0qa8NtlNocN7qYI2taiSr+ehabfjZvUkxojOSvezhGbEuq5nR+eYjEjiEjAWk6iYNAd07nNNgOQQNXZFVLmAYcqvdmcgpDCtbD/okdnyxkfEaqr+U7h0ItOCN0wJq78="
+python: 
+    - "3.2"
+    - "3.3"
+    - "3.4"
 
 before_install:
     - "./tests/travis-setup.sh"
 
 install:
-    - pip install -r py_dependencies.txt
+    - "pip install -r py_dependencies.txt"
 
 before_script:
-    - docker start postgres
+    - "docker start postgres"
     - "./run"
 
-script:
+script: 
     - "./tests.py"
-
