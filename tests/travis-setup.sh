@@ -9,5 +9,3 @@ echo '{"connection_string": "postgresql://root@127.0.0.1/blog"}' > configs/datab
 echo '{"display_full_name": true}' > configs/templates.json
 cd $(dirname "$BASH_SOURCE")
 python3 ./travis-setup.py
-
-docker stop postgres

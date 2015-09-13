@@ -21,7 +21,6 @@ install:
     - "pip install -r py_dependencies.txt"
 
 before_script:
-    - "docker start postgres"
     - "./run"
 
 script: 
