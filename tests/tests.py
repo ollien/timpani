@@ -1,4 +1,5 @@
 from selenium import webdriver
+import sys
 import tests
 
 capabilities = {"javascriptEnabled": True}
@@ -8,6 +9,7 @@ capabilities["tunnel-identifier"] = os.environ["TRAVIS_JOB_NUMBER"]
 capabilities["build"] = os.environ["TRAVIS_BUILD_NUMBER"]
 url = "%s:%s@localhost:4445" % (username, access_key)
 driver = webdriver.Remote(desired_capabilities=capabilities, command_executor="http://%s/wd/hub" % url)
+driver = webdriver.Chrome()
 
 tests.login.test(driver, "tests", "password")
 driver.add_cookie({"name": "sessionId", "value": ""})

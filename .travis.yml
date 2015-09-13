@@ -11,7 +11,6 @@ addons:
            secure: "tjWSHomShYoJCol3YhMxkWCgJL6j54xzCyrOHYXrhJUedU/0JioTEc6Zbu1iqD46zpXRfIxFXPto8mMi68Awz6SPmRJyQV29pVzYGEBVITRIpyX1qdXC048LMKAeAUfdOsaukDdR24v3uwSABWRBsygKSBKhX5PWju3rQh4E9TFwBx0WEXJHF0WsTyQFbh2SgA/sdjDkXxQYUETpTGZTAO+uZhDRr6rn8iO7iKCYRm5rrBhWvoIqE1Cir8BaIJZvsSHBsOWQ+skIiQKD48wvGSW5okqUnKjXIx4za5D6FpMFnRVRhGtlShTw40ZyETVM7+ywOXSH5S3G+1KatO3zZ8j2l3EKG1Nk14LojZ1Y4c0Jp/PxYIrILDE6kn/e1n+oqM04A1rzFJL/BLH9qvuXDUOQsqPRaa9UH3qFIOqw4A23ftsHYRu0GWlGGQvFa5BFEjv8cFgSJ6E1wl2cQRmhP8J661hNrT/wcxzE4KhboYz3+kmtctG34dTQbGngnd4bU8WMpxvi+DP3tdCokjl8HGeALPaw4y3jo9Xqw40yvNsV0qa8NtlNocN7qYI2taiSr+ehabfjZvUkxojOSvezhGbEuq5nR+eYjEjiEjAWk6iYNAd07nNNgOQQNXZFVLmAYcqvdmcgpDCtbD/okdnyxkfEaqr+U7h0ItOCN0wJq78="
 
 python: 
-    - "3.2"
     - "3.3"
     - "3.4"
 
@@ -26,4 +25,4 @@ before_script:
     - "./run"
 
 script: 
-    - "./tests.py"
+    - "./tests/tests.py"
