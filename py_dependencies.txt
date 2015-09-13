@@ -2,3 +2,4 @@ flask
 sqlalchemy
 bcrypt
 python-magic
+psycopg2
