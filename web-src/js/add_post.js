@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 	}.init();
 	
+	validityInput.setCustomValidity("Please fill out a post body.");
 	editor.addModule("toolbar", { container: "div#toolbar" });
 	editor.addFormat("quote", { "class": "quote" });
 	editor.addFormat("code", { "class": "language-" });
@@ -109,6 +110,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		else {
 			quoteButton.disabled = false;
 			codeButton.disabled = true;
+		}
+
+		if (editor.getText().trim().length === 0) {
+			validityInput.setCustomValidity("Please fill out a post body.");
+		} 
+
+		else {
+			validityInput.setCustomValidity("");	
 		}
 	});
 	
@@ -299,20 +308,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	form.addEventListener("submit", function(event) {
-		if (editor.getText().trim().length === 0) {
-			validityInput.setCustomValidity("Please fill out a post body.");
-			event.preventDefault();
-		} 
+		postBodyInput.value = editor.getHTML();
+		if (canLoadInsignia()){
+			placeholderTagsInput.value = tagsInputPlugin.value();
+		}
 		
-		else {
-			postBodyInput.value = editor.getHTML();
-			if (canLoadInsignia()){
-				placeholderTagsInput.value = tagsInputPlugin.value();
-			}
-			
-			else{
-				placeholderTagsInput.value = tagsInput.value;	
-			}
+		else{
+			placeholderTagsInput.value = tagsInput.value;	
 		}
 	});
 });
