@@ -59,16 +59,41 @@ function Modal(element, config) {
 				}
 
 				button.addEventListener("click", function(event) {
-					var mainEvent = new Event("pressed", { cancelable: true });
+					var mainEvent = null;
 					var secondaryEvent = null;
+
+					try {
+						mainEvent = new Event("pressed", { cancelable: true });
+					}
+					//Legacy support for IE and the likes
+					catch (e) {
+						mainEvent = document.createEvent("event");
+						mainEvent.initEvent("pressed", false, true);
+					}
+
 					mainEvent.el = this;
 
 					if (this.classList.contains("positive")) {
-						secondaryEvent = new Event("positive-pressed", { cancelable: true });
+						try {
+							secondaryEvent = new Event("positive-pressed", { cancelable: true });
+						}
+						//Legacy support for IE and the likes
+						catch (e) {
+							mainEvent = document.createEvent("event");
+							mainEvent.initEvent("positive-pressed", false, true);
+						}
 					} 
 					
 					else if (this.classList.contains("negative")) {
 						secondaryEvent = new Event("negative-pressed", { cancelable: true });
+						try {
+							secondaryEvent = new Event("negative-pressed", { cancelable: true });
+						}
+						//Legacy support for IE and the likes
+						catch (e) {
+							mainEvent = document.createEvent("event");
+							mainEvent.initEvent("nevative-pressed", false, true);
+						}
 					}
 
 					_this.element.dispatchEvent(mainEvent);
@@ -88,7 +113,18 @@ function Modal(element, config) {
 }
 
 Modal.prototype.show = function() {
-	var event = new Event("show", { cancelable: true });
+	var event = null;
+
+	try {
+		event = new Event("show", { cancelable: true });
+	}
+
+	catch (e) {
+		//Legacy support for IE and the likes.
+		event = document.createEvent("event");
+		event.initEvent("show", false, true);
+	}
+
 	this.element.dispatchEvent(event);
 	if (!event.defaultPrevented) {
 		this.element.classList.add("active");
@@ -98,12 +134,21 @@ Modal.prototype.show = function() {
 };
 
 Modal.prototype.hide = function() {
-	var event = new Event("hide", { cancelable: true });
+	var event = null;
+	try {
+		event = new Event("hide", { cancelable: true });
+	}
+	
+	catch (e){
+		event = document.createEvent("event");	
+		event.initEvent("hide", false, true);
+	}
+
 	this.element.dispatchEvent(event);
 	if (!event.defaultPrevented) {
 		this.element.classList.remove("active");
 		this.overlay.addEventListener("transitionend", function(event) {
-			this.remove();
+			this.parentNode.removeChild(this);
 		});
 		this.overlay.classList.remove("active");
 	}
