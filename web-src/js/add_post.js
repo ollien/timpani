@@ -1,11 +1,11 @@
 /*jshint eqnull: true */
 
-function canLoadInsignia(){
-	if (window.navigator == null){
+function canLoadInsignia() {
+	if (window.navigator == null) {
 		return false;	
 	}
 
-	if (navigator.userAgent.indexOf("MSIE") > -1 && navigator.userAgent.indexOf("MSIE 11") == -1 && navigator.userAgent.indexOf("Opera") == -1){
+	if (navigator.userAgent.indexOf("MSIE") > -1 && navigator.userAgent.indexOf("MSIE 11") == -1 && navigator.userAgent.indexOf("Opera") == -1) {
 		return false;
 	}
 
@@ -85,14 +85,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			quoteButton.disabled = true;
 			codeButton.disabled = false;
 		} 
-		
 		else {
 			editorDiv.classList.add("focused");
 			if (range.end - range.start > 0) {
 				quoteButton.disabled = false;
 				codeButton.disabled = true;
 			} 
-
 			else {
 				quoteButton.disabled = true;
 				codeButton.disabled = false;
@@ -309,11 +307,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	form.addEventListener("submit", function(event) {
 		postBodyInput.value = editor.getHTML();
-		if (canLoadInsignia()){
+		if (canLoadInsignia()) {
 			placeholderTagsInput.value = tagsInputPlugin.value();
 		}
 		
-		else{
+		else {
 			placeholderTagsInput.value = tagsInput.value;	
 		}
 	});
