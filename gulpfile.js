@@ -5,6 +5,7 @@ var minifyCss = require("gulp-minify-css");
 var jshint = require("gulp-jshint");
 var stylishJshint = require("jshint-stylish");
 var uglify = require("gulp-uglify");
+var plumber = require("gulp-plumber")
 
 var SASS_SRC = "./web-src/scss/*.scss";
 var SASS_DEST = "./static/css";
@@ -12,7 +13,9 @@ var JS_SRC = "./web-src/js/*.js";
 var JS_DEST = "./static/js";
 
 gulp.task("sass", function () {
-	return gulp.src(SASS_SRC).pipe(sass())
+	return gulp.src(SASS_SRC)
+		.pipe(plumber())
+		.pipe(sass())
 		.pipe(autoPrefixer({
 			browsers: [
 				"last 2 versions",
@@ -25,6 +28,7 @@ gulp.task("sass", function () {
 
 gulp.task("js", function() {
 	return gulp.src(JS_SRC)
+		.pipe(plumber())
 		.pipe(jshint())
 		.pipe(jshint.reporter(stylishJshint))
 		.pipe(jshint.reporter("fail"))
