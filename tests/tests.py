@@ -11,12 +11,8 @@ browsers = [
 	{"browserName": "firefox", "platform": "Windows 7", "version": "39.0"},
 	{"browserName": "firefox", "platform": "Windows 7", "version": "38.0"},
 
-	{"browserName": "Safari", "platform": "OS X 10.9", "version": "7.0"},
-	{"browserName": "Safari", "platform": "OS X 10.10", "version": "8.0"},
-
 	{"browserName": "internet explorer", "platform": "Windows 7", "version": "11.0"},
 	{"browserName": "internet explorer", "platform": "Windows 7", "version": "10.0"},
-	{"browserName": "internet explorer", "platform": "Windows 7", "version": "9.0"},
 
 	{"browserName": "opera", "platform": "Windows 7", "version": "12.12"}
 ]
