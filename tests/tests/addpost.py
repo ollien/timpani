@@ -21,7 +21,7 @@ def test(driver, username, password):
 	WebDriverWait(driver, 10).until(expected_conditions.title_contains("Timpani"))
 
 	#Check that we were redirected to the login page, as we are not logged in.	
-	assert driver.title == "Login - Timpani", "Title is %s" % driver.title
+	assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
 
 	loginForm = driver.find_element_by_id("login-form")
 	usernameField = driver.find_element_by_id("username-field")
@@ -33,7 +33,7 @@ def test(driver, username, password):
 	WebDriverWait(driver, 10).until_not(expected_conditions.title_is(LOGIN_TITLE))
 
 	#We should have been redirected to the add_post page.
-	assert driver.title == "Add Post - Timpani", "Title is %s" % driver.title
+	assert driver.title == ADD_POST_TITLE, "Title is %s" % driver.title
  
 	postForm = driver.find_element_by_id("post-form")
 	titleInput = driver.find_element_by_id("title-input")
