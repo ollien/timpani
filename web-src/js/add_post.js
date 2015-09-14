@@ -1,5 +1,18 @@
 /*jshint eqnull: true */
 
+function canLoadInsignia(){
+	if (window.navigator == null){
+		return false;	
+	}
+
+	if (navigator.userAgent.indexOf("MSIE") > -1 && navigator.userAgent.indexOf("MSIE 11") == -1 && navigator.userAgent.indexOf("Opera") == -1){
+		return false;
+	}
+
+	return true;
+}
+
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	var editorDiv = document.getElementById("editor");
 	var editor = new Quill(editorDiv);
@@ -8,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var validityInput = document.getElementById("post-validity");
 	var tagsInput = document.getElementById("tags-input");
 	var placeholderTagsInput = document.getElementById("placeholder-tags-input");
-	var tagsInputPlugin = insignia(tagsInput);
+	var tagsInputPlugin = canLoadInsignia() ? insignia(tagsInput) : null;
 	var form = document.getElementById("post-form");
 	var linkButton = document.getElementById("add-link");
 	var imageButton = document.getElementById("add-image");
@@ -293,7 +306,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 		else {
 			postBodyInput.value = editor.getHTML();
-			placeholderTagsInput.value = tagsInputPlugin.value();
+			if (canLoadInsignia()){
+				placeholderTagsInput.value = tagsInputPlugin.value();
+			}
+			
+			else{
+				placeholderTagsInput.value = tagsInput.value;	
+			}
 		}
 	});
 });
