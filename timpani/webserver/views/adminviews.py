@@ -21,17 +21,16 @@ def manage():
 @blueprint.route("/add_post", methods=["GET", "POST"])
 def addPost():
 	session = webhelpers.checkForSession()
+
 	if session != None:
 		if flask.request.method == "GET":
 			return flask.render_template("add_post.html")
-
 		elif flask.request.method == "POST":
 			postTitle = flask.request.form["post-title"]
 			postBody = flask.request.form["post-body"].replace("\t", "&emsp;").replace("    ", "&emsp;")
 			postTags = flask.request.form["post-tags"]
 			blog.addPost(postTitle, postBody, datetime.datetime.now(), session.user, postTags)
 			return flask.redirect("/")
-
 	else:
 		return webhelpers.redirectAndSave("/login")
 
@@ -41,7 +40,6 @@ def managePosts():
 	if session != None:
 		posts = blog.getPosts(tags = False)
 		return flask.render_template("manage_posts.html", posts = posts)
-
 	else:
 		return webhelpers.redirectAndSave("/login")
 
