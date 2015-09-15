@@ -5,7 +5,7 @@ function canLoadInsignia() {
 		return false;	
 	}
 
-	if (navigator.userAgent.indexOf("MSIE") > -1 && navigator.userAgent.indexOf("MSIE 11") == -1 && navigator.userAgent.indexOf("Opera") == -1) {
+	if (navigator.userAgent.indexOf("MSIE") > -1 && navigator.userAgent.indexOf("MSIE 11") === -1 && navigator.userAgent.indexOf("Opera") === -1) {
 		return false;
 	}
 
