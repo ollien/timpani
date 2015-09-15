@@ -19,7 +19,6 @@ def deletePost(postId):
 	if session != None:
 		blog.deletePost(postId)
 		return json.dumps({"error": 0})
-
 	else:
 		return json.dumps({"error": 1}), 403
 
@@ -43,9 +42,7 @@ def uploadImage():
 			fileName = "%s%s" % (uuid.uuid4().hex, extension)
 			image.save(os.path.join(UPLOAD_LOCATION, fileName))
 			return json.dumps({"error": 0, "url": os.path.join("/static/uploads", fileName)})
-
 		else:
 			return json.dumps({"error": 2}), 400
-
 	else:
 		return json.dumps({"error": 1}), 403
