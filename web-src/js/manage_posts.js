@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 				li.classList.add("deleting");
 			}
-
 			else if (res.error === 1) {
 				window.location = "/login";
 			}
