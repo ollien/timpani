@@ -4,6 +4,11 @@ import traceback
 from termcolor import cprint
 import tests
 
+FAILED_TAG = "failed"
+PASSED_TAG = "passed"
+FAILED_ANSI = "\033[91m"
+PASSED_ANSI = "\033[92m"
+
 browsers = [
 	{"browserName": "chrome", "platform": "Windows 7", "version": "45.0"},
 	{"browserName": "chrome", "platform": "Windows 7", "version": "44.0"},
