@@ -4,4 +4,3 @@ psycopg2
 bcrypt
 python-magic
 selenium==2.46.0
-termcolor

@@ -2,7 +2,6 @@ from selenium import webdriver
 import os
 import traceback
 import shutil
-from termcolor import cprint
 import tests
 
 FAILED_TAG = "failed"
