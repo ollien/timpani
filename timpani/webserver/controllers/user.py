@@ -12,7 +12,7 @@ TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../templates"
 configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
 templateConfig = configs["templates"]
 
-blueprint = flask.Blueprint("userViews", __name__, template_folder = TEMPLATE_PATH)
+blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
 
 @blueprint.route("/")
 def showPosts():
