@@ -1,6 +1,7 @@
 from selenium import webdriver
 import os
 import traceback
+import shutil
 from termcolor import cprint
 import tests
 
@@ -8,6 +9,7 @@ FAILED_TAG = "failed"
 PASSED_TAG = "passed"
 FAILED_ANSI = "\033[91m"
 PASSED_ANSI = "\033[92m"
+RESET_ANSI = "\033[0m"
 
 browsers = [
 	{"browserName": "chrome", "platform": "Windows 7", "version": "45.0"},
@@ -31,6 +33,15 @@ access_key = os.environ["SAUCE_ACCESS_KEY"]
 default_capabilities["tunnel-identifier"] = os.environ["TRAVIS_JOB_NUMBER"]
 default_capabilities["build"] = os.environ["TRAVIS_BUILD_NUMBER"]
 url = "%s:%s@localhost:4445" % (username, access_key)
+
+def printTestResult(message, secondaryMessage, ansi):
+	#Determine the number of spaces needed to float the secondary message to the right
+	spaces = shutil.get_terminal_size().columns - (len(message) + len(secondaryMessage) + 2)
+	print(message, end = "")
+	print(" " * spaces, end = "")
+	print("[%s" % ansi, end = "")
+	print(secondaryMessage, end = "")
+	print("%s]" % RESET_ANSI)
 
 for browser in browsers:
 	capabilities = default_capabilities.copy()
