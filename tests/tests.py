@@ -4,12 +4,6 @@ import traceback
 import shutil
 import tests
 
-FAILED_TAG = "failed"
-PASSED_TAG = "passed"
-FAILED_ANSI = "\033[91m"
-PASSED_ANSI = "\033[92m"
-RESET_ANSI = "\033[0m"
-
 browsers = [
 	{"browserName": "chrome", "platform": "Windows 7", "version": "45.0"},
 	{"browserName": "chrome", "platform": "Windows 7", "version": "44.0"},
@@ -40,7 +34,13 @@ def printTestResult(message, secondaryMessage, ansi):
 	print(" " * spaces, end = "")
 	print("[%s" % ansi, end = "")
 	print(secondaryMessage, end = "")
-	print("%s]" % RESET_ANSI)
+	print("%s]" % "\033[0m")
+
+def passTest(testName):
+	printTestResult(testName, "pass", "\033[92m")
+
+def failTest(testName):
+	printTestResult(testName, "fail", "\033[91m")
 
 for browser in browsers:
 	capabilities = default_capabilities.copy()
@@ -59,10 +59,11 @@ for browser in browsers:
 		failed = True
 
 	if failed:
-		printTestResult("Login test", FAILED_TAG, FAILED_ANSI)
+		failTest("Login test")
 	
 	else:
-		printTestResult("Login test", PASSED_TAG, PASSED_ANSI)
+		passTest("Login test")
+		
 	
 	driver.add_cookie({"name": "sessionId", "value": ""})
 
@@ -76,10 +77,10 @@ for browser in browsers:
 		failed = True
 
 	if failed:
-		printTestResult("Add post test", FAILED_TAG, FAILED_ANSI)
+		failTest("Add post test")
 	
 	else:
-		printTestResult("Add post test", PASSED_TAG, PASSED_ANSI)
+		passTest("Add post test")
 
 	driver.close()
 	driver.quit()
