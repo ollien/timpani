@@ -2,7 +2,6 @@ from selenium.common import exceptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
-from termcolor import cprint
 
 LOGIN_TITLE = "Login - Timpani"
 MANAGE_TITLE = "Manage Blog - Timpani"
@@ -34,5 +33,3 @@ def test(driver, username, password):
 	WebDriverWait(driver, 10).until_not(expected_conditions.title_is(LOGIN_TITLE))
 
 	assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
-
-	cprint("Login test passed!", "green")

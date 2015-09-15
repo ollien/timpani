@@ -4,7 +4,6 @@ from selenium.webdriver.common import keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
-from termcolor import cprint
 from timpani import database
 
 LOGIN_TITLE = "Login - Timpani"
@@ -64,5 +63,3 @@ def test(driver, username, password):
 	assert post != None
 	assert post.title == POST_TITLE, "Title is %s" % post.title
 	assert tags == POST_TAGS, "Tags are %s" % tags
-
-	cprint("add_post test passed!", "green")
