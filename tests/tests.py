@@ -53,14 +53,12 @@ for browser in browsers:
 	failed = False
 	try:
 		tests.login.test(driver, "tests", "password")
-
 	except:
 		traceback.print_exc()
 		failed = True
 
 	if failed:
 		failTest("Login test")
-	
 	else:
 		passTest("Login test")
 		
@@ -71,14 +69,12 @@ for browser in browsers:
 	failed = False
 	try:
 		tests.addpost.test(driver, "tests", "password")
-
 	except:
 		traceback.print_exc()
 		failed = True
 
 	if failed:
 		failTest("Add post test")
-	
 	else:
 		passTest("Add post test")
 
