@@ -38,13 +38,13 @@ def printTestResult(message, secondaryMessage, ansi):
 	print("%s]" % "\033[0m")
 
 def passTest(testName):
-	printTestResult(testName, "pass", "\033[92m")
+	printTestResult(testName, "pass", "\033[31m")
 
 def failTest(testName):
 	global allTestsPass
 
 	allTestsPass = False
-	printTestResult(testName, "fail", "\033[91m")
+	printTestResult(testName, "fail", "\033[32m")
 
 allTestsPass = True
 
