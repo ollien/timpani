@@ -1,5 +1,7 @@
 from selenium import webdriver
 import os
+import traceback
+from termcolor import cprint
 import tests
 
 browsers = [
@@ -31,9 +33,38 @@ for browser in browsers:
 	driver = webdriver.Remote(desired_capabilities=capabilities, command_executor="http://%s/wd/hub" % url)
 
 	print("Running tests on %s v%s" % (browser["browserName"], browser["version"]))
-	tests.login.test(driver, "tests", "password")
+
+	#Login Test
+	failed = False
+	try:
+		tests.login.test(driver, "tests", "password")
+
+	except:
+		traceback.print_exc()
+		failed = True
+
+	if failed:
+		cprint("Login test failed.", "red")
+	
+	else:
+		cprint("Login test passed", "green")
+	
 	driver.add_cookie({"name": "sessionId", "value": ""})
-	tests.addpost.test(driver, "tests", "password")
+
+	#Add Post Test
+	failed = False
+	try:
+		tests.addpost.test(driver, "tests", "password")
+
+	except:
+		traceback.print_exc()
+		failed = True
+
+	if failed:
+		cprint("Add post test failed.", "red")
+	
+	else:
+		cprint("Add post test passed", "green")
 
 	driver.close()
 	driver.quit()
