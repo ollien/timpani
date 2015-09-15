@@ -1,5 +1,6 @@
 from selenium import webdriver
 import os
+import sys
 import traceback
 import shutil
 import tests
@@ -40,7 +41,12 @@ def passTest(testName):
 	printTestResult(testName, "pass", "\033[92m")
 
 def failTest(testName):
+	global allTestsPass
+
+	allTestsPass = False
 	printTestResult(testName, "fail", "\033[91m")
+
+allTestsPass = True
 
 for browser in browsers:
 	capabilities = default_capabilities.copy()
@@ -80,3 +86,7 @@ for browser in browsers:
 
 	driver.close()
 	driver.quit()
+
+if not allTestsPass:
+	#Will allow travis tests to be marked as failed.
+	sys.exit(1)
