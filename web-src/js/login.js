@@ -1,4 +1,5 @@
-/*jshint eqnull: true */
+/*jshint eqnull: true, eqeqeq: true */
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	var form = document.getElementById("login-form");
 	var usernameInput = document.getElementById("username-field");

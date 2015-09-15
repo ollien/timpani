@@ -1,4 +1,5 @@
-/*jshint eqnull: true */
+/*jshint eqnull: true, eqeqeq: true */
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	var modalElement = document.querySelector(".modal");
 	var modal = new Modal(modalElement);

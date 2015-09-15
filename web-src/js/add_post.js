@@ -1,4 +1,4 @@
-/*jshint eqnull: true */
+/*jshint eqnull: true, eqeqeq: true */
 
 function canLoadInsignia() {
 	if (window.navigator == null) {

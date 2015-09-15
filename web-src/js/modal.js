@@ -1,4 +1,5 @@
-/*jshint eqnull: true */
+/*jshint eqnull: true, eqeqeq: true */
+
 function Modal(element, config) {
 	this.overlay = document.createElement("div");
 	this.overlay.classList.add("modal-overlay");
