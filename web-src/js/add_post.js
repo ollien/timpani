@@ -104,7 +104,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			quoteButton.disabled = true;
 			codeButton.disabled = false;
 		} 
-		
 		else {
 			quoteButton.disabled = false;
 			codeButton.disabled = true;
@@ -113,7 +112,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if (editor.getText().trim().length === 0) {
 			validityInput.setCustomValidity("Please fill out a post body.");
 		} 
-
 		else {
 			validityInput.setCustomValidity("");	
 		}
@@ -174,7 +172,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			linkModal.errorDiv.classList.add("active");
 			event.preventDefault();
 		} 
-		
 		else {
 			editor.focus();
 			var selection = editor.getSelection();
@@ -188,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			if (selection.end - selection.start === 0) {
 				editor.insertText(selection.start, linkModal.input.value, "link", link);
 			} 
-	
 			else {
 				editor.formatText(selection.start, selection.end, "link", link);
 			}
@@ -223,7 +219,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			var selection = editor.getSelection();
 			editor.insertEmbed(selection.end, "image", imageModal.linkInput.value);
 		} 
-		
 		else if (!imageModal.fileInput.disabled && imageModal.fileInput.value.length > 0) {
 			event.preventDefault();
 			//We"re gonna need to do this on our own.
@@ -241,7 +236,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					editor.insertEmbed(selection.end, "image", data.url);
 					imageModal.modal.hide();
 				} 
-				
 				else if (data.error === 2) {
 					imageModal.errorDiv.textContent = "Image must be a JPG, PNG, or GIF.";
 					imageModal.errorDiv.classList.add("active");
@@ -310,7 +304,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if (canLoadInsignia()) {
 			placeholderTagsInput.value = tagsInputPlugin.value();
 		}
-		
 		else {
 			placeholderTagsInput.value = tagsInput.value;	
 		}
