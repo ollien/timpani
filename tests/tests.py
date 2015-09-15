@@ -60,10 +60,10 @@ for browser in browsers:
 		failed = True
 
 	if failed:
-		cprint("Login test failed.", "red")
+		printTestResult("Login test", FAILED_TAG, FAILED_ANSI)
 	
 	else:
-		cprint("Login test passed", "green")
+		printTestResult("Login test", PASSED_TAG, PASSED_ANSI)
 	
 	driver.add_cookie({"name": "sessionId", "value": ""})
 
@@ -77,10 +77,10 @@ for browser in browsers:
 		failed = True
 
 	if failed:
-		cprint("Add post test failed.", "red")
+		printTestResult("Add post test", FAILED_TAG, FAILED_ANSI)
 	
 	else:
-		cprint("Add post test passed", "green")
+		printTestResult("Add post test", PASSED_TAG, PASSED_ANSI)
 
 	driver.close()
 	driver.quit()
