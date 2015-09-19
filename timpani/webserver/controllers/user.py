@@ -45,7 +45,8 @@ def login():
 			return flask.render_template("login.html", error = "A username and password must be provided.")
 		elif auth.validateUser(flask.request.form["username"], flask.request.form["password"]):
 			resp = webhelpers.recoverFromRedirect() if webhelpers.canRecoverFromRedirect() else flask.make_response(flask.redirect("/manage"))
-			resp.set_cookie("sessionId", auth.createSession(flask.request.form["username"]))
+			sessionId, expires = auth.createSession(flask.request.form["username"])
+			resp.set_cookie("sessionId", sessionId, expires = expires)
 			return resp	
 		else:
 			return flask.render_template("login.html", error = "Invalid username or password.")
