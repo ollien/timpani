@@ -1,5 +1,6 @@
 import flask
 import os.path
+import datetime
 from ... import auth
 from ... import blog
 from ... import configmanager
@@ -44,9 +45,12 @@ def login():
 		if "username" not in flask.request.form or "password" not in flask.request.form:
 			return flask.render_template("login.html", error = "A username and password must be provided.")
 		elif auth.validateUser(flask.request.form["username"], flask.request.form["password"]):
-			resp = webhelpers.recoverFromRedirect() if webhelpers.canRecoverFromRedirect() else flask.make_response(flask.redirect("/manage"))
+			donePage = canRecoverFromRedirect()
+			donePage = donePage if donePage is not None else "/manage"
 			sessionId, expires = auth.createSession(flask.request.form["username"])
-			resp.set_cookie("sessionId", sessionId, expires = expires)
-			return resp	
+			flask.sesison["uid"] = sessionId
+			flask.session.permanent = True
+			flask.session.permanent_session_lifetime = datetime.datetime.now() - expires
+			return flask.redirect(donePage)
 		else:
 			return flask.render_template("login.html", error = "Invalid username or password.")
