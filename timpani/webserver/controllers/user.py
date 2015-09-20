@@ -48,7 +48,7 @@ def login():
 			donePage = webhelpers.canRecoverFromRedirect()
 			donePage = donePage if donePage is not None else "/manage"
 			sessionId, expires = auth.createSession(flask.request.form["username"])
-			flask.sesison["uid"] = sessionId
+			flask.session["uid"] = sessionId
 			flask.session.permanent = True
 			flask.session.permanent_session_lifetime = datetime.datetime.now() - expires
 			return flask.redirect(donePage)
