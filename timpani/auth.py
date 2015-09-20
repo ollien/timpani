@@ -50,7 +50,7 @@ def createSession(username, sessionId = generateSessionId()):
 	if query.count() > 0:
 		userObject = query.first()
 		userId = userObject.id
-		expires = datetime.datetime.now() + datetime.timedelta(0, 0, 0, 0, 0, 0, 2) #Now plus two weeks.
+		expires = datetime.datetime.now() + datetime.timedelta(weeks = 2) #Now plus two weeks.
 		sessionObj = database.tables.Session(user_id = userId, session_id = sessionId, expires = expires)
 		databaseConnection.session.add(sessionObj)
 		databaseConnection.session.commit()
