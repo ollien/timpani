@@ -20,5 +20,7 @@ def recoverFromRedirect():
 	return response
 
 def canRecoverFromRedirect():
-	return "donePage" in flask.request.cookies and flask.request.cookies["donePage"] != ""
+	if "donePage" in flask.session:
+		return flask.session["donePage"]
+	return None
 
