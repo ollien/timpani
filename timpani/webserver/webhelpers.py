@@ -3,8 +3,8 @@ from .. import auth
 import urllib.parse
 
 def checkForSession():
-	if "sessionId" in flask.request.cookies:
-		session = auth.validateSession(flask.request.cookies["sessionId"])
+	if "uid" in flask.session:
+		session = auth.validateSession(flask.session["uid"])
 		if session != None:
 			return session
 	return None
