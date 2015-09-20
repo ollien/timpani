@@ -20,7 +20,7 @@ before_install:
     - "mkdir configs"
     - "echo '{\"connection_string\": \"postgresql://postgres@127.0.0.1:5432/blog\"}' > configs/database.json"
     - "echo '{\"display_full_name\": true}' > configs/templates.json"
-    - "echo '{\"session_id_length\": 512, \"signing_key\": \"testing key, do not use in production.\"}' > configs/auth.json
+    - "echo '{\"session_id_length\": 512, \"signing_key\": \"testing key, do not use in production.\"}' > configs/auth.json"
 
 install:
     - "cd $TRAVIS_BUILD_DIR/tests"
