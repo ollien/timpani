@@ -10,9 +10,7 @@ def checkForSession():
 	return None
 
 def redirectAndSave(path):	
-	response = flask.make_response(flask.redirect(path))
-	print(urllib.parse.urlparse(flask.request.url).path)
-	response.set_cookie("donePage", urllib.parse.urlparse(flask.request.url).path)
+	flask.session["donePage"] = urllib.parse.urlparse(flask.request.url).path
 	return response
 
 def recoverFromRedirect():
