@@ -46,47 +46,30 @@ def failTest(testName):
 	allTestsPass = False
 	printTestResult(testName, "fail", "\033[31m")
 
-allTestsPass = True
+results = []
+
+def runTest(name, capabilities, method, *args, **kwargs):
+	driver = webdriver.Remote(desired_capabilities=capabilities, command_executor="http://%s/wd/hub" % url)
+	try:
+		method(driver, *args, **kwargs)
+		passTest(name)
+	except:
+		traceback.print_exc()
+		failTest(name)
+		driver.close()
+		driver.quit()
+		return False
+	driver.close()
+	driver.quit()
+	return True
 
 for browser in browsers:
 	capabilities = default_capabilities.copy()
 	capabilities.update(browser)
-	driver = webdriver.Remote(desired_capabilities=capabilities, command_executor="http://%s/wd/hub" % url)
-
 	print("Running tests on %s v%s" % (browser["browserName"], browser["version"]))
+	results.append(runTest("Login test", capabilities, tests.login.test, "tests", "password"))
+	results.append(runTest("Add Post test", capabilities, tests.addpost.test, "tests", "password"))
 
-	#Login Test
-	failed = False
-	try:
-		tests.login.test(driver, "tests", "password")
-	except:
-		traceback.print_exc()
-		failed = True
-
-	if failed:
-		failTest("Login test")
-	else:
-		passTest("Login test")
-		
-	
-	driver.add_cookie({"name": "sessionId", "value": ""})
-
-	#Add Post Test
-	failed = False
-	try:
-		tests.addpost.test(driver, "tests", "password")
-	except:
-		traceback.print_exc()
-		failed = True
-
-	if failed:
-		failTest("Add post test")
-	else:
-		passTest("Add post test")
-
-	driver.close()
-	driver.quit()
-
-if not allTestsPass:
+if False in results:
 	#Will allow travis tests to be marked as failed.
 	sys.exit(1)
