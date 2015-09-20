@@ -1,7 +1,15 @@
 import bcrypt
-from . import database
-import uuid
+import os
+import binascii
 import datetime
+from . import database
+from . import configmanager
+
+FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
+CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../configs/"))
+
+configs = configmanager.ConfigManager(configPath = CONFIG_PATH) 
+authConfig = configs["auth"]
 
 def createUser(username, password, can_change_settings, can_write_posts):
 	username = username.lower()
@@ -32,7 +40,7 @@ def validateUser(username, password):
 	return False
 
 def generateSessionId():
-	return ''.join([uuid.uuid4().hex for i in range(16)])
+	return binascii.hexlify(os.urandom(authConfig["session_id_length"])).decode("utf-8")
 
 def createSession(username, sessionId = generateSessionId()):
 	username = username.lower()
@@ -42,7 +50,7 @@ def createSession(username, sessionId = generateSessionId()):
 	if query.count() > 0:
 		userObject = query.first()
 		userId = userObject.id
-		expires = datetime.datetime.now() + datetime.timedelta(0, 0, 0, 0, 0, 0, 2) #Now plus two weeks.
+		expires = datetime.datetime.now() + datetime.timedelta(weeks = 2) #Now plus two weeks.
 		sessionObj = database.tables.Session(user_id = userId, session_id = sessionId, expires = expires)
 		databaseConnection.session.add(sessionObj)
 		databaseConnection.session.commit()

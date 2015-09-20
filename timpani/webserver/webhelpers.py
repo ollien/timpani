@@ -3,24 +3,24 @@ from .. import auth
 import urllib.parse
 
 def checkForSession():
-	if "sessionId" in flask.request.cookies:
-		session = auth.validateSession(flask.request.cookies["sessionId"])
+	if "uid" in flask.session:
+		session = auth.validateSession(flask.session["uid"])
 		if session != None:
 			return session
 	return None
 
 def redirectAndSave(path):	
-	response = flask.make_response(flask.redirect(path))
-	print(urllib.parse.urlparse(flask.request.url).path)
-	response.set_cookie("donePage", urllib.parse.urlparse(flask.request.url).path)
-	return response
+	flask.session["donePage"] = urllib.parse.urlparse(flask.request.url).path
+	return flask.redirect(path)
 
-def recoverFromRedirect():
-	donePage = flask.request.cookies["donePage"]
-	response = flask.make_response(flask.redirect(donePage))	
-	response.set_cookie("donePage", "", expires=0)
-	return response
-
+def markRedirectAsRecovered():
+	if "donePage" in flask.session:
+		del flask.session["donePage"]
+	else:
+		raise KeyError("No redirect to be recovered from.")
+		
 def canRecoverFromRedirect():
-	return "donePage" in flask.request.cookies and flask.request.cookies["donePage"] != ""
+	if "donePage" in flask.session:
+		return flask.session["donePage"]
+	return None
 
