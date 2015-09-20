@@ -45,7 +45,7 @@ def login():
 		if "username" not in flask.request.form or "password" not in flask.request.form:
 			return flask.render_template("login.html", error = "A username and password must be provided.")
 		elif auth.validateUser(flask.request.form["username"], flask.request.form["password"]):
-			donePage = canRecoverFromRedirect()
+			donePage = webhelpers.canRecoverFromRedirect()
 			donePage = donePage if donePage is not None else "/manage"
 			sessionId, expires = auth.createSession(flask.request.form["username"])
 			flask.sesison["uid"] = sessionId
