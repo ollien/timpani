@@ -11,7 +11,7 @@ def checkForSession():
 
 def redirectAndSave(path):	
 	flask.session["donePage"] = urllib.parse.urlparse(flask.request.url).path
-	return response
+	return flask.redirect(path)
 
 def markRedirectAsRecovered():
 	if "donePage" in flask.session:
