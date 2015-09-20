@@ -13,12 +13,12 @@ def redirectAndSave(path):
 	flask.session["donePage"] = urllib.parse.urlparse(flask.request.url).path
 	return response
 
-def recoverFromRedirect():
-	donePage = flask.request.cookies["donePage"]
-	response = flask.make_response(flask.redirect(donePage))	
-	response.set_cookie("donePage", "", expires=0)
-	return response
-
+def markRedirectAsRecovered():
+	if "donePage" in flask.session:
+		del flask.session["donePage"]
+	else:
+		raise KeyError("No redirect to be recovered from.")
+		
 def canRecoverFromRedirect():
 	if "donePage" in flask.session:
 		return flask.session["donePage"]
