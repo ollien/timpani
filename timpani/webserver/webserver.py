@@ -9,7 +9,7 @@ FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 STATIC_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../static"))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../configs/"))
 
-configs = configmanager.ConfigManager(confiPath = CONFIG_PATH)
+configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
 authConfig = configs["auth"]
 
 app = flask.Flask(__name__, static_folder = STATIC_PATH)
