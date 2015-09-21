@@ -71,3 +71,7 @@ def validateSession(sessionId):
 				return sessionObj
 
 	return None
+
+def invalidateSession(sessionId):
+	databaseConnetion = database.ConnectionManager.getConnection("main")
+	query = databaseConnection.session.query(database.tables.Session).filter(Database.tables.Session.session_id == sessionId).delete(syncronize_session=False)
