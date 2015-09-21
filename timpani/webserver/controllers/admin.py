@@ -30,7 +30,7 @@ def addPost():
 
 	if session != None:
 		if flask.request.method == "GET":
-			return flask.render_template("add_post.html")
+			return flask.render_template("add_post.html", user = session.user)
 		elif flask.request.method == "POST":
 			postTitle = flask.request.form["post-title"]
 			postBody = flask.request.form["post-body"].replace("\t", "&emsp;").replace("    ", "&emsp;")
@@ -45,7 +45,7 @@ def managePosts():
 	session = webhelpers.checkForSession()
 	if session != None:
 		posts = blog.getPosts(tags = False)
-		return flask.render_template("manage_posts.html", posts = posts)
+		return flask.render_template("manage_posts.html", posts = posts, user = session.user)
 	else:
 		return webhelpers.redirectAndSave("/login")
 
@@ -55,7 +55,7 @@ def editPost(postId):
 	if session != None:
 		if flask.request.method == "GET":
 			post = blog.getPostById(postId)	
-			return flask.render_template("add_post.html", post = post)
+			return flask.render_template("add_post.html", post = post, user = session.user)
 		elif flask.request.method == "POST":
 			postTitle = flask.request.form["post-title"]
 			postBody = flask.request.form["post-body"].replace("\t", "&emsp;").replace("    ", "&emsp;")
