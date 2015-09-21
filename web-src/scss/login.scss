@@ -14,19 +14,6 @@ div#login-bounding {
 		text-align: center;
 		vertical-align: middle;
 
-		div#error {
-			@extend .well;
-			$vertical-margin: 5px;
-			width: 25%;
-			min-width: 400px;
-			padding: 5px;
-			margin-top: $vertical-margin;
-			margin-bottom: $vertical-margin;
-			margin-left: auto;
-			margin-right: auto;
-			border: 1px solid #FF6956;
-			background-color: #FE7F70;
-		}
 	}
 }
 

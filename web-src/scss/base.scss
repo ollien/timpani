@@ -22,6 +22,20 @@ button.pure-button {
 	box-shadow: inset 0 1px 1px 1px rgba(0, 0, 0, .03);
 }
 
+div.error {
+	@extend .well;
+	$vertical-margin: 5px;
+	width: 25%;
+	min-width: 400px;
+	padding: 5px;
+	margin-top: $vertical-margin;
+	margin-bottom: $vertical-margin;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #FF6956;
+	background-color: #FE7F70;
+}
+
 $modal-transition-duration: 250ms;
 
 div.modal {
