@@ -15,7 +15,7 @@ var JS_DEST = "./static/js";
 gulp.task("sass", function () {
 	return gulp.src(SASS_SRC)
 		.pipe(plumber())
-		.pipe(sass())
+		.pipe(sass().on("error", sass.logError))
 		.pipe(autoPrefixer({
 			browsers: [
 				"last 2 versions",
