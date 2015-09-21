@@ -2,8 +2,6 @@ $toolbar-height: 20px;
 $toolbar-color: #5A5A5A;
 
 div.toolbar {
-	position: absolute;
-	top: 0;
 	display: inline-block;
 	width: 100%;
 	background-color: $toolbar-color;
