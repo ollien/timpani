@@ -12,11 +12,8 @@ div.toolbar {
 		height: 100%;
 		list-style: none;
 		margin: 0;
-
-		li.toolbar-intro {
-			padding-top: $toolbar-height * 4/10;
-			padding-bottom: $toolbar-height * 4/10;
-		}
+		padding-top: $toolbar-height * 4/10;
+		padding-bottom: $toolbar-height * 4/10;
 	}
 
 	ul.toolbar-list:first-child {
