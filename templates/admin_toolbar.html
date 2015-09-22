@@ -1,5 +1,6 @@
 <html>
 <head>
+	<link href="/static/libs/pure/pure-min.css" rel="stylesheet">
 	<link href="/static/css/admin_toolbar.css" rel="stylesheet">
 </head>
 <body>
@@ -7,6 +8,11 @@
 		<ul class="toolbar-list">
 			<li class="toolbar-intro">
 				Hi, {{user.full_name}}.
+			</li>
+			<li class="toolbar-logout">
+				<form action="/logout" method="POST">
+					<button class="pure-button logout-button" type="submit">Log Out</button>
+				</form>
 			</li>
 		</ul>
 	</div>
