@@ -61,6 +61,6 @@ def logout():
 		if "uid" in flask.session:
 			sessionId = flask.session["uid"]
 			auth.invalidateSession(sessionId)
-			session.clear()
+			flask.session.clear()
 	
 	return flask.redirect("/login")
