@@ -54,3 +54,13 @@ def login():
 			return flask.redirect(donePage)
 		else:
 			return flask.render_template("login.html", error = "Invalid username or password.")
+
+@blueprint.route("/logout", methods=["POST"])
+def logout():
+	if webhelpers.checkForSession():
+		if "uid" in flask.session:
+			sessionId = flask.session["uid"]
+			auth.invalidateSession(sessionId)
+			flask.session.clear()
+	
+	return flask.redirect("/login")

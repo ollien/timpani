@@ -1,0 +1,47 @@
+$toolbar-height: 20px;
+$toolbar-color: #5A5A5A;
+
+div.toolbar {
+	display: inline-block;
+	width: 100%;
+	background-color: $toolbar-color;
+	font-size: 12pt;
+    border-bottom: #7F7F7F 1px solid;
+    color: white;
+	ul.toolbar-list {
+		display: table;
+		height: 100%;
+		width: 100%;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		padding-top: $toolbar-height * 4/10;
+		padding-bottom: $toolbar-height * 4/10;
+
+		li {
+			display: table-cell;
+			vertical-align: middle;
+		}
+
+		li.toolbar-logout {
+			display: table-cell;
+			text-align: right;
+
+			button {
+				background-color: #36A6C9;	
+				color: white;
+			}
+		}
+
+		li:first-child {
+			padding-left: $toolbar-height * 5/8; 
+		}
+		
+		li:last-child {
+			padding-right: $toolbar-height * 5/8; 
+		}
+
+	}
+
+
+}
