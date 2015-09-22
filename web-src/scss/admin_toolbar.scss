@@ -1,0 +1,27 @@
+$toolbar-height: 20px;
+$toolbar-color: #5A5A5A;
+
+div.toolbar {
+	display: inline-block;
+	width: 100%;
+	background-color: $toolbar-color;
+	font-size: 12pt;
+    border-bottom: #7F7F7F 1px solid;
+    color: white;
+	ul.toolbar-list {
+		height: 100%;
+		list-style: none;
+		margin: 0;
+		padding-top: $toolbar-height * 4/10;
+		padding-bottom: $toolbar-height * 4/10;
+	}
+
+	ul.toolbar-list:first-child {
+		padding-left: $toolbar-height * 5/8; 
+	}
+	
+	ul.toolbar-list:last-child {
+		padding-left: $toolbar-height * 5/8; 
+	}
+
+}
