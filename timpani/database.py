@@ -25,7 +25,7 @@ class ConnectionManager():
 			else:
 				raise ValueError("connection must be of type str, not %s", type(connection))
 		else:
-			raise ValueError("connectionName must be of type str, not %s", type(name))
+			raise ValueError("connectionName must be of type str, not %s", type(connectionName))
 	
 	@staticmethod
 	def getConnection(connectionName):
