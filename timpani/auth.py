@@ -5,6 +5,8 @@ import datetime
 from . import database
 from . import configmanager
 
+BCRYPT_ROUNDS = 10
+
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../configs/"))
 
@@ -14,7 +16,7 @@ authConfig = configs["auth"]
 def createUser(username, password, can_change_settings, can_write_posts):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
-	passwordHash = bcrypt.hashpw(passwordAsBytes, bcrypt.gensalt()).decode("utf-8")
+	passwordHash = bcrypt.hashpw(passwordAsBytes, bcrypt.gensalt(rounds = BCRYPT_ROUNDS)).decode("utf-8")
 	databaseConnection = database.ConnectionManager.getConnection("main")
 	query = databaseConnection.session.query(database.tables.User).filter(database.tables.User.username == username)
 
