@@ -13,7 +13,7 @@ CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../configs/"))
 configs = configmanager.ConfigManager(configPath = CONFIG_PATH) 
 authConfig = configs["auth"]
 
-def createUser(username, password, can_change_settings, can_write_posts):
+def createUser(username, full_name, password, can_change_settings, can_write_posts):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
 	passwordHash = bcrypt.hashpw(passwordAsBytes, bcrypt.gensalt(rounds = BCRYPT_ROUNDS)).decode("utf-8")
@@ -21,7 +21,7 @@ def createUser(username, password, can_change_settings, can_write_posts):
 	query = databaseConnection.session.query(database.tables.User).filter(database.tables.User.username == username)
 
 	if query.count() == 0:
-		userObject = database.tables.User(username = username, password = passwordHash, can_change_settings = can_change_settings, can_write_posts = can_write_posts)
+		userObject = database.tables.User(username = username, full_name = full_name, password = passwordHash, can_change_settings = can_change_settings, can_write_posts = can_write_posts)
 		databaseConnection.session.add(userObject)
 		databaseConnection.session.commit()
 	else:
