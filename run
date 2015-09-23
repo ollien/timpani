@@ -1,4 +1,16 @@
 #!/usr/bin/env python3
 import timpani 
+import atexit
 
-timpani.run()
+def shutdown():
+	print("[Timpani] Closing database sessions")
+	timpani.database.ConnectionManager.closeConnection("main")
+
+atexit.register(shutdown)
+
+application = None
+
+if __name__ == "__main__":
+	timpani.run()
+else:
+	application = timpani.run(startServer = False)
