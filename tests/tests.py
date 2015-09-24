@@ -47,6 +47,7 @@ def failTest(testName):
 results = []
 
 def runTest(name, capabilities, method, *args, **kwargs):
+	capabilities["tags"] = [name, ]
 	driver = webdriver.Remote(desired_capabilities=capabilities, command_executor="http://%s/wd/hub" % url)
 	try:
 		method(driver, *args, **kwargs)
