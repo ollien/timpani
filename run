@@ -5,7 +5,7 @@ import timpani
 from timpani import configmanager
 import atexit
 
-configs = configmanager.ConfigManager(os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/")))
+configs = configmanager.ConfigManager(os.path.abspath(os.path.join(os.path.dirname(__file__), "configs/")))
 webserverConfig = configs["webserver"]
 
 if __name__ == "__main__":
