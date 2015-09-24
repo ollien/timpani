@@ -20,7 +20,7 @@ before_install:
     - "echo '{\"connection_string\": \"postgresql://postgres@127.0.0.1:5432/blog\"}' > configs/database.json"
     - "echo '{\"display_full_name\": true}' > configs/templates.json"
     - "echo '{\"session_id_length\": 512, \"signing_key\": \"testing key, do not use in production.\"}' > configs/auth.json"
-    - "echo '{\"host\": \"127.0.0.1\", \"port\": 8080}'"
+    - "echo '{\"host\": \"127.0.0.1\", \"port\": 8080}' > configs/webserver.json"
 
 install:
     - "cd $TRAVIS_BUILD_DIR/tests"
