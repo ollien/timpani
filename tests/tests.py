@@ -16,8 +16,6 @@ browsers = [
 
 	{"browserName": "internet explorer", "platform": "Windows 7", "version": "11.0"},
 	{"browserName": "internet explorer", "platform": "Windows 7", "version": "10.0"},
-
-	{"browserName": "opera", "platform": "Windows 7", "version": "12.12"}
 ]
 
 default_capabilities = {}
