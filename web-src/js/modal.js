@@ -35,7 +35,7 @@ function Modal(element, config) {
 		var _this = this;
 		document.addEventListener("keyup", function(event) {
 			if (_this.config.keyboard) {
-				if (event.keyCode === 27 && this.element.classList.contains("active")) {
+				if (event.keyCode === 27 && _this.element.classList.contains("active")) {
 					event.preventDefault();
 					_this.hide();
 				}
