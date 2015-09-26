@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			codeButton.disabled = true;
 		}
 
-		if (editor.getText().trim().length === 0) {
+		if (editor.getLength() <= 1) {
 			validityInput.setCustomValidity("Please fill out a post body.");
 		} 
 		else {
