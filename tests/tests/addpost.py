@@ -36,7 +36,7 @@ def test(driver, username, password):
  
 	postForm = driver.find_element_by_id("post-form")
 	titleInput = driver.find_element_by_id("title-input")
-	editorField = driver.find_element_by_id("editor")
+	editorField = driver.find_element_by_css_selector("#editor > .ql-editor")
 	tagsInput = driver.find_element_by_id("tag-input-div")
 
 	titleInput.click()
