@@ -11,12 +11,17 @@ div#main-container {
 	div#content-wrapper {
 		display: table-cell;
 		vertical-align: middle;
+		$vertical-margin: 15px;
 		h2#title {
 			text-align: center;
+			margin-top: $vertical-margin;
+			margin-bottom: $vertical-margin;
 		}
 
 		div#buttons {
 			text-align: center;
+			margin-top: $vertical-margin + 5px;
+			margin-bottom: $vertical-margin + 5px;
 			margin-left: auto;
 			margin-right: auto;
 			max-width: 450px;

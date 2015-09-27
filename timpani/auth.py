@@ -13,6 +13,9 @@ CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../configs/"))
 configs = configmanager.ConfigManager(configPath = CONFIG_PATH) 
 authConfig = configs["auth"]
 
+CAN_CHANGE_SETTINGS_PERMISSION = "can_change_settings"
+CAN_POST_PERMISSION = "can_write_posts"
+
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
@@ -39,6 +42,14 @@ def validateUser(username, password):
 		if bcrypt.hashpw(passwordAsBytes, userPassword) == userPassword:
 			return True
 
+	return False
+
+def userHasPermission(username, permissionName):
+	databaseConnection = database.ConnectionManager.getConnection("main")
+	query = databaseConnection.session.query(database.tables.User).filter(database.tables.User.username == username)
+	if query.count() > 0:
+		userObj = query.first()
+		return getattr(userObj, permissionName)
 	return False
 
 def generateSessionId():
