@@ -1,6 +1,9 @@
 import flask
-from .. import auth
+import functools
 import urllib.parse
+from .. import auth
+
+INVALID_PERMISSIONS_FLASH_MESSAGE = "Sorry, you don't have permission to view that page."
 
 def checkForSession():
 	if "uid" in flask.session:
@@ -24,3 +27,22 @@ def canRecoverFromRedirect():
 		return flask.session["donePage"]
 	return None
 
+#Decorator function
+def canViewPage(requiredPermissions, redirectPage, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE):
+	def decorator(function):
+		def decorated():
+			if type(requiredPermissions) == str:
+				requiredPermissions = [requiredPermissions]
+			session = checkForSession()	
+			username = session.user.username
+			result = True
+			for permission in requiredPermissions:
+				if not auth.userHasPermission(username, permission):
+					result = False
+			if result:
+				return function()
+			else:
+				flask.flash(redirectMessage)
+				return flask.rediret(redirectPage)
+		return functools.update_wrapper(decorated, function)
+	return decorator
