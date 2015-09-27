@@ -27,7 +27,7 @@ def canRecoverFromRedirect():
 		return flask.session["donePage"]
 	return None
 
-#Decorated which checks if a user logged in and capable of using the specified permissions. If redirectPage is equalt o none the target funciton MUST have the arguments of authed and authMessage defined.
+#Decorator which checks if a user logged in and capable of using the specified permissions. If redirectPage is equalt o none the target funciton MUST have the arguments of authed and authMessage defined.
 def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE, requiredPermissions = None):
 	def decorator(function):
 		def decorated(*args, **kwargs):
@@ -35,6 +35,7 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 			if session != None:
 				username = session.user.username
 				result = True
+				#If we don't have any permissions necessary, a login is enough. Otherwise, we're going to check to make sure that all necessary permissions are in place.
 				if requiredPermissions != None:
 					if type(requiredPermissions) == str:
 						result = auth.userHasPermission(username, requiredPermissions)
@@ -42,13 +43,16 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 						for permission in requiredPermissions:
 							if not auth.userHasPermission(username, permission):
 								result = False
+				#If all permissions is valid, redirect as needed.
 				if result:
 					if redirectPage != None:
 						return function(*args, **kwargs)
 					else:
 						return function(authed = True, authMessage = redirectMessage, *args, **kwargs)
 				else:
-					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, True)	
+					#We don't want to flash on thigns like ajax routes, so we use redirectPage != None
+					willFlash = redirectPage != None
+					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, willFlash)
 			else:
 				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False)	
 		return functools.update_wrapper(decorated, function)
