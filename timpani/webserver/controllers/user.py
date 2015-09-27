@@ -43,7 +43,8 @@ def login():
 
 	elif flask.request.method == "POST":
 		if "username" not in flask.request.form or "password" not in flask.request.form:
-			return flask.render_template("login.html", error = "A username and password must be provided.")
+			flask.flash("A username and password must be provided.")
+			return flask.render_template("login.html")
 		elif auth.validateUser(flask.request.form["username"], flask.request.form["password"]):
 			donePage = webhelpers.canRecoverFromRedirect()
 			donePage = donePage if donePage is not None else "/manage"
@@ -53,7 +54,8 @@ def login():
 			flask.session.permanent_session_lifetime = datetime.datetime.now() - expires
 			return flask.redirect(donePage)
 		else:
-			return flask.render_template("login.html", error = "Invalid username or password.")
+			flask.flash("Invalid username or password.")
+			return flask.render_template("login.html")
 
 @blueprint.route("/logout", methods=["POST"])
 def logout():
