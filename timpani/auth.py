@@ -13,6 +13,9 @@ CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../configs/"))
 configs = configmanager.ConfigManager(configPath = CONFIG_PATH) 
 authConfig = configs["auth"]
 
+CAN_CHANGE_SETTINGS_PERMISSION = "can_change_settings"
+CAN_POST_PERMISSION = "can_write_posts"
+
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
