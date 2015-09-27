@@ -50,13 +50,19 @@ def checkUserPermissions(redirectPage = None, redirectMessage = INVALID_PERMISSI
 				else:
 					flask.flash(redirectMessage)
 					if redirectPage != None:
-						return flask.redirect(redirectPage)
+						if canRecoverFromRedirect():
+							return flask.redirect(redirectPage)
+						else:
+							return redirectAndSave(redirectPage)
 					else:
 						return function(authed = False, authMessage = redirectMessage, *args, **kwargs)
 			else:
 				flask.flash(redirectMessage)
 				if redirectPage != None:
-					return flask.redirect(redirectPage)
+					if canRecoverFromRedirect():
+						return flask.redirect(redirectPage)
+					else:
+						return redirectAndSave(redirectPage)
 				else:
 					return function(authed = False, authMessage = redirectMessage, *args, **kwargs)
 			
