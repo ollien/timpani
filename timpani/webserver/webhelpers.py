@@ -28,21 +28,27 @@ def canRecoverFromRedirect():
 	return None
 
 #Decorator function
-def checkUserPermissions(requiredPermissions, redirectPage, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE):
+def checkUserPermissions(redirectPage, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE, requiredPermissions = None):
 	def decorator(function):
 		def decorated():
 			if type(requiredPermissions) == str:
 				requiredPermissions = [requiredPermissions]
 			session = checkForSession()	
-			username = session.user.username
-			result = True
-			for permission in requiredPermissions:
-				if not auth.userHasPermission(username, permission):
-					result = False
-			if result:
-				return function()
+			if session != None:
+				username = session.user.username
+				result = True
+				if requiredPermissions != None:
+					for permission in requiredPermissions:
+						if not auth.userHasPermission(username, permission):
+							result = False
+				if result:
+					return function()
+				else:
+					flask.flash(redirectMessage)
+					return flask.rediret(redirectPage)
 			else:
 				flask.flash(redirectMessage)
 				return flask.rediret(redirectPage)
+			
 		return functools.update_wrapper(decorated, function)
 	return decorator
