@@ -28,7 +28,7 @@ def canRecoverFromRedirect():
 	return None
 
 #Decorator function
-def canViewPage(requiredPermissions, redirectPage, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE):
+def checkUserPermissions(requiredPermissions, redirectPage, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE):
 	def decorator(function):
 		def decorated():
 			if type(requiredPermissions) == str:
