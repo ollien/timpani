@@ -48,14 +48,15 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 					else:
 						return function(authed = True, authMessage = redirectMessage, *args, **kwargs)
 				else:
-					flask.flash(redirectMessage)
-					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage)	
+					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, True)	
 			else:
-				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage)	
+				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False)	
 		return functools.update_wrapper(decorated, function)
 	return decorator
 
-def _permissionRedirect(redirectPage, saveRedirect, redirectMessage):
+def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
+	if flash:
+		flask.flash(redirectMessage)
 	if redirectPage != None:
 		#We don't want to save the redirect if either the user page doesn't need it or there's one already saved, as to prevent overwrites.
 		if canRecoverFromRedirect() or not saveRedirect:
