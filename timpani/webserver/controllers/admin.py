@@ -17,7 +17,7 @@ UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../static/u
 blueprint = flask.Blueprint("admin", __name__, template_folder = TEMPLATE_PATH)
 
 @blueprint.route("/manage")
-@webhelpers.checkUserPermissions("/login")
+@webhelpers.checkUserPermissions("/login", saveRedirect = False)
 def manage():
 	return flask.render_template("manage.html", user = webhelpers.checkForSession().user)
 
