@@ -27,19 +27,14 @@ def manage():
 @blueprint.route("/add_post", methods=["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage", requiredPermissions = auth.CAN_POST_PERMISSION)
 def addPost():
-	session = webhelpers.checkForSession()
-
-	if session != None:
-		if flask.request.method == "GET":
-			return flask.render_template("add_post.html", user = session.user)
-		elif flask.request.method == "POST":
-			postTitle = flask.request.form["post-title"]
-			postBody = flask.request.form["post-body"].replace("\t", "&emsp;").replace("    ", "&emsp;")
-			postTags = flask.request.form["post-tags"]
-			blog.addPost(postTitle, postBody, datetime.datetime.now(), session.user, postTags)
-			return flask.redirect("/")
-	else:
-		return webhelpers.redirectAndSave("/login")
+	if flask.request.method == "GET":
+		return flask.render_template("add_post.html", user = webhelpers.checkForSession().user)
+	elif flask.request.method == "POST":
+		postTitle = flask.request.form["post-title"]
+		postBody = flask.request.form["post-body"].replace("\t", "&emsp;").replace("    ", "&emsp;")
+		postTags = flask.request.form["post-tags"]
+		blog.addPost(postTitle, postBody, datetime.datetime.now(), webhelpers.checkForSession().user, postTags)
+		return flask.redirect("/")
 
 @blueprint.route("/manage_posts")
 def managePosts():
