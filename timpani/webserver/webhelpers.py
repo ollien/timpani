@@ -28,7 +28,7 @@ def canRecoverFromRedirect():
 	return None
 
 #Decorated which checks if a user logged in and capable of using the specified permissions. If redirectPage is equalt o none the target funciton MUST have the arguments of authed and authMessage defined.
-def checkUserPermissions(redirectPage = None, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE, requiredPermissions = None):
+def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE, requiredPermissions = None):
 	def decorator(function):
 		def decorated(*args, **kwargs):
 			session = checkForSession()	
@@ -50,7 +50,7 @@ def checkUserPermissions(redirectPage = None, redirectMessage = INVALID_PERMISSI
 				else:
 					flask.flash(redirectMessage)
 					if redirectPage != None:
-						if canRecoverFromRedirect():
+						if canRecoverFromRedirect() or not saveRedirect:
 							return flask.redirect(redirectPage)
 						else:
 							return redirectAndSave(redirectPage)
@@ -59,7 +59,7 @@ def checkUserPermissions(redirectPage = None, redirectMessage = INVALID_PERMISSI
 			else:
 				flask.flash(redirectMessage)
 				if redirectPage != None:
-					if canRecoverFromRedirect():
+					if canRecoverFromRedirect() or not saveRedirect:
 						return flask.redirect(redirectPage)
 					else:
 						return redirectAndSave(redirectPage)
