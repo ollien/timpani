@@ -11,9 +11,9 @@
 		<div id="main-wrapper">	
 			<h2 id="welcome">Welcome to Timpani</h2>
 			<h2 id="login">Log In</h2>
-			{% if error is defined %}
+			{% if get_flashed_messages()|length > 0 %}
 			<div class="error">
-				{{error}}
+				{{get_flashed_messages()[0]}}
 			</div>
 			{% endif %}
 			<form class="pure-form" id="login-form" action="/login" method="POST">
