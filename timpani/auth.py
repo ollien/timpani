@@ -46,10 +46,11 @@ def validateUser(username, password):
 
 def userHasPermission(username, permissionName):
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = datbaseConnection.session.query(database.tables.User).filter(database.tables.user.username == username)
+	query = databaseConnection.session.query(database.tables.User).filter(database.tables.User.username == username)
 	if query.count() > 0:
 		userObj = query.first()
 		return getattr(userObj, permissionName)
+	return False
 
 def generateSessionId():
 	return binascii.hexlify(os.urandom(authConfig["session_id_length"])).decode("utf-8")
