@@ -7,7 +7,7 @@ import magic
 import mimetypes
 from .. import webhelpers
 from ... import blog
-from .. import webhelpers
+from ... import auth
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../configs/"))
@@ -25,6 +25,7 @@ def manage():
 		return webhelpers.redirectAndSave("/login")
 
 @blueprint.route("/add_post", methods=["GET", "POST"])
+@webhelpers.checkUserPermissions("/manage", requiredPermissions = auth.CAN_POST_PERMISSION)
 def addPost():
 	session = webhelpers.checkForSession()
 
