@@ -10,6 +10,9 @@
 	<div id="main-container" class="container">
 		<div id="content-wrapper" class="container">
 			<h2 id="title">Hi, {{user.username}}. Welcome to Timpani.</h2>
+			{% if get_flashed_messages()|length > 0 %}
+				<div class="error">{{get_flashed_messages()[0]}}</div>
+			{% endif %}
 			<div id="buttons">
 				<a href="/add_post"><button id="add-post" class="pure-button button-xlarge">Add a post</button></a>
 				<a href="/manage_posts"><button id="manage-posts" class="pure-button button-xlarge">Manage posts</button></a>
