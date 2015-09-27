@@ -49,7 +49,7 @@ def checkUserPermissions(redirectPage, redirectMessage = INVALID_PERMISSIONS_FLA
 					return flask.redirect(redirectPage)
 			else:
 				flask.flash(redirectMessage)
-				return flask.rediret(redirectPage)
+				return flask.redirect(redirectPage)
 			
 		return functools.update_wrapper(decorated, function)
 	return decorator
