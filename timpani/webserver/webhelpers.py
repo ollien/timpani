@@ -50,6 +50,7 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 				else:
 					flask.flash(redirectMessage)
 					if redirectPage != None:
+						#We don't want to save the redirect if either the user page doesn't need it or there's one already saved, as to prevent overwrites.
 						if canRecoverFromRedirect() or not saveRedirect:
 							return flask.redirect(redirectPage)
 						else:
@@ -59,6 +60,7 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 			else:
 				flask.flash(redirectMessage)
 				if redirectPage != None:
+					#We don't want to save the redirect if either the user page doesn't need it or there's one already saved, as to prevent overwrites.
 					if canRecoverFromRedirect() or not saveRedirect:
 						return flask.redirect(redirectPage)
 					else:
