@@ -49,9 +49,9 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 						return function(authed = True, authMessage = redirectMessage, *args, **kwargs)
 				else:
 					flask.flash(redirectMessage)
-					return _permissionRedirect()	
+					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage)	
 			else:
-				return _permissionRedirect()	
+				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage)	
 		return functools.update_wrapper(decorated, function)
 	return decorator
 
