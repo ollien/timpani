@@ -16,7 +16,6 @@ def test(driver, username, password):
 	databaseConnection = database.DatabaseConnection()
 	driver.get("http://127.0.0.1:8080/add_post")	
 
-	#The head will usually load before the body, meaning that the title will be present
 	WebDriverWait(driver, 10).until(expected_conditions.title_contains("Timpani"))
 
 	#Check that we were redirected to the login page, as we are not logged in.	
