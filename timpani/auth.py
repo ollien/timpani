@@ -55,7 +55,9 @@ def userHasPermission(username, permissionName):
 def generateSessionId():
 	return binascii.hexlify(os.urandom(authConfig["session_id_length"])).decode("utf-8")
 
-def createSession(username, sessionId = generateSessionId()):
+def createSession(username, sessionId = None:
+	if sessionId == None:
+		sessionId = generateSessionId()
 	username = username.lower()
 	databaseConnection = database.ConnectionManager.getConnection("main")
 	query = databaseConnection.session.query(database.tables.User).filter(database.tables.User.username == username)

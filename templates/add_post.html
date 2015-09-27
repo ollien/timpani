@@ -67,7 +67,7 @@
 				<div id="editor">
 					<div>{% if post is defined %}{{ post["post"].body }}{% endif %}</div>
 				</div>
-				<!-- This is used to display an invalid message on the post body, since we can't set one on CKEditor-->
+				<!-- This is used to display an invalid message on the post body, since Quill doesn't act as an input, but rather as a div..-->
 				<input id="post-validity">
 				<input id="post-body" name="post-body">
 				<div id="tag-input-div">
