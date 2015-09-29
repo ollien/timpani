@@ -41,6 +41,3 @@ class Session(Base):
 	user = sqlalchemy.orm.relationship("User", foreign_keys = user_id)
 	session_id = sqlalchemy.Column(sqlalchemy.String, nullable = False, index = True)
 	expires = sqlalchemy.Column(sqlalchemy.DateTime, nullable = False)
-
-#The Following tables will only be the ones added to the database
-ALL_TABLES = [Post, Tag, Session, User]
