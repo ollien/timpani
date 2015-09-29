@@ -1,8 +1,6 @@
 import sqlalchemy
 import sqlalchemy.orm
 import uuid
-import sys
-import inspect
 import os.path
 from . import configmanager
 from . import tables
@@ -57,11 +55,11 @@ class DatabaseConnection():
 		self.session = self._Session()
 		#Create all tables
 		if createTables:
-			classes = inspect.getmembers(sys.modules[tables.__name__], inspect.isclass)
-			for table in classes:
-				if table[1] == tables.Base:
-					continue
-				table[1].metadata.create_all(self.engine)	
+			attrs = dir(tables)
+			for attr in attrs:
+				attr = getattr(tables, attr)
+				if isinstance(attr, type) and attr != tables.Base:
+					attr.metadata.create_all(self.engine)	
 		
 	def getSelectedDatabase(self):
 		result = self.session.execute("SELECT DATABASE()").fetchone()
