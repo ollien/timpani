@@ -8,6 +8,7 @@ import mimetypes
 from .. import webhelpers
 from ... import blog
 from ... import auth
+from ... import settings
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../configs/"))
@@ -54,7 +55,7 @@ def editPost(postId):
 
 @blueprint.route("/settings", methods = ["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage", requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
-def settings():
+def settingsPage():
 	if flask.request.method == "GET":
 		return flask.render_template("settings.html", settings = settings.getAllSettings(), user = webhelpers.checkForSession().user)
 
