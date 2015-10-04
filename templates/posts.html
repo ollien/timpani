@@ -10,11 +10,15 @@
 <body>
 	{% if blogTitle is defined %}
 		<header>
-			<div class="title">
-				{{blogTitle}}
-			</div>
-			<div class="subtitles">
-				{{blogSubtitle|default("")}}
+			<div id="header-wrapper">
+				<div id="header-content-wrapper">
+					<h2 class="title">
+						{{blogTitle}}
+					</h2>
+					<h3 class="subtitles">
+						{{blogSubtitle|default("")}}
+					</h3>
+				</div>
 			</div>
 		</header>
 	{% endif %}
