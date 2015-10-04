@@ -10,7 +10,7 @@
 	<div id="main-container" class="container">
 		<form id="settings-form" class="pure-form" action="/settings" method="POST">
 			<label for="blog-title-input">Blog title</label>
-			<input id="blog-title-input" name="title" value="{{settings.title}}">
+			<input id="blog-title-input" name="title" value="{{settings.title}}" required>
 			<label for="blog-subtitle-input">Blog subtitle</label>
 			<input id="blog-subtitle-input" name="subtitle" value="{{settings.subttile|default('')}}">
 		</form>
