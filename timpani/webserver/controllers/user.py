@@ -4,6 +4,7 @@ import datetime
 from ... import auth
 from ... import blog
 from ... import configmanager
+from ... import settings
 from .. import webhelpers
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
@@ -18,8 +19,8 @@ blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
 @blueprint.route("/")
 def showPosts():
 	posts = blog.getPosts()
-	title = "My Fake Blog"
-	subtitle = "This title is temporary"
+	title = settings.getSettingValue("title")
+	subtitle = settings.getSettingValue("subtitle")
 	return flask.render_template("posts.html", posts = posts, blogTitle = title, blogSubtitle = subtitle)
 
 @blueprint.route("/post/<int:postId>")
