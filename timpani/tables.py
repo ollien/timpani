@@ -41,3 +41,9 @@ class Session(Base):
 	user = sqlalchemy.orm.relationship("User", foreign_keys = user_id)
 	session_id = sqlalchemy.Column(sqlalchemy.String, nullable = False, index = True)
 	expires = sqlalchemy.Column(sqlalchemy.DateTime, nullable = False)
+
+class Setting(Base):
+	__tablename__ = "settings"
+	
+	name = sqlalchemy.Column(sqlalchemy.String, primary_key = True)
+	value = sqlalchemy.Column(sqlalchemy.String)
