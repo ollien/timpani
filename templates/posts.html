@@ -15,9 +15,13 @@
 					<h2 class="title">
 						{{blogTitle}}
 					</h2>
-					<h3 class="subtitles">
-						{{blogSubtitle|default("")}}
-					</h3>
+					{% if blogSubtitle is defined and blogSubttile is not none %}
+						{% if blogSubttitle|length > 0 %}
+							<h3 class="subtitles">
+								{{blogSubtitle|default("")}}
+							</h3>
+						{% endif %}
+					{% endif %}
 				</div>
 			</div>
 		</header>
