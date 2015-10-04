@@ -8,6 +8,16 @@
 	<script src="/static/js/posts.js" rel="stylesheet"></script>
 </head>
 <body>
+	{% if blogTitle is defined %}
+		<header>
+			<div class="title">
+				{{blogTitle}}
+			</div>
+			<div class="subtitles">
+				{{blogSubtitle|default("")}}
+			</div>
+		</header>
+	{% endif %}
 	<ul id="posts-list">
 		{% for item in posts %}
 			{% set post = item["post"] %}
