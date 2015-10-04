@@ -52,6 +52,12 @@ def editPost(postId):
 		blog.editPost(postId, postTitle, postBody, postTags)
 		return flask.redirect("/")
 
+@blueprint.route("/settings", methods = ["GET", "POST"])
+@webhelpers.checkUserPermissions("/manage", requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+def settings():
+	if flask.request.method == "GET":
+		return flask.render_template("settings.html", user = webhelpers.checkForSession().user)
+
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
 @webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION)
