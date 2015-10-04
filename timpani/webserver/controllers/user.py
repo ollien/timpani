@@ -18,7 +18,9 @@ blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
 @blueprint.route("/")
 def showPosts():
 	posts = blog.getPosts()
-	return flask.render_template("posts.html", posts = posts)
+	title = "My Fake Blog"
+	subtitle = "This title is temporary"
+	return flask.render_template("posts.html", posts = posts, blogTitle = title, blogSubtitle = subtitle)
 
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):
