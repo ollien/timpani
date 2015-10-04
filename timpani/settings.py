@@ -16,5 +16,5 @@ def getSettingValue(name):
 def setSettingValue(name, value):
 	databaseConnection = database.ConnectionManager.getConnection("main")
 	settingObj = database.tables.Setting(name = name, value = value)
-	databaseConnection.session.add(settingObj)
+	databaseConnection.session.merge(settingObj)
 	databaseConnection.session.commit()
