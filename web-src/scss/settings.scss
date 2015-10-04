@@ -1,5 +1,11 @@
 @import "base";
 
+div.success { 
+	@extend div.error;
+	border: 1px solid #47CC6A;
+	background-color: #54BE70;
+}
+
 form#settings-form { 
 	width: 500px;
 	margin-left: auto;
