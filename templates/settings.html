@@ -8,8 +8,10 @@
 <body>
 	{% include "admin_toolbar.html" %}
 	<div id="main-container" class="container">
-		<div id="content-wrapper" class="container">
-		</div>
+		<form class="pure-form" action="/settings" method="POST">
+			<label for="blog-title-input">Blog title</label>
+			<input id="blog-title-input" name="title" value="{{settings.title}}">
+		</form>
 	</div>
 
 </body>
