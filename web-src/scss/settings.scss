@@ -13,6 +13,12 @@ div.success {
 	animation: waitAndFade $fade-wait-time + $fade-time;
 }
 
+div#flash-compensation {
+	height: 0;
+	width: 0;
+	padding-top: 12px;
+}
+
 form#settings-form { 
 	width: 500px;
 	margin-left: auto;

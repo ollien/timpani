@@ -14,6 +14,9 @@
 			{% elif get_flashed_messages(with_categories = True)[0][0] == "error" %}
 				<div class="error">{{get_flashed_messages()[0].message}}</div>
 			{% endif %}
+		{% else %}
+			<!--Mino stylistic thing to allow for even padding when a flash dissappearsr-->
+			<div id="flash-compensation"></div>	
 		{% endif %}
 		<form id="settings-form" class="pure-form" action="/settings" method="POST">
 			<label for="blog-title-input">Blog title</label>
