@@ -7,7 +7,9 @@ div.success {
 	@extend div.error;
 	border: 1px solid #47CC6A;
 	background-color: #54BE70;
+	max-height: 0px;
 	opacity: 0;
+	overflow: hidden;
 	animation: waitAndFade $fade-wait-time + $fade-time;
 }
 
@@ -33,15 +35,18 @@ form#settings-form {
 
 @keyframes waitAndFade {
 	0% {
+		max-height: 100px;
 		opacity: 1;
 	}
 
 	#{100 * $fade-wait-time/($fade-wait-time + $fade-time)}% {
+		max-height: 100px;
 		opacity: 1;	
 	}
 	
 	100% {
 		opacity: 0;
+		max-height: 0px;
 	}
 
 }
