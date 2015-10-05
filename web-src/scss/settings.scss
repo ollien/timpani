@@ -1,9 +1,14 @@
 @import "base";
 
+$fade-wait-time: 1500ms;
+$fade-time: 750ms;
+
 div.success { 
 	@extend div.error;
 	border: 1px solid #47CC6A;
 	background-color: #54BE70;
+	opacity: 0;
+	animation: waitAndFade $fade-wait-time + $fade-time;
 }
 
 form#settings-form { 
@@ -25,3 +30,19 @@ form#settings-form {
 	}
 
 }
+
+@keyframes waitAndFade {
+	0% {
+		opacity: 1;
+	}
+
+	#{100 * $fade-wait-time/($fade-wait-time + $fade-time)}% {
+		opacity: 1;	
+	}
+	
+	100% {
+		opacity: 0;
+	}
+
+}
+
