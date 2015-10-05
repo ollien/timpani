@@ -61,7 +61,7 @@ def settingsPage():
 	if flask.request.method == "POST":
 		for setting in flask.request.form:
 			settings.setSettingValue(setting, flask.request.form[setting])
-		#TODO: Add save flash.
+		flask.flash("Your settings have been successfully saved.", "success")
 		return flask.redirect("/settings")
 
 #Returns a JSON Object based on whether or not the user is logged in.
