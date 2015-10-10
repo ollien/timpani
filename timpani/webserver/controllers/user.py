@@ -7,12 +7,7 @@ from ... import configmanager
 from ... import settings
 from .. import webhelpers
 
-FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
-CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../configs/"))
-TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../templates"))
-
-configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
-templateConfig = configs["templates"]
+TEMPLATE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../templates"))
 
 blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
 
