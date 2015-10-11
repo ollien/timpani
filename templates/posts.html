@@ -15,9 +15,13 @@
 					<h2 class="title">
 						{{blogTitle}}
 					</h2>
-					<h3 class="subtitles">
-						{{blogSubtitle|default("")}}
-					</h3>
+					{% if blogSubtitle is defined and blogSubtitle is not none %}
+						{% if blogSubtitle|length > 0 %}
+							<h3 class="subtitles">
+								{{blogSubtitle}}
+							</h3>
+						{% endif %}
+					{% endif %}
 				</div>
 			</div>
 		</header>
@@ -28,7 +32,11 @@
 			{% set tags = item["tags"] %}
 			<li class="post" id="{{post.id}}">
 				<h2 class="post-title title">{{post.title}}</h2>
-				<div class="post-metadata"> by <span class="author">{{post.author.full_name}}</span> at <span class="timestamp">{{post.time_posted.strftime("%A %B %d at %I:%M %p")}}</span></div>
+				<div class="post-metadata"> by 
+					<span class="author">
+						{% if displayName == "full_name" %} {{post.author.full_name}} {% elif displayName == "username" %} {{post.author.username}} {% endif %} 
+					</span> 
+					at <span class="timestamp">{{post.time_posted.strftime("%A %B %d at %I:%M %p")}}</span></div>
 				<div class="post-body">
 					{{post.body|safe}}
 

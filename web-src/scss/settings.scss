@@ -1,0 +1,62 @@
+@import "base";
+
+$fade-wait-time: 1500ms;
+$fade-time: 750ms;
+
+div.success { 
+	@extend div.error;
+	border: 1px solid #47CC6A;
+	background-color: #54BE70;
+	max-height: 0px;
+	opacity: 0;
+	overflow: hidden;
+	animation: waitAndFade $fade-wait-time + $fade-time;
+}
+
+div#flash-compensation {
+	height: 0;
+	width: 0;
+	padding-top: 12px;
+}
+
+form#settings-form { 
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	label:not([radio]) {
+		display: block;	
+	}
+
+	input:not([type="radio"]) {
+		display: block;
+		width: 100%;
+		margin-bottom: 25px;
+	}
+	input[type="radio"] {
+		margin-right: 15px;	
+	}
+
+	button#save {
+		float: right;
+	}
+
+}
+
+@keyframes waitAndFade {
+	0% {
+		max-height: 100px;
+		opacity: 1;
+	}
+
+	#{100 * $fade-wait-time/($fade-wait-time + $fade-time)}% {
+		max-height: 100px;
+		opacity: 1;	
+	}
+	
+	100% {
+		opacity: 0;
+		max-height: 0px;
+	}
+
+}
+

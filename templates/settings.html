@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Settings - Timpani</title>
+	<link href="/static/libs/pure/pure-min.css" rel="stylesheet">
+	<link href="/static/css/settings.css" rel="stylesheet">
+</head>
+<body>
+	{% include "admin_toolbar.html" %}
+	<div id="main-container" class="container">
+		{% if get_flashed_messages()|length > 0 %}
+			{% if get_flashed_messages(with_categories = True)[0][0] == "success" %}
+				<div class="success">{{get_flashed_messages()[0]}}</div>
+			{% elif get_flashed_messages(with_categories = True)[0][0] == "error" %}
+				<div class="error">{{get_flashed_messages()[0].message}}</div>
+			{% endif %}
+		{% else %}
+			<!--Mino stylistic thing to allow for even padding when a flash dissappearsr-->
+			<div id="flash-compensation"></div>	
+		{% endif %}
+		<form id="settings-form" class="pure-form" action="/settings" method="POST">
+			<label for="blog-title-input">Blog title</label>
+			<input id="blog-title-input" name="title" value="{{settings.title}}" required>
+
+			<label for="blog-subtitle-input">Blog subtitle</label>
+			<input id="blog-subtitle-input" name="subtitle" value="{{settings.subtitle|default('')}}">
+			
+			<span>On post, display an author's</span>
+			<div>
+				<input type="radio" name="display_name" id="author-full-name" value="full_name" {% if settings["display_name"] == "full_name" or settings["display_name"] is not defined %} checked {% endif %}><label for="author-full-name" radio>Full name</label>
+			</div>
+			<div>
+				<input type="radio" name="display_name" id="author-username" value="username" {% if settings["display_name"] == "username" %} checked {% endif %}><label for="full-author-username" radio>Username</label>
+			</div>
+
+			<button class="pure-button pure-button-primary" id="save">Save changes</button>
+		</form>
+	</div>
+
+</body>
+</html>
+

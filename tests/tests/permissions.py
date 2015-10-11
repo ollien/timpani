@@ -36,12 +36,11 @@ def test(driver, authorUsername, authorPassword, adminUsername, adminPassword):
 
 	assert driver.title == ADD_POST_TITLE, "Title is %s" % driver.title
 
-	#Settings are not yet implemented. This block will be uncommented when they are implemented.
-	#driver.get("http://127.0.0.1:8080/settings")
+	driver.get("http://127.0.0.1:8080/settings")
 
-	#assert driver.title == MANAGE_TITLE
-	##Will throw a timeout exception if the page doesn't load, or it can't find the element.
-	#WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, "div.error")))
+	assert driver.title == MANAGE_TITLE
+	#Will throw a timeout exception if the page doesn't load, or it can't find the element.
+	WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, "div.error")))
 
 	#Log out and try the next account.
 	logoutButton = driver.find_element_by_css_selector("button.logout-button")
@@ -62,10 +61,9 @@ def test(driver, authorUsername, authorPassword, adminUsername, adminPassword):
 	WebDriverWait(driver, 10).until_not(expected_conditions.title_is(LOGIN_TITLE))
 	assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
 
-	#Settings are not yet implemented. This block will be uncommented when they are implemented.
-	#driver.get("http://127.0.0.1:8080/settings")
+	driver.get("http://127.0.0.1:8080/settings")
 
-	#assert driver.title == SETTINGS_TITLE, "Title is %s" % driver.title
+	assert driver.title == SETTINGS_TITLE, "Title is %s" % driver.title
 
 	driver.get("http://127.0.0.1:8080/add_post")
 

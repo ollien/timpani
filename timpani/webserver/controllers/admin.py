@@ -8,6 +8,7 @@ import mimetypes
 from .. import webhelpers
 from ... import blog
 from ... import auth
+from ... import settings
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../configs/"))
@@ -51,6 +52,17 @@ def editPost(postId):
 		postTags = flask.request.form["post-tags"]
 		blog.editPost(postId, postTitle, postBody, postTags)
 		return flask.redirect("/")
+
+@blueprint.route("/settings", methods = ["GET", "POST"])
+@webhelpers.checkUserPermissions("/manage", requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+def settingsPage():
+	if flask.request.method == "GET":
+		return flask.render_template("settings.html", settings = settings.getAllSettings(), user = webhelpers.checkForSession().user)
+	if flask.request.method == "POST":
+		for setting in flask.request.form:
+			settings.setSettingValue(setting, flask.request.form[setting])
+		flask.flash("Your settings have been successfully saved.", "success")
+		return flask.redirect("/settings")
 
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
