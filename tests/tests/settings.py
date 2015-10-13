@@ -1,3 +1,5 @@
+import binascii
+import os
 from selenium.common import exceptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -6,8 +8,8 @@ from selenium.webdriver.support import expected_conditions
 LOGIN_TITLE = "Login - Timpani"
 SETTINGS_TITLE = "Settings - Timpani"
 
-TITLE = "Timpani!"
-SUBTITLE = "Your subtitle, set using unit testing."
+TITLE = "Timpani! %s" % binascii.hexlify(os.urandom(32)).decode()
+SUBTITLE = "Your subtitle, set using unit testing. %s" % binascii.hexlify(os.urandom(32)).decode()
 
 def test(driver, username, password):
 	driver.get("http://127.0.0.1:8080/settings")
