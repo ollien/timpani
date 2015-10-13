@@ -72,6 +72,7 @@ for browser in browsers:
 	results.append(runTest("Add Post test", capabilities, tests.addpost.test, "tests", "password"))
 	results.append(runTest("Logout test", capabilities, tests.logout.test, "tests", "password"))
 	results.append(runTest("Permissions test", capabilities, tests.permissions.test, "testsAuthor", "password", "testsAdmin", "password"))
+	results.append(runTest("Settings test", capabilities, tests.settings.test, "tests", "password"))
 
 if False in results:
 	#Will allow travis tests to be marked as failed.
