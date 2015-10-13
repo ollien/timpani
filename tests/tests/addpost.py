@@ -1,3 +1,5 @@
+import binascii
+import os
 import sqlalchemy
 import selenium
 from selenium.webdriver.common import keys
@@ -8,8 +10,9 @@ from timpani import database
 
 LOGIN_TITLE = "Login - Timpani"
 ADD_POST_TITLE = "Add Post - Timpani"
+POST_RANDOM = binascii.hexlify(os.urandom(16)).decode() #Used to verify that a unique post was actually posted. 
 POST_TITLE = "Test post, please ignore."
-POST_BODY = "This is a test post. There is no reason you should be paying attention to it."
+POST_BODY = "This is a test post. There is no reason you should be paying attention to it. %s" % POST_RANDOM
 POST_TAGS = ["test", "post", "selenium"]
 
 def test(driver, username, password):
@@ -61,4 +64,5 @@ def test(driver, username, password):
 
 	assert post != None
 	assert post.title == POST_TITLE, "Title is %s" % post.title
+	assert POST_RANDOM in post.body
 	assert tags == POST_TAGS, "Tags are %s" % tags
