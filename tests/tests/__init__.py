@@ -4,3 +4,4 @@ from . import login
 from . import addpost
 from . import logout
 from . import permissions
+from . import settings
