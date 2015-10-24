@@ -4,8 +4,9 @@ import urllib.parse
 import os
 import os.path
 from .. import auth
+from .. import database
 
-THEME_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../themes"))
+THEME_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../themes"))
 INVALID_PERMISSIONS_FLASH_MESSAGE = "Sorry, you don't have permission to view that page."
 
 def checkForSession():
@@ -59,8 +60,8 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 			else:
 				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False)	
 		return functools.update_wrapper(decorated, function)
-	return decorator)
-)
+	return decorator
+
 def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 	if flash:
 		flask.flash(redirectMessage)
@@ -75,7 +76,7 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 	
 def getCurrentTheme():
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.query(database.tables.Settings).filter(database.tables.Settings.name == "theme")
+	query = databaseConnection.session.query(database.tables.Setting).filter(database.tables.Setting.name == "theme")
 	if query.count() > 0:
 		themeName = query.first().value
 		themes = os.listdir(THEME_PATH)	
