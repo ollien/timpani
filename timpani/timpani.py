@@ -12,7 +12,8 @@ CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../config
 DEFAULT_SETTINGS = {
 	"title": "Timpani",
 	"subtitle": "Your blog, run using Timpani.",
-	"display_name": "full_name"
+	"display_name": "full_name",
+	"theme": "default"
 }
 
 def run(host = "0.0.0.0", port = 8080, startServer = True):

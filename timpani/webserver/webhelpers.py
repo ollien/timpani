@@ -1,8 +1,11 @@
 import flask
 import functools
 import urllib.parse
+import os
+import os.path
 from .. import auth
 
+THEME_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../themes"))
 INVALID_PERMISSIONS_FLASH_MESSAGE = "Sorry, you don't have permission to view that page."
 
 def checkForSession():
@@ -56,8 +59,8 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 			else:
 				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False)	
 		return functools.update_wrapper(decorated, function)
-	return decorator
-
+	return decorator)
+)
 def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 	if flash:
 		flask.flash(redirectMessage)
@@ -70,3 +73,19 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 	else:
 		return function(authed = False, authMessage = redirectMessage, *args, **kwargs)
 	
+def getCurrentTheme():
+	databaseConnection = database.ConnectionManager.getConnection("main")
+	query = databaseConnection.query(database.tables.Settings).filter(database.tables.Settings.name == "theme")
+	if query.count() > 0:
+		themeName = query.first().value
+		themes = os.listdir(THEME_PATH)	
+		folderName = None
+		try:
+			folderName = next(theme for theme in themes if theme.lower() == themeName.lower())
+		except StopIteration:
+			return None
+
+		themeFile = open(os.path.join(THEME_PATH, folderName, "theme.css"), "r")
+		theme = themeFile.read()
+		themeFile.close()
+		return theme
