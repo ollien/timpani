@@ -5,22 +5,22 @@ var minifyCss = require("gulp-minify-css");
 var jshint = require("gulp-jshint");
 var stylishJshint = require("jshint-stylish");
 var uglify = require("gulp-uglify");
-var plumber = require("gulp-plumber")
-var merge = require("merge-stream")
+var plumber = require("gulp-plumber");
+var merge = require("merge-stream");
 
 var SASS = [
 	{
 		src: "./web-src/scss/*.scss",
 		dest: "./static/css"
 	}
-]
+];
 
 var JS = [
 	{
 		src: "./web-src/js/*.js",
 		dest: "./static/js"
 	}
-]
+];
 
 gulp.task("sass", function () {
 	result = SASS.map(function(item){
@@ -36,7 +36,7 @@ gulp.task("sass", function () {
 			.pipe(minifyCss())
 			.pipe(gulp.dest(item.dest));
 	});
-	return merge(result)
+	return merge(result);
 });
 
 gulp.task("js", function() {
@@ -48,8 +48,8 @@ gulp.task("js", function() {
 			.pipe(jshint.reporter("fail"))
 			.pipe(uglify())	
 			.pipe(gulp.dest(item.dest));
-	})
-	return merge(result)
+	});
+	return merge(result);
 });
 
 gulp.task("watch", function () {
