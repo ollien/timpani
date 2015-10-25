@@ -27,7 +27,7 @@ form#settings-form {
 		display: block;	
 	}
 
-	input:not([type="radio"]) {
+	input:not([type="radio"]), div.spacer {
 		display: block;
 		width: 100%;
 		margin-bottom: 25px;
