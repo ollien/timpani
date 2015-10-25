@@ -16,7 +16,7 @@ def showPosts():
 	posts = blog.getPosts()
 	title = settings.getSettingValue("title")
 	subtitle = settings.getSettingValue("subtitle")
-	return flask.render_template("posts.html", posts = posts, blogTitle = title, blogSubtitle = subtitle, displayName = settings.getSettingValue("display_name"))
+	return flask.render_template("posts.html", posts = posts, blogTitle = title, blogSubtitle = subtitle, displayName = settings.getSettingValue("display_name"), theme = webhelpers.getCurrentTheme())
 
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):

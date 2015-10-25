@@ -33,6 +33,15 @@
 				<input type="radio" name="display_name" id="author-username" value="username" {% if settings["display_name"] == "username" %} checked {% endif %}><label for="full-author-username" radio>Username</label>
 			</div>
 
+			<div class="spacer"></div>
+			
+			<label for="theme">Theme</label>
+			<select id="theme" name="theme">
+				{% for theme in themes %}
+					<option value="{{theme}}" {% if theme == settings["theme"] %} selected {% endif %}>{{theme}}</option>
+				{% endfor %}
+			</select>
+
 			<button class="pure-button pure-button-primary" id="save">Save changes</button>
 		</form>
 	</div>
