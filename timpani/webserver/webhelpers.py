@@ -90,3 +90,11 @@ def getCurrentTheme():
 		theme = themeFile.read()
 		themeFile.close()
 		return theme
+
+def getAvailableThemes():
+	files = os.listdir(THEME_PATH)
+	for item in files:
+		path = os.path.join(THEME_PATH, item)
+		if not os.path.isdir(path):
+			files.remove(item)
+	return files
