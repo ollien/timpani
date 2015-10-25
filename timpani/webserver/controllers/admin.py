@@ -57,7 +57,7 @@ def editPost(postId):
 @webhelpers.checkUserPermissions("/manage", requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
 def settingsPage():
 	if flask.request.method == "GET":
-		return flask.render_template("settings.html", settings = settings.getAllSettings(), user = webhelpers.checkForSession().user)
+		return flask.render_template("settings.html", settings = settings.getAllSettings(), themes = webheleprs.getAvailableThemes(), user = webhelpers.checkForSession().user)
 	if flask.request.method == "POST":
 		for setting in flask.request.form:
 			settings.setSettingValue(setting, flask.request.form[setting])
