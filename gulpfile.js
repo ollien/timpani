@@ -9,6 +9,11 @@ var plumber = require("gulp-plumber");
 var glob = require("glob");
 var path = require("path");
 
+var SASS_SRC = "./web-src/scss/*.scss"
+var SASS_DEST = "./static/css"
+var JS_SRC = "./web-src/js/*.js"
+var JS_DEST = "./static/js"
+
 //Search themes folder for theme gulpfiles
 //This must be synchronus so it runs before gulp searches for tasks
 files = glob("themes/*/*(gulpfile|gulp|build).js", {sync: true})
@@ -17,7 +22,7 @@ files.forEach(function(file){
 });
 
 gulp.task("sass", function() {
-	return gulp.src("./web-src/scss/*.scss")
+	return gulp.src(SASS_SRC)
 		.pipe(plumber())
 		.pipe(sass().on("error", sass.logError))
 		.pipe(autoPrefixer({
@@ -27,17 +32,17 @@ gulp.task("sass", function() {
 			]
 		}))
 		.pipe(minifyCss())
-		.pipe(gulp.dest("./static/css"));
+		.pipe(gulp.dest(SASS_DEST));
 });
 
 gulp.task("js", function() {
-	return gulp.src("./web-src/js/*.js")
+	return gulp.src(JS_SRC)
 		.pipe(plumber())
 		.pipe(jshint())
 		.pipe(jshint.reporter(stylishJshint))
 		.pipe(jshint.reporter("fail"))
 		.pipe(uglify())	
-		.pipe(gulp.dest("./static/js"));
+		.pipe(gulp.dest(JS_DEST));
 });
 
 
