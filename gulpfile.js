@@ -9,16 +9,16 @@ var plumber = require("gulp-plumber");
 var glob = require("glob");
 var path = require("path");
 
-var SASS_SRC = "./web-src/scss/*.scss"
-var SASS_DEST = "./static/css"
-var JS_SRC = "./web-src/js/*.js"
-var JS_DEST = "./static/js"
+var SASS_SRC = "./web-src/scss/*.scss";
+var SASS_DEST = "./static/css";
+var JS_SRC = "./web-src/js/*.js";
+var JS_DEST = "./static/js";
 
 //Search themes folder for theme gulpfiles
 //This must be synchronus so it runs before gulp searches for tasks
-files = glob("themes/*/*(gulpfile|gulp|build).js", {sync: true})
+files = glob("themes/*/*(gulpfile|gulp|build).js", {sync: true});
 files.forEach(function(file){
-	require(path.resolve(file)) //We don't have to store this, beacuse we just need its code to execute.
+	require(path.resolve(file)); //We don't have to store this, beacuse we just need its code to execute.
 });
 
 gulp.task("sass", function() {
