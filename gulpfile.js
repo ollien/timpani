@@ -5,7 +5,7 @@ var minifyCss = require("gulp-minify-css");
 var jshint = require("gulp-jshint");
 var stylishJshint = require("jshint-stylish");
 var uglify = require("gulp-uglify");
-var plumber = require("gulp-plumber")
+var plumber = require("gulp-plumber");
 
 var SASS_SRC = "./web-src/scss/*.scss";
 var SASS_DEST = "./static/css";
