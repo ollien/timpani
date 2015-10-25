@@ -38,7 +38,7 @@
 			<label for="theme">Theme</label>
 			<select id="theme" name="theme">
 				{% for theme in themes %}
-					<option value="{{theme}}">{{theme}}</theme>
+					<option value="{{theme}}" {% if theme == settings["theme"] %} selected {% endif %}>{{theme}}</option>
 				{% endfor %}
 			</select>
 
