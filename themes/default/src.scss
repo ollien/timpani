@@ -50,6 +50,14 @@ ul#posts-list {
 			font-weight: 300;
 			margin-top: $vertical-margin - 5px; /*Fixes inequality between h3 and top of text */
 			margin-bottom: $vertical-margin;
+			a.timestamp-link, a.timestamp-link:visited {
+				color: #000;
+				text-decoration: none;
+			}
+
+			a.timestamp-link:hover, a.timestamp-link:active {
+				text-decoration: underline;	
+			}
 		}
 
 		div.post-body {

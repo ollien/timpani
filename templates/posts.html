@@ -38,7 +38,7 @@
 					<span class="author">
 						{% if displayName == "full_name" %} {{post.author.full_name}} {% elif displayName == "username" %} {{post.author.username}} {% endif %} 
 					</span> 
-					on <a href="/post/{{post.id}}"><span class="timestamp">{{post.time_posted.strftime("%A %B %d at %I:%M %p")}}</span></a>
+					on <a class="timestamp-link" href="/post/{{post.id}}"><span class="timestamp">{{post.time_posted.strftime("%A %B %d at %I:%M %p")}}</span></a>
 				</div>
 				<div class="post-body">
 					{{post.body|safe}}
