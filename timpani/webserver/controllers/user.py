@@ -21,10 +21,12 @@ def showPosts():
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):
 	post = blog.getPostById(postId)
+	title = settings.getSettingValue("title")
+	subtitle = settings.getSettingValue("subtitle")
 	if post == None:
 		flask.abort(404)
 	else:
-		return flask.render_template("posts.html", posts = [post])
+		return flask.render_template("posts.html", posts = [post], blogTitle = title, blogSubtitle = subtitle, displayName = settings.getSettingValue("display_name"), theme = webhelpers.getCurrentTheme())
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
