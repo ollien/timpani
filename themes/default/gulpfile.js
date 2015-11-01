@@ -6,7 +6,7 @@ var rename = require("gulp-rename");
 var plumber = require("gulp-plumber");
 
 gulp.task("default-theme", function(){
-	return gulp.src("./src.scss")
+	return gulp.src("./themes/default/src.scss")
 		.pipe(plumber())
 		.pipe(sass().on("error", sass.logError))
 		.pipe(autoPrefixer({
@@ -17,5 +17,5 @@ gulp.task("default-theme", function(){
 		}))
 		.pipe(minifyCss())
 		.pipe(rename("theme.css"))
-		.pipe(gulp.dest("./"));
+		.pipe(gulp.dest("./themes/default"));
 });
