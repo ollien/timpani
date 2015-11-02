@@ -39,9 +39,9 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 
 	#Setup all default settings
 	settingNames = [item == database.tables.Setting.name for item in DEFAULT_SETTINGS]
-	settingsQuery = databaseConnection.session
+	settingsQuery = (databaseConnection.session
 		.query(database.tables.Setting.name)
-		.filter(sqlalchemy.or_(*settingNames))
+		.filter(sqlalchemy.or_(*settingNames)))
 	result = settingsQuery.all()
 	#Get all settings that are not in the database, and set them.
 	#All names are in a tuple, so we must query as such.
