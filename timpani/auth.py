@@ -23,9 +23,9 @@ def createUser(username, full_name, password, can_change_settings, can_write_pos
 		bcrypt.gensalt(rounds = BCRYPT_ROUNDS))
 	passwordHash = passwordHash.decode("utf-8")
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.session
+	query = (databaseConnection.session
 		.query(database.tables.User)
-		.filter(database.tables.User.username == username)
+		.filter(database.tables.User.username == username))
 
 	if query.count() == 0:
 		userObject = database.tables.User(
@@ -44,9 +44,9 @@ def validateUser(username, password):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.session
+	query = (databaseConnection.session
 		.query(database.tables.User)
-		.filter(database.tables.User.username == username)
+		.filter(database.tables.User.username == username))
 
 	if query.count() > 0:
 		userObject = query.first()
@@ -58,9 +58,9 @@ def validateUser(username, password):
 
 def userHasPermission(username, permissionName):
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.session
+	query = (databaseConnection.session
 		.query(database.tables.User)
-		.filter(database.tables.User.username == username)
+		.filter(database.tables.User.username == username))
 
 	if query.count() > 0:
 		userObj = query.first()
@@ -76,9 +76,9 @@ def createSession(username, sessionId = None):
 		sessionId = generateSessionId()
 	username = username.lower()
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.session
+	query = (databaseConnection.session
 		.query(database.tables.User)
-		.filter(database.tables.User.username == username)
+		.filter(database.tables.User.username == username))
 
 	if query.count() > 0:
 		userObject = query.first()
@@ -97,17 +97,17 @@ def createSession(username, sessionId = None):
 
 def validateSession(sessionId):
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.session
+	query = (databaseConnection.session
 		.query(database.tables.Session)
-		.filter(database.tables.Session.session_id == sessionId)
+		.filter(database.tables.Session.session_id == sessionId))
 
 	if query.count() > 0:
 		sessionObj = query.first()
 		userId = sessionObj.user_id
 		if datetime.datetime.now() < sessionObj.expires:
-			userQuery = databaseConnection.session
+			userQuery = (databaseConnection.session
 				.query(database.tables.User)
-				.filter(database.tables.User.id == userId)
+				.filter(database.tables.User.id == userId))
 			if userQuery.count() > 0:
 				return sessionObj
 
@@ -116,7 +116,7 @@ def validateSession(sessionId):
 def invalidateSession(sessionId):
 	databaseConnection = database.ConnectionManager.getConnection("main")
 	#Delete the session from the database
-	query = databaseConnection.session
+	query = (databaseConnection.session
 		.query(database.tables.Session)
 		.filter(database.tables.Session.session_id == sessionId)
-		.delete(synchronize_session=False)
+		.delete(synchronize_session=False))
