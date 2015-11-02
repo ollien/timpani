@@ -9,8 +9,8 @@ MANAGE_TITLE = "Manage Blog - Timpani"
 def test(driver, username, password):
 	driver.get("http://127.0.0.1:8080/login")
 
-	WebDriverWait(driver, 10)
-		.until(expected_conditions.title_contains("Timpani"))
+	(WebDriverWait(driver, 10)
+		.until(expected_conditions.title_contains("Timpani")))
 	
 	assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
 
