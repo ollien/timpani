@@ -36,7 +36,7 @@ def addPost():
 		postBody = flask.request.form["post-body"].replace("    ", "&emsp;")
 		postTags = flask.request.form["post-tags"]
 		blog.addPost(
-			tile = postTitle, 
+			title = postTitle, 
 			body = postBody, 
 			time_posted = datetime.datetime.now(), 
 			author = webhelpers.checkForSession().user, 
