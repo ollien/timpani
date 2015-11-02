@@ -79,9 +79,9 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 	
 def getCurrentTheme():
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.session
+	query = (databaseConnection.session
 		.query(database.tables.Setting)
-		.filter(database.tables.Setting.name == "theme")
+		.filter(database.tables.Setting.name == "theme"))
 	if query.count() > 0:
 		themeName = query.first().value
 		themes = os.listdir(THEME_PATH)	
