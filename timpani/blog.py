@@ -9,7 +9,6 @@ def getMainConnection():
 #Will be a dict formatted as such {postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}
 def _getDictFromJoin(results):
 	posts = {}
-
 	for result in results:
 		post, tag = result
 		if post.id in posts.keys():
@@ -28,8 +27,8 @@ def getPosts(tags = True, connection = None):
 		connection = getMainConnection()
 	if tags:
 		#Gets all the posts using a join. We won't use getPostById in a loop to prevent many queries.
-		postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post != None).all()
-		return _getDictFromJoin(postsAndTags)	
+		postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).order_by(database.tables.Tag.id).all()
+		return _getDictFromJoin(postsAndTags)
 
 	else:
 		posts = connection.session.query(database.tables.Post).all()
@@ -40,8 +39,7 @@ def getPostById(postId, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
 	if tags:
-		postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post.id == postId).all()
-
+		postsAndTags = connection.session.query(database.tables.Post, database.tables.Tag).outerjoin(database.tables.Tag).filter(database.tables.Post.id == postId).order_by(database.tables.Tag.id).all()
 		if len(postsAndTags) == 0:
 			return None
 
