@@ -29,8 +29,8 @@ def test(driver, username, password):
 	logoutButton = driver.find_element_by_css_selector("button.logout-button")
 	logoutButton.click()
 
-	WebDriverWait(driver, 10)
-		.until_not(expected_conditions.title_is(MANAGE_TITLE))
+	(WebDriverWait(driver, 10)
+		.until_not(expected_conditions.title_is(MANAGE_TITLE)))
 
 	assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
 
