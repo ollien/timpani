@@ -42,7 +42,14 @@ def showPost(postId):
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
 	posts = blog.getPostsWithTag(tag)
-	return flask.render_template("posts.html", posts = posts)
+	title = settings.getSettingValue("title")
+	subtitle = settings.getSettingValue("subtitle")
+	return flask.render_template("posts.html",
+		posts = posts,
+		blogTitle = title,
+		blogSubtitle = subtitle,
+		displayName = settings.getSettingValue("display_name"),
+		theme = webhelpers.getCurrentTheme())
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
