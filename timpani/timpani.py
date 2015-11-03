@@ -22,7 +22,8 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 	databaseConfig = configs["database"]
 	authConfig = configs["auth"]
 	if authConfig["signing_key"] == "my_secret_key":
-		authConfig["signing_key"] = binascii.hexlify(os.urandom(1024)).decode("utf-8")
+		authConfig["signing_key"] = binascii.hexlify(os.urandom(1024))
+		authConfig["signing_key"] = authConfig["signing_key"].decode("utf-8")
 		f = open(os.path.join(CONFIG_PATH, "auth.json"), "w")
 		f.write(json.dumps(authConfig))
 		f.close()
@@ -31,18 +32,24 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 	print("[Timpani] Configs loaded.")
 
 	#Register a connection to our database
-	databaseConnection = database.DatabaseConnection(connectionString = databaseConfig["connection_string"])
+	databaseConnection = database.DatabaseConnection(
+		connectionString = databaseConfig["connection_string"])
 	database.ConnectionManager.addConnection(databaseConnection, "main")
 	print("[Timpani] Database sessions started.")
 
 	#Setup all default settings
 	settingNames = [item == database.tables.Setting.name for item in DEFAULT_SETTINGS]
-	settingsQuery = databaseConnection.session.query(database.tables.Setting.name).filter(sqlalchemy.or_(*settingNames))
+	settingsQuery = (databaseConnection.session
+		.query(database.tables.Setting.name)
+		.filter(sqlalchemy.or_(*settingNames)))
 	result = settingsQuery.all()
 	#Get all settings that are not in the database, and set them.
-	neededSettings = [setting for setting in DEFAULT_SETTINGS if (setting, ) not in result] #result has all names in a tuple, so we must query as such.
+	#All names are in a tuple, so we must query as such.
+	neededSettings = [setting for setting in DEFAULT_SETTINGS if (setting, ) not in result] 
 	for item in neededSettings:
-		setting = database.tables.Setting(name = item, value = DEFAULT_SETTINGS[item])
+		setting = database.tables.Setting(
+			name = item, 
+			value = DEFAULT_SETTINGS[item])
 		databaseConnection.session.add(setting)
 	
 	if len(neededSettings) > 0:

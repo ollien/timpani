@@ -9,12 +9,14 @@ LOGIN_TITLE = "Login - Timpani"
 SETTINGS_TITLE = "Settings - Timpani"
 
 TITLE = "Timpani! %s" % binascii.hexlify(os.urandom(32)).decode()
-SUBTITLE = "Your subtitle, set using unit testing. %s" % binascii.hexlify(os.urandom(32)).decode()
+SUBTITLE = ("Your subtitle, set using unit testing. %s" % 
+	binascii.hexlify(os.urandom(32)).decode())
 
 def test(driver, username, password):
 	driver.get("http://127.0.0.1:8080/settings")
 
-	WebDriverWait(driver, 10).until(expected_conditions.title_contains("Timpani"))
+	(WebDriverWait(driver, 10)
+		.until(expected_conditions.title_contains("Timpani")))
 	
 	assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
 
@@ -25,7 +27,8 @@ def test(driver, username, password):
 	passwordField.send_keys(password)
 	loginForm.submit()
 
-	WebDriverWait(driver, 10).until_not(expected_conditions.title_is(LOGIN_TITLE))
+	(WebDriverWait(driver, 10)
+		.until_not(expected_conditions.title_is(LOGIN_TITLE)))
 
 	assert driver.title == SETTINGS_TITLE, "Title is %s" % driver.title
 
@@ -39,8 +42,10 @@ def test(driver, username, password):
 	subtitleField.send_keys(SUBTITLE)
 	settingsForm.submit()	
 
-	#Will throw a timeout exception if the page doesn't load, or it can't find the element.
-	WebDriverWait(driver, 10).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, "div.success")))
+	#Will throw a timeout exception if the 
+	#page doesn't load, or it can't find the element.
+	(WebDriverWait(driver, 10)
+		.until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, "div.success"))))
 
 	driver.get("http://127.0.0.1:8080")
 

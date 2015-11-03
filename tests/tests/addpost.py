@@ -10,16 +10,19 @@ from timpani import database
 
 LOGIN_TITLE = "Login - Timpani"
 ADD_POST_TITLE = "Add Post - Timpani"
-POST_RANDOM = binascii.hexlify(os.urandom(16)).decode() #Used to verify that a unique post was actually posted. 
+#A random constant used to varify that a unique post was made
+POST_RANDOM = binascii.hexlify(os.urandom(16)).decode() 
 POST_TITLE = "Test post, please ignore."
-POST_BODY = "This is a test post. There is no reason you should be paying attention to it. %s" % POST_RANDOM
+POST_BODY = ("This is a test post. "
+	"There is no reason you should be paying attention to it. %s" % POST_RANDOM)
 POST_TAGS = ["test", "post", "selenium"]
 
 def test(driver, username, password):
 	databaseConnection = database.DatabaseConnection()
 	driver.get("http://127.0.0.1:8080/add_post")	
 
-	WebDriverWait(driver, 10).until(expected_conditions.title_contains("Timpani"))
+	(WebDriverWait(driver, 10)
+		.until(expected_conditions.title_contains("Timpani")))
 
 	#Check that we were redirected to the login page, as we are not logged in.	
 	assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
@@ -31,7 +34,8 @@ def test(driver, username, password):
 	passwordField.send_keys(password)
 	loginForm.submit()
 
-	WebDriverWait(driver, 10).until_not(expected_conditions.title_is(LOGIN_TITLE))
+	(WebDriverWait(driver, 10)
+		.until_not(expected_conditions.title_is(LOGIN_TITLE)))
 
 	#We should have been redirected to the add_post page.
 	assert driver.title == ADD_POST_TITLE, "Title is %s" % driver.title
@@ -58,9 +62,17 @@ def test(driver, username, password):
 	
 	postForm.submit()
 
-	post = databaseConnection.session.query(database.tables.Post).order_by(sqlalchemy.desc(database.tables.Post.id)).first()
-	tags = databaseConnection.session.query(database.tables.Tag.name).filter(database.tables.Tag.post_id == post.id).all()
-	tags = [tag[0] for tag in tags] #Resolve sqlalchemy tuples
+	post = (databaseConnection.session
+		.query(database.tables.Post)
+		.order_by(sqlalchemy.desc(database.tables.Post.id))
+		.first())
+	tags = (databaseConnection.session
+		.query(database.tables.Tag.name)
+		.filter(database.tables.Tag.post_id == post.id)
+		.all())
+
+	#Resolve sqlalchemy tuples
+	tags = [tag[0] for tag in tags]
 
 	assert post != None
 	assert post.title == POST_TITLE, "Title is %s" % post.title

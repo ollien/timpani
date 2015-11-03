@@ -8,7 +8,9 @@ def getAllSettings():
 
 def getSettingValue(name):
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.session.query(database.tables.Setting).filter(database.tables.Setting.name == name)
+	query = (databaseConnection.session
+		.query(database.tables.Setting)
+		.filter(database.tables.Setting.name == name))
 	if query.count() > 0:
 		return query.first().value
 	return None

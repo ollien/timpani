@@ -16,7 +16,13 @@ def showPosts():
 	posts = blog.getPosts()
 	title = settings.getSettingValue("title")
 	subtitle = settings.getSettingValue("subtitle")
-	return flask.render_template("posts.html", posts = posts, blogTitle = title, blogSubtitle = subtitle, displayName = settings.getSettingValue("display_name"), theme = webhelpers.getCurrentTheme())
+	return flask.render_template(
+		"posts.html", 
+		posts = posts,
+		blogTitle = title,
+		blogSubtitle = subtitle,
+		displayName = settings.getSettingValue("display_name"),
+		theme = webhelpers.getCurrentTheme())
 
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):
@@ -26,7 +32,12 @@ def showPost(postId):
 	if post == None:
 		flask.abort(404)
 	else:
-		return flask.render_template("posts.html", posts = [post], blogTitle = title, blogSubtitle = subtitle, displayName = settings.getSettingValue("display_name"), theme = webhelpers.getCurrentTheme())
+		return flask.render_template("posts.html",
+			posts = [post],
+			blogTitle = title,
+			blogSubtitle = subtitle,
+			displayName = settings.getSettingValue("display_name"),
+			theme = webhelpers.getCurrentTheme())
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
@@ -42,10 +53,12 @@ def login():
 			return flask.render_template("login.html")
 
 	elif flask.request.method == "POST":
-		if "username" not in flask.request.form or "password" not in flask.request.form:
+		if ("username" not in flask.request.form 
+			or "password" not in flask.request.form):
 			flask.flash("A username and password must be provided.")
 			return flask.render_template("login.html")
-		elif auth.validateUser(flask.request.form["username"], flask.request.form["password"]):
+		elif auth.validateUser(flask.request.form["username"], 
+								flask.request.form["password"]):
 			donePage = webhelpers.canRecoverFromRedirect()
 			donePage = donePage if donePage is not None else "/manage"
 			sessionId, expires = auth.createSession(flask.request.form["username"])

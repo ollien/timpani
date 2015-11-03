@@ -31,7 +31,9 @@ def canRecoverFromRedirect():
 		return flask.session["donePage"]
 	return None
 
-#Decorator which checks if a user logged in and capable of using the specified permissions. If redirectPage is equalt o none the target funciton MUST have the arguments of authed and authMessage defined.
+#Decorator which checks if a user logged in and capable of using the specified permissions. 
+#If redirectPage is equal to none,
+#the target funciton MUST have the arguments authed and authMessage defined.
 def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE, requiredPermissions = None):
 	def decorator(function):
 		def decorated(*args, **kwargs):
@@ -39,7 +41,8 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 			if session != None:
 				username = session.user.username
 				result = True
-				#If we don't have any permissions necessary, a login is enough. Otherwise, we're going to check to make sure that all necessary permissions are in place.
+				#If we don't have any permissions necessary, a login is enough. 
+				#Otherwise, we're going to check to make sure that all necessary permissions are in place.
 				if requiredPermissions != None:
 					if type(requiredPermissions) == str:
 						result = auth.userHasPermission(username, requiredPermissions)
@@ -66,7 +69,7 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 	if flash:
 		flask.flash(redirectMessage)
 	if redirectPage != None:
-		#We don't want to save the redirect if either the user page doesn't need it or there's one already saved, as to prevent overwrites.
+		#We don't want to save the redirect if either the user page doesn't need it or there's one already saved
 		if canRecoverFromRedirect() or not saveRedirect:
 			return flask.redirect(redirectPage)
 		else:
@@ -76,7 +79,9 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 	
 def getCurrentTheme():
 	databaseConnection = database.ConnectionManager.getConnection("main")
-	query = databaseConnection.session.query(database.tables.Setting).filter(database.tables.Setting.name == "theme")
+	query = (databaseConnection.session
+		.query(database.tables.Setting)
+		.filter(database.tables.Setting.name == "theme"))
 	if query.count() > 0:
 		themeName = query.first().value
 		themes = os.listdir(THEME_PATH)	
