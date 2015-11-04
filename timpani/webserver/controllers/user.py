@@ -14,42 +14,23 @@ blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
 @blueprint.route("/")
 def showPosts():
 	posts = blog.getPosts()
-	title = settings.getSettingValue("title")
-	subtitle = settings.getSettingValue("subtitle")
-	return flask.render_template(
-		"posts.html", 
-		posts = posts,
-		blogTitle = title,
-		blogSubtitle = subtitle,
-		displayName = settings.getSettingValue("display_name"),
-		theme = webhelpers.getCurrentTheme())
+	return flask.render_template("posts.html", 
+		posts = posts, **webhelpers.getPostsParameters())
 
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):
 	post = blog.getPostById(postId)
-	title = settings.getSettingValue("title")
-	subtitle = settings.getSettingValue("subtitle")
 	if post == None:
 		flask.abort(404)
 	else:
-		return flask.render_template("posts.html",
-			posts = [post],
-			blogTitle = title,
-			blogSubtitle = subtitle,
-			displayName = settings.getSettingValue("display_name"),
-			theme = webhelpers.getCurrentTheme())
+		return flask.render_template("posts.html", 
+			posts = posts, **webhelpers.getPostsParameters())
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
 	posts = blog.getPostsWithTag(tag)
-	title = settings.getSettingValue("title")
-	subtitle = settings.getSettingValue("subtitle")
-	return flask.render_template("posts.html",
-		posts = posts,
-		blogTitle = title,
-		blogSubtitle = subtitle,
-		displayName = settings.getSettingValue("display_name"),
-		theme = webhelpers.getCurrentTheme())
+	return flask.render_template("posts.html", 
+		posts = posts, **webhelpers.getPostsParameters())
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
