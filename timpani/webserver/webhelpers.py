@@ -5,6 +5,7 @@ import os
 import os.path
 from .. import auth
 from .. import database
+from .. import settings
 
 THEME_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../themes"))
 INVALID_PERMISSIONS_FLASH_MESSAGE = "Sorry, you don't have permission to view that page."
@@ -103,3 +104,17 @@ def getAvailableThemes():
 		if not os.path.isdir(path):
 			files.remove(item)
 	return files
+
+#Will return all information that is needed to render a post.
+#Prevents fragmentation in various post display methods
+def getPostsParameters():
+	title = settings.getSettingValue("title")
+	subtitle = settings.getSettingValue("subtitle")
+	displayName = settings.getSettingValue("display_name")
+	theme = getCurrentTheme,
+	return {
+		"blogTitle": title,
+		"blogSubtitle": subtitle,
+		"displayName": displayName,
+		"theme": theme
+	}	
