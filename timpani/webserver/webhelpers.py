@@ -111,7 +111,7 @@ def getPostsParameters():
 	title = settings.getSettingValue("title")
 	subtitle = settings.getSettingValue("subtitle")
 	displayName = settings.getSettingValue("display_name")
-	theme = getCurrentTheme(),
+	theme = getCurrentTheme()
 	return {
 		"blogTitle": title,
 		"blogSubtitle": subtitle,
