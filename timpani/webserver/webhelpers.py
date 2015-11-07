@@ -1,8 +1,6 @@
 import flask
 import functools
 import urllib.parse
-import os
-import os.path
 from .. import auth
 from .. import themes
 from .. import settings
