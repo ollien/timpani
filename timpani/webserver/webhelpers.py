@@ -86,5 +86,5 @@ def getPostsParameters():
 		"blogTitle": title,
 		"blogSubtitle": subtitle,
 		"displayName": displayName,
-		"theme": theme
+		"theme": theme["theme"]
 	}	
