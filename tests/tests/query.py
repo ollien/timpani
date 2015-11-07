@@ -21,5 +21,32 @@ def test(driver):
 
 	post = query.first()
 	titleElement = postElement.find_element_by_css_selector("h2.post-title")
+
 	assert titleElement.text == post.title
 
+	driver.get("http://127.0.0.1:8080")
+	tagElement = driver.find_element_by_css_selector("li.tag")
+	tag = tagElement.text
+	tag = tag[1:] if tag[0] == "#" else tag
+	tagElement.click()
+	postElements = driver.find_elements_by_css_selector("li.post")
+	query = (databaseConnection.session
+		.query(database.tables.Tag.post_id)
+		.filter(database.tables.Tag.name == tag))
+
+	#There must be at least one post with a tag
+	assert query.count() > 0 
+
+	postIds = query.all()
+	#Resolve sqlalchemy tuples
+	postIds = [postId[0] for postId in postIds]
+
+	assert len(postIds) == len(postElements)
+
+	for postElement in postElements:
+		postId = postElement.get_attribute("post-id")
+		assert int(postId) in postIds
+		postIds.remove(int(postId))
+
+	assert len(postIds) == 0, "postIds is " % str(postIds)
+		
