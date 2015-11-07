@@ -32,7 +32,7 @@
 		{% for item in posts %}
 			{% set post = item["post"] %}
 			{% set tags = item["tags"] %}
-			<li class="post" id="{{post.id}}">
+			<li class="post" post-id="{{post.id}}">
 				<h2 class="post-title title">{{post.title}}</h2>
 				<div class="post-metadata"> by 
 					<span class="author">
