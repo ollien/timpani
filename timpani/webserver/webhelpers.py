@@ -94,7 +94,7 @@ def getPostsParameters():
 def renderPosts(defaultPath, *args, **kwargs):
 	theme = themes.getCurrentTheme()
 	template = theme["template"]
-	if template != None:
+	if template == None:
 		templateFile = open(defaultPath, "r")
 		template = templateFile.read()
 		templateFile.close()
