@@ -18,14 +18,19 @@ def getCurrentTheme():
 		except StopIteration:
 			return None
 
-		themeFile = open(
-			os.path.join(THEME_PATH, folderName, "theme.css"), "r")
-		theme = themeFile.read()
-		themeFile.close()
-		templateFile = open(
-			os.path.join(THEME_PATH, folderName, "template.html"), "r")
-		template = templatefile.read()
-		templateFile.close()
+		themePath = os.path.join(THEME_PATH, folderName, "theme.css")
+		theme = "" #No CSS
+		if os.path.isfile(themePath):
+			themeFile = open(themePath, "r")
+			theme = themeFile.read()
+			themeFile.close()
+
+		templatePath = os.path.join(THEME_PATH, folderName, "template.html")
+		template = None #If this is None, the default template can be used.
+		if os.path.isfile(templatePath):
+			templateFile = open(templatePath, "r")
+			template = templatefile.read()
+			templateFile.close()
 		
 		return {"template": template, "theme": theme}
 
