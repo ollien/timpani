@@ -17,7 +17,7 @@ def test(driver):
 		.query(database.tables.Post)
 		.filter(database.tables.Post.id == postId))
 
-	assert query.count() > 0
+	assert query.count() == 1
 
 	post = query.first()
 	titleElement = postElement.find_element_by_css_selector("h2.post-title")
