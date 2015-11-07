@@ -4,6 +4,7 @@ import urllib.parse
 import os
 import os.path
 from .. import auth
+from .. import themes
 from .. import settings
 
 INVALID_PERMISSIONS_FLASH_MESSAGE = "Sorry, you don't have permission to view that page."
@@ -82,7 +83,7 @@ def getPostsParameters():
 	title = settings.getSettingValue("title")
 	subtitle = settings.getSettingValue("subtitle")
 	displayName = settings.getSettingValue("display_name")
-	theme = getCurrentTheme()
+	theme = themes.getCurrentTheme()
 	return {
 		"blogTitle": title,
 		"blogSubtitle": subtitle,
