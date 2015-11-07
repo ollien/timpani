@@ -8,6 +8,7 @@ import mimetypes
 from .. import webhelpers
 from ... import blog
 from ... import auth
+from ... import themes
 from ... import settings
 
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
@@ -75,7 +76,7 @@ def settingsPage():
 	if flask.request.method == "GET":
 		return flask.render_template("settings.html", 
 			settings = settings.getAllSettings(),
-			themes = webhelpers.getAvailableThemes(),
+			themes = themes.getAvailableThemes(),
 			user = webhelpers.checkForSession().user)
 
 	if flask.request.method == "POST":
