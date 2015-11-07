@@ -18,10 +18,16 @@ def getCurrentTheme():
 		except StopIteration:
 			return None
 
-		themeFile = open(os.path.join(THEME_PATH, folderName, "theme.css"), "r")
+		themeFile = open(
+			os.path.join(THEME_PATH, folderName, "theme.css"), "r")
 		theme = themeFile.read()
 		themeFile.close()
-		return theme
+		templateFile = open(
+			os.path.join(THEME_PATH, folderName, "template.html"), "r")
+		template = templatefile.read()
+		templateFile.close()
+		
+		return {"template": template, "theme": theme}
 
 def getAvailableThemes():
 	files = os.listdir(THEME_PATH)
