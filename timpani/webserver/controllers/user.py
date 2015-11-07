@@ -24,7 +24,7 @@ def showPost(postId):
 		flask.abort(404)
 	else:
 		return flask.render_template("posts.html", 
-			posts = post, **webhelpers.getPostsParameters())
+			posts = [post], **webhelpers.getPostsParameters())
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
