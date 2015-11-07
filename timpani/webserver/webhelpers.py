@@ -88,3 +88,14 @@ def getPostsParameters():
 		"displayName": displayName,
 		"theme": theme["theme"]
 	}	
+
+#Renders the theme's template if the theme contains one
+#Otherwise, it renders the default template
+def renderPosts(defaultPath, *args, **kwargs):
+	theme = themes.getCurrentTheme()
+	template = theme["template"]
+	if template != None:
+		templateFile = open(defaultPath, "r")
+		template = templateFile.read()
+		templateFile.close()
+	return flask.render_template_string(template, *args, **kwargs)
