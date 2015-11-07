@@ -5,3 +5,4 @@ from . import addpost
 from . import logout
 from . import permissions
 from . import settings
+from . import query
