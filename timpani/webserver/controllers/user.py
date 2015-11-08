@@ -15,8 +15,10 @@ blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
 def showPosts():
 	posts = blog.getPosts()
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
+	postParams = webhelpers.getPostsParameters()
+	pageTitle = postParams["blogTitle"]
 	return webhelpers.renderPosts(templatePath, 
-		posts = posts, **webhelpers.getPostsParameters())
+		posts = posts, pageTitle = pageTitle, **postParams)
 
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):
@@ -25,15 +27,19 @@ def showPost(postId):
 		flask.abort(404)
 	else:
 		templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
+		postParams = webhelpers.getPostsParameters()
+		pageTitle = "%s - %s" % (postParams["blogTitle"], post["post"].title)
 		return webhelpers.renderPosts(templatePath, 
-			posts = [post], **webhelpers.getPostsParameters())
+			posts = [post], pageTitle = pageTitle, **postParams)
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
 	posts = blog.getPostsWithTag(tag)
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
+	postParams = webhelpers.getPostsParameters()
+	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
 	return webhelpers.renderPosts(templatePath, 
-		posts = posts, **webhelpers.getPostsParameters())
+		posts = posts, pageTitle = pageTitle, **postParams)
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
