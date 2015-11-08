@@ -37,7 +37,7 @@ def showPostsWithTag(tag):
 	posts = blog.getPostsWithTag(tag)
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
-	pageTitle = postParams["blogTitle"]
+	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
 	return webhelpers.renderPosts(templatePath, 
 		posts = posts, pageTitle = pageTitle, **postParams)
 
