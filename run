@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import os.path
+import sys
 import timpani 
 from timpani import configmanager
 import atexit
@@ -9,4 +10,6 @@ configs = configmanager.ConfigManager(os.path.abspath(os.path.join(os.path.dirna
 webserverConfig = configs["webserver"]
 
 if __name__ == "__main__":
+	if "--debug" in sys.argv:
+		timpani.wsgi.application.debug = True
 	timpani.wsgi.application.run(host = webserverConfig["host"], port = webserverConfig["port"])
