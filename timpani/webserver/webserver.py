@@ -16,4 +16,3 @@ app = flask.Flask(__name__, static_folder = STATIC_PATH)
 app.secret_key = authConfig["signing_key"]
 app.register_blueprint(controllers.user.blueprint)
 app.register_blueprint(controllers.admin.blueprint)
-app.debug = True
