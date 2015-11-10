@@ -14,7 +14,7 @@ addons:
         access_key:
            secure: "K1dl1+a9FbdFKHyE3dayuOoRFtbq1y+ChPTaTtWV3i6m5ru77PrDE0aiQv1JidTgS2sVsR3vBa4DBp3PQv9dW613SCdwv8dZ3SmTVWxkmpg7sLkiEoqCrajhWLVcx16BKkB1VwgeyXj1r4ZwhMdib/u09I8wufmbNVc35idx14RMnHdORzRz1M0VsZXufKao66bCoZHg2P9GR9KMBHIO7yDQh0iXokHuj26c7mBiuAFLAG2aH/BBZCR6WYQKxNSId6ajuh+GsavYLK2qca87MHjsGH+tDRmjJh4ko6g2YYpQ3w9BqGvM4yHDxGuHFHraLuPefHcGvJIU3q71tQ68IjLK3Bvi/Q8qDIp309up6mnkFhyPCfQHysME+73MRidE2RhEhjuOn7XRTVfQwp1awWF5A0WkCf2sJbMb8DiZI5r0wzQkWkW6Wn368F64b3YYSvQKsMZXspvntQ5HQFpjd2BxqL4qRVUKjER/IBdD2s5oeZPmS7xnR+X/90Q5iNtSmF7LZCCma/tiHaax0JLyVUmKP1+I21jLRaOFv5TTcxdsDnm5+E3zKqfXmC+EX+RFni/koUnfuLsZKaJI+dGVlkPFhsgYluCvH7gHYp0iiWHKHDdovMTxAcdAFh468uP0X8hSoV8QbKO0d5borggb02IygO+I2+LOG4k78WiKfNs="
 before_install:
-    - "pip install -r py_dependencies.txt"
+    - "pip install -r requirements.txt"
     - "psql -c 'DROP DATABASE IF EXISTS blog'"
     - "psql -c 'CREATE DATABASE blog'"
     - "mkdir -p configs"
