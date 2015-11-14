@@ -5,6 +5,7 @@ from ... import auth
 from ... import blog
 from ... import configmanager
 from ... import settings
+from ... import themes
 from .. import webhelpers
 
 TEMPLATE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../templates"))
@@ -76,3 +77,11 @@ def logout():
 			flask.session.clear()
 	
 	return flask.redirect("/login")
+
+@blueprint.route("/static/theme/<path:filePath>")
+def themeStatic(filePath):
+	currentTheme = themes.getCurrentTheme()
+	if currentTheme["staticPath"] is None:
+		return "", 404
+	staticPath = currentTheme["staticPath"]
+	return flask.send_from_directory(staticPath, filePath)
