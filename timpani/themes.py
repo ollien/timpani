@@ -31,8 +31,12 @@ def getCurrentTheme():
 			templateFile = open(templatePath, "r")
 			template = templateFile.read()
 			templateFile.close()
+
+		staticPath = os.path.join(THEME_PATH, folderName, "static")
+		if not os.path.isdir(staticPath):
+			staticPath = None
 		
-		return {"template": template, "theme": theme}
+		return {"template": template, "theme": theme, "staticPath": staticPath}
 
 def getAvailableThemes():
 	files = os.listdir(THEME_PATH)
