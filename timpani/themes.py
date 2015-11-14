@@ -29,7 +29,7 @@ def getCurrentTheme():
 		template = None #If this is None, the default template can be used.
 		if os.path.isfile(templatePath):
 			templateFile = open(templatePath, "r")
-			template = templatefile.read()
+			template = templateFile.read()
 			templateFile.close()
 		
 		return {"template": template, "theme": theme}
