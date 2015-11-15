@@ -52,7 +52,7 @@ class DatabaseConnection():
 		self.connectionString = connectionString
 		self.engine = sqlalchemy.create_engine(self.connectionString)
 		self._Session = sqlalchemy.orm.sessionmaker(bind = self.engine)
-		self.session = None
+		self.session = self._Session()
 		#Create all tables
 		if createTables:
 			attrs = dir(tables)
@@ -66,9 +66,6 @@ class DatabaseConnection():
 		if result != None:
 			return result[0]
 		return None
-	
-	def createSession(self):
-		self.session = self._Session()
 	
 	def closeSession(self):
 		if self.session != None:
