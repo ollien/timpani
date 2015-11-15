@@ -19,14 +19,12 @@ UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../static/u
 blueprint = flask.Blueprint("admin", __name__, template_folder = TEMPLATE_PATH)
 
 @blueprint.route("/manage")
-@webhelpers.usesDatabase
 @webhelpers.checkUserPermissions("/login", saveRedirect = False)
 def manage():
 	return flask.render_template("manage.html", 
 		user = webhelpers.checkForSession().user)
 
 @blueprint.route("/add_post", methods=["GET", "POST"])
-@webhelpers.usesDatabase
 @webhelpers.checkUserPermissions("/manage", 
 	requiredPermissions = auth.CAN_POST_PERMISSION)
 def addPost():
@@ -47,7 +45,6 @@ def addPost():
 		return flask.redirect("/")
 
 @blueprint.route("/manage_posts")
-@webhelpers.usesDatabase
 @webhelpers.checkUserPermissions("/manage", 
 	requiredPermissions = auth.CAN_POST_PERMISSION)
 def managePosts():
@@ -57,7 +54,6 @@ def managePosts():
 			user = webhelpers.checkForSession().user)
 
 @blueprint.route("/edit_post/<int:postId>", methods = ["GET", "POST"])
-@webhelpers.usesDatabase
 @webhelpers.checkUserPermissions("/manage", 
 	requiredPermissions = auth.CAN_POST_PERMISSION)
 def editPost(postId):
@@ -74,9 +70,8 @@ def editPost(postId):
 		return flask.redirect("/")
 
 @blueprint.route("/settings", methods = ["GET", "POST"])
-@webhelpers.usesDatabase
 @webhelpers.checkUserPermissions("/manage", 
-requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+	requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
 def settingsPage():
 	if flask.request.method == "GET":
 		return flask.render_template("settings.html", 
@@ -92,7 +87,6 @@ def settingsPage():
 
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
-@webhelpers.usesDatabase
 @webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION)
 def deletePost(postId, authed, authMessage):
 	if authed:
@@ -105,7 +99,6 @@ def deletePost(postId, authed, authMessage):
 #or if it's an invalid file type.
 @blueprint.route("/upload_image", methods = ["POST"])
 @webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION)
-@webhelpers.usesDatabase #Uses database because of permission check.
 def uploadImage(authed, authMessage):
 	ACCEPTED_FORMATS = ["image/jpeg", "image/png", "image/gif"]
 	if authed:

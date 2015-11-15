@@ -83,6 +83,7 @@ def usesDatabase(function):
 		databaseConnection = database.ConnectionManager.getConnection("main")
 		result = function(*args, **kwargs)
 		databaseConnection.closeSession()
+		print("closed!")
 		return result
 	return functools.update_wrapper(decorated, function)
 		

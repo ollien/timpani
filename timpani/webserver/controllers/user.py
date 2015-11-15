@@ -13,7 +13,6 @@ TEMPLATE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.
 blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
 
 @blueprint.route("/")
-@webhelpers.usesDatabase
 def showPosts():
 	posts = blog.getPosts()
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
@@ -23,7 +22,6 @@ def showPosts():
 		posts = posts, pageTitle = pageTitle, **postParams)
 
 @blueprint.route("/post/<int:postId>")
-@webhelpers.usesDatabase
 def showPost(postId):
 	post = blog.getPostById(postId)
 	if post == None:
@@ -36,7 +34,6 @@ def showPost(postId):
 			posts = [post], pageTitle = pageTitle, **postParams)
 
 @blueprint.route("/tag/<tag>")
-@webhelpers.usesDatabase
 def showPostsWithTag(tag):
 	posts = blog.getPostsWithTag(tag)
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
@@ -46,7 +43,6 @@ def showPostsWithTag(tag):
 		posts = posts, pageTitle = pageTitle, **postParams)
 
 @blueprint.route("/login", methods=["GET", "POST"])
-@webhelpers.usesDatabase
 def login():
 	if flask.request.method == "GET":
 		if webhelpers.checkForSession():
@@ -73,7 +69,6 @@ def login():
 			return flask.render_template("login.html")
 
 @blueprint.route("/logout", methods=["POST"])
-@webhelpers.usesDatabase
 def logout():
 	if webhelpers.checkForSession():
 		if "uid" in flask.session:
