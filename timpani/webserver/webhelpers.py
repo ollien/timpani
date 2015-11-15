@@ -3,7 +3,6 @@ import functools
 import urllib.parse
 from .. import auth
 from .. import themes
-from .. import database
 from .. import settings
 
 INVALID_PERMISSIONS_FLASH_MESSAGE = "Sorry, you don't have permission to view that page."
@@ -76,17 +75,6 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 	else:
 		return function(authed = False, authMessage = redirectMessage, *args, **kwargs)
 
-#Decorator to accomodate for SQLAlchamey session life.
-#Creates a session on request, closes it after.
-def usesDatabase(function):
-	def decorated(*args, **kwargs):
-		databaseConnection = database.ConnectionManager.getConnection("main")
-		result = function(*args, **kwargs)
-		databaseConnection.closeSession()
-		print("closed!")
-		return result
-	return functools.update_wrapper(decorated, function)
-		
 #Will return all information that is needed to render a post.
 #Prevents fragmentation in various post display methods
 def getPostsParameters():
