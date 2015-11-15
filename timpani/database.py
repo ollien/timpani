@@ -40,7 +40,7 @@ class ConnectionManager():
 		if type(connectionName) == str:
 			connection = ConnectionManager.getConnection(connectionName)
 			if connection != None:
-				connection.close()
+				connection.closeSession()
 				del ConnectionManager._connections[connectionName]
 			else:
 				raise ValueError("connectionName does not exist, or is already closed.")
