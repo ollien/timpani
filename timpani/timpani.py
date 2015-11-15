@@ -57,10 +57,6 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 	databaseConnection.closeSession()
 
 	if startServer:
-		try:
-			webserver.start(host = host, port = port)
-		except KeyboardInterrupt:
-			print("caught")
-			pass
+		webserver.start(host = host, port = port)
 	else:
 		return webserver.app
