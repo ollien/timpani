@@ -82,7 +82,6 @@ def usesDatabase(connectionName):
 	def decorator(function):
 		def decorated():
 			databaseConnection = database.ConnectionManager.getConnection("main")
-			databaseConnection.createSession()
 			result = function()
 			databaseConnection.closeSession()
 			return result
