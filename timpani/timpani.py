@@ -35,7 +35,7 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 	databaseConnection = database.DatabaseConnection(
 		connectionString = databaseConfig["connection_string"])
 	database.ConnectionManager.addConnection(databaseConnection, "main")
-	print("[Timpani] Database sessions started.")
+	print("[Timpani] Database connection opened.")
 
 	#Setup all default settings
 	settingNames = [item == database.tables.Setting.name for item in DEFAULT_SETTINGS]
