@@ -67,6 +67,10 @@ class DatabaseConnection():
 			return result[0]
 		return None
 	
-	def close(self):
+	def createSession(self):
+		self.session = self._Session()
+	
+	def closeSession(self):
 		if self.session != None:
 			self.session.close()
+	
