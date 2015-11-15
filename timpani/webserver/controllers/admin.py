@@ -71,7 +71,7 @@ def editPost(postId):
 
 @blueprint.route("/settings", methods = ["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage", 
-requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+	requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
 def settingsPage():
 	if flask.request.method == "GET":
 		return flask.render_template("settings.html", 

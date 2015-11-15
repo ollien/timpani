@@ -51,11 +51,16 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 			name = item, 
 			value = DEFAULT_SETTINGS[item])
 		databaseConnection.session.add(setting)
-	
+		
 	if len(neededSettings) > 0:
 		databaseConnection.session.commit()
+	databaseConnection.closeSession()
 
 	if startServer:
-		webserver.start(host = host, port = port)
+		try:
+			webserver.start(host = host, port = port)
+		except KeyboardInterrupt:
+			print("caught")
+			pass
 	else:
 		return webserver.app
