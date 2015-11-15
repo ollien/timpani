@@ -38,6 +38,7 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 	print("[Timpani] Database sessions started.")
 
 	#Setup all default settings
+	databaseConnection.createSession()
 	settingNames = [item == database.tables.Setting.name for item in DEFAULT_SETTINGS]
 	settingsQuery = (databaseConnection.session
 		.query(database.tables.Setting.name)
@@ -51,9 +52,10 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 			name = item, 
 			value = DEFAULT_SETTINGS[item])
 		databaseConnection.session.add(setting)
-	
+		
 	if len(neededSettings) > 0:
 		databaseConnection.session.commit()
+	databaseConnection.closeSession()
 
 	if startServer:
 		webserver.start(host = host, port = port)
