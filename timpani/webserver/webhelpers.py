@@ -78,13 +78,13 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 
 #Decorator to accomodate for SQLAlchamey session life.
 #Creates a session on request, closes it after.
-def usesDatabase():
-	def decorated():
+def usesDatabase(function):
+	def decorated(*args, **kwargs):
 		databaseConnection = database.ConnectionManager.getConnection("main")
-		result = function()
+		result = function(*args, **kwargs)
 		databaseConnection.closeSession()
 		return result
-	return decorated
+	return functools.update_wrapper(decorated, function)
 		
 #Will return all information that is needed to render a post.
 #Prevents fragmentation in various post display methods
