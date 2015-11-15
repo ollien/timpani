@@ -27,7 +27,7 @@ install:
     - "python3 ./travis-setup.py"
 
 before_script:
-    - "$TRAVIS_BUILD_DIR/run &"
+    - "$TRAVIS_BUILD_DIR/run --debug &"
 
 script: 
     - "python3 $TRAVIS_BUILD_DIR/tests/tests.py"
