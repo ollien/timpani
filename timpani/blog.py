@@ -21,8 +21,8 @@ def _getDictFromJoin(results):
 
 	return sorted(
 			list(posts.values()),
-			key = lambda x: x["post"].time_posted,
-			reverse = True)
+				key = lambda x: x["post"].time_posted,
+				reverse = True)
 
 
 def getPosts(tags = True, connection = None):
@@ -42,7 +42,7 @@ def getPosts(tags = True, connection = None):
 
 	else:
 		posts = connection.session.query(database.tables.Post).all()
-		return sorted(posts, key = lambda x: x.id, reverse = True)
+		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
 #Gets a post form the database
 #Returns None if there is no post with such an id
