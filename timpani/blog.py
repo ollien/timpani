@@ -25,18 +25,24 @@ def _getDictFromJoin(results):
 			reverse = True)
 
 
-def getPosts(tags = True, connection = None):
+def getPosts(limit = None, offset = 0, tags = True, connection = None):
 	#Functions are not re-run if they are default arguments.
 	if connection == None:
 		connection = getMainConnection()
 	if tags:
 		#Gets all the posts using a join. 
 		#We won't use getPostById in a loop to prevent many queries.
-		postsAndTags = (connection.session
+		query = (connection.session
 			.query(database.tables.Post, database.tables.Tag)
 			.outerjoin(database.tables.Tag)
 			.order_by(database.tables.Tag.id)
-			.all())
+			.offset(offset))
+
+		if limit is not None:
+			query = query.limit(limit)
+
+		postsAndTags = query.all()
+
 
 		return _getDictFromJoin(postsAndTags)
 
