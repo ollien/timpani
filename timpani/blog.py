@@ -1,6 +1,7 @@
 from . import database
 from . import configmanager
 import sqlalchemy
+import sqlalchemy.orm
 
 def getMainConnection():
 	return database.ConnectionManager.getConnection("main")
@@ -32,17 +33,29 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 	if tags:
 		#Gets all the posts using a join. 
 		#We won't use getPostById in a loop to prevent many queries.
+
+		#Subquery to get all posts within our limit
+		postQuery = (connection.session
+			.query(database.tables.Post)
+			.limit(limit)
+			.offset(offset)
+			.subquery())
+
+		#Subquery to get all tags
+		tagQuery = (connection.session
+			.query(database.tables.Tag)
+			.subquery())
+
+		postAlias = sqlalchemy.orm.aliased(database.tables.Post, postQuery)
+		tagAlias = sqlalchemy.orm.aliased(database.tables.Tag, tagQuery)
+		
+		#Outerjoin these together
 		query = (connection.session
-			.query(database.tables.Post, database.tables.Tag)
-			.outerjoin(database.tables.Tag)
-			.order_by(database.tables.Tag.id)
-			.offset(offset))
-
-		if limit is not None:
-			query = query.limit(limit)
-
+			.query(postAlias, tagAlias)
+			.outerjoin(tagAlias)
+			.order_by(tagAlias.id))
+			
 		postsAndTags = query.all()
-
 
 		return _getDictFromJoin(postsAndTags)
 
