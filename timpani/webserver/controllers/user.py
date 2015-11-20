@@ -12,14 +12,25 @@ TEMPLATE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.
 
 blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
 
+PAGE_LIMIT = 5
+
 @blueprint.route("/")
 def showPosts():
-	posts = blog.getPosts()
+	posts = blog.getPosts(limit = PAGE_LIMIT)
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = postParams["blogTitle"]
 	return webhelpers.renderPosts(templatePath, 
-		posts = posts, pageTitle = pageTitle, **postParams)
+		page = 0, posts = posts, pageTitle = pageTitle, **postParams)
+
+@blueprint.route("/page/<int:pageNumber>")
+def showPostWithPage(pageNumber):
+	posts = blog.getPosts(limit = PAGE_LIMIT, offset = PAGE_LIMIT * pageNumber)
+	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
+	postParams = webhelpers.getPostsParameters()
+	pageTitle = "%s - page %s" % (postParams["blogTitle"], pageNumber)
+	return webhelpers.renderPosts(templatePath, 
+		page = pageNumber, posts = posts, pageTitle = pageTitle, **postParams)
 
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):

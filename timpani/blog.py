@@ -37,6 +37,7 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 		#Subquery to get all posts within our limit
 		postQuery = (connection.session
 			.query(database.tables.Post)
+			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
 			.limit(limit)
 			.offset(offset)
 			.subquery())
