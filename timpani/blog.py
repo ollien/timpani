@@ -88,14 +88,16 @@ def getPostById(postId, tags = True, connection = None):
 			.filter(database.tables.Post.id == postId)
 			.first())
 
-def getPostsWithTag(tag, tags = True, connection = None):
+def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
 	if tags:
 		postIds = (connection.session
 			.query(database.tables.Post.id)
 			.join(database.tables.Tag)
-			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower()))
+			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
+			.limit(limit)
+			.offset(offset))
 
 		postsAndTags = (connection.session
 			.query(database.tables.Post, database.tables.Tag)
