@@ -25,6 +25,8 @@ def showPosts():
 
 @blueprint.route("/page/<int:pageNumber>")
 def showPostWithPage(pageNumber):
+	if pageNumber < 1:
+		flask.abort(400)
 	posts = blog.getPosts(limit = PAGE_LIMIT, offset = PAGE_LIMIT * (pageNumber - 1))
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
@@ -55,6 +57,8 @@ def showPostsWithTag(tag):
 
 @blueprint.route("/tag/<tag>/page/<int:pageNumber>")
 def showPostWithTagAndPage(tag, pageNumber):
+	if pageNumber < 1:
+		flask.abort(400)
 	posts = blog.getPostsWithTag(tag, limit = PAGE_LIMIT, offset = PAGE_LIMIT * (pageNumber - 1))
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
