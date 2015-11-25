@@ -53,6 +53,15 @@ def showPostsWithTag(tag):
 	return webhelpers.renderPosts(templatePath, 
 		posts = posts, pageTitle = pageTitle, **postParams)
 
+@blueprint.route("/tag/<tag>/page/<int:pageNumber>")
+def showPostWithTagAndPage(tag, pageNumber):
+	posts = blog.getPostsWithTag(tag, limit = PAGE_LIMIT, offset = PAGE_LIMIT * pageNumber)
+	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
+	postParams = webhelpers.getPostsParameters()
+	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
+	return webhelpers.renderPosts(templatePath, 
+		posts = posts, pageTitle = pageTitle, **postParams)
+
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
 	if flask.request.method == "GET":
