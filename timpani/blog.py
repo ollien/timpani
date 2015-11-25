@@ -42,19 +42,13 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 			.offset(offset)
 			.subquery())
 
-		#Subquery to get all tags
-		tagQuery = (connection.session
-			.query(database.tables.Tag)
-			.subquery())
-
 		postAlias = sqlalchemy.orm.aliased(database.tables.Post, postQuery)
-		tagAlias = sqlalchemy.orm.aliased(database.tables.Tag, tagQuery)
-		
+
 		#Outerjoin these together
 		query = (connection.session
-			.query(postAlias, tagAlias)
-			.outerjoin(tagAlias)
-			.order_by(tagAlias.id))
+			.query(postAlias, database.tables.Tag)
+			.outerjoin(database.tables.Tag)
+			.order_by(database.tables.Tag.id))
 			
 		postsAndTags = query.all()
 
