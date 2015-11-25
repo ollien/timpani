@@ -86,18 +86,24 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 	if connection == None:
 		connection = getMainConnection()
 	if tags:
-		postIds = (connection.session
-			.query(database.tables.Post.id)
-			.join(database.tables.Tag)
-			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
-			.limit(limit)
-			.offset(offset))
 
-		postsAndTags = (connection.session
-			.query(database.tables.Post, database.tables.Tag)
+		postQuery = (connection.session
+			.query(sqlalchemy.distinct(database.tables.Tag.post_id))
+			.select_from(database.tables.Post)
+			.join(database.tables.Tag, database.tables.Tag.post_id == database.tables.Post.id)
+			.filter(database.tables.Tag.name == tag.lower())
+			.limit(limit)
+			.offset(offset)
+			.subquery())
+
+		query = (connection.session
+			.query(database.tables.Post, database.tables.Tag)	
 			.join(database.tables.Tag)
-			.filter(database.tables.Tag.post_id.in_(postIds))
-			.all())
+			.filter(database.tables.Post.id.in_(postQuery))
+		)
+
+
+		postsAndTags = query.all()
 
 		return _getDictFromJoin(postsAndTags)
 

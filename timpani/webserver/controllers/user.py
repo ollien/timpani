@@ -46,7 +46,7 @@ def showPost(postId):
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
-	posts = blog.getPostsWithTag(tag)
+	posts = blog.getPostsWithTag(tag, limit = PAGE_LIMIT)
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
