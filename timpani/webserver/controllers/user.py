@@ -25,7 +25,7 @@ def showPosts():
 
 @blueprint.route("/page/<int:pageNumber>")
 def showPostWithPage(pageNumber):
-	posts = blog.getPosts(limit = PAGE_LIMIT, offset = PAGE_LIMIT * pageNumber)
+	posts = blog.getPosts(limit = PAGE_LIMIT, offset = PAGE_LIMIT * (pageNumber - 1))
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - page %s" % (postParams["blogTitle"], pageNumber)
@@ -55,7 +55,7 @@ def showPostsWithTag(tag):
 
 @blueprint.route("/tag/<tag>/page/<int:pageNumber>")
 def showPostWithTagAndPage(tag, pageNumber):
-	posts = blog.getPostsWithTag(tag, limit = PAGE_LIMIT, offset = PAGE_LIMIT * pageNumber)
+	posts = blog.getPostsWithTag(tag, limit = PAGE_LIMIT, offset = PAGE_LIMIT * (pageNumber - 1))
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
