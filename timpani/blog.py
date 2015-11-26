@@ -133,8 +133,8 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 	else:
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
-def getPostWithTagCount(limit = None, offset = 0, connection = None):
-	query = _getPostWithTagQuery(limit, offset, False, connection)
+def getPostWithTagCount(tag, limit = None, offset = 0, connection = None):
+	query = _getPostWithTagQuery(tag, limit, offset, False, connection)
 	return query.count()
 	
 def addPost(title, body, time_posted, author, tags, connection = None):
