@@ -60,7 +60,8 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 			.limit(limit)
 			.limit(offset)
 			.all())
-		return sorted(posts, key = lambda x: x.id, reverse = True)
+
+		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
 #Gets a post form the database
 #Returns None if there is no post with such an id
@@ -117,8 +118,10 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 			.join(database.tables.Tag)
 			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
 			.limit(limit)
-			.offset(offset))
-		return posts.all()
+			.offset(offset)
+			.all())
+
+		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
