@@ -136,6 +136,9 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 def getPostWithTagCount(tag, limit = None, offset = 0, connection = None):
 	query = _getPostWithTagQuery(tag, limit, offset, False, connection)
 	return query.count()
+
+def nextPageExists(postCount, pageLimit, pageNumber):
+	return postCount > pageLimit * pageNumber
 	
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
