@@ -104,4 +104,4 @@ def renderPosts(defaultPath, pageTitle, *args, **kwargs):
 		templateFile = open(defaultPath, "r")
 		template = templateFile.read()
 		templateFile.close()
-	return flask.render_template_string(template, pageTitle, *args, **kwargs)
+	return flask.render_template_string(template, pageTitle = pageTitle, *args, **kwargs)
