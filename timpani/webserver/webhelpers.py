@@ -94,6 +94,12 @@ def getPostsParameters():
 def renderPosts(defaultPath, *args, **kwargs):
 	theme = themes.getCurrentTheme()
 	template = theme["template"]
+	postParams = getPostsParameters()
+	#Merge postParams and kwargs
+	#Anything in kwargs will overwrite postParams (which is why we use these two lines)
+	postParams.update(kwargs)
+	kwargs = postParams
+
 	if template == None:
 		templateFile = open(defaultPath, "r")
 		template = templateFile.read()
