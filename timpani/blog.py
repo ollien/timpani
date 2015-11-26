@@ -90,11 +90,11 @@ def getPostById(postId, tags = True, connection = None):
 			.filter(database.tables.Post.id == postId)
 			.first())
 
-def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
+def _getPostWithTagQuery(tag, limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
-	if tags:
 
+	if tags:
 		postQuery = (connection.session
 			.query(sqlalchemy.distinct(database.tables.Tag.post_id))
 			.select_from(database.tables.Post)
@@ -109,23 +109,26 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 			.join(database.tables.Tag)
 			.filter(database.tables.Post.id.in_(postQuery))
 		)
-
-
-		postsAndTags = query.all()
-
-		return _getDictFromJoin(postsAndTags)
-
+		return query
 	else:
-		posts = (connection.session
+		query = (connection.session
 			.query(database.tables.Post)
 			.join(database.tables.Tag)
 			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
 			.limit(limit)
-			.offset(offset)
-			.all())
+			.offset(offset))
 
+		return query
+
+def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
+	query = _getPostWithTagQuery(tag, limit, offset, tags, connection)
+	posts = query.all()
+
+	if tags:
+		return _getDictFromJoin(posts)
+	else:
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
-
+	
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
 	if connection == None:
