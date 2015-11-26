@@ -19,7 +19,7 @@ def showPosts():
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = postParams["blogTitle"]
 	return webhelpers.renderPosts(templatePath, 
-		posts = posts, pageTitle = pageTitle, **postParams)
+		posts = posts, pageTitle = pageTitle)
 
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):
@@ -31,7 +31,7 @@ def showPost(postId):
 		postParams = webhelpers.getPostsParameters()
 		pageTitle = "%s - %s" % (postParams["blogTitle"], post["post"].title)
 		return webhelpers.renderPosts(templatePath, 
-			posts = [post], pageTitle = pageTitle, **postParams)
+			posts = [post], pageTitle = pageTitle)
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
@@ -40,7 +40,7 @@ def showPostsWithTag(tag):
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
 	return webhelpers.renderPosts(templatePath, 
-		posts = posts, pageTitle = pageTitle, **postParams)
+		posts = posts, pageTitle = pageTitle)
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
