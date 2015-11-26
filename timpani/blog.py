@@ -55,7 +55,11 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 		return _getDictFromJoin(postsAndTags)
 
 	else:
-		posts = connection.session.query(database.tables.Post).all()
+		posts = (connection.session
+			.query(database.tables.Post)
+			.limit(limit)
+			.limit(offset)
+			.all())
 		return sorted(posts, key = lambda x: x.id, reverse = True)
 
 #Gets a post form the database
