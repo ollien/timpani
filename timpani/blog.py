@@ -58,7 +58,7 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 		posts = (connection.session
 			.query(database.tables.Post)
 			.limit(limit)
-			.limit(offset)
+			.offset(offset)
 			.all())
 
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
