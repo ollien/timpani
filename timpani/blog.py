@@ -66,6 +66,10 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 	else:
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
+def getPostCount(limit = None, offset = 0, tags = True, connection = None):
+	query = _getPostQuery(limit, offset, tags, connection)
+	return query.count()
+
 #Gets a post form the database
 #Returns None if there is no post with such an id
 def getPostById(postId, tags = True, connection = None):
@@ -128,6 +132,10 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 		return _getDictFromJoin(posts)
 	else:
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
+
+def getPostWithTagCount(limit = None, offset = 0, tags = True, connection = None):
+	query = _getPostWithTagQuery(limit, offset, tags, connection)
+	return query.count()
 	
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
