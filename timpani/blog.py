@@ -66,8 +66,8 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 	else:
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
-def getPostCount(limit = None, offset = 0, tags = True, connection = None):
-	query = _getPostQuery(limit, offset, tags, connection)
+def getPostCount(limit = None, offset = 0, connection = None):
+	query = _getPostQuery(limit, offset, False, connection)
 	return query.count()
 
 #Gets a post form the database
@@ -133,8 +133,8 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 	else:
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
-def getPostWithTagCount(limit = None, offset = 0, tags = True, connection = None):
-	query = _getPostWithTagQuery(limit, offset, tags, connection)
+def getPostWithTagCount(limit = None, offset = 0, connection = None):
+	query = _getPostWithTagQuery(limit, offset, False, connection)
 	return query.count()
 	
 def addPost(title, body, time_posted, author, tags, connection = None):
