@@ -25,9 +25,7 @@ def _getDictFromJoin(results):
 			key = lambda x: x["post"].time_posted,
 			reverse = True)
 
-
-def getPosts(limit = None, offset = 0, tags = True, connection = None):
-	#Functions are not re-run if they are default arguments.
+def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
 	if tags:
@@ -50,17 +48,22 @@ def getPosts(limit = None, offset = 0, tags = True, connection = None):
 			.outerjoin(database.tables.Tag)
 			.order_by(database.tables.Tag.id))
 			
-		postsAndTags = query.all()
-
-		return _getDictFromJoin(postsAndTags)
-
+		return query
 	else:
-		posts = (connection.session
+		query = (connection.session
 			.query(database.tables.Post)
 			.limit(limit)
-			.offset(offset)
-			.all())
+			.offset(offset))
 
+		return query
+
+def getPosts(limit = None, offset = 0, tags = True, connection = None):
+	query = _getPostQuery(limit, offset, tags, connection)
+	posts = query.all()
+
+	if tags:
+		return _getDictFromJoin(posts)
+	else:
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
 #Gets a post form the database
