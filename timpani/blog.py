@@ -115,7 +115,9 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 		posts = (connection.session
 			.query(database.tables.Post)
 			.join(database.tables.Tag)
-			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower()))
+			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
+			.limit(limit)
+			.offset(offset))
 		return posts.all()
 
 def addPost(title, body, time_posted, author, tags, connection = None):
