@@ -2,6 +2,7 @@ from . import database
 from . import configmanager
 import sqlalchemy
 import sqlalchemy.orm
+import math
 
 def getMainConnection():
 	return database.ConnectionManager.getConnection("main")
@@ -138,7 +139,10 @@ def getPostWithTagCount(tag, limit = None, offset = 0, connection = None):
 	return query.count()
 
 def nextPageExists(postCount, pageLimit, pageNumber):
-	return postCount > pageLimit * pageNumber
+	return getPageCount(postCount, pageLimit) > pageNumber 
+
+def getPageCount(postCount, pageLimit):
+	return int(math.ceil(postCount/pageLimit)
 	
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
