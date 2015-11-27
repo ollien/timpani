@@ -142,7 +142,7 @@ def nextPageExists(postCount, pageLimit, pageNumber):
 	return getPageCount(postCount, pageLimit) > pageNumber 
 
 def getPageCount(postCount, pageLimit):
-	return int(math.ceil(postCount/pageLimit)
+	return int(math.ceil(postCount/pageLimit))
 	
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
