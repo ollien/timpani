@@ -21,7 +21,8 @@ def showPosts():
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = postParams["blogTitle"]
 	pageCount = blog.getPageCount(blog.getPostCount(), PAGE_LIMIT)
-	nextPageExists = blog.nextPageExists(blog.getPostCount(), PAGE_LIMIT, 1)
+	nextPageExists = (blog.nextPageExists(blog.getPostCount(), 
+		PAGE_LIMIT, 1))
 	return webhelpers.renderPosts(templatePath, pageTitle, 1,
 		pageCount, nextPageExists, posts = posts)
 
@@ -29,12 +30,14 @@ def showPosts():
 def showPostWithPage(pageNumber):
 	if pageNumber < 1:
 		flask.abort(400)
-	posts = blog.getPosts(limit = PAGE_LIMIT, offset = PAGE_LIMIT * (pageNumber - 1))
+	posts = blog.getPosts(limit = PAGE_LIMIT, 
+		offset = PAGE_LIMIT * (pageNumber - 1))
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - page %s" % (postParams["blogTitle"], pageNumber)
 	pageCount = blog.getPageCount(blog.getPostCount(), PAGE_LIMIT)
-	nextPageExists = blog.nextPageExists(blog.getPostCount(), PAGE_LIMIT, pageNumber)
+	nextPageExists = (blog.nextPageExists(blog.getPostCount(), 
+		PAGE_LIMIT, pageNumber))
 	return webhelpers.renderPosts(templatePath, pageTitle, pageNumber,
 		pageCount, nextPageExists, posts = posts)
 
@@ -60,8 +63,8 @@ def showPostsWithTag(tag):
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
 	pageCount = blog.getPageCount(blog.getPostWithTagCount(tag), PAGE_LIMIT)
-	nextPageExists = blog.nextPageExists(blog.getPostWithTagCount(tag),
-		PAGE_LIMIT, 1)
+	nextPageExists = (blog.nextPageExists(blog.getPostWithTagCount(tag),
+		PAGE_LIMIT, 1))
 	return webhelpers.renderPosts(templatePath, pageTitle, 1,
 		pageCount, nextPageExists, posts = posts)
 
@@ -69,7 +72,8 @@ def showPostsWithTag(tag):
 def showPostWithTagAndPage(tag, pageNumber):
 	if pageNumber < 1:
 		flask.abort(400)
-	posts = blog.getPostsWithTag(tag, limit = PAGE_LIMIT, offset = PAGE_LIMIT * (pageNumber - 1))
+	posts = (blog.getPostsWithTag(tag, limit = PAGE_LIMIT, 
+		offset = PAGE_LIMIT * (pageNumber - 1)))
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
