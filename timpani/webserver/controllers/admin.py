@@ -80,10 +80,26 @@ def settingsPage():
 			user = webhelpers.checkForSession().user)
 
 	if flask.request.method == "POST":
+		invalidSettings = []
 		for setting in flask.request.form:
-			settings.setSettingValue(setting, flask.request.form[setting])
-		flask.flash("Your settings have been successfully saved.", "success")
-		return flask.redirect("/settings")
+			value = flask.request.form[setting]
+			valid = True	
+			if len(invalidSettings) > 0:
+				valid = settings.setSettingValue(setting, value)
+			else:
+				valid = settings.validateSetting(setting, value)
+
+			if not valid:
+				invalidSettings.append(setting)
+
+		if len(invalidSettings) > 0:
+			flask.flash("Your settings have been successfully saved.", "success")
+			return flask.redirect("/settings")
+		else:
+			#TODO: Add individual setting validations
+			flask.flash("Please be sure all settings are in order.", "error")
+			return flask.redirect("/settings"), 400
+			
 
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
