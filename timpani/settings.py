@@ -16,10 +16,15 @@ def getSettingValue(name):
 	return None
 
 def setSettingValue(name, value):
-	databaseConnection = database.ConnectionManager.getConnection("main")
-	settingObj = database.tables.Setting(name = name, value = value)
-	databaseConnection.session.merge(settingObj)
-	databaseConnection.session.commit()
+	valid = validateSetting(name, value)
+	if valid:
+		databaseConnection = database.ConnectionManager.getConnection("main")
+		settingObj = database.tables.Setting(name = name, value = value)
+		databaseConnection.session.merge(settingObj)
+		databaseConnection.session.commit()
+		return True
+	return False
+
 def validateSetting(name, value):
 	if name == "title":
 		return len(value) > 0
