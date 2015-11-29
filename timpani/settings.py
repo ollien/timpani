@@ -20,3 +20,6 @@ def setSettingValue(name, value):
 	settingObj = database.tables.Setting(name = name, value = value)
 	databaseConnection.session.merge(settingObj)
 	databaseConnection.session.commit()
+def validateSetting(name, value):
+	if name == "title":
+		return len(value) > 0
