@@ -55,11 +55,13 @@
 			</li>
 		{% endfor %}
 	</ul>
-	{% if nextPageExists %}
-		<span class="page-nav" id="back"><a href="/page/{{pageNumber + 1}}">&lt;&lt;</span></a>
-	{% endif %}
-	{% if pageNumber > 1 %}
-		<span class="page-nav" id="forward"><a href="/page/{{pageNumber - 1}}">&gt;&gt;</span></a>
-	{% endif %}
+	<div id="page-nav">
+		{% if nextPageExists %}
+			<span class="nav-link" id="back"><a href="/page/{{pageNumber + 1}}">&lt;&lt;</span></a>
+		{% endif %}
+		{% if pageNumber > 1 %}
+			<span class="nav-link" id="forward"><a href="/page/{{pageNumber - 1}}">&gt;&gt;</span></a>
+		{% endif %}
+	</div>
 </body>
 </html>
