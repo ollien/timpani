@@ -113,3 +113,27 @@ ul#posts-list {
 		}
 	}
 }
+
+div#page-nav {
+	span.nav-link {
+		margin: 15px;
+		font-size: 45px;
+
+		a {
+			color: black;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;	
+		}
+	}
+
+	span#back {
+		float: left;
+	}
+
+	span#forward {
+		float: right;
+	}
+}
+
