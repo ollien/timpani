@@ -47,7 +47,6 @@ def showPost(postId):
 	post = blog.getPostById(postId)
 	if post == None:
 		return flask.abort(404)
-	pageLimit = int(settings.getSettingValue("posts_per_page"))
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - %s" % (postParams["blogTitle"], post["post"].title)
@@ -56,11 +55,11 @@ def showPost(postId):
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
+	pageLimit = int(settings.getSettingValue("posts_per_page"))
 	posts = blog.getPostsWithTag(tag, limit = pageLimit)
 	if len(posts) == 0:
 		return flask.abort(404)
 
-	pageLimit = int(settings.getSettingValue("posts_per_page"))
 	templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
 	postParams = webhelpers.getPostsParameters()
 	pageTitle = "%s - #%s" % (postParams["blogTitle"], tag)
