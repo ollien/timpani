@@ -28,3 +28,7 @@ def setSettingValue(name, value):
 def validateSetting(name, value):
 	if name == "title":
 		return len(value) > 0
+	elif name == "display_name":
+		return value == "full_name" or value == "username"
+	elif name == "theme":
+		return value in getAvailableThemes()
