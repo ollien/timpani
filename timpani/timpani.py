@@ -13,7 +13,8 @@ DEFAULT_SETTINGS = {
 	"title": "Timpani",
 	"subtitle": "Your blog, run using Timpani.",
 	"display_name": "full_name",
-	"theme": "default"
+	"theme": "default",
+	"posts_per_page": 5
 }
 
 def run(host = "0.0.0.0", port = 8080, startServer = True):
