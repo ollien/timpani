@@ -10,9 +10,9 @@
 	<div id="main-container" class="container">
 		{% if get_flashed_messages()|length > 0 %}
 			{% if get_flashed_messages(with_categories = True)[0][0] == "success" %}
-				<div class="success">{{get_flashed_messages()[0]}}</div>
+				<div class="result" id="success-message">{{get_flashed_messages()[0]}}</div>
 			{% elif get_flashed_messages(with_categories = True)[0][0] == "error" %}
-				<div class="error">{{get_flashed_messages()[0]}}</div>
+				<div class="result" id="error-message">{{get_flashed_messages()[0]}}</div>
 			{% endif %}
 		{% else %}
 			<!--Mino stylistic thing to allow for even padding when a flash dissappearsr-->
