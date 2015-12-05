@@ -1,4 +1,5 @@
 from . import database
+from . import themes
 
 DEFAULT_SETTINGS = {
 	"title": "Timpani",
@@ -34,8 +35,10 @@ def setSettingValue(name, value):
 
 def validateSetting(name, value):
 	if name == "title":
-		return len(value) > 0
+		return len(value) > 0 
 	elif name == "display_name":
 		return value == "full_name" or value == "username"
 	elif name == "theme":
-		return value in getAvailableThemes()
+		return value in themes.getAvailableThemes()
+	
+	return True
