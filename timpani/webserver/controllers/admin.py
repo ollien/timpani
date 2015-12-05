@@ -92,7 +92,7 @@ def settingsPage():
 			if not valid:
 				invalidSettings.append(setting)
 
-		if len(invalidSettings) > 0:
+		if len(invalidSettings) == 0:
 			flask.flash("Your settings have been successfully saved.", "success")
 			return flask.redirect("/settings")
 		else:
