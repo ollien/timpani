@@ -14,6 +14,12 @@ VALIDATION_MESAGES = {
 	"theme": "Invalid theme selection."
 }
 
+SETTING_VALIDATIONS = {
+	"title": lambda x: len(x) > 0,
+	"display_name": lambda x: x == "full_name" or value == "username",
+	"theme": lambda x: x in themes.getAvailableThemes()
+}
+
 def getAllSettings():
 	databaseConnection = database.ConnectionManager.getConnection("main")
 	query = databaseConnection.session.query(database.tables.Setting)
@@ -40,11 +46,6 @@ def setSettingValue(name, value):
 	return False
 
 def validateSetting(name, value):
-	if name == "title":
-		return len(value) > 0 
-	elif name == "display_name":
-		return value == "full_name" or value == "username"
-	elif name == "theme":
-		return value in themes.getAvailableThemes()
-	
+	if name in SETTING_VALIDATIONS:
+		return SETTING_VALIDATIONS[name](value)
 	return True
