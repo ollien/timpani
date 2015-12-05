@@ -93,8 +93,9 @@ def settingsPage():
 
 			flask.flash("Your settings have been successfully saved.", "success")
 		else:
-			#TODO: Add individual setting validations
-			flask.flash("Please be sure all settings are in order.", "error")
+			flask.flash("Invalid settings. Please make sure the following requirements are met and try again.", "error")
+			for setting in invalidSettings:
+				flask.flash(settings.VALIDATION_MESAGES[setting], "error")
 
 		return flask.redirect("/settings")
 			

@@ -8,12 +8,32 @@
 <body>
 	{% include "admin_toolbar.html" %}
 	<div id="main-container" class="container">
-		{% if get_flashed_messages()|length > 0 %}
-			{% if get_flashed_messages(with_categories = True)[0][0] == "success" %}
-				<div class="result" id="success-message">{{get_flashed_messages()[0]}}</div>
-			{% elif get_flashed_messages(with_categories = True)[0][0] == "error" %}
-				<div class="result" id="error-message">{{get_flashed_messages()[0]}}</div>
-			{% endif %}
+		{% if get_flashed_messages(category_filter=["success"]) %}
+			{% set messages = get_flashed_messages(category_filter == ["success"]) %}
+			<div class="result" id="success-message">
+				{% for message in messages %}
+					{{message}}
+				{% endfor %}
+			</div>
+		{% elif get_flashed_messages(category_filter=["error"]) %}
+			{% set messages = get_flashed_messages(category_filter == ["error"]) %}
+			<div class="result" id="error-message">
+				{% if messages|length > 0 %}
+					<ul>
+				{% endif %}
+
+				{% for message in messages %}
+					{% if loop.index0 == 0 %}
+						{{message}}
+					{% else %}
+						<li>{{message}}</li>
+					{% endif %}
+				{% endfor %}
+
+				{% if messages|length > 0 %}
+					</ul>
+				{% endif %}
+			</div>
 		{% else %}
 			<!--Mino stylistic thing to allow for even padding when a flash dissappearsr-->
 			<div id="flash-compensation"></div>	
