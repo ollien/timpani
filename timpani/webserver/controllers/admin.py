@@ -98,7 +98,7 @@ def settingsPage():
 		else:
 			#TODO: Add individual setting validations
 			flask.flash("Please be sure all settings are in order.", "error")
-			return flask.redirect("/settings"), 400
+			return flask.redirect("/settings")
 			
 
 #Returns a JSON Object based on whether or not the user is logged in.
