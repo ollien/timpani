@@ -1,5 +1,12 @@
 from . import database
 
+DEFAULT_SETTINGS = {
+	"title": "Timpani",
+	"subtitle": "Your blog, run using Timpani.",
+	"display_name": "full_name",
+	"theme": "default"
+}
+
 def getAllSettings():
 	databaseConnection = database.ConnectionManager.getConnection("main")
 	query = databaseConnection.session.query(database.tables.Setting)
