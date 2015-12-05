@@ -83,16 +83,14 @@ def settingsPage():
 		invalidSettings = []
 		for setting in flask.request.form:
 			value = flask.request.form[setting]
-			valid = True	
-			if len(invalidSettings) > 0:
-				valid = settings.setSettingValue(setting, value)
-			else:
-				valid = settings.validateSetting(setting, value)
-
-			if not valid:
+			if not settings.validateSetting(setting, value):
 				invalidSettings.append(setting)
 
 		if len(invalidSettings) == 0:
+			for setting in flask.request.form:
+				value = flask.request.form[setting]
+				settings.setSettingValue(setting, value)
+
 			flask.flash("Your settings have been successfully saved.", "success")
 		else:
 			#TODO: Add individual setting validations
