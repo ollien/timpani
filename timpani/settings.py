@@ -8,16 +8,19 @@ DEFAULT_SETTINGS = {
 	"theme": "default"
 }
 
-VALIDATION_MESAGES = {
-	"title": "Title must have a length greater than zero.",
-	"display_name": "Invalid display name.",
-	"theme": "Invalid theme selection."
-}
-
+#Contains lambda functions that return true when the condition is valid
+#Name of the game is keep them simple
 SETTING_VALIDATIONS = {
 	"title": lambda x: len(x) > 0,
 	"display_name": lambda x: x == "full_name" or value == "username",
 	"theme": lambda x: x in themes.getAvailableThemes()
+}
+
+#Messages to be returned when paramaters are found to be invalid
+VALIDATION_MESAGES = {
+	"title": "Title must have a length greater than zero.",
+	"display_name": "Invalid display name.",
+	"theme": "Invalid theme selection."
 }
 
 def getAllSettings():
