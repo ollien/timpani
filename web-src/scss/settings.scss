@@ -3,14 +3,21 @@
 $fade-wait-time: 1500ms;
 $fade-time: 750ms;
 
-div.success { 
-	@extend div.error;
-	border: 1px solid #47CC6A;
-	background-color: #54BE70;
+div.result {
 	max-height: 0px;
 	opacity: 0;
 	overflow: hidden;
 	animation: waitAndFade $fade-wait-time + $fade-time;
+}
+
+div#success-message { 
+	@extend div.error;
+	border: 1px solid #47CC6A;
+	background-color: #54BE70;
+}
+
+div#error-message{
+	@extend div.error;
 }
 
 div#flash-compensation {
