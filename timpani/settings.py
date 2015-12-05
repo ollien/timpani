@@ -8,6 +8,12 @@ DEFAULT_SETTINGS = {
 	"theme": "default"
 }
 
+VALIDATION_MESAGES = {
+	"title": "Title must have a length greater than zero.",
+	"display_name": "Invalid display name.",
+	"theme": "Invalid theme selection."
+}
+
 def getAllSettings():
 	databaseConnection = database.ConnectionManager.getConnection("main")
 	query = databaseConnection.session.query(database.tables.Setting)
