@@ -94,11 +94,11 @@ def settingsPage():
 
 		if len(invalidSettings) == 0:
 			flask.flash("Your settings have been successfully saved.", "success")
-			return flask.redirect("/settings")
 		else:
 			#TODO: Add individual setting validations
 			flask.flash("Please be sure all settings are in order.", "error")
-			return flask.redirect("/settings")
+
+		return flask.redirect("/settings")
 			
 
 #Returns a JSON Object based on whether or not the user is logged in.
