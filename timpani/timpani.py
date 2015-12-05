@@ -6,15 +6,9 @@ import sqlalchemy
 from . import database
 from . import configmanager
 from . import webserver
+from . import settings
 
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs")) 
-
-DEFAULT_SETTINGS = {
-	"title": "Timpani",
-	"subtitle": "Your blog, run using Timpani.",
-	"display_name": "full_name",
-	"theme": "default"
-}
 
 def run(host = "0.0.0.0", port = 8080, startServer = True):
 	#Setup Config manager
@@ -38,20 +32,11 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
 	print("[Timpani] Database connection opened.")
 
 	#Setup all default settings
-	settingNames = [item == database.tables.Setting.name for item in DEFAULT_SETTINGS]
-	settingsQuery = (databaseConnection.session
-		.query(database.tables.Setting.name)
-		.filter(sqlalchemy.or_(*settingNames)))
-	result = settingsQuery.all()
-	#Get all settings that are not in the database, and set them.
-	#All names are in a tuple, so we must query as such.
-	neededSettings = [setting for setting in DEFAULT_SETTINGS if (setting, ) not in result] 
-	for item in neededSettings:
-		setting = database.tables.Setting(
-			name = item, 
-			value = DEFAULT_SETTINGS[item])
-		databaseConnection.session.add(setting)
-		
+	allSettings = settings.getAllSettings()
+	neededSettings = [setting for setting in settings.DEFAULT_SETTINGS if setting not in allSettings]
+	for setting in neededSettings: 
+		settings.setSettingValue(setting, settings.DEFAULT_SETTINGS[setting])
+
 	if len(neededSettings) > 0:
 		databaseConnection.session.commit()
 	databaseConnection.closeSession()
