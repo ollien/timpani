@@ -8,36 +8,39 @@
 <body>
 	{% include "admin_toolbar.html" %}
 	<div id="main-container" class="container">
-		{% if get_flashed_messages(category_filter=["success"]) %}
-			{% set messages = get_flashed_messages(category_filter == ["success"]) %}
-			<div class="result" id="success-message">
-				{% for message in messages %}
-					{{message}}
-				{% endfor %}
-			</div>
-		{% elif get_flashed_messages(category_filter=["error"]) %}
-			{% set messages = get_flashed_messages(category_filter == ["error"]) %}
-			<div class="result" id="error-message">
-				{% if messages|length > 0 %}
-					<ul>
-				{% endif %}
-
-				{% for message in messages %}
-					{% if loop.index0 == 0 %}
+		<div id="result-container">
+			{% if get_flashed_messages(category_filter=["success"]) %}
+				{% set messages = get_flashed_messages(category_filter == ["success"]) %}
+				<div class="result temp-result" id="success-message">
+					{% for message in messages %}
 						{{message}}
-					{% else %}
-						<li>{{message}}</li>
+					{% endfor %}
+				</div>
+			{% elif get_flashed_messages(category_filter=["error"]) %}
+				{% set messages = get_flashed_messages(category_filter == ["error"]) %}
+				<div class="result" id="error-message">
+					{% if messages|length > 0 %}
+						<ul>
 					{% endif %}
-				{% endfor %}
 
-				{% if messages|length > 0 %}
-					</ul>
-				{% endif %}
-			</div>
-		{% else %}
-			<!--Mino stylistic thing to allow for even padding when a flash dissappearsr-->
-			<div id="flash-compensation"></div>	
-		{% endif %}
+					{% for message in messages %}
+						{% if loop.index0 == 0 %}
+							{{message}}
+						{% else %}
+							<li>{{message}}</li>
+						{% endif %}
+					{% endfor %}
+
+					{% if messages|length > 0 %}
+						</ul>
+					{% endif %}
+				</div>
+			{% else %}
+				<!--Minor stylistic thing to allow for even padding when a flash dissappears-->
+				<div id="flash-compensation"></div>	
+			{% endif %}
+		</div>
+
 		<form id="settings-form" class="pure-form" action="/settings" method="POST">
 			<label for="blog-title-input">Blog title</label>
 			<input id="blog-title-input" name="title" value="{{settings.title}}" required>

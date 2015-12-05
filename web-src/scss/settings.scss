@@ -3,21 +3,39 @@
 $fade-wait-time: 1500ms;
 $fade-time: 750ms;
 
-div.result {
-	max-height: 0px;
-	opacity: 0;
-	overflow: hidden;
-	animation: waitAndFade $fade-wait-time + $fade-time;
-}
+div#result-container {
+	text-align: center;
 
-div#success-message { 
-	@extend div.error;
-	border: 1px solid #47CC6A;
-	background-color: #54BE70;
-}
+	div.result {
+		width: auto !important;
+		display: inline-block;
+		margin: 5px;
+	}
 
-div#error-message{
-	@extend div.error;
+	div.result.temp-result {
+		max-height: 0px;
+		opacity: 0;
+		overflow: hidden;
+		animation: waitAndFade $fade-wait-time + $fade-time;
+	}
+
+	div#success-message { 
+		@extend div.error;
+		border: 1px solid #47CC6A;
+		background-color: #54BE70;
+	}
+
+	div#error-message{
+		@extend div.error;
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			li:first-child{
+				margin-top: 5px;	
+			}
+		}
+	}
 }
 
 div#flash-compensation {
