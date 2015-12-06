@@ -6,7 +6,7 @@ DEFAULT_SETTINGS = {
 	"subtitle": "Your blog, run using Timpani.",
 	"display_name": "full_name",
 	"theme": "default",
-	"posts_per_page": 5
+	"posts_per_page": "5"
 }
 
 #Contains lambda functions that return true when the condition is valid
