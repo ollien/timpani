@@ -14,14 +14,16 @@ DEFAULT_SETTINGS = {
 SETTING_VALIDATIONS = {
 	"title": lambda x: len(x) > 0,
 	"display_name": lambda x: x == "full_name" or value == "username",
-	"theme": lambda x: x in themes.getAvailableThemes()
+	"theme": lambda x: x in themes.getAvailableThemes(),
+	"posts_per_page": lambda x: int(x) > 0
 }
 
 #Messages to be returned when paramaters are found to be invalid
 VALIDATION_MESAGES = {
 	"title": "Title must have a length greater than zero.",
 	"display_name": "Invalid display name.",
-	"theme": "Invalid theme selection."
+	"theme": "Invalid theme selection.",
+	"posts_per_page": "There must be at least one post per page"
 }
 
 def getAllSettings():
