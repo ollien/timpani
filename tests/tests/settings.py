@@ -45,7 +45,7 @@ def test(driver, username, password):
 	#Will throw a timeout exception if the 
 	#page doesn't load, or it can't find the element.
 	(WebDriverWait(driver, 10)
-		.until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, "div.success"))))
+		.until(expected_conditions.presence_of_element_located((By.ID, "success-message"))))
 
 	driver.get("http://127.0.0.1:8080")
 
