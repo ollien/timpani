@@ -101,10 +101,11 @@ def _getPostWithTagQuery(tag, limit = None, offset = 0, tags = True, connection 
 
 	if tags:
 		postQuery = (connection.session
-			.query(sqlalchemy.distinct(database.tables.Tag.post_id))
+			.query(database.tables.Tag.post_id)
 			.select_from(database.tables.Post)
 			.join(database.tables.Tag, database.tables.Tag.post_id == database.tables.Post.id)
 			.filter(database.tables.Tag.name == tag.lower())
+			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
 			.limit(limit)
 			.offset(offset)
 			.subquery())
