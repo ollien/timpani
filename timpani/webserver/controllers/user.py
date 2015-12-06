@@ -67,7 +67,8 @@ def showPostsWithTag(tag):
 	nextPageExists = (blog.nextPageExists(blog.getPostWithTagCount(tag),
 		pageLimit, 1))
 	return webhelpers.renderPosts(templatePath, pageTitle, 1,
-		pageCount, nextPageExists, posts = posts)
+		pageCount, nextPageExists, posts = posts,
+		pageBaseString="/tag/%s" % tag)
 
 @blueprint.route("/tag/<tag>/page/<int:pageNumber>")
 def showPostWithTagAndPage(tag, pageNumber):
@@ -84,7 +85,8 @@ def showPostWithTagAndPage(tag, pageNumber):
 	nextPageExists = blog.nextPageExists(blog.getPostWithTagCount(tag),
 		pageLimit, pageNumber)
 	return webhelpers.renderPosts(templatePath, pageTitle, pageNumber,
-		pageCount, nextPageExists, posts = posts)
+		pageCount, nextPageExists, posts = posts,
+		pageBaseString="/tag/%s" % tag)
 
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():

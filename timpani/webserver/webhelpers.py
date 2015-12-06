@@ -91,7 +91,7 @@ def getPostsParameters():
 
 #Renders the theme's template if the theme contains one
 #Otherwise, it renders the default template
-def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, *args, **kwargs):
+def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, basePageUrl = "", *args, **kwargs):
 	theme = themes.getCurrentTheme()
 	template = theme["template"]
 	postParams = getPostsParameters()
@@ -107,4 +107,5 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, *
 
 	return flask.render_template_string(template, pageTitle = pageTitle, 
 		pageNumber = pageNumber, pageCount = pageCount, 
-		nextPageExists = nextPageExists, *args, **kwargs)
+		nextPageExists = nextPageExists, basePageUrl = basePageUrl,
+		*args, **kwargs)
