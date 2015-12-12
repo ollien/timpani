@@ -46,14 +46,11 @@ def test(driver):
 	postIds = query.all()
 	#Resolve sqlalchemy tuples
 	postIds = [postId[0] for postId in postIds]
-	print(postIds)
 
 	assert len(postIds) == len(postElements)
 
 	for postElement in postElements:
 		postId = postElement.get_attribute("post-id")
-		print(postId)
-		print(postIds)
 		assert int(postId) in postIds
 		postIds.remove(int(postId))
 
