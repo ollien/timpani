@@ -92,13 +92,19 @@ def settingsPage():
 				settings.setSettingValue(setting, value)
 
 			flask.flash("Your settings have been successfully saved.", "success")
+			return flask.redirect("/settings")
 		else:
 			flask.flash("Invalid settings. Please make sure the following requirements are met and try again.", "error")
 			for setting in invalidSettings:
 				flask.flash(settings.VALIDATION_MESAGES[setting], "error")
-
-		return flask.redirect("/settings")
-			
+			storedSettings = settings.getAllSettings()
+			#Since flask.request.form is an ImmutableMultiDict, we must call to_dict
+			#flat = True means we will only get the first value in the dict (which should be fine).
+			storedSettings.update(flask.request.form.to_dict(flat = True))
+			return flask.render_template("settings.html", 
+				settings = storedSettings,
+				themes = themes.getAvailableThemes(),
+				user = webhelpers.checkForSession().user)
 
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
