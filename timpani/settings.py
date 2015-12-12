@@ -12,7 +12,7 @@ DEFAULT_SETTINGS = {
 #Name of the game is keep them simple
 SETTING_VALIDATIONS = {
 	"title": lambda x: len(x) > 0,
-	"display_name": lambda x: x == "full_name" or value == "username",
+	"display_name": lambda x: x == "full_name" or x == "username",
 	"theme": lambda x: x in themes.getAvailableThemes()
 }
 
