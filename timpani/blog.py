@@ -1,6 +1,8 @@
 from . import database
 from . import configmanager
 import sqlalchemy
+import sqlalchemy.orm
+import math
 
 def getMainConnection():
 	return database.ConnectionManager.getConnection("main")
@@ -21,28 +23,53 @@ def _getDictFromJoin(results):
 
 	return sorted(
 			list(posts.values()),
-				key = lambda x: x["post"].time_posted,
-				reverse = True)
+			key = lambda x: x["post"].time_posted,
+			reverse = True)
 
-
-def getPosts(tags = True, connection = None):
-	#Functions are not re-run if they are default arguments.
+def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
 	if tags:
 		#Gets all the posts using a join. 
 		#We won't use getPostById in a loop to prevent many queries.
-		postsAndTags = (connection.session
-			.query(database.tables.Post, database.tables.Tag)
+
+		#Subquery to get all posts within our limit
+		postQuery = (connection.session
+			.query(database.tables.Post)
+			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
+			.limit(limit)
+			.offset(offset)
+			.subquery())
+
+		postAlias = sqlalchemy.orm.aliased(database.tables.Post, postQuery)
+
+		#Outerjoin these together
+		query = (connection.session
+			.query(postAlias, database.tables.Tag)
 			.outerjoin(database.tables.Tag)
-			.order_by(database.tables.Tag.id)
-			.all())
-
-		return _getDictFromJoin(postsAndTags)
-
+			.order_by(database.tables.Tag.id))
+			
+		return query
 	else:
-		posts = connection.session.query(database.tables.Post).all()
+		query = (connection.session
+			.query(database.tables.Post)
+			.limit(limit)
+			.offset(offset))
+
+		return query
+
+def getPosts(limit = None, offset = 0, tags = True, connection = None):
+	query = _getPostQuery(limit, offset, tags, connection)
+	posts = query.all()
+
+	if tags:
+		return _getDictFromJoin(posts)
+	else:
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
+
+def getPostCount(limit = None, offset = 0, connection = None):
+	query = _getPostQuery(limit, offset, False, connection)
+	return query.count()
 
 #Gets a post form the database
 #Returns None if there is no post with such an id
@@ -68,30 +95,56 @@ def getPostById(postId, tags = True, connection = None):
 			.filter(database.tables.Post.id == postId)
 			.first())
 
-def getPostsWithTag(tag, tags = True, connection = None):
+def _getPostWithTagQuery(tag, limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
+
 	if tags:
-		postIds = (connection.session
-			.query(database.tables.Post.id)
+		postQuery = (connection.session
+			.query(database.tables.Tag.post_id)
+			.select_from(database.tables.Post)
+			.join(database.tables.Tag, database.tables.Tag.post_id == database.tables.Post.id)
+			.filter(database.tables.Tag.name == tag.lower())
+			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
+			.limit(limit)
+			.offset(offset)
+			.subquery())
+
+		query = (connection.session
+			.query(database.tables.Post, database.tables.Tag)	
 			.join(database.tables.Tag)
-			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower()))
-
-		postsAndTags = (connection.session
-			.query(database.tables.Post, database.tables.Tag)
-			.join(database.tables.Tag)
-			.filter(database.tables.Tag.post_id.in_(postIds))
-			.all())
-
-		return _getDictFromJoin(postsAndTags)
-
+			.filter(database.tables.Post.id.in_(postQuery))
+		)
+		return query
 	else:
-		posts = (connection.session
+		query = (connection.session
 			.query(database.tables.Post)
 			.join(database.tables.Tag)
-			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower()))
-		return posts.all()
+			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
+			.limit(limit)
+			.offset(offset))
 
+		return query
+
+def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
+	query = _getPostWithTagQuery(tag, limit, offset, tags, connection)
+	posts = query.all()
+
+	if tags:
+		return _getDictFromJoin(posts)
+	else:
+		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
+
+def getPostWithTagCount(tag, limit = None, offset = 0, connection = None):
+	query = _getPostWithTagQuery(tag, limit, offset, False, connection)
+	return query.count()
+
+def nextPageExists(postCount, pageLimit, pageNumber):
+	return getPageCount(postCount, pageLimit) > pageNumber 
+
+def getPageCount(postCount, pageLimit):
+	return int(math.ceil(postCount/pageLimit))
+	
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
 	if connection == None:

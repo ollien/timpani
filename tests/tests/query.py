@@ -3,7 +3,9 @@ from selenium.common import exceptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
+import sqlalchemy
 from timpani import database
+from timpani import settings
 
 def test(driver):
 	databaseConnection = database.DatabaseConnection()
@@ -32,7 +34,11 @@ def test(driver):
 	postElements = driver.find_elements_by_css_selector("li.post")
 	query = (databaseConnection.session
 		.query(database.tables.Tag.post_id)
-		.filter(database.tables.Tag.name == tag))
+		.select_from(database.tables.Post)
+		.join(database.tables.Tag, database.tables.Tag.post_id == database.tables.Post.id)
+		.filter(database.tables.Tag.name == tag.lower())
+		.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
+		.limit(settings.getSettingValue("posts_per_page")))
 
 	#There must be at least one post with a tag
 	assert query.count() > 0 

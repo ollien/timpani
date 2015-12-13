@@ -55,5 +55,13 @@
 			</li>
 		{% endfor %}
 	</ul>
+	<div id="page-nav">
+		{% if nextPageExists %}
+			<span class="nav-link" id="back"><a href="{{pageBaseString}}/page/{{pageNumber + 1}}">&lt;&lt;</span></a>
+		{% endif %}
+		{% if pageNumber > 1 %}
+			<span class="nav-link" id="forward"><a href="{{pageBaseString}}/page/{{pageNumber - 1}}">&gt;&gt;</span></a>
+		{% endif %}
+	</div>
 </body>
 </html>
