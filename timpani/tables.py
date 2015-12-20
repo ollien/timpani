@@ -29,9 +29,15 @@ class Tag(Base):
 	__tablename__ = "tags"
 
 	id = sqlalchemy.Column(sqlalchemy.Integer, primary_key = True)
-	post_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(Post.__table__.columns.id, ondelete = "CASCADE"))
+	name = sqlalchemy.Column(sqlalchemy.Text, unique = True, nullable = False)
+
+class TagRelation(Base):
+	__tablename__ = "tag_relation"
+
+	post_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(Post.__table__.columns.id, ondelete = "CASCADE"), primary_key = True)
+	tag_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(Tag.__table__.columns.id, ondelete = "CASCADE"), primary_key = True)
 	post = sqlalchemy.orm.relationship("Post", foreign_keys = post_id)
-	name = sqlalchemy.Column(sqlalchemy.Text)
+	tag = sqlalchemy.orm.relationship("Tag", foreign_keys = tag_id)
 
 class Session(Base):
 	__tablename__ = "sessions"
