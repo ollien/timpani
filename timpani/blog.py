@@ -81,8 +81,12 @@ def getPostById(postId, tags = True, connection = None):
 	if tags:
 		postsAndTags = (connection.session
 			.query(database.tables.Post, database.tables.Tag)
-			.outerjoin(database.tables.Tag)
-			.filter(database.tables.Post.id == postId).order_by(database.tables.Tag.id)
+			.outerjoin(database.tables.TagRelation,
+				database.tables.Post.id == database.tables.TagRelation.post_id)
+			.outerjoin(database.tables.Tag,
+				database.tables.Tag.id == database.tables.TagRelation.tag_id)
+			.filter(database.tables.Post.id == postId)
+			.order_by(database.tables.Tag.id)
 			.all())
 
 		if len(postsAndTags) == 0:
