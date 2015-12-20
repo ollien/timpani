@@ -161,11 +161,24 @@ def addPost(title, body, time_posted, author, tags, connection = None):
 
 	connection.session.add(post)
 	connection.session.flush()
+	tagQuery = (connection.session
+		.query(database.tables.Tag.id, database.tables.Tag.name)
+		.filter(database.tables.Tag.name.in_(tags)))
+	storedTags = {tag.name: tag.id for tag in tagQuery.all()}
+
 	#Parse the tags and add them to the table
 	for tag in tags:
 		if len(tag) > 0:
-			tag = database.tables.Tag(post_id = post.id, name = tag)
-			connection.session.add(tag)
+			tagId = -1
+			if tag not in storedTags:
+				tag = database.tables.Tag(name = tag)
+				connection.session.add(tag)
+				connection.session.flush() #Without a flush, tagId will be None
+				tagId = tag.id
+			else:
+				tagId = storedTags[tag]
+			tagRelation = database.tables.TagRelation(post_id = post.id, tag_id = tagId)
+			connection.session.add(tagRelation)
 	connection.session.commit()
 
 def editPost(postId, title, body, tags, connection = None):
