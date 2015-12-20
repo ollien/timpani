@@ -33,7 +33,6 @@ def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
 		#Gets all the posts using a join. 
 		#We won't use getPostById in a loop to prevent many queries.
 
-		#Subquery to get all posts within our limit
 		postQuery = (connection.session
 			.query(database.tables.Post)
 			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
@@ -46,7 +45,10 @@ def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
 		#Outerjoin these together
 		query = (connection.session
 			.query(postAlias, database.tables.Tag)
-			.outerjoin(database.tables.Tag)
+			.outerjoin(database.tables.TagRelation,
+				postAlias.id == database.tables.TagRelation.post_id)
+			.outerjoin(database.tables.Tag,
+				database.tables.Tag.id == database.tables.TagRelation.tag_id)
 			.order_by(database.tables.Tag.id))
 			
 		return query
