@@ -32,7 +32,7 @@ class Tag(Base):
 	name = sqlalchemy.Column(sqlalchemy.Text, unique = True, nullable = False)
 
 class TagRelation(Base):
-	__tablename__ = "tag_relation"
+	__tablename__ = "tag_relations"
 
 	post_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(Post.__table__.columns.id, ondelete = "CASCADE"), primary_key = True)
 	tag_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(Tag.__table__.columns.id, ondelete = "CASCADE"), primary_key = True)
