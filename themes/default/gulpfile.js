@@ -17,5 +17,5 @@ gulp.task("default-theme", function(){
 		}))
 		.pipe(minifyCss())
 		.pipe(rename("theme.css"))
-		.pipe(gulp.dest("./themes/default"));
+		.pipe(gulp.dest("./themes/default/static/"));
 });
