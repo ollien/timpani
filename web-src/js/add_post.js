@@ -1,5 +1,11 @@
 /*jshint eqnull: true, eqeqeq: true */
 
+var INSIGNIA_OPTIONS = {
+	validate: function(value, tags){
+		return value.indexOf("#") === -1;
+	}
+};
+
 function canLoadInsignia() {
 	if (window.navigator == null) {
 		return false;	
@@ -21,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var validityInput = document.getElementById("post-validity");
 	var tagsInput = document.getElementById("tags-input");
 	var placeholderTagsInput = document.getElementById("placeholder-tags-input");
-	var tagsInputPlugin = canLoadInsignia() ? insignia(tagsInput) : null;
+	var tagsInputPlugin = canLoadInsignia() ? insignia(tagsInput, INSIGNIA_OPTIONS) : null;
 	var form = document.getElementById("post-form");
 	var linkButton = document.getElementById("add-link");
 	var imageButton = document.getElementById("add-image");
