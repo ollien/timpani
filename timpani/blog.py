@@ -105,26 +105,30 @@ def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection
 	if connection == None:
 		connection = getMainConnection()
 
-		postQuery = (connection.session
-			.query(database.tables.Post)
-			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
-			.limit(limit)
-			.offset(offset)
-			.subquery())
+	postQuery = (connection.session
+		.query(database.tables.Post)
+		.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
+		.limit(limit)
+		.offset(offset)
+		.subquery())
 
-		postAlias = sqlalchemy.orm.aliased(database.tables.Post, postQuery)
+	postAlias = sqlalchemy.orm.aliased(database.tables.Post, postQuery)
+
+	#If we're getting tags, we don't need to do anything else
+	#Performing a subquery on 'postAlias' has too many columns
+	baseQuery = (connection.session.query(postAlias.id) 
+		if tags else connection.session.query(postAlias))
+
+	postWithTagQuery = (baseQuery
+		.join(database.tables.TagRelation, 
+			database.tables.TagRelation.post_id == postAlias.id)
+		.join(database.tables.Tag,
+			database.tables.Tag.id == database.tables.TagRelation.tag_id)
+		.filter(database.tables.Tag.name == tag)
+		.order_by(database.tables.Tag.id))
 
 	if tags:
-		postWithTagQuery = (connection.session
-			.query(postAlias.id)
-			.join(database.tables.TagRelation, 
-				database.tables.TagRelation.post_id == postAlias.id)
-			.join(database.tables.Tag,
-				database.tables.Tag.id == database.tables.TagRelation.tag_id)
-			.filter(database.tables.Tag.name == tag)
-			.order_by(database.tables.Tag.id)
-			.subquery())
-
+		postWithTagQuery = postWithTagQuery.subquery()
 		query = (connection.session
 			.query(postAlias, database.tables.Tag)	
 			.outerjoin(database.tables.TagRelation,
@@ -136,15 +140,7 @@ def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection
 		)
 		return query
 
-	query = (connection.session
-		.query(postAlias)
-		.join(database.tables.TagRelation, 
-			database.tables.TagRelation.post_id == postAlias.id)
-		.join(database.tables.Tag,
-			database.tables.Tag.id == database.tables.TagRelation.tag_id)
-		.filter(database.tables.Tag.name == tag)
-		.order_by(database.tables.Tag.id))
-	return query
+	return postWithTagQuery
 
 def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
 	query = _getPostsWithTagQuery(tag, limit, offset, tags, connection)
