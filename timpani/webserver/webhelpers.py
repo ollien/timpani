@@ -81,12 +81,10 @@ def getPostsParameters():
 	title = settings.getSettingValue("title")
 	subtitle = settings.getSettingValue("subtitle")
 	displayName = settings.getSettingValue("display_name")
-	theme = themes.getCurrentTheme()
 	return {
 		"blogTitle": title,
 		"blogSubtitle": subtitle,
 		"displayName": displayName,
-		"theme": theme["theme"]
 	}	
 
 #Renders the theme's template if the theme contains one

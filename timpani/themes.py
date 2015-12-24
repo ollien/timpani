@@ -19,12 +19,6 @@ def getCurrentTheme():
 			return None
 
 		themePath = os.path.join(THEME_PATH, folderName, "theme.css")
-		theme = "" #No CSS
-		if os.path.isfile(themePath):
-			themeFile = open(themePath, "r")
-			theme = themeFile.read()
-			themeFile.close()
-
 		templatePath = os.path.join(THEME_PATH, folderName, "template.html")
 		template = None #If this is None, the default template can be used.
 		if os.path.isfile(templatePath):
@@ -36,7 +30,7 @@ def getCurrentTheme():
 		if not os.path.isdir(staticPath):
 			staticPath = None
 		
-		return {"template": template, "theme": theme, "staticPath": staticPath}
+		return {"template": template, "staticPath": staticPath}
 
 def getAvailableThemes():
 	files = os.listdir(THEME_PATH)
