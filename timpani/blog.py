@@ -105,32 +105,46 @@ def _getPostWithTagQuery(tag, limit = None, offset = 0, tags = True, connection 
 	if connection == None:
 		connection = getMainConnection()
 
-	if tags:
 		postQuery = (connection.session
-			.query(database.tables.Tag.post_id)
-			.select_from(database.tables.Post)
-			.join(database.tables.Tag, database.tables.Tag.post_id == database.tables.Post.id)
-			.filter(database.tables.Tag.name == tag.lower())
+			.query(database.tables.Post)
 			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
 			.limit(limit)
 			.offset(offset)
 			.subquery())
 
+		postAlias = sqlalchemy.orm.aliased(database.tables.Post, postQuery)
+
+	if tags:
+		postWithTagQuery = (connection.session
+			.query(postAlias.id)
+			.join(database.tables.TagRelation, 
+				database.tables.TagRelation.post_id == postAlias.id)
+			.join(database.tables.Tag,
+				database.tables.Tag.id == database.tables.TagRelation.tag_id)
+			.filter(database.tables.Tag.name == tag)
+			.order_by(database.tables.Tag.id)
+			.subquery())
+
 		query = (connection.session
-			.query(database.tables.Post, database.tables.Tag)	
-			.join(database.tables.Tag)
-			.filter(database.tables.Post.id.in_(postQuery))
+			.query(postAlias, database.tables.Tag)	
+			.outerjoin(database.tables.TagRelation,
+				postAlias.id == database.tables.TagRelation.post_id)
+			.outerjoin(database.tables.Tag,
+				database.tables.Tag.id == database.tables.TagRelation.tag_id)
+			.filter(postAlias.id.in_(postWithTagQuery))
+			.order_by(database.tables.Tag.id)
 		)
 		return query
-	else:
-		query = (connection.session
-			.query(database.tables.Post)
-			.join(database.tables.Tag)
-			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
-			.limit(limit)
-			.offset(offset))
 
-		return query
+	query = (connection.session
+		.query(postAlias)
+		.join(database.tables.TagRelation, 
+			database.tables.TagRelation.post_id == postAlias.id)
+		.join(database.tables.Tag,
+			database.tables.Tag.id == database.tables.TagRelation.tag_id)
+		.filter(database.tables.Tag.name == tag)
+		.order_by(database.tables.Tag.id))
+	return query
 
 def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
 	query = _getPostWithTagQuery(tag, limit, offset, tags, connection)
