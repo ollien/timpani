@@ -33,7 +33,6 @@ def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
 		#Gets all the posts using a join. 
 		#We won't use getPostById in a loop to prevent many queries.
 
-		#Subquery to get all posts within our limit
 		postQuery = (connection.session
 			.query(database.tables.Post)
 			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
@@ -46,7 +45,10 @@ def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
 		#Outerjoin these together
 		query = (connection.session
 			.query(postAlias, database.tables.Tag)
-			.outerjoin(database.tables.Tag)
+			.outerjoin(database.tables.TagRelation,
+				postAlias.id == database.tables.TagRelation.post_id)
+			.outerjoin(database.tables.Tag,
+				database.tables.Tag.id == database.tables.TagRelation.tag_id)
 			.order_by(database.tables.Tag.id))
 			
 		return query
@@ -79,8 +81,12 @@ def getPostById(postId, tags = True, connection = None):
 	if tags:
 		postsAndTags = (connection.session
 			.query(database.tables.Post, database.tables.Tag)
-			.outerjoin(database.tables.Tag)
-			.filter(database.tables.Post.id == postId).order_by(database.tables.Tag.id)
+			.outerjoin(database.tables.TagRelation,
+				database.tables.Post.id == database.tables.TagRelation.post_id)
+			.outerjoin(database.tables.Tag,
+				database.tables.Tag.id == database.tables.TagRelation.tag_id)
+			.filter(database.tables.Post.id == postId)
+			.order_by(database.tables.Tag.id)
 			.all())
 
 		if len(postsAndTags) == 0:
@@ -95,39 +101,49 @@ def getPostById(postId, tags = True, connection = None):
 			.filter(database.tables.Post.id == postId)
 			.first())
 
-def _getPostWithTagQuery(tag, limit = None, offset = 0, tags = True, connection = None):
+def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
 
-	if tags:
-		postQuery = (connection.session
-			.query(database.tables.Tag.post_id)
-			.select_from(database.tables.Post)
-			.join(database.tables.Tag, database.tables.Tag.post_id == database.tables.Post.id)
-			.filter(database.tables.Tag.name == tag.lower())
-			.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
-			.limit(limit)
-			.offset(offset)
-			.subquery())
+	postQuery = (connection.session
+		.query(database.tables.Post)
+		.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
+		.limit(limit)
+		.offset(offset)
+		.subquery())
 
+	postAlias = sqlalchemy.orm.aliased(database.tables.Post, postQuery)
+
+	#If we're getting tags, we don't need to do anything else
+	#Performing a subquery on 'postAlias' has too many columns
+	baseQuery = (connection.session.query(postAlias.id) 
+		if tags else connection.session.query(postAlias))
+
+	postWithTagQuery = (baseQuery
+		.join(database.tables.TagRelation, 
+			database.tables.TagRelation.post_id == postAlias.id)
+		.join(database.tables.Tag,
+			database.tables.Tag.id == database.tables.TagRelation.tag_id)
+		.filter(database.tables.Tag.name == tag)
+		.order_by(database.tables.Tag.id))
+
+	if tags:
+		postWithTagQuery = postWithTagQuery.subquery()
 		query = (connection.session
-			.query(database.tables.Post, database.tables.Tag)	
-			.join(database.tables.Tag)
-			.filter(database.tables.Post.id.in_(postQuery))
+			.query(postAlias, database.tables.Tag)	
+			.outerjoin(database.tables.TagRelation,
+				postAlias.id == database.tables.TagRelation.post_id)
+			.outerjoin(database.tables.Tag,
+				database.tables.Tag.id == database.tables.TagRelation.tag_id)
+			.filter(postAlias.id.in_(postWithTagQuery))
+			.order_by(database.tables.Tag.id)
 		)
 		return query
-	else:
-		query = (connection.session
-			.query(database.tables.Post)
-			.join(database.tables.Tag)
-			.filter(sqlalchemy.func.lower(database.tables.Tag.name) == tag.lower())
-			.limit(limit)
-			.offset(offset))
 
-		return query
+	return postWithTagQuery
 
 def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
-	query = _getPostWithTagQuery(tag, limit, offset, tags, connection)
+	query = _getPostsWithTagQuery(tag, limit, offset, tags, connection)
 	posts = query.all()
 
 	if tags:
@@ -136,7 +152,7 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
 def getPostWithTagCount(tag, limit = None, offset = 0, connection = None):
-	query = _getPostWithTagQuery(tag, limit, offset, False, connection)
+	query = _getPostsWithTagQuery(tag, limit, offset, False, connection)
 	return query.count()
 
 def nextPageExists(postCount, pageLimit, pageNumber):
@@ -161,11 +177,24 @@ def addPost(title, body, time_posted, author, tags, connection = None):
 
 	connection.session.add(post)
 	connection.session.flush()
+	tagQuery = (connection.session
+		.query(database.tables.Tag.id, database.tables.Tag.name)
+		.filter(database.tables.Tag.name.in_(tags)))
+	storedTags = {tag.name: tag.id for tag in tagQuery.all()}
+
 	#Parse the tags and add them to the table
 	for tag in tags:
 		if len(tag) > 0:
-			tag = database.tables.Tag(post_id = post.id, name = tag)
-			connection.session.add(tag)
+			tagId = -1
+			if tag not in storedTags:
+				tag = database.tables.Tag(name = tag)
+				connection.session.add(tag)
+				connection.session.flush() #Without a flush, tagId will be None
+				tagId = tag.id
+			else:
+				tagId = storedTags[tag]
+			tagRelation = database.tables.TagRelation(post_id = post.id, tag_id = tagId)
+			connection.session.add(tagRelation)
 	connection.session.commit()
 
 def editPost(postId, title, body, tags, connection = None):
