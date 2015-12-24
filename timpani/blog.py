@@ -101,7 +101,7 @@ def getPostById(postId, tags = True, connection = None):
 			.filter(database.tables.Post.id == postId)
 			.first())
 
-def _getPostWithTagQuery(tag, limit = None, offset = 0, tags = True, connection = None):
+def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
 		connection = getMainConnection()
 
@@ -147,7 +147,7 @@ def _getPostWithTagQuery(tag, limit = None, offset = 0, tags = True, connection 
 	return query
 
 def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
-	query = _getPostWithTagQuery(tag, limit, offset, tags, connection)
+	query = _getPostsWithTagQuery(tag, limit, offset, tags, connection)
 	posts = query.all()
 
 	if tags:
@@ -156,7 +156,7 @@ def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = Non
 		return sorted(posts, key = lambda x: x.time_posted, reverse = True)
 
 def getPostWithTagCount(tag, limit = None, offset = 0, connection = None):
-	query = _getPostWithTagQuery(tag, limit, offset, False, connection)
+	query = _getPostsWithTagQuery(tag, limit, offset, False, connection)
 	return query.count()
 
 def nextPageExists(postCount, pageLimit, pageNumber):
