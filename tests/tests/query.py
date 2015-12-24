@@ -33,9 +33,11 @@ def test(driver):
 	tagElement.click()
 	postElements = driver.find_elements_by_css_selector("li.post")
 	query = (databaseConnection.session
-		.query(database.tables.Tag.post_id)
-		.select_from(database.tables.Post)
-		.join(database.tables.Tag, database.tables.Tag.post_id == database.tables.Post.id)
+		.query(database.tables.TagRelation.post_id)
+		.join(database.tables.Tag,
+			database.tables.Tag.id == database.tables.TagRelation.tag_id)
+		.join(database.tables.Post,
+			database.tables.Post.id == database.tables.TagRelation.post_id)
 		.filter(database.tables.Tag.name == tag.lower())
 		.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
 		.limit(settings.getSettingValue("posts_per_page")))
