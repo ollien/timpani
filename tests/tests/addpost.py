@@ -64,11 +64,13 @@ def test(driver, username, password):
 
 	post = (databaseConnection.session
 		.query(database.tables.Post)
-		.order_by(sqlalchemy.desc(database.tables.Post.id))
+		.order_by(sqlalchemy.desc(database.tables.Post.time_posted))
 		.first())
 	tags = (databaseConnection.session
 		.query(database.tables.Tag.name)
-		.filter(database.tables.Tag.post_id == post.id)
+		.join(database.tables.TagRelation, 
+			database.tables.TagRelation.tag_id == database.tables.Tag.id)
+		.filter(database.tables.TagRelation.post_id == post.id)
 		.all())
 
 	#Resolve sqlalchemy tuples
