@@ -27,32 +27,40 @@
 			</div>
 		</header>
 	{% endif %}
-	<ul id="posts-list">
-		{% for item in posts %}
-			{% set post = item["post"] %}
-			{% set tags = item["tags"] %}
-			<li class="post" post-id="{{post.id}}">
-				<h2 class="post-title title">{{post.title}}</h2>
-				<div class="post-metadata"> by 
-					<span class="author">
-						{% if displayName == "full_name" %} {{post.author.full_name}} {% elif displayName == "username" %} {{post.author.username}} {% endif %} 
-					</span> 
-					on <a class="timestamp-link" href="/post/{{post.id}}"><span class="timestamp">{{post.time_posted.strftime("%A %B %d at %I:%M %p")}}</span></a>
-				</div>
-				<div class="post-body">
-					{{post.body|safe}}
+	{% if posts|length > 0 %}
+		<ul id="posts-list">
+			{% for item in posts %}
+				{% set post = item["post"] %}
+				{% set tags = item["tags"] %}
+				<li class="post" post-id="{{post.id}}">
+					<h2 class="post-title title">{{post.title}}</h2>
+					<div class="post-metadata"> by 
+						<span class="author">
+							{% if displayName == "full_name" %} {{post.author.full_name}} {% elif displayName == "username" %} {{post.author.username}} {% endif %} 
+						</span> 
+						on <a class="timestamp-link" href="/post/{{post.id}}"><span class="timestamp">{{post.time_posted.strftime("%A %B %d at %I:%M %p")}}</span></a>
+					</div>
+					<div class="post-body">
+						{{post.body|safe}}
 
-					{% if tags|length > 0 %}
-						<ul class="tags-list">
-							{% for tag in tags %}
-								<li class="tag"> <a href="/tag/{{tag.name}}">#{{tag.name}}</a> </li>
-							{% endfor %}
-						</ul>
-					{% endif %}
-				</div>
-			</li>
-		{% endfor %}
-	</ul>
+						{% if tags|length > 0 %}
+							<ul class="tags-list">
+								{% for tag in tags %}
+									<li class="tag"> <a href="/tag/{{tag.name}}">#{{tag.name}}</a> </li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+					</div>
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<div id="no-posts">
+			<span>
+				There are no posts on this blog :(
+			</span>
+		</div>
+	{% endif %}
 	<div id="page-nav">
 		{% if nextPageExists %}
 			<span class="nav-link" id="back"><a href="{{pageBaseString}}/page/{{pageNumber + 1}}">&lt;&lt;</span></a>
