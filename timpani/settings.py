@@ -27,13 +27,13 @@ VALIDATION_MESAGES = {
 }
 
 def getAllSettings():
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = databaseConnection.session.query(database.tables.Setting)
 	settings = query.all()
 	return {setting.name: setting.value for setting in settings}
 
 def getSettingValue(name):
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.Setting)
 		.filter(database.tables.Setting.name == name))
@@ -44,7 +44,7 @@ def getSettingValue(name):
 def setSettingValue(name, value):
 	valid = validateSetting(name, value)
 	if valid:
-		databaseConnection = database.ConnectionManager.getConnection("main")
+		databaseConnection = database.ConnectionManager.getMainConnection()
 		settingObj = database.tables.Setting(name = name, value = value)
 		databaseConnection.session.merge(settingObj)
 		databaseConnection.session.commit()

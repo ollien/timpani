@@ -35,6 +35,11 @@ class ConnectionManager():
 			except KeyError:
 				return None
 
+	#Convenience method to get main database connection
+	@staticmethod
+	def getMainConnection():
+		return ConnectionManager.getConnection("main")
+
 	@staticmethod	
 	def closeConnection(connectionName):
 		if type(connectionName) == str:
