@@ -112,6 +112,7 @@ def settingsPage():
 def manageUsers():
 	if flask.request.method == "GET":
 		return flask.render_template("manage_users.html",
+			userList = auth.getAllUsers(),
 			user = webhelpers.checkForSession().user)
 
 #Returns a JSON Object based on whether or not the user is logged in.

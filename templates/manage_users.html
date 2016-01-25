@@ -7,5 +7,12 @@
 <body>
 	{% include "admin_toolbar.html" %}
 	<h1>Manage Users...</h1>
+	<ul id="users-list">
+		{% for user in userList %}
+			<li user_id="{{user.id}}" class="user">
+				<span class="username">{{user.username}}</span>
+			</li>
+		{% endfor %}
+
 </body>
 </html>
