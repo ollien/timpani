@@ -19,7 +19,7 @@ CAN_POST_PERMISSION = "can_write_posts"
 #Returns user object if exists, None if otherwise
 def getUserById(userId):
 	databaseConnection = database.ConnectionManager.getMainConnection()
-	query = (databaseConnection.sesssion
+	query = (databaseConnection.session
 		.query(database.tables.User)
 		.filter(database.tables.User.id == userId))
 	return query.first()
@@ -27,7 +27,7 @@ def getUserById(userId):
 #Returns user object if exists, None if otherwise
 def getUserByUsername(username):
 	databaseConnection = database.ConnectionManager.getMainConnection()
-	query = (databaseConnection.sesssion
+	query = (databaseConnection.session
 		.query(database.tables.User)
 		.filter(database.tables.User.username == username))
 	return query.first()
@@ -98,22 +98,12 @@ def deleteUser(user):
 	databaseConnection.session.delete(user)
 
 def deleteUserById(userId):
-	databaseConnection = database.ConnectionManager.getMainConnection()
-	query = (databaseConnection.session
-		.query(database.tables.User)
-		.filter(database.tables.User.id == userId))
-	#We don't have to worry about checking if it's >1 because id is a primary key.
-	if query.count() > 0:
-		deleteUser(query.first())
+	user = getUserById(userId)
+	deleteUser(user)
 
 def deleteUserByUsername(username):
-	databaseConnection = database.ConnectionManager.getMainConnection()
-	query = (databaseConnection.session
-		.query(database.tables.User)
-		.filter(database.tables.username == username))
-	#We don't have to worry about checking if it's >1 because id is a primary key.
-	if query.count() > 0:
-		deleteUser(query.first())
+	user = getUserByUsername(username)
+	deleteUser(user)
 
 def generateSessionId():
 	sessionId = binascii.hexlify(os.urandom(authConfig["session_id_length"]))
