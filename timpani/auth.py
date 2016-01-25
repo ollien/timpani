@@ -96,6 +96,7 @@ def deleteUser(user):
 		raise TypeError("user must be of type User, not %s" % type(user).__name__)
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	databaseConnection.session.delete(user)
+	databaseConnection.session.commit()
 
 def deleteUserById(userId):
 	user = getUserById(userId)
