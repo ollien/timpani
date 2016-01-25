@@ -186,7 +186,8 @@ def addPost(title, body, time_posted, author, tags, connection = None):
 			if tag not in storedTags:
 				tag = database.tables.Tag(name = tag)
 				connection.session.add(tag)
-				connection.session.flush() #Without a flush, tagId will be None
+				#Without a flush, tagId will be None
+				connection.session.flush()
 				tagId = tag.id
 			else:
 				tagId = storedTags[tag]
