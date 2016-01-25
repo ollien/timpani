@@ -99,18 +99,18 @@ def deleteUser(user):
 
 def deleteUserById(userId):
 	databaseConnection = database.ConnectionManager.getMainConnection()
-	query = (databaseConneciton.session
-		.query(database.tables.user)
-		.filter(database.tables.id(userId)))
+	query = (databaseConnection.session
+		.query(database.tables.User)
+		.filter(database.tables.User.id == userId))
 	#We don't have to worry about checking if it's >1 because id is a primary key.
 	if query.count() > 0:
 		deleteUser(query.first())
 
 def deleteUserByUsername(username):
 	databaseConnection = database.ConnectionManager.getMainConnection()
-	query = (databaseConneciton.session
-		.query(database.tables.user)
-		.filter(database.tables.id(username)))
+	query = (databaseConnection.session
+		.query(database.tables.User)
+		.filter(database.tables.username == username))
 	#We don't have to worry about checking if it's >1 because id is a primary key.
 	if query.count() > 0:
 		deleteUser(query.first())
