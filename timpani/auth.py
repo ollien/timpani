@@ -106,6 +106,15 @@ def deleteUserById(user_id):
 	if query.count() > 0:
 		deleteUser(query.first())
 
+def deleteUserByUsername(username):
+	databaseConnection = database.ConnectionManager.getMainConnection()
+	query = (databaseConneciton.session
+		.query(database.tables.user)
+		.filter(database.tables.id(username))
+	#We don't have to worry about checking if it's >1 because id is a primary key.
+	if query.count() > 0:
+		deleteUser(query.first())
+
 def generateSessionId():
 	sessionId = binascii.hexlify(os.urandom(authConfig["session_id_length"]))
 	return sessionId.decode("utf-8")
