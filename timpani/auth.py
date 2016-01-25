@@ -24,6 +24,14 @@ def getUserById(user_id):
 		.filter(database.tables.User.id == user_id))
 	return query.first()
 
+#Returns user object if exists, None if otherwise
+def getUserByUsername(username):
+	databaseConnection = database.ConnectionManager.getConnection("main")
+	query = (databaseConnection.sesssion
+		.query(database.tables.User)
+		.filter(database.tables.User.username == username))
+	return query.first()
+
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
