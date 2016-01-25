@@ -32,6 +32,13 @@ def getUserByUsername(username):
 		.filter(database.tables.User.username == username))
 	return query.first()
 
+#Returns list of user objects.
+def getAllUsers():
+	databaseConnection = database.ConnectionManager.getConnection("main")
+	query = (databaseConnection.session.
+		.query(database.tables.User))
+	return query.all()
+
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
