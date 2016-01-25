@@ -16,6 +16,14 @@ authConfig = configs["auth"]
 CAN_CHANGE_SETTINGS_PERMISSION = "can_change_settings"
 CAN_POST_PERMISSION = "can_write_posts"
 
+#Returns user object if exists, None if otherwise
+def getUserById(user_id):
+	databaseConnection = database.ConnectionManager.getConnection("main")
+	query = (databaseConnection.sesssion
+		.query(database.tables.User)
+		.filter(database.tables.User.id == user_id))
+	return query.first()
+
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
