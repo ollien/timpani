@@ -17,11 +17,11 @@ CAN_CHANGE_SETTINGS_PERMISSION = "can_change_settings"
 CAN_POST_PERMISSION = "can_write_posts"
 
 #Returns user object if exists, None if otherwise
-def getUserById(user_id):
+def getUserById(userId):
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.sesssion
 		.query(database.tables.User)
-		.filter(database.tables.User.id == user_id))
+		.filter(database.tables.User.id == userId))
 	return query.first()
 
 #Returns user object if exists, None if otherwise
@@ -97,11 +97,11 @@ def deleteUser(user):
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	databaseConnection.session.delete(user)
 
-def deleteUserById(user_id):
+def deleteUserById(userId):
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConneciton.session
 		.query(database.tables.user)
-		.filter(database.tables.id(user_id))
+		.filter(database.tables.id(userId))
 	#We don't have to worry about checking if it's >1 because id is a primary key.
 	if query.count() > 0:
 		deleteUser(query.first())
