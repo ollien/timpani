@@ -18,7 +18,7 @@ CAN_POST_PERMISSION = "can_write_posts"
 
 #Returns user object if exists, None if otherwise
 def getUserById(user_id):
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.sesssion
 		.query(database.tables.User)
 		.filter(database.tables.User.id == user_id))
@@ -26,7 +26,7 @@ def getUserById(user_id):
 
 #Returns user object if exists, None if otherwise
 def getUserByUsername(username):
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.sesssion
 		.query(database.tables.User)
 		.filter(database.tables.User.username == username))
@@ -34,7 +34,7 @@ def getUserByUsername(username):
 
 #Returns list of user objects.
 def getAllUsers():
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session.
 		.query(database.tables.User))
 	return query.all()
