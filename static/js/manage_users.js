@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",function(e){var d=document.getElementById("add-user-modal"),n=new Modal(d),t=document.getElementById("add-user-button");t.addEventListener("click",function(e){n.show()})});
