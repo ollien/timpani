@@ -45,7 +45,7 @@ def createUser(username, full_name, password, can_change_settings, can_write_pos
 	passwordHash = bcrypt.hashpw(passwordAsBytes, 
 		bcrypt.gensalt(rounds = BCRYPT_ROUNDS))
 	passwordHash = passwordHash.decode("utf-8")
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.User)
 		.filter(database.tables.User.username == username))
@@ -66,7 +66,7 @@ def createUser(username, full_name, password, can_change_settings, can_write_pos
 def validateUser(username, password):
 	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.User)
 		.filter(database.tables.User.username == username))
@@ -80,7 +80,7 @@ def validateUser(username, password):
 	return False
 
 def userHasPermission(username, permissionName):
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.User)
 		.filter(database.tables.User.username == username))
@@ -98,7 +98,7 @@ def createSession(username, sessionId = None):
 	if sessionId == None:
 		sessionId = generateSessionId()
 	username = username.lower()
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.User)
 		.filter(database.tables.User.username == username))
@@ -119,7 +119,7 @@ def createSession(username, sessionId = None):
 		raise ValueError("username does not exist.")
 
 def validateSession(sessionId):
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.Session)
 		.filter(database.tables.Session.session_id == sessionId))
@@ -137,7 +137,7 @@ def validateSession(sessionId):
 	return None
 
 def invalidateSession(sessionId):
-	databaseConnection = database.ConnectionManager.getConnection("main")
+	databaseConnection = database.ConnectionManager.getMainConnection()
 	#Delete the session from the database
 	query = (databaseConnection.session
 		.query(database.tables.Session)
