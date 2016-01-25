@@ -4,9 +4,6 @@ import sqlalchemy
 import sqlalchemy.orm
 import math
 
-def getMainConnection():
-	return database.ConnectionManager.getConnection("main")
-
 #Groups posts and tags in posts dict.
 #Will be a dict formatted as such:
 #{postId: {post: $POST_OBJECT_FROM_DATABASE, tags: [$TAGS_FROM_DATABASE]}
@@ -28,7 +25,7 @@ def _getDictFromJoin(results):
 
 def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
-		connection = getMainConnection()
+		connection = database.ConnectionManager.getMainConnection()
 	if tags:
 		#Gets all the posts using a join. 
 		#We won't use getPostById in a loop to prevent many queries.
@@ -77,7 +74,7 @@ def getPostCount(limit = None, offset = 0, connection = None):
 #Returns None if there is no post with such an id
 def getPostById(postId, tags = True, connection = None):
 	if connection == None:
-		connection = getMainConnection()
+		connection = database.ConnectionManager.getMainConnection()
 	if tags:
 		postsAndTags = (connection.session
 			.query(database.tables.Post, database.tables.Tag)
@@ -103,7 +100,7 @@ def getPostById(postId, tags = True, connection = None):
 
 def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection = None):
 	if connection == None:
-		connection = getMainConnection()
+		connection = database.ConnectionManager.getMainConnection()
 
 	postQuery = (connection.session
 		.query(database.tables.Post)
@@ -164,7 +161,7 @@ def getPageCount(postCount, pageLimit):
 def addPost(title, body, time_posted, author, tags, connection = None):
 	#Functions are not re-run if they are default arguments.
 	if connection == None:
-		connection = getMainConnection()
+		connection = database.ConnectionManager.getMainConnection()
 
 	if type(tags) == str:
 		tags = tags.split(" ")
@@ -199,7 +196,7 @@ def addPost(title, body, time_posted, author, tags, connection = None):
 
 def editPost(postId, title, body, tags, connection = None):
 	if connection == None:
-		connection = getMainConnection()
+		connection = database.ConnectionManager.getMainConnection()
 
 	if type(tags) == str:
 		tags = tags.split(" ")
@@ -230,7 +227,7 @@ def editPost(postId, title, body, tags, connection = None):
 	
 def deletePost(post, connection = None):
 	if connection == None:
-		connection = getMainConnection()
+		connection = database.ConnectionManager.getMainConnection()
 
 	if type(post) == int:
 		post = getPostById(post, tags = False)
