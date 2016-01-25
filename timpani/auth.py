@@ -90,6 +90,13 @@ def userHasPermission(username, permissionName):
 		return getattr(userObj, permissionName)
 	return False
 
+def deleteUser(user):
+	#user must be a user object
+	if type(user) != database.tables.User:
+		raise TypeError("user must be of type User, not %s" % type(user).__name__)
+	databaseConnection = database.ConnectionManager.getMainConnection()
+	databaseConnection.session.delete(user)
+
 def generateSessionId():
 	sessionId = binascii.hexlify(os.urandom(authConfig["session_id_length"]))
 	return sessionId.decode("utf-8")
