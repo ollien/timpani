@@ -35,7 +35,7 @@ def getUserByUsername(username):
 #Returns list of user objects.
 def getAllUsers():
 	databaseConnection = database.ConnectionManager.getMainConnection()
-	query = (databaseConnection.session.
+	query = (databaseConnection.session
 		.query(database.tables.User))
 	return query.all()
 
@@ -101,7 +101,7 @@ def deleteUserById(userId):
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConneciton.session
 		.query(database.tables.user)
-		.filter(database.tables.id(userId))
+		.filter(database.tables.id(userId)))
 	#We don't have to worry about checking if it's >1 because id is a primary key.
 	if query.count() > 0:
 		deleteUser(query.first())
@@ -110,7 +110,7 @@ def deleteUserByUsername(username):
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConneciton.session
 		.query(database.tables.user)
-		.filter(database.tables.id(username))
+		.filter(database.tables.id(username)))
 	#We don't have to worry about checking if it's >1 because id is a primary key.
 	if query.count() > 0:
 		deleteUser(query.first())
