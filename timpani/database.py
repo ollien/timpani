@@ -38,7 +38,7 @@ class ConnectionManager():
 	#Convenience method to get main database connection
 	@staticmethod
 	def getMainConnection():
-		return getConnection("main")
+		return ConnectionManager.getConnection("main")
 
 	@staticmethod	
 	def closeConnection(connectionName):
