@@ -37,47 +37,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var alignCenterButton = document.getElementById("align-center");
 	var alignRightButton = document.getElementById("align-right");
 	var alignJustifyButton = document.getElementById("align-justify");
+	var linkModalElement = document.getElementById("link-modal");
+	linkModal = new Modal(linkModalElement);
+	linkModal.input = document.getElementById("modal-link");
+	linkModal.errorDiv = linkModal.element.querySelector("div.modal-error");
+	linkModal.positiveButton = linkModal.element.querySelector("button.positive");
 	
-	var linkModal = {
-		element: document.getElementById("link-modal"),
-		input: document.getElementById("modal-link"),
-		init: function() {
-			//We needt o access some objects within this obect upon initialization, so we use this function to do that.
-			this.modal = new Modal(this.element);
-			this.errorDiv = this.element.querySelector("div.modal-error");
-			this.positiveButton = this.element.querySelector("button.positive");
-			delete this.init;
-			return this;
-		}
-	}.init();
+	var imageModalElement = document.getElementById("image-modal");
+	var imageModal = new Modal(imageModalElement);
+	imageModal.linkInput = document.getElementById("image-url");
+	imageModal.fileInput = document.getElementById("image-upload");
+	imageModal.uploadRequest = null;
+	imageModal.positiveButton = imageModal.element.querySelector("button.positive");
+	imageModal.errorDiv = imageModal.element.querySelector("div.modal-error");
 	
-	var imageModal = {
-		element: document.getElementById("image-modal"),
-		linkInput: document.getElementById("image-url"),
-		fileInput: document.getElementById("image-upload"),
-		uploadRequest: null,
-		//This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
-		init: function() {
-			//We need to access some objects within this object upon initializaton, so we use this function to do that.
-			this.modal = new Modal(this.element);
-			this.positiveButton = this.element.querySelector("button.positive");
-			this.errorDiv = this.element.querySelector("div.modal-error");
-			delete this.init;
-			return this;
-		}
-	}.init();
-	
-	var codeModal = {
-		element: document.getElementById("code-modal"),
-		selectLanguage: document.getElementById("select-language"),
-		init: function() {
-			//We need to access some objects within this object upon initializatoin, so we use this function to do that.
-			this.modal = new Modal(this.element, { keyboard: false });
-			this.positiveButton = this.element.querySelector("button.positive");
-			delete this.init;
-			return this;
-		}
-	}.init();
+	var codeModalElement = document.getElementById("code-modal");
+	var codeModal = new Modal(codeModalElement, {keyboard: false});
+	codeModal.selectLanguage = document.getElementById("select-language");
+	codeModal.positiveButton = codeModal.element.querySelector("button-positive");
 	
 	validityInput.setCustomValidity("Please fill out a post body.");
 	editor.addModule("toolbar", { container: "div#toolbar" });
@@ -124,16 +101,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	
 	linkButton.addEventListener("click", function(event) {
-		linkModal.modal.show();
+		linkModal.show();
 		linkModal.input.focus();
 	});
 	
 	imageButton.addEventListener("click", function(event) {
-		imageModal.modal.show();
+		imageModal.show();
 	});
 	
 	codeButton.addEventListener("click", function(event) {
-		codeModal.modal.show();
+		codeModal.show();
 	});
 	
 	alignLeftButton.addEventListener("click", function(event) {
@@ -212,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	
 	imageModal.linkInput.addEventListener("input", function(event) {
-		imageModal.fileInput.disabled = true;
+		imageModal.fileInput.disabled = imageModal.linkInput.value.length !== 0;
 	});
 	
 	imageModal.fileInput.addEventListener("change", function(event) {
@@ -240,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					editor.focus();
 					var selection = editor.getSelection();
 					editor.insertEmbed(selection.end, "image", data.url);
-					imageModal.modal.hide();
+					imageModal.hide();
 				} 
 				else if (data.error === 2) {
 					imageModal.errorDiv.textContent = "Image must be a JPG, PNG, or GIF.";
