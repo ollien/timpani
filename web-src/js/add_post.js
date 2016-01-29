@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	
 	imageModal.linkInput.addEventListener("input", function(event) {
-		imageModal.fileInput.disabled = true;
+		imageModal.fileInput.disabled = imageModal.linkInput.value.length !== 0;
 	});
 	
 	imageModal.fileInput.addEventListener("change", function(event) {
