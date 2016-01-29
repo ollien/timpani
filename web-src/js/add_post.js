@@ -43,21 +43,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	linkModal.errorDiv = linkModal.element.querySelector("div.modal-error");
 	linkModal.positiveButton = linkModal.element.querySelector("button.positive");
 	
-	var imageModal = {
-		element: document.getElementById("image-modal"),
-		linkInput: document.getElementById("image-url"),
-		fileInput: document.getElementById("image-upload"),
-		uploadRequest: null,
-		//This will be defined when an image is being uploaded. This is a global variable so it can be cancelled.
-		init: function() {
-			//We need to access some objects within this object upon initializaton, so we use this function to do that.
-			this.modal = new Modal(this.element);
-			this.positiveButton = this.element.querySelector("button.positive");
-			this.errorDiv = this.element.querySelector("div.modal-error");
-			delete this.init;
-			return this;
-		}
-	}.init();
+	var imageModalElement = document.getElementById("image-modal");
+	var imageModal = new Modal(imageModalElement);
+	imageModal.linkInput = document.getElementById("image-url");
+	imageModal.fileInput = document.getElementById("image-upload");
+	imageModal.uploadRequest = null;
+	imageModal.positiveButton = imageModal.element.querySelector("button.positive");
+	imageModal.errorDiv = imageModal.element.querySelector("div.modal-error");
 	
 	var codeModal = {
 		element: document.getElementById("code-modal"),
@@ -121,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	
 	imageButton.addEventListener("click", function(event) {
-		imageModal.modal.show();
+		imageModal.show();
 	});
 	
 	codeButton.addEventListener("click", function(event) {
@@ -232,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					editor.focus();
 					var selection = editor.getSelection();
 					editor.insertEmbed(selection.end, "image", data.url);
-					imageModal.modal.hide();
+					imageModal.hide();
 				} 
 				else if (data.error === 2) {
 					imageModal.errorDiv.textContent = "Image must be a JPG, PNG, or GIF.";
