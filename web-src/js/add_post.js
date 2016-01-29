@@ -51,17 +51,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	imageModal.positiveButton = imageModal.element.querySelector("button.positive");
 	imageModal.errorDiv = imageModal.element.querySelector("div.modal-error");
 	
-	var codeModal = {
-		element: document.getElementById("code-modal"),
-		selectLanguage: document.getElementById("select-language"),
-		init: function() {
-			//We need to access some objects within this object upon initializatoin, so we use this function to do that.
-			this.modal = new Modal(this.element, { keyboard: false });
-			this.positiveButton = this.element.querySelector("button.positive");
-			delete this.init;
-			return this;
-		}
-	}.init();
+	var codeModalElement = document.getElementById("code-modal");
+	var codeModal = new Modal(codeModalElement, {keyboard: false});
+	codeModal.selectLanguage = document.getElementById("select-language");
+	codeModal.positiveButton = codeModal.element.querySelector("button-positive");
 	
 	validityInput.setCustomValidity("Please fill out a post body.");
 	editor.addModule("toolbar", { container: "div#toolbar" });
@@ -117,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	
 	codeButton.addEventListener("click", function(event) {
-		codeModal.modal.show();
+		codeModal.show();
 	});
 	
 	alignLeftButton.addEventListener("click", function(event) {
