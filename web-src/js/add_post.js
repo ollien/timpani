@@ -37,19 +37,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var alignCenterButton = document.getElementById("align-center");
 	var alignRightButton = document.getElementById("align-right");
 	var alignJustifyButton = document.getElementById("align-justify");
-	
-	var linkModal = {
-		element: document.getElementById("link-modal"),
-		input: document.getElementById("modal-link"),
-		init: function() {
-			//We needt o access some objects within this obect upon initialization, so we use this function to do that.
-			this.modal = new Modal(this.element);
-			this.errorDiv = this.element.querySelector("div.modal-error");
-			this.positiveButton = this.element.querySelector("button.positive");
-			delete this.init;
-			return this;
-		}
-	}.init();
+	var linkModalElement = document.getElementById("link-modal");
+	linkModal = new Modal(linkModalElement);
+	linkModal.input = document.getElementById("modal-link");
+	linkModal.errorDiv = linkModal.element.querySelector("div.modal-error");
+	linkModal.positiveButton = linkModal.element.querySelector("button.positive");
 	
 	var imageModal = {
 		element: document.getElementById("image-modal"),
@@ -124,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	
 	linkButton.addEventListener("click", function(event) {
-		linkModal.modal.show();
+		linkModal.show();
 		linkModal.input.focus();
 	});
 	
