@@ -115,6 +115,30 @@ def manageUsers():
 			userList = auth.getAllUsers(),
 			user = webhelpers.checkForSession().user)
 
+#Returns a JSON Object based on whether or not 
+@blueprint.route("/create_user", methods = ["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+def createUser(authed, authMessage):
+	if authed:
+		username = flask.request.form["username"]	
+		password = flask.request.form["password"]
+		fullName = flask.request.form["full_name"]
+		canChangeSettings = False
+		canWritePosts = False
+		if ("can_change_settings" in flask.request.form 
+			and flask.request.form["can_change_settings"][1] == "on"):
+			canChangeSettings = True
+		if ("can_write_posts" in flask.request.form
+			and flask.request.form["can_write_posts"][1] == "on"):
+			canWritePosts = True
+		try:
+			auth.createUser(username, fullName, password, canChangeSettings, canWritePosts)
+		except ValueError:
+			return json.dumps({error: 2}), 400
+		return json.dumps({error: 0})
+	else:
+		return json.dumps({error: 1}), 403
+
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
 @webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION)
