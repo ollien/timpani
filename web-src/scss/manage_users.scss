@@ -1,1 +1,12 @@
 @import "base";
+
+#add-user-modal {
+	width: 350px;
+	div.modal-body {
+		div.checkbox, input[type="text"], input[type="password"] {
+			display: block;	
+			margin-bottom: 15px;
+			width: 100%;
+		}
+	}
+}

@@ -18,17 +18,21 @@
 			</li>
 		{% endfor %}
 	</ul>
-	<div class="modal" id="add-user-modal">
+	<div class="modal pure-form" id="add-user-modal">
 		<h3 class="modal-title">Add User</h3>
 		<div class="modal-body">
 			<input id="username-input" name="username" placeholder="Username" type="text">
 			<input id="full-name-input" name="full_name" placeholder="Real name" type="text">
 			<input id="password-input" name="password" placeholder="Password" type="password">
 			<input id="confirm-password-input" name="confirm-password" placeholder="Confirm Password" type="password">
-			<input id="can-change-settings-checkbox" name="can_change_settings" type="checkbox">
-			<label for="can-change-settings-checkbox">User can change settings</label>
-			<input id="can-write-posts-checkbox" name="can_write_settings" type="checkbox">
-			<label for="can-write-posts-checkbox">User can write, edit and delete posts</label>
+			<div class="checkbox">
+				<input id="can-change-settings-checkbox" name="can_change_settings" type="checkbox">
+				<label for="can-change-settings-checkbox">User can change settings</label>
+			</div>
+			<div class="checkbox">
+				<input id="can-write-posts-checkbox" name="can_write_posts" type="checkbox">
+				<label for="can-write-posts-checkbox">User can write, edit and delete posts</label>
+			</div>
 		</div>
 		<div class="modal-buttons">
 			<button class="pure-button neutral">Cancel</button>
