@@ -3,10 +3,12 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 	var modalElement = document.querySelector(".modal");
 	var modal = new Modal(modalElement);
+	modal.positiveButton = modal.element.querySelector("button.positive");
 	var deleteButtons = document.querySelectorAll("a.button.delete");
 	var deletePostTitle = document.querySelector("span.delete-post-title");
 
 	modal.element.addEventListener("positive-pressed", function(event) {
+		event.preventDefault();
 		var postId = modal.element.getAttribute("post-id");
 		var request = new XMLHttpRequest();
 		request.open("POST", "/delete_post/" + postId);
@@ -14,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		request.addEventListener("load", function(event) {
 			var res = JSON.parse(request.responseText);
 			if (res.error === 0) {
+				modal.positiveButton.classList.remove("working");
+				modal.hide();
 				var li = document.querySelector("li[post-id=\"" + postId + "\"]");
 				li.addEventListener("transitionend", function(event) {
 					this.remove();
@@ -25,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				window.location = "/login";
 			}
 		});
+		modal.positiveButton.disabled = true;
+		modal.positiveButton.classList.add("working");
 		request.send();
 	});
 
