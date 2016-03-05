@@ -134,10 +134,10 @@ def createUser(authed, authMessage):
 		try:
 			auth.createUser(username, fullName, password, canChangeSettings, canWritePosts)
 		except ValueError:
-			return json.dumps({error: 2}), 400
-		return json.dumps({error: 0})
+			return json.dumps({"error": 2}), 400
+		return json.dumps({"error": 0})
 	else:
-		return json.dumps({error: 1}), 403
+		return json.dumps({"error": 1}), 403
 
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
