@@ -2,6 +2,7 @@ import bcrypt
 import os
 import binascii
 import datetime
+import sqlalchemy
 from . import database
 from . import configmanager
 
@@ -17,37 +18,28 @@ CAN_CHANGE_SETTINGS_PERMISSION = "can_change_settings"
 CAN_POST_PERMISSION = "can_write_posts"
 
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
-	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
 	passwordHash = bcrypt.hashpw(passwordAsBytes, 
 		bcrypt.gensalt(rounds = BCRYPT_ROUNDS))
 	passwordHash = passwordHash.decode("utf-8")
 	databaseConnection = database.ConnectionManager.getMainConnection()
-	query = (databaseConnection.session
-		.query(database.tables.User)
-		.filter(database.tables.User.username == username))
+	userObject = database.tables.User(
+		username = username,
+		full_name = full_name,
+		password = passwordHash,
+		can_change_settings = can_change_settings,
+		can_write_posts = can_write_posts)
 
-	if query.count() == 0:
-		userObject = database.tables.User(
-			username = username,
-			full_name = full_name,
-			password = passwordHash,
-			can_change_settings = can_change_settings,
-			can_write_posts = can_write_posts)
-
-		databaseConnection.session.add(userObject)
-		databaseConnection.session.commit()
-	else:
-		raise ValueError("Username is not unique.")
+	databaseConnection.session.add(userObject)
+	databaseConnection.session.commit()
 
 def validateUser(username, password):
-	username = username.lower()
 	passwordAsBytes = bytes(password, "utf-8")
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.User)
-		.filter(database.tables.User.username == username))
-
+		.filter(sqlalchemy.func.lower(database.tables.User.username) 
+			== username.lower()))
 	if query.count() > 0:
 		userObject = query.first()
 		userPassword = bytes(userObject.password,"utf-8")
@@ -60,7 +52,7 @@ def userHasPermission(username, permissionName):
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.User)
-		.filter(database.tables.User.username == username))
+		.filter(sqlalchemy.func.lower(database.tables.User.username) == username.lower()))
 
 	if query.count() > 0:
 		userObj = query.first()
@@ -74,11 +66,11 @@ def generateSessionId():
 def createSession(username, sessionId = None):
 	if sessionId == None:
 		sessionId = generateSessionId()
-	username = username.lower()
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.User)
-		.filter(database.tables.User.username == username))
+		.filter(sqlalchemy.func.lower(database.tables.User.username)
+			== username.lower()))
 
 	if query.count() > 0:
 		userObject = query.first()
