@@ -14,6 +14,10 @@ class User(Base):
 	can_change_settings = sqlalchemy.Column(sqlalchemy.Boolean)
 	can_write_posts = sqlalchemy.Column(sqlalchemy.Boolean)
 
+	__table_args__ = (
+		sqlalchemy.schema.Index("username_unique", sqlalchemy.func.lower(username), unique = True),
+	)
+
 
 class Post(Base):
 	__tablename__ = "posts"
