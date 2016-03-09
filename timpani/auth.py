@@ -30,7 +30,8 @@ def getUserByUsername(username):
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	query = (databaseConnection.session
 		.query(database.tables.User)
-		.filter(database.tables.User.username == username))
+		.filter(sqlalchemy.func.lower(database.tables.User.username)
+			== username.lower()))
 	return query.first()
 
 #Returns list of user objects.
