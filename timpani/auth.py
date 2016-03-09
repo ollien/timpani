@@ -57,6 +57,8 @@ def createUser(username, full_name, password, can_change_settings, can_write_pos
 	databaseConnection.session.add(userObject)
 	databaseConnection.session.commit()
 
+	return userObject
+
 def validateUser(username, password):
 	passwordAsBytes = bytes(password, "utf-8")
 	databaseConnection = database.ConnectionManager.getMainConnection()
