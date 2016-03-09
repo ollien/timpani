@@ -145,7 +145,7 @@ Modal.prototype.hide = function() {
 	if (!event.defaultPrevented) {
 		this.element.classList.remove("active");
 		this.overlay.addEventListener("transitionend", function(event) {
-			this.element.parentNode.removeChild(this);
+			this.parentNode.removeChild(this);
 		});
 		this.overlay.classList.remove("active");
 	}
