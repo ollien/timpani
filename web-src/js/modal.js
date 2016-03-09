@@ -89,7 +89,7 @@ function Modal(element, config) {
 						//Legacy support for IE and the likes
 						catch (e) {
 							mainEvent = document.createEvent("event");
-							mainEvent.initEvent("nevative-pressed", false, true);
+							mainEvent.initEvent("negative-pressed", false, true);
 						}
 					}
 
@@ -145,7 +145,7 @@ Modal.prototype.hide = function() {
 	if (!event.defaultPrevented) {
 		this.element.classList.remove("active");
 		this.overlay.addEventListener("transitionend", function(event) {
-			this.parentNode.removeChild(this);
+			this.element.parentNode.removeChild(this);
 		});
 		this.overlay.classList.remove("active");
 	}
