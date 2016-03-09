@@ -89,7 +89,7 @@ function Modal(element, config) {
 						//Legacy support for IE and the likes
 						catch (e) {
 							mainEvent = document.createEvent("event");
-							mainEvent.initEvent("nevative-pressed", false, true);
+							mainEvent.initEvent("negative-pressed", false, true);
 						}
 					}
 
