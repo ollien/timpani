@@ -62,5 +62,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 	});
 
+	addUserModal.element.addEventListener("hide", function(event){
+			usernameInput.value = "";
+			fullNameInput.value = "";
+			passwordInput = "";
+			confirmPasswordInput = "";
+			canChangeSettingsCheckbox = "";
+			canWritePostsCheckbox = "";
+	});
 
 });
