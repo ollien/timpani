@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserModal = new Modal(addUserModalElement);
 	addUserModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var addUserButton = document.getElementById("add-user-button");
+	var usersList = document.getElementById("users-list");
 	//Inputs for add user modal
 	var usernameInput = document.getElementById("username-input");
 	var fullNameInput = document.getElementById("full-name-input");
@@ -38,8 +39,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			var res = JSON.parse(request.responseText);
 			addUserModal.positiveButton.classList.remove("working");
 			if (res.error === 0) {
-				//TODO: Add new user to list
-				addUserModal.hide();	
+				var user_id = res.user_id;
+				var li = document.createElement("li");
+				li.setAttribute("user_id", user_id);
+				li.classList.add("user");
+				var usernameSpan = document.createElement("span");
+				usernameSpan.classList.add("usenrame");
+				usernameSpan.textContent = usernameInput.value;
+				li.appendChild(usernameSpan);
+				//TODO: Animate this
+				usersList.appendChild(li);
+				addUserModal.hide();
 			}
 			else if (res.error === 1) {
 				window.location = "/login";

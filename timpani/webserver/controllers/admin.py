@@ -131,11 +131,12 @@ def createUser(authed, authMessage):
 		if ("can_write_posts" in flask.request.form
 			and flask.request.form["can_write_posts"][1] == "on"):
 			canWritePosts = True
+		user = None
 		try:
-			auth.createUser(username, fullName, password, canChangeSettings, canWritePosts)
+			user = auth.createUser(username, fullName, password, canChangeSettings, canWritePosts)
 		except ValueError:
 			return json.dumps({"error": 2}), 400
-		return json.dumps({"error": 0})
+		return json.dumps({"error": 0, "user_id": user.id})
 	else:
 		return json.dumps({"error": 1}), 403
 
