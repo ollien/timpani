@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if (canChangeSettingsCheckbox.checked) {
 			formData.append(canChangeSettingsCheckbox.getAttribute("name"), "on");
 		}
-		if (canWritePostsCheckbox.chceked) { 
+		if (canWritePostsCheckbox.checked) {
 			formData.append(canWritePostsCheckbox.getAttribute("name"), "on");
 		}
 
