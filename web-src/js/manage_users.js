@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	addUserModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var addUserButton = document.getElementById("add-user-button");
 	var usersList = document.getElementById("users-list");
+	var createUserForm = document.getElementById("create-user-form");
 	//Inputs for add user modal
 	var usernameInput = document.getElementById("username-input");
 	var fullNameInput = document.getElementById("full-name-input");
@@ -19,8 +20,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		addUserModal.show();
 	});
 
-	addUserModal.element.addEventListener("positive-pressed", function(event) {
+	createUserForm.addEventListener("submit", function(event) {
 		event.preventDefault();
+		event.stopPropagation();
 		addUserModal.positiveButton.classList.add("working");
 		var formData = new FormData();
 		formData.append(usernameInput.getAttribute("name"), usernameInput.value);
@@ -59,7 +61,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			}
 		});
 		request.send(formData);
-		
+	});
+
+	addUserModal.element.addEventListener("positive-pressed", function(event) {
+		event.preventDefault();
+		//Through I would normally use createUserForm.submit(), this doesn't fire the "submit" event.
+		createUserForm.dispatchEvent(new Event("submit"));
 	});
 
 	addUserModal.element.addEventListener("hide", function(event){
