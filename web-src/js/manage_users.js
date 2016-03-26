@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	createUserForm.addEventListener("invalid", function(event){
-		fakeCreateSubmitButton.click();
+		console.log("invalid");
 	});
 
 	createUserForm.addEventListener("submit", function(event) {
@@ -63,10 +63,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				window.location = "/login";
 			}
 			else if (res.error === 2){
-				//TODO: Display error
+				usernameInput.setCustomValidity("Username already in use!");
+				fakeCreateSubmitButton.click();
 			}
 		});
 		request.send(formData);
+	});
+	
+	usernameInput.setCustomValidity("input", function(event){
+		this.setCustomValidity("");	
 	});
 
 	passwordInput.addEventListener("input", function(event){
@@ -93,6 +98,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		createUserForm.reset();
 		passwordInput.setCustomValidity("");
 		confirmPasswordInput.setCustomValidity("");
+		usernameInput.setCustomValidity("");
 	});
 
 });
