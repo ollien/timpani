@@ -3,6 +3,9 @@
 #add-user-modal {
 	width: 350px;
 	div.modal-body {
+		form > button {
+			display: none;		
+		}
 		div.checkbox, input[type="text"], input[type="password"] {
 			display: block;	
 			margin-bottom: 15px;

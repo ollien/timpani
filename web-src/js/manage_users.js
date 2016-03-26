@@ -1,5 +1,7 @@
 /*jshint eqnull: true, eqeqeq: true */
 
+var PASSWORDS_DO_NOT_MATCH = "Passwords do not match.";
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserModalElement = document.getElementById("add-user-modal");
 	var addUserModal = new Modal(addUserModalElement);
@@ -7,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserButton = document.getElementById("add-user-button");
 	var usersList = document.getElementById("users-list");
 	var createUserForm = document.getElementById("create-user-form");
+	var fakeCreateSubmitButton = createUserForm.querySelector("button");
 	//Inputs for add user modal
 	var usernameInput = document.getElementById("username-input");
 	var fullNameInput = document.getElementById("full-name-input");
@@ -20,10 +23,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		addUserModal.show();
 	});
 
+	createUserForm.addEventListener("invalid", function(event){
+		fakeCreateSubmitButton.click();
+	});
+
 	createUserForm.addEventListener("submit", function(event) {
-		event.preventDefault();
-		event.stopPropagation();
 		addUserModal.positiveButton.classList.add("working");
+		event.preventDefault();
+		createUserForm.checkValidity();
 		var formData = new FormData();
 		formData.append(usernameInput.getAttribute("name"), usernameInput.value);
 		formData.append(fullNameInput.getAttribute("name"), fullNameInput.value);
@@ -34,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if (canWritePostsCheckbox.checked) {
 			formData.append(canWritePostsCheckbox.getAttribute("name"), "on");
 		}
-
 		var request = new XMLHttpRequest();
 		request.open("POST", "/create_user");
 		request.addEventListener("load", function(event) {
@@ -63,10 +69,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		request.send(formData);
 	});
 
+	passwordInput.addEventListener("input", function(event){
+		this.setCustomValidity("");
+		if (this.value !== confirmPasswordInput.value) {
+			this.setCustomValidity(PASSWORDS_DO_NOT_MATCH);
+		}
+	});
+
+	confirmPasswordInput.addEventListener("input", function(event){
+		passwordInput.setCustomValidity("");
+		if (passwordInput.value !== this.value){
+			passwordInput.setCustomValidity(PASSWORDS_DO_NOT_MATCH);
+		}
+	});
+
 	addUserModal.element.addEventListener("positive-pressed", function(event) {
 		event.preventDefault();
 		//Through I would normally use createUserForm.submit(), this doesn't fire the "submit" event.
-		createUserForm.dispatchEvent(new Event("submit"));
+		fakeCreateSubmitButton.click();
 	});
 
 	addUserModal.element.addEventListener("hide", function(event){
