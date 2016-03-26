@@ -90,12 +90,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	addUserModal.element.addEventListener("hide", function(event){
-			usernameInput.value = "";
-			fullNameInput.value = "";
-			passwordInput.value = "";
-			confirmPasswordInput.value = "";
-			canChangeSettingsCheckbox.checked = false;
-			canWritePostsCheckbox.checked = false;
+		createUserForm.reset();
+		passwordInput.setCustomValidity("");
+		confirmPasswordInput.setCustomValidity("");
 	});
 
 });
