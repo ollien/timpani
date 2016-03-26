@@ -5,6 +5,7 @@ import json
 import uuid
 import magic
 import mimetypes
+from sqlalchemy.exc import IntegrityError
 from .. import webhelpers
 from ... import blog
 from ... import auth
@@ -134,7 +135,7 @@ def createUser(authed, authMessage):
 		user = None
 		try:
 			user = auth.createUser(username, fullName, password, canChangeSettings, canWritePosts)
-		except ValueError:
+		except IntegrityError:
 			return json.dumps({"error": 2}), 400
 		return json.dumps({"error": 0, "user_id": user.id})
 	else:
