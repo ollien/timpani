@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		request.send(formData);
 	});
 	
-	usernameInput.setCustomValidity("input", function(event){
+	usernameInput.addEventListener("input", function(event){
 		this.setCustomValidity("");	
 	});
 
