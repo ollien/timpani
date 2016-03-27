@@ -8,6 +8,7 @@ var uglify = require("gulp-uglify");
 var plumber = require("gulp-plumber");
 var glob = require("glob");
 var path = require("path");
+var colors = require("colors");
 
 var SASS_SRC = "./web-src/scss/*.scss";
 var SASS_DEST = "./static/css";
@@ -21,9 +22,17 @@ files.forEach(function(file){
 	require(path.resolve(file)); //We don't have to store this, beacuse we just need its code to execute.
 });
 
+function customErrorHandler(error) {
+	console.log("\u0007");
+	console.log("Error".red + " details:");
+	console.log(error.stack);
+}
+
 gulp.task("sass", function() {
 	return gulp.src(SASS_SRC)
-		.pipe(plumber())
+		.pipe(plumber({
+			errorHandler: customErrorHandler	
+		}))
 		.pipe(sass().on("error", sass.logError))
 		.pipe(autoPrefixer({
 			browsers: [
@@ -37,7 +46,9 @@ gulp.task("sass", function() {
 
 gulp.task("js", function() {
 	return gulp.src(JS_SRC)
-		.pipe(plumber())
+		.pipe(plumber({
+			errorHandler: customErrorHandler 
+		}))
 		.pipe(jshint())
 		.pipe(jshint.reporter(stylishJshint))
 		.pipe(jshint.reporter("fail"))
