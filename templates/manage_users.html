@@ -3,6 +3,7 @@
 <head>
 	<title>Manage Users - Timpani</title>
 	<link href="/static/libs/pure/pure-min.css" rel="stylesheet">
+	<link href="/static/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/static/css/manage_users.css" rel="stylesheet">
 	<script src="/static/js/modal.js"></script>
 	<script src="/static/js/manage_users.js"></script>
@@ -15,6 +16,7 @@
 		{% for user in userList %}
 			<li user_id="{{user.id}}" class="user">
 				<span class="username">{{user.username}}</span>
+				<span class="user-info-button fa fa-info-circle"></span>
 			</li>
 		{% endfor %}
 	</ul>

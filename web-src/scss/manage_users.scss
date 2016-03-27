@@ -2,9 +2,15 @@
 
 li.user {
 	$fade-time: 100ms;
+	$font-size: 15pt;
 	opacity: 1;
 	transition-property: opacity, visibility;
 	transition-duration: $fade-time;
+	font-size: $font-size;
+
+	span.user-info-button:hover {
+		color: #297AD4;	
+	}
 }
 
 li.user.fading {
