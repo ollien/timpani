@@ -1,5 +1,16 @@
 @import "base";
 
+li.user {
+	$fade-time: 100ms;
+	opacity: 1;
+	transition-property: opacity, visibility;
+	transition-duration: $fade-time;
+}
+
+li.user.fading {
+	opacity: 0;
+}
+
 #add-user-modal {
 	width: 350px;
 	div.modal-body {

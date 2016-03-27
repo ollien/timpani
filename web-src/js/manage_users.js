@@ -52,11 +52,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				li.setAttribute("user_id", user_id);
 				li.classList.add("user");
 				var usernameSpan = document.createElement("span");
-				usernameSpan.classList.add("usenrame");
+				usernameSpan.classList.add("username");
 				usernameSpan.textContent = usernameInput.value;
 				li.appendChild(usernameSpan);
-				//TODO: Animate this
+				li.classList.add("fading");
 				usersList.appendChild(li);
+				li.classList.remove("fading");
 				addUserModal.hide();
 			}
 			else if (res.error === 1) {
