@@ -4,12 +4,16 @@ var PASSWORDS_DO_NOT_MATCH = "Passwords do not match.";
 
 document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserModalElement = document.getElementById("add-user-modal");
+	var userInfoModalElement = document.getElementById("user-info-modal");
 	var addUserModal = new Modal(addUserModalElement);
 	addUserModal.positiveButton = addUserModal.element.querySelector("button.positive");
+	var userInfoModal = new Modal(userInfoModalElement);
+	userInfoModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var addUserButton = document.getElementById("add-user-button");
 	var usersList = document.getElementById("users-list");
 	var createUserForm = document.getElementById("create-user-form");
 	var fakeCreateSubmitButton = createUserForm.querySelector("button");
+	var userInfoButtons = document.querySelectorAll(".user-info-button");
 	//Inputs for add user modal
 	var usernameInput = document.getElementById("username-input");
 	var fullNameInput = document.getElementById("full-name-input");
@@ -54,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				li.classList.add("fading");
 				usersList.appendChild(li);
 				li.classList.remove("fading");
+				//TODO: Add info button when added.
 				addUserModal.hide();
 			}
 			else if (res.error === 1) {
@@ -96,6 +101,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		passwordInput.setCustomValidity("");
 		confirmPasswordInput.setCustomValidity("");
 		usernameInput.setCustomValidity("");
+	});
+
+	Array.prototype.slice.call(userInfoButtons).forEach(function(button) {
+		button.addEventListener("click", function(event){
+			userInfoModal.show();
+		});
 	});
 
 });
