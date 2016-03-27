@@ -23,10 +23,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		addUserModal.show();
 	});
 
-	createUserForm.addEventListener("invalid", function(event){
-		console.log("invalid");
-	});
-
 	createUserForm.addEventListener("submit", function(event) {
 		addUserModal.positiveButton.classList.add("working");
 		event.preventDefault();
