@@ -88,7 +88,7 @@ def userHasPermission(username, permissionName):
 def deleteUser(user):
 	#user must be a user object
 	if type(user) != database.tables.User:
-		raise TypeError("user must be of type User, not %s" % type(user).__name__)
+		raise TypeError("user must be of type User, not {}".format(type(user).__name__))
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	databaseConnection.session.delete(user)
 	databaseConnection.session.commit()
