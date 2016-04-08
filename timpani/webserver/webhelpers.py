@@ -51,13 +51,13 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 				else:
 					#We don't want to flash on thigns like ajax routes, so we use redirectPage != None
 					willFlash = redirectPage != None
-					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, willFlash)
+					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, willFlash, function, *args, **kwargs)
 			else:
-				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False)	
+				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False, function, *args, **kwargs)
 		return functools.update_wrapper(decorated, function)
 	return decorator
 
-def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
+def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash, function, *args, **kwargs):
 	if flash:
 		flask.flash(redirectMessage)
 	if redirectPage != None:
