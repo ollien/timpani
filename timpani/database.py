@@ -23,9 +23,9 @@ class ConnectionManager():
 				ConnectionManager._connections[connectionName] = connection
 				return connectionName
 			else:
-				raise ValueError("connection must be of type str, not %s", type(connection))
+				raise ValueError("connection must be of type str, not {}".format(type(connection)))
 		else:
-			raise ValueError("connectionName must be of type str, not %s", type(connectionName))
+			raise ValueError("connectionName must be of type str, not {}".format(type(connectionName)))
 	
 	@staticmethod
 	def getConnection(connectionName):
@@ -50,7 +50,7 @@ class ConnectionManager():
 			else:
 				raise ValueError("connectionName does not exist, or is already closed.")
 		else:
-			raise ValueError("connectionName must be of type str, not %s", type(name))
+			raise ValueError("connectionName must be of type str, not {}".format(type(name)))
 
 class DatabaseConnection():
 	def __init__(self, connectionString = config["connection_string"], createTables = True):

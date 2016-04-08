@@ -234,7 +234,7 @@ def deletePost(post, connection = None):
 		post = getPostById(post, tags = False)
 
 	if type(post) != database.tables.Post:
-		raise ValueError("post must be of type int or Post, not %s" % type(post))
+		raise ValueError("post must be of type int or Post, not {}".format(type(post)))
 			
 	connection.session.delete(post)	
 	connection.session.commit()

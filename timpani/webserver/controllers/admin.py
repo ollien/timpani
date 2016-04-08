@@ -132,7 +132,7 @@ def uploadImage(authed, authMessage):
 
 		if mime in ACCEPTED_FORMATS:
 			extension = mimetypes.guess_extension(mime)
-			fileName = "%s%s" % (uuid.uuid4().hex, extension)
+			fileName = "{}{}".format(uuid.uuid4().hex, extension)
 			image.save(os.path.join(UPLOAD_LOCATION, fileName))
 			return json.dumps({
 				"error": 0, 
