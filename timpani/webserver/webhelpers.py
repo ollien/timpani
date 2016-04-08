@@ -53,7 +53,6 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 					willFlash = redirectPage != None
 					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, willFlash)
 			else:
-				print("no session..")
 				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False)	
 		return functools.update_wrapper(decorated, function)
 	return decorator
@@ -67,7 +66,6 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
 		else:
 			return redirectAndSave(redirectPage)
 	else:
-		print("no redirect page");
 		return function(authed = False, authMessage = redirectMessage, *args, **kwargs)
 
 #Will return all information that is needed to render a post.
