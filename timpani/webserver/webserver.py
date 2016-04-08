@@ -20,5 +20,6 @@ app.register_blueprint(controllers.admin.blueprint)
 
 @app.teardown_request
 def teardown_request(exception = None):
+	print(flask.session)
 	databaseConnection = database.ConnectionManager.getMainConnection()
 	databaseConnection.session.close()
