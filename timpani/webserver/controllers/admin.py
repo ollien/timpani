@@ -116,7 +116,7 @@ def manageUsers():
 			userList = auth.getAllUsers(),
 			user = webhelpers.checkForSession().user)
 
-#Returns a JSON Object based on whether or not 
+#Returns a JSON Object based on whether or not user is logged in and if creation was succuessful.
 @blueprint.route("/create_user", methods = ["POST"])
 @webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
 def createUser(authed, authMessage):
