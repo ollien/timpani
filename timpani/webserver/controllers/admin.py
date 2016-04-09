@@ -109,7 +109,7 @@ def settingsPage():
 
 @blueprint.route("/manage_users", methods = ["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage",
-	requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+	requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION, saveRedirect = False)
 def manageUsers():
 	if flask.request.method == "GET":
 		return flask.render_template("manage_users.html",
@@ -118,7 +118,8 @@ def manageUsers():
 
 #Returns a JSON Object based on whether or not user is logged in and if creation was succuessful.
 @blueprint.route("/create_user", methods = ["POST"])
-@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION,
+	saveRedirect = False)
 def createUser(authed, authMessage):
 	if authed:
 		username = flask.request.form["username"]	
