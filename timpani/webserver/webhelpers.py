@@ -18,12 +18,6 @@ def redirectAndSave(path):
 	flask.session["donePage"] = urllib.parse.urlparse(flask.request.url).path
 	return flask.redirect(path)
 
-def markRedirectAsRecovered():
-	if "donePage" in flask.session:
-		del flask.session["donePage"]
-	else:
-		raise KeyError("No redirect to be recovered from.")
-		
 def canRecoverFromRedirect():
 	if "donePage" in flask.session:
 		return flask.session["donePage"]
@@ -57,18 +51,17 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
 				else:
 					#We don't want to flash on thigns like ajax routes, so we use redirectPage != None
 					willFlash = redirectPage != None
-					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, willFlash)
+					return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, willFlash, function, *args, **kwargs)
 			else:
-				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False)	
+				return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False, function, *args, **kwargs)
 		return functools.update_wrapper(decorated, function)
 	return decorator
 
-def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash):
+def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash, function, *args, **kwargs):
 	if flash:
 		flask.flash(redirectMessage)
 	if redirectPage != None:
-		#We don't want to save the redirect if either the user page doesn't need it or there's one already saved
-		if canRecoverFromRedirect() or not saveRedirect:
+		if not saveRedirect:
 			return flask.redirect(redirectPage)
 		else:
 			return redirectAndSave(redirectPage)
