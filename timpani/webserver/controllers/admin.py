@@ -142,6 +142,24 @@ def createUser(authed, authMessage):
 	else:
 		return json.dumps({"error": 1}), 403
 
+#Returns a JSON object based on whether or not user is logged in and if a user is found.
+#Object contains user information
+@blueprint.route("/get_user_info/<int:userId>")
+@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+def getUserInfo(userId, authed, authMessage):
+	if authed:
+		user = auth.getUserById(userId)
+		if user is None:
+			return json.dumps({"error": 2})
+		userInfo = {"username": user.username,
+			"full_name": user.full_name,
+			"can_change_settings": user.can_change_settings,
+			"can_write_posts": user.can_write_posts}
+
+		return json.dumps({"error": 0, "info": userInfo})
+	else:
+		return json.dumps({"error": 1}), 403
+
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
 @webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION,
