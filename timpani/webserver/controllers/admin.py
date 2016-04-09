@@ -108,7 +108,8 @@ def settingsPage():
 
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
-@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION)
+@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION,
+	saveRedirect = False)
 def deletePost(postId, authed, authMessage):
 	if authed:
 		blog.deletePost(postId)
@@ -119,7 +120,8 @@ def deletePost(postId, authed, authMessage):
 #Returns a JSON Object based on whether or not the user is logged in, 
 #or if it's an invalid file type.
 @blueprint.route("/upload_image", methods = ["POST"])
-@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION)
+@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION,
+	saveRedirect = False)
 def uploadImage(authed, authMessage):
 	ACCEPTED_FORMATS = ["image/jpeg", "image/png", "image/gif"]
 	if authed:
