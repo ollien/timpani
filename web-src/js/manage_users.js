@@ -21,6 +21,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var confirmPasswordInput = document.getElementById("confirm-password-input");
 	var canChangeSettingsCheckbox = document.getElementById("can-change-settings-checkbox");
 	var canWritePostsCheckbox = document.getElementById("can-write-posts-checkbox");
+	//Spans for user info modal
+	var usernameDisplay = document.getElementById("username-display");
+	var fullNameDisplay = document.getElementById("full-name-display");
+	var permissionDisplayList = document.getElementById("permission-info");
+	var canChangeSettingsDisplay = document.getElementById("can-change-settings");
+	var canWritePostsDisplay = document.getElementById("can-write-posts");
 
 
 	addUserButton.addEventListener("click", function(event) {
@@ -106,6 +112,23 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	Array.prototype.slice.call(userInfoButtons).forEach(function(button) {
 		button.addEventListener("click", function(event){
 			userInfoModal.show();
+			console.log("running");
+			var userId = this.parentNode.getAttribute("user_id");
+			var request = new XMLHttpRequest();
+			request.open("GET", "/get_user_info/" + userId);
+			request.addEventListener("load", function(event){
+				var res = JSON.parse(request.responseText);
+				if (res.error === 0) {
+					usernameDisplay.textContent = res.info.username;
+					fullNameDisplay.textContent = res.info.full_name;
+					canChangeSettingsDisplay.style.display = res.info.can_change_settings ? "" : "none";
+					canWritePostsDisplay.style.display = res.info.can_change_settings ? "" : "none";
+				}
+				else if (res.error === 1){
+					window.location = "/login";	
+				}
+			});
+			request.send();
 		});
 	});
 
