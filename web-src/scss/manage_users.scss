@@ -30,3 +30,21 @@ li.user.fading {
 		}
 	}
 }
+
+#user-info-modal {
+	min-width: 350px;
+	h5 {
+		$vertical-margin: 5px;
+		margin-top: $vertical-margin * 2;
+		margin-bottom: $vertical-margin;
+	}
+	#permissions-display {
+		margin: 0;
+		padding-left: 0;
+
+		li.permission {
+			list-style: none;
+			padding-left: 0px;
+		}
+	}
+}
