@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var permissionDisplayList = document.getElementById("permission-info");
 	var canChangeSettingsDisplay = document.getElementById("can-change-settings");
 	var canWritePostsDisplay = document.getElementById("can-write-posts");
+	var noPermissions = document.getElementById("no-permissions");
 
 
 	addUserButton.addEventListener("click", function(event) {
@@ -112,7 +113,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	Array.prototype.slice.call(userInfoButtons).forEach(function(button) {
 		button.addEventListener("click", function(event){
 			userInfoModal.show();
-			console.log("running");
 			var userId = this.parentNode.getAttribute("user_id");
 			var request = new XMLHttpRequest();
 			request.open("GET", "/get_user_info/" + userId);
@@ -121,8 +121,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				if (res.error === 0) {
 					usernameDisplay.textContent = res.info.username;
 					fullNameDisplay.textContent = res.info.full_name;
-					canChangeSettingsDisplay.style.display = res.info.can_change_settings ? "" : "none";
-					canWritePostsDisplay.style.display = res.info.can_change_settings ? "" : "none";
+					if (res.info.permissions.length === 0) {
+						noPermissions.style.display = "";
+						permissionDisplayList.style.display = "none";
+					}
+					else {
+						noPermissions.style.display = "none";
+						permissionDisplayList.style.display = "";
+						canChangeSettingsDisplay.style.display = res.info.permissions.indexOf("can_write_posts") > -1 ? "" : "none";
+						canWritePostsDisplay.style.display = res.info.permissions.indexOf("can_change_settings") > -1 ? "" : "none";
+					}
 				}
 				else if (res.error === 1){
 					window.location = "/login";	

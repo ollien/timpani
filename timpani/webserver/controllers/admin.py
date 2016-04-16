@@ -151,11 +151,17 @@ def getUserInfo(userId, authed, authMessage):
 		user = auth.getUserById(userId)
 		if user is None:
 			return json.dumps({"error": 2})
-		userInfo = {"username": user.username,
-			"full_name": user.full_name,
-			"can_change_settings": user.can_change_settings,
-			"can_write_posts": user.can_write_posts}
+		userPermissions = []
+		if user.can_change_settings:
+			userPermissions.append(auth.CAN_CHANGE_SETTINGS_PERMISSION)
+		if user.can_write_posts:
+			userPermissions.append(auth.CAN_POST_PERMISSION)
 
+		userInfo = {
+			"username": user.username,
+			"full_name": user.full_name,
+			"permissions" : userPermissions
+		}
 		return json.dumps({"error": 0, "info": userInfo})
 	else:
 		return json.dumps({"error": 1}), 403
