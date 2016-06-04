@@ -109,7 +109,7 @@ def settingsPage():
 
 @blueprint.route("/manage_users", methods = ["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage",
-	requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION, saveRedirect = False)
+	requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
 def manageUsers():
 	if flask.request.method == "GET":
 		return flask.render_template("manage_users.html",
