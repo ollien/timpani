@@ -20,5 +20,5 @@ app.register_blueprint(controllers.admin.blueprint)
 
 @app.teardown_request
 def teardown_request(exception = None):
-	databaseConnection = database.ConnectionManager.getMainConnection()
-	databaseConnection.session.close()
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    databaseConnection.session.close()
