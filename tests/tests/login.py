@@ -7,33 +7,33 @@ LOGIN_TITLE = "Login - Timpani"
 MANAGE_TITLE = "Manage Blog - Timpani"
 
 def test(driver, username, password):
-	driver.get("http://127.0.0.1:8080/login")
+    driver.get("http://127.0.0.1:8080/login")
 
-	(WebDriverWait(driver, 10)
-		.until(expected_conditions.title_contains("Timpani")))
-	
-	assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
+    (WebDriverWait(driver, 10)
+        .until(expected_conditions.title_contains("Timpani")))
+    
+    assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
 
-	loginForm = driver.find_element_by_id("login-form")
-	usernameField = driver.find_element_by_id("username-field")
-	passwordField = driver.find_element_by_id("password-field")
-	usernameField.send_keys("." if username != "." else ",")
-	passwordField.send_keys("." if password != "." else ",")
-	loginForm.submit()
+    loginForm = driver.find_element_by_id("login-form")
+    usernameField = driver.find_element_by_id("username-field")
+    passwordField = driver.find_element_by_id("password-field")
+    usernameField.send_keys("." if username != "." else ",")
+    passwordField.send_keys("." if password != "." else ",")
+    loginForm.submit()
 
-	#Will throw a timeout exception if the page doesn't load.
-	#or if it can't find the element.
-	(WebDriverWait(driver, 10)
-		.until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, "div.error"))))
+    #Will throw a timeout exception if the page doesn't load.
+    #or if it can't find the element.
+    (WebDriverWait(driver, 10)
+        .until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, "div.error"))))
 
-	loginForm = driver.find_element_by_id("login-form")
-	usernameField = driver.find_element_by_id("username-field")
-	passwordField = driver.find_element_by_id("password-field")
-	usernameField.send_keys(username)
-	passwordField.send_keys(password)
-	loginForm.submit()
+    loginForm = driver.find_element_by_id("login-form")
+    usernameField = driver.find_element_by_id("username-field")
+    passwordField = driver.find_element_by_id("password-field")
+    usernameField.send_keys(username)
+    passwordField.send_keys(password)
+    loginForm.submit()
 
-	(WebDriverWait(driver, 10)
-		.until_not(expected_conditions.title_is(LOGIN_TITLE)))
+    (WebDriverWait(driver, 10)
+        .until_not(expected_conditions.title_is(LOGIN_TITLE)))
 
-	assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
+    assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
