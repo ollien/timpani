@@ -62,9 +62,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				usernameSpan.classList.add("username");
 				usernameSpan.textContent = usernameInput.value;
 				li.appendChild(usernameSpan);
-				li.classList.add("fading");
+				li.style.opacity = 0;
 				usersList.appendChild(li);
-				li.classList.remove("fading");
+				//Fixes race condition where element wouldn't fade
+				//Needs to be set to a variable so jshint doesn't complain about an expression.
+				var opacity = window.getComputedStyle(li).opacity;
+				li.style.opacity = 1;
 				//TODO: Add info button when added.
 				addUserModal.hide();
 			}
