@@ -28,11 +28,11 @@ class ConfigManager():
             self._syncCache()
             return self._configs[key]
 
-    #Recursive function to get all files. Sub is the relative path from the root config dir.	
+    #Recursive function to get all files. Sub is the relative path from the root config dir.
     def getConfigs(self, path = None, sub = "", overrideCache = False):
         if path == None:
             path = self.configPath
-        files = os.listdir(path)	
+        files = os.listdir(path)
         for item in files:
             #Ignore hidden files.
             if item[0] == ".":
@@ -54,17 +54,17 @@ class ConfigManager():
                 f.close()
                 if parsed != None:
                     self.addConfig(finalName, parsed)
-    #Returns parsed JSON if config is valid JSON, otherwise, return Noen	
+    #Returns parsed JSON if config is valid JSON, otherwise, return Noen
     def parseConfig(self, config):
         try:
             return json.loads(config)
         except ValueError:
             return None
-    
+
     def addConfig(self, name, contents):
         self._configs[name] = contents
         self._cache[name] = contents
-    
+
     def _syncCache(self):
         unmatchedKeys = [key for key in self._cache.keys() if key not in self._configs]
         for key in unmatchedKeys:

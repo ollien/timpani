@@ -11,7 +11,7 @@ div#form-bounding {
 	width: 100%;
 
 	div#main-wrapper {
-		display: table-cell; 
+		display: table-cell;
 		text-align: center;
 		vertical-align: middle;
 		height: 100%;
@@ -29,7 +29,7 @@ form#post-form {
 	$vertical-margin: 20px;
 
 	input#title-input {
-		margin-bottom: $vertical-margin;	
+		margin-bottom: $vertical-margin;
 		width: 95%;
 		font-size: 15pt;
 	}
@@ -60,12 +60,12 @@ form#post-form {
 		}
 	}
 
-	div#editor.focused { 
+	div#editor.focused {
 		border-color: #129FEA;
 	}
 
 	input#placeholder-tags-input {
-		display: none;	
+		display: none;
 	}
 
 	span#align {
@@ -79,12 +79,12 @@ form#post-form {
 			height: 100% !important;
 
 			li.pure-menu-item {
-				height: 100%; 
+				height: 100%;
 				width: 100%;
 
 				a.pure-menu-link#align-text {
 					position: relative;
-					padding: 0;	
+					padding: 0;
 					top: 7px;
 				}
 
@@ -97,23 +97,23 @@ form#post-form {
 					border: $border;
 					position: relative;
 					top: 14px;
-					
+
 					li.pure-menu-item {
 						$vertical-padding: 1px;
 						width: 100%;
-						display: block;	
+						display: block;
 						text-align: center;
 						border-top: $border;
 						border-bottom: $border;
 						padding-top: $vertical-padding;
 						padding-bottom: $vertical-padding;
 						a {
-							margin: 0;	
+							margin: 0;
 						}
-					}	
+					}
 
 					li.pure-menu-item:hover {
-						background-color: #ddd;	
+						background-color: #ddd;
 					}
 				}
 			}
@@ -121,7 +121,7 @@ form#post-form {
 	}
 
 	select.ql-font, select.ql-size {
-		height: 32px;	
+		height: 32px;
 	}
 
 	div#tag-input-div {
@@ -152,7 +152,7 @@ form#post-form {
 
 		.nsg-tag.faded {
 			opacity: .6;
-			
+
 			.nsg-tag-remove {
 				color: #FE6570;
 			}
@@ -161,7 +161,7 @@ form#post-form {
 	}
 
 	div#tag-input-div.focused {
-		border: 1px solid #129FEA;	
+		border: 1px solid #129FEA;
 	}
 
 	input#post-validity {
@@ -173,11 +173,11 @@ form#post-form {
 	}
 
 	input#post-body {
-		display: none;	
+		display: none;
 	}
 
-	input#tags-input { 
-		border: 0px;	
+	input#tags-input {
+		border: 0px;
 		box-shadow: inset 0px 0px 0px #fff;
 		font-size: 13pt;
 		width: 100%;
@@ -214,7 +214,7 @@ div#link-modal {
 	div.modal-body {
 		width: 300px;
 		input#modal-link {
-			width: 100%;	
+			width: 100%;
 		}
 
 	}
@@ -226,22 +226,22 @@ div#image-modal{
 	div.modal-body {
 		width: 450px;
 		label {
-			display: block;	
+			display: block;
 			margin-bottom: $vertical-margin;
 		}
-		
+
 		input#image-url{
-			width: 100%;	
+			width: 100%;
 		}
 
 		div#or {
-			font-weight: 500;	
+			font-weight: 500;
 			margin-top: $vertical-margin;
-			margin-bottom: $vertical-margin; 
+			margin-bottom: $vertical-margin;
 		}
 
 		input#image-upload {
-			width: 100%;	
+			width: 100%;
 		}
 
 	}
@@ -279,7 +279,7 @@ div#image-modal{
 			border-radius: 100%;
 			opacity: $initial-opacity;
 			animation: ripple 1.25s cubic-bezier(0, 1.69, 0.7,-0.44) infinite;
-		
+
 		}
 
 		@keyframes ripple {
@@ -308,7 +308,7 @@ div#code-modal {
 		}
 
 		select#select-language{
-			margin-bottom: 10px;	
+			margin-bottom: 10px;
 		}
 
 		div#code-editor {

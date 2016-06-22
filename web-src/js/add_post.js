@@ -8,7 +8,7 @@ var INSIGNIA_OPTIONS = {
 
 function canLoadInsignia() {
 	if (window.navigator == null) {
-		return false;	
+		return false;
 	}
 
 	if (navigator.userAgent.indexOf("MSIE") > -1 && navigator.userAgent.indexOf("MSIE 11") === -1 && navigator.userAgent.indexOf("Opera") === -1) {
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	linkModal.input = document.getElementById("modal-link");
 	linkModal.errorDiv = linkModal.element.querySelector("div.modal-error");
 	linkModal.positiveButton = linkModal.element.querySelector("button.positive");
-	
+
 	var imageModalElement = document.getElementById("image-modal");
 	var imageModal = new Modal(imageModalElement);
 	imageModal.linkInput = document.getElementById("image-url");
@@ -50,43 +50,43 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	imageModal.uploadRequest = null;
 	imageModal.positiveButton = imageModal.element.querySelector("button.positive");
 	imageModal.errorDiv = imageModal.element.querySelector("div.modal-error");
-	
+
 	var codeModalElement = document.getElementById("code-modal");
 	var codeModal = new Modal(codeModalElement, {keyboard: false});
 	codeModal.selectLanguage = document.getElementById("select-language");
 	codeModal.positiveButton = codeModal.element.querySelector("button-positive");
-	
+
 	validityInput.setCustomValidity("Please fill out a post body.");
 	editor.addModule("toolbar", { container: "div#toolbar" });
 	editor.addFormat("quote", { "class": "quote" });
 	editor.addFormat("code", { "class": "language-" });
 	codeEditor.getSession().setUseWorker(false);
-	
+
 	editor.on("selection-change", function(range) {
 		if (range == null) {
 			editorDiv.classList.remove("focused");
 			quoteButton.disabled = true;
 			codeButton.disabled = false;
-		} 
+		}
 		else {
 			editorDiv.classList.add("focused");
 			if (range.end - range.start > 0) {
 				quoteButton.disabled = false;
 				codeButton.disabled = true;
-			} 
+			}
 			else {
 				quoteButton.disabled = true;
 				codeButton.disabled = false;
 			}
 		}
 	});
-	
+
 	editor.on("text-change", function() {
 		var range = editor.getSelection();
 		if (range == null || range.end - range.start === 0) {
 			quoteButton.disabled = true;
 			codeButton.disabled = false;
-		} 
+		}
 		else {
 			quoteButton.disabled = false;
 			codeButton.disabled = true;
@@ -94,25 +94,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		if (editor.getLength() <= 1) {
 			validityInput.setCustomValidity("Please fill out a post body.");
-		} 
+		}
 		else {
-			validityInput.setCustomValidity("");	
+			validityInput.setCustomValidity("");
 		}
 	});
-	
+
 	linkButton.addEventListener("click", function(event) {
 		linkModal.show();
 		linkModal.input.focus();
 	});
-	
+
 	imageButton.addEventListener("click", function(event) {
 		imageModal.show();
 	});
-	
+
 	codeButton.addEventListener("click", function(event) {
 		codeModal.show();
 	});
-	
+
 	alignLeftButton.addEventListener("click", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			editor.formatLine(selection.start, selection.end, "align", "left");
 		}
 	});
-	
+
 	alignCenterButton.addEventListener("click", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			editor.formatLine(selection.start, selection.end, "align", "center");
 		}
 	});
-	
+
 	alignRightButton.addEventListener("click", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			editor.formatLine(selection.start, selection.end, "align", "right");
 		}
 	});
-	
+
 	alignJustifyButton.addEventListener("click", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
@@ -144,17 +144,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			editor.formatText(selection.start, selection.end + 1, "align", "justify");
 		}
 	});
-	
+
 	linkModal.element.addEventListener("show", function(event) {
 		linkModal.input.value = "";
 		linkModal.errorDiv.classList.remove("active");
 	});
-	
+
 	linkModal.element.addEventListener("positive-pressed", function(event) {
 		if (linkModal.input.value.trim().length === 0) {
 			linkModal.errorDiv.classList.add("active");
 			event.preventDefault();
-		} 
+		}
 		else {
 			editor.focus();
 			var selection = editor.getSelection();
@@ -167,17 +167,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			//This basically indicates that we don"t actually have a selection.
 			if (selection.end - selection.start === 0) {
 				editor.insertText(selection.start, linkModal.input.value, "link", link);
-			} 
+			}
 			else {
 				editor.formatText(selection.start, selection.end, "link", link);
 			}
 		}
 	});
-	
+
 	linkModal.element.addEventListener("hide", function(event) {
 		linkModal.positiveButton.blur();
 	});
-	
+
 	imageModal.element.addEventListener("show", function(event) {
 		imageModal.linkInput.disabled = false;
 		imageModal.linkInput.value = "";
@@ -187,21 +187,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		imageModal.positiveButton.disabled = false;
 		imageModal.errorDiv.classList.remove("active");
 	});
-	
+
 	imageModal.linkInput.addEventListener("input", function(event) {
 		imageModal.fileInput.disabled = imageModal.linkInput.value.length !== 0;
 	});
-	
+
 	imageModal.fileInput.addEventListener("change", function(event) {
 		imageModal.linkInput.disabled = true;
 	});
-	
+
 	imageModal.element.addEventListener("positive-pressed", function(event) {
 		if (!imageModal.linkInput.disabled && imageModal.linkInput.value.length > 0) {
 			editor.focus();
 			var selection = editor.getSelection();
 			editor.insertEmbed(selection.end, "image", imageModal.linkInput.value);
-		} 
+		}
 		else if (!imageModal.fileInput.disabled && imageModal.fileInput.value.length > 0) {
 			event.preventDefault();
 			//We"re gonna need to do this on our own.
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			var formData = new FormData();
 			formData.append("image", imageModal.fileInput.files[0]);
 			imageModal.uploadRequest.open("POST", "/upload_image");
-			
+
 			imageModal.uploadRequest.onload = function() {
 				var data = JSON.parse(imageModal.uploadRequest.responseText);
 
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					var selection = editor.getSelection();
 					editor.insertEmbed(selection.end, "image", data.url);
 					imageModal.hide();
-				} 
+				}
 				else if (data.error === 2) {
 					imageModal.errorDiv.textContent = "Image must be a JPG, PNG, or GIF.";
 					imageModal.errorDiv.classList.add("active");
@@ -233,25 +233,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			imageModal.positiveButton.disabled = true;
 		}
 	});
-	
+
 	imageModal.element.addEventListener("hide", function(event) {
 		imageModal.positiveButton.blur();
 		if (imageModal.uploadRequest != null) {
 			imageModal.uploadRequest.abort();
 		}
 	});
-	
+
 	codeModal.element.addEventListener("show", function(event) {
 		editor.setSelection(null);
 		codeModal.selectLanguage.selectedIndex = "0";
 		codeEditor.setValue("");
 		codeEditor.focus();
 	});
-	
+
 	codeModal.selectLanguage.addEventListener("change", function(event) {
 		codeEditor.getSession().setMode("ace/mode/" + codeModal.selectLanguage.value);
 	});
-	
+
 	codeModal.element.addEventListener("positive-pressed", function(event) {
 		editor.focus();
 		var selection = editor.getSelection();
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			placeholderTagsInput.value = tagsInputPlugin.value();
 		}
 		else {
-			placeholderTagsInput.value = tagsInput.value;	
+			placeholderTagsInput.value = tagsInput.value;
 		}
 	});
 });

@@ -24,10 +24,10 @@ form#login-form {
 	margin-left: auto;
 	margin-right: auto;
 	input {
-		width: 100%;	
+		width: 100%;
 		margin-top: $vertical-margin;
 		margin-bottom: $vertical-margin;
-	}	
+	}
 	input.error {
 		border-color: #FF2222 !important;
 	}
@@ -37,6 +37,6 @@ form#login-form {
 		color: #000;
 	}
 	button {
-		float:right;	
+		float:right;
 	}
 }

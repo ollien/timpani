@@ -11,7 +11,7 @@ BCRYPT_ROUNDS = 10
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../configs/"))
 
-configs = configmanager.ConfigManager(configPath = CONFIG_PATH) 
+configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
 authConfig = configs["auth"]
 
 CAN_CHANGE_SETTINGS_PERMISSION = "can_change_settings"
@@ -19,7 +19,7 @@ CAN_POST_PERMISSION = "can_write_posts"
 
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
     passwordAsBytes = bytes(password, "utf-8")
-    passwordHash = bcrypt.hashpw(passwordAsBytes, 
+    passwordHash = bcrypt.hashpw(passwordAsBytes,
         bcrypt.gensalt(rounds = BCRYPT_ROUNDS))
     passwordHash = passwordHash.decode("utf-8")
     databaseConnection = database.ConnectionManager.getMainConnection()
@@ -38,7 +38,7 @@ def validateUser(username, password):
     databaseConnection = database.ConnectionManager.getMainConnection()
     query = (databaseConnection.session
         .query(database.tables.User)
-        .filter(sqlalchemy.func.lower(database.tables.User.username) 
+        .filter(sqlalchemy.func.lower(database.tables.User.username)
             == username.lower()))
     if query.count() > 0:
         userObject = query.first()
@@ -78,8 +78,8 @@ def createSession(username, sessionId = None):
         #Set expiry to the date of now + two weeks
         expires = datetime.datetime.now() + datetime.timedelta(weeks = 2)
         sessionObj = database.tables.Session(
-            user_id = userId, 
-            session_id = sessionId, 
+            user_id = userId,
+            session_id = sessionId,
             expires = expires)
         databaseConnection.session.add(sessionObj)
         databaseConnection.session.commit()

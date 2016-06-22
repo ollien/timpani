@@ -42,7 +42,7 @@ $modal-transition-duration: 250ms;
 div.modal {
 	position: fixed;
 	top: 40%;
-	left: 50%; 
+	left: 50%;
 	-webkit-font-smoothing: subpixel-antialiased;
 	transform: translate(-50%, -50%);
 	padding: 20px;
@@ -63,19 +63,19 @@ div.modal {
 	}
 
 	div.modal-body{
-		height: 100%;	
+		height: 100%;
 		margin-bottom: 20px;
 	}
-	
+
 	div.modal-buttons {
-		float: right;	
+		float: right;
 	}
 }
 
 div.modal.active {
 	visibility: visible;
 	opacity: 1;
-	top: 50%;	
+	top: 50%;
 }
 
 div.modal-overlay {

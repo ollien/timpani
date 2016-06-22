@@ -11,7 +11,7 @@ def getCurrentTheme():
         .filter(database.tables.Setting.name == "theme"))
     if query.count() > 0:
         themeName = query.first().value
-        themes = os.listdir(THEME_PATH)	
+        themes = os.listdir(THEME_PATH)
         folderName = None
         try:
             folderName = next(theme for theme in themes if theme.lower() == themeName.lower())
@@ -29,7 +29,7 @@ def getCurrentTheme():
         staticPath = os.path.join(THEME_PATH, folderName, "static")
         if not os.path.isdir(staticPath):
             staticPath = None
-        
+
         return {"template": template, "staticPath": staticPath}
 
 def getAvailableThemes():

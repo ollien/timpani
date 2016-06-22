@@ -3,7 +3,7 @@
 body {
 	background-color: $default-background-color;
 }
- 
+
 div#main-container {
 	display: table;
 	width: 100%;
@@ -27,7 +27,7 @@ div#main-container {
 			max-width: 450px;
 
 			a {
-				text-decoration: none;	
+				text-decoration: none;
 			}
 
 			button {
@@ -38,7 +38,7 @@ div#main-container {
 				margin-bottom: $vertical-margin;
 				width: 100%;
 				text-decoration: none;
-			}	
+			}
 		}
 	}
 }
