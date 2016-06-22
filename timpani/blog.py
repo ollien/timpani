@@ -158,25 +158,15 @@ def nextPageExists(postCount, pageLimit, pageNumber):
 def getPageCount(postCount, pageLimit):
     return int(math.ceil(postCount/pageLimit))
 
-def addPost(title, body, time_posted, author, tags, connection = None):
-    #Functions are not re-run if they are default arguments.
+def _addTags(post, tags, connection = None, commit = True):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
-
     if type(tags) == str:
         tags = tags.split(" ")
-    #Create the post object
-    post = database.tables.Post(
-        title = title,
-        body = body,
-        time_posted = time_posted,
-        author = author)
 
-    connection.session.add(post)
-    connection.session.flush()
     tagQuery = (connection.session
-        .query(database.tables.Tag.id, database.tables.Tag.name)
-        .filter(database.tables.Tag.name.in_(tags)))
+            .query(database.tables.Tag.id, database.tables.Tag.name)
+            .filter(database.tables.Tag.name.in_(tags)))
     storedTags = {tag.name: tag.id for tag in tagQuery.all()}
 
     #Parse the tags and add them to the table
@@ -193,6 +183,24 @@ def addPost(title, body, time_posted, author, tags, connection = None):
                 tagId = storedTags[tag]
             tagRelation = database.tables.TagRelation(post_id = post.id, tag_id = tagId)
             connection.session.add(tagRelation)
+    if commit:
+        connection.session.commit()
+
+def addPost(title, body, time_posted, author, tags, connection = None):
+    #Functions are not re-run if they are default arguments.
+    if connection == None:
+        connection = database.ConnectionManager.getMainConnection()
+
+    #Create the post object
+    post = database.tables.Post(
+        title = title,
+        body = body,
+        time_posted = time_posted,
+        author = author)
+
+    connection.session.add(post)
+    connection.session.flush()
+    _addTags(post, tags, connection, False)
     connection.session.commit()
 
 def editPost(postId, title, body, tags, connection = None):
