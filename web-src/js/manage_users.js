@@ -25,7 +25,7 @@ function addInfoButtonListener(button) {
 				}
 			}
 			else if (res.error === 1){
-				window.location = "/login";	
+				window.location = "/login";
 			}
 		});
 		request.send();
@@ -118,9 +118,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 		request.send(formData);
 	});
-	
+
 	usernameInput.addEventListener("input", function(event){
-		this.setCustomValidity("");	
+		this.setCustomValidity("");
 	});
 
 	passwordInput.addEventListener("input", function(event){
