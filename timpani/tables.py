@@ -27,7 +27,7 @@ class Post(Base):
     body = sqlalchemy.Column(sqlalchemy.Text,) #Should be text to avoid length problems
     time_posted = sqlalchemy.Column(sqlalchemy.DateTime)
     author_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey(User.__table__.columns.id))
-    author = sqlalchemy.orm.relationship("User", foreign_keys = author_id)	
+    author = sqlalchemy.orm.relationship("User", foreign_keys = author_id)
 
 class Tag(Base):
     __tablename__ = "tags"
@@ -54,6 +54,6 @@ class Session(Base):
 
 class Setting(Base):
     __tablename__ = "settings"
-    
+
     name = sqlalchemy.Column(sqlalchemy.String, primary_key = True)
     value = sqlalchemy.Column(sqlalchemy.String)

@@ -21,7 +21,7 @@ def showPosts():
     postParams = webhelpers.getPostsParameters()
     pageTitle = postParams["blogTitle"]
     pageCount = blog.getPageCount(blog.getPostCount(), pageLimit)
-    nextPageExists = (blog.nextPageExists(blog.getPostCount(), 
+    nextPageExists = (blog.nextPageExists(blog.getPostCount(),
         pageLimit, 1))
     return webhelpers.renderPosts(templatePath, pageTitle, 1,
         pageCount, nextPageExists, posts = posts)
@@ -31,13 +31,13 @@ def showPostWithPage(pageNumber):
     if pageNumber < 1:
         return flask.abort(400)
     pageLimit = int(settings.getSettingValue("posts_per_page"))
-    posts = blog.getPosts(limit = pageLimit, 
+    posts = blog.getPosts(limit = pageLimit,
         offset = pageLimit * (pageNumber - 1))
     templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
     postParams = webhelpers.getPostsParameters()
     pageTitle = "{} - page {}".format(postParams["blogTitle"], pageNumber)
     pageCount = blog.getPageCount(blog.getPostCount(), pageLimit)
-    nextPageExists = (blog.nextPageExists(blog.getPostCount(), 
+    nextPageExists = (blog.nextPageExists(blog.getPostCount(),
         pageLimit, pageNumber))
     return webhelpers.renderPosts(templatePath, pageTitle, pageNumber,
         pageCount, nextPageExists, posts = posts)
@@ -76,7 +76,7 @@ def showPostWithTagAndPage(tag, pageNumber):
         flask.abort(400)
 
     pageLimit = int(settings.getSettingValue("posts_per_page"))
-    posts = (blog.getPostsWithTag(tag, limit = pageLimit, 
+    posts = (blog.getPostsWithTag(tag, limit = pageLimit,
         offset = pageLimit * (pageNumber - 1)))
     templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
     postParams = webhelpers.getPostsParameters()
@@ -92,16 +92,16 @@ def showPostWithTagAndPage(tag, pageNumber):
 def login():
     if flask.request.method == "GET":
         if webhelpers.checkForSession():
-            return flask.redirect("/manage")	
+            return flask.redirect("/manage")
         else:
             return flask.render_template("login.html")
 
     elif flask.request.method == "POST":
-        if ("username" not in flask.request.form 
+        if ("username" not in flask.request.form
             or "password" not in flask.request.form):
             flask.flash("A username and password must be provided.")
             return flask.render_template("login.html")
-        elif auth.validateUser(flask.request.form["username"], 
+        elif auth.validateUser(flask.request.form["username"],
                                 flask.request.form["password"]):
             donePage = webhelpers.canRecoverFromRedirect()
             donePage = donePage if donePage is not None else "/manage"
@@ -121,7 +121,7 @@ def logout():
             sessionId = flask.session["uid"]
             auth.invalidateSession(sessionId)
             flask.session.clear()
-    
+
     return flask.redirect("/login")
 
 @blueprint.route("/static/theme/<path:filePath>")

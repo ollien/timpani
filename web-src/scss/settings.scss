@@ -19,7 +19,7 @@ div#result-container {
 		animation: waitAndFade $fade-wait-time + $fade-time;
 	}
 
-	div#success-message { 
+	div#success-message {
 		@extend div.error;
 		border: 1px solid #47CC6A;
 		background-color: #54BE70;
@@ -32,7 +32,7 @@ div#result-container {
 			padding: 0;
 			list-style: none;
 			li:first-child{
-				margin-top: 5px;	
+				margin-top: 5px;
 			}
 		}
 	}
@@ -44,12 +44,12 @@ div#flash-compensation {
 	padding-top: 12px;
 }
 
-form#settings-form { 
+form#settings-form {
 	width: 500px;
 	margin-left: auto;
 	margin-right: auto;
 	label:not([radio]) {
-		display: block;	
+		display: block;
 	}
 
 	input:not([type="radio"]), div.spacer, select {
@@ -58,7 +58,7 @@ form#settings-form {
 		margin-bottom: 25px;
 	}
 	input[type="radio"] {
-		margin-right: 15px;	
+		margin-right: 15px;
 	}
 
 	button#save {
@@ -75,9 +75,9 @@ form#settings-form {
 
 	#{100 * $fade-wait-time/($fade-wait-time + $fade-time)}% {
 		max-height: 100px;
-		opacity: 1;	
+		opacity: 1;
 	}
-	
+
 	100% {
 		opacity: 0;
 		max-height: 0px;

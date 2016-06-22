@@ -27,7 +27,7 @@ def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
     if tags:
-        #Gets all the posts using a join. 
+        #Gets all the posts using a join.
         #We won't use getPostById in a loop to prevent many queries.
 
         postQuery = (connection.session
@@ -47,7 +47,7 @@ def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
             .outerjoin(database.tables.Tag,
                 database.tables.Tag.id == database.tables.TagRelation.tag_id)
             .order_by(database.tables.Tag.id))
-            
+
         return query
     else:
         query = (connection.session
@@ -113,11 +113,11 @@ def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection
 
     #If we're getting tags, we don't need to do anything else
     #Performing a subquery on 'postAlias' has too many columns
-    baseQuery = (connection.session.query(postAlias.id) 
+    baseQuery = (connection.session.query(postAlias.id)
         if tags else connection.session.query(postAlias))
 
     postWithTagQuery = (baseQuery
-        .join(database.tables.TagRelation, 
+        .join(database.tables.TagRelation,
             database.tables.TagRelation.post_id == postAlias.id)
         .join(database.tables.Tag,
             database.tables.Tag.id == database.tables.TagRelation.tag_id)
@@ -127,7 +127,7 @@ def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection
     if tags:
         postWithTagQuery = postWithTagQuery.subquery()
         query = (connection.session
-            .query(postAlias, database.tables.Tag)	
+            .query(postAlias, database.tables.Tag)
             .outerjoin(database.tables.TagRelation,
                 postAlias.id == database.tables.TagRelation.post_id)
             .outerjoin(database.tables.Tag,
@@ -153,11 +153,11 @@ def getPostWithTagCount(tag, limit = None, offset = 0, connection = None):
     return query.count()
 
 def nextPageExists(postCount, pageLimit, pageNumber):
-    return getPageCount(postCount, pageLimit) > pageNumber 
+    return getPageCount(postCount, pageLimit) > pageNumber
 
 def getPageCount(postCount, pageLimit):
     return int(math.ceil(postCount/pageLimit))
-    
+
 def addPost(title, body, time_posted, author, tags, connection = None):
     #Functions are not re-run if they are default arguments.
     if connection == None:
@@ -168,9 +168,9 @@ def addPost(title, body, time_posted, author, tags, connection = None):
     #Create the post object
     post = database.tables.Post(
         title = title,
-        body = body, 
-        time_posted = time_posted, 
-        author = author) 
+        body = body,
+        time_posted = time_posted,
+        author = author)
 
     connection.session.add(post)
     connection.session.flush()
@@ -201,11 +201,11 @@ def editPost(postId, title, body, tags, connection = None):
 
     if type(tags) == str:
         tags = tags.split(" ")
-    
+
     post = getPostById(postId)["post"]
     post.title = title
     post.body = body
-    
+
     currentTags = (connection.session
         .query(database.tables.Tag)
         .filter(database.tables.Tag.post_id == postId))
@@ -214,7 +214,7 @@ def editPost(postId, title, body, tags, connection = None):
         if tag.name not in currentTags:
             connection.session.delete(tag)
 
-    connection.session.flush()	
+    connection.session.flush()
     currentTagNames = (connection.session
         .query(database.tables.Tag.name)
         .filter(database.tables.Tag.post_id == postId))
@@ -225,7 +225,7 @@ def editPost(postId, title, body, tags, connection = None):
             connection.session.add(tag)
 
     connection.session.commit()
-    
+
 def deletePost(post, connection = None):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
@@ -235,6 +235,6 @@ def deletePost(post, connection = None):
 
     if type(post) != database.tables.Post:
         raise ValueError("post must be of type int or Post, not {}".format(type(post)))
-            
-    connection.session.delete(post)	
+
+    connection.session.delete(post)
     connection.session.commit()

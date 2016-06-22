@@ -8,7 +8,7 @@ from . import configmanager
 from . import webserver
 from . import settings
 
-CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs")) 
+CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs"))
 
 def run(host = "0.0.0.0", port = 8080, startServer = True):
     #Setup Config manager
@@ -34,7 +34,7 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
     #Setup all default settings
     allSettings = settings.getAllSettings()
     neededSettings = [setting for setting in settings.DEFAULT_SETTINGS if setting not in allSettings]
-    for setting in neededSettings: 
+    for setting in neededSettings:
         settings.setSettingValue(setting, settings.DEFAULT_SETTINGS[setting])
 
     if len(neededSettings) > 0:

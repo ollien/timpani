@@ -26,7 +26,7 @@ class ConnectionManager():
                 raise ValueError("connection must be of type str, not {}".format(type(connection)))
         else:
             raise ValueError("connectionName must be of type str, not {}".format(type(connectionName)))
-    
+
     @staticmethod
     def getConnection(connectionName):
         if type(connectionName) == str:
@@ -40,7 +40,7 @@ class ConnectionManager():
     def getMainConnection():
         return ConnectionManager.getConnection("main")
 
-    @staticmethod	
+    @staticmethod
     def closeConnection(connectionName):
         if type(connectionName) == str:
             connection = ConnectionManager.getConnection(connectionName)
@@ -64,15 +64,15 @@ class DatabaseConnection():
             for attr in attrs:
                 attr = getattr(tables, attr)
                 if isinstance(attr, type) and attr != tables.Base:
-                    attr.metadata.create_all(self.engine)	
-        
+                    attr.metadata.create_all(self.engine)
+
     def getSelectedDatabase(self):
         result = self.session.execute("SELECT DATABASE()").fetchone()
         if result != None:
             return result[0]
         return None
-    
+
     def closeSession(self):
         if self.session != None:
             self.session.close()
-    
+

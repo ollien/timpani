@@ -14,16 +14,16 @@ div#main-container{
 div#content-container{
 	display:inline-block;
 
-	h2#title { 
+	h2#title {
 		margin-left: auto;
 		margin-right: auto;
-		text-align: center;	
+		text-align: center;
 	}
 }
 
-ul#posts-list { 
+ul#posts-list {
 	padding-left: 0;
-	list-style-type: none;	
+	list-style-type: none;
 
 	li.post {
 		$font-size: 15pt;
@@ -49,43 +49,43 @@ ul#posts-list {
 				color: #000;
 			}
 		}
-	
+
 		a.button.edit {
-			margin-left: 80px;	
+			margin-left: 80px;
 		}
 
 		a.button.edit:hover {
-			color: #3533FF;	
+			color: #3533FF;
 		}
 
 		a.button.delete:hover {
-			color: #FF3533;	
+			color: #FF3533;
 
 		}
 
-		a.post-title { 
+		a.post-title {
 			text-decoration: none;
 			color: #000;
 		}
 
-		a.post-title:hover { 
+		a.post-title:hover {
 			text-decoration: underline;
 			color: #000;
 		}
 	}
 
 	li.post.deleting {
-		opacity: 0;	
+		opacity: 0;
 		height: 0;
 		visibility: hidden;
 	}
 
 	li.post.deleting > * {
-		height: 0 !important;	
+		height: 0 !important;
 	}
 }
 
-div#deleteModal > div.modal-buttons{ 
+div#deleteModal > div.modal-buttons{
 	$initial-opacity: .8;
 	$initial-scale: .95;
 	$button-width: 80px;

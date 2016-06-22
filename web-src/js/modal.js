@@ -5,7 +5,7 @@ function Modal(element, config) {
 	this.overlay.classList.add("modal-overlay");
 	if (config == null) {
 		this.config = { keyboard: true };
-	} 
+	}
 	else {
 		this.config = config;
 	}
@@ -13,12 +13,12 @@ function Modal(element, config) {
 
 	if (element instanceof HTMLElement) {
 		this.element = element;
-	} 
+	}
 	else {
 		this.element = document.querySelector(element);
 		if (this.element == null) {
 			throw new Error("element does not exist.");
-		} 
+		}
 		else if (!this.element.classList.contains("modal")) {
 			throw new Error("element must have class modal");
 		}
@@ -80,7 +80,7 @@ function Modal(element, config) {
 							mainEvent = document.createEvent("event");
 							mainEvent.initEvent("positive-pressed", false, true);
 						}
-					} 
+					}
 					else if (this.classList.contains("negative")) {
 						secondaryEvent = new Event("negative-pressed", { cancelable: true });
 						try {
@@ -135,9 +135,9 @@ Modal.prototype.hide = function() {
 	try {
 		event = new Event("hide", { cancelable: true });
 	}
-	
+
 	catch (e){
-		event = document.createEvent("event");	
+		event = document.createEvent("event");
 		event.initEvent("hide", false, true);
 	}
 

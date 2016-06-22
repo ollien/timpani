@@ -31,7 +31,7 @@ function customErrorHandler(error) {
 gulp.task("sass", function() {
 	return gulp.src(SASS_SRC)
 		.pipe(plumber({
-			errorHandler: customErrorHandler	
+			errorHandler: customErrorHandler
 		}))
 		.pipe(sass().on("error", sass.logError))
 		.pipe(autoPrefixer({
@@ -47,12 +47,12 @@ gulp.task("sass", function() {
 gulp.task("js", function() {
 	return gulp.src(JS_SRC)
 		.pipe(plumber({
-			errorHandler: customErrorHandler 
+			errorHandler: customErrorHandler
 		}))
 		.pipe(jshint())
 		.pipe(jshint.reporter(stylishJshint))
 		.pipe(jshint.reporter("fail"))
-		.pipe(uglify())	
+		.pipe(uglify())
 		.pipe(gulp.dest(JS_DEST));
 });
 

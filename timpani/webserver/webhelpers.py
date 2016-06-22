@@ -14,7 +14,7 @@ def checkForSession():
             return session
     return None
 
-def redirectAndSave(path):	
+def redirectAndSave(path):
     flask.session["donePage"] = urllib.parse.urlparse(flask.request.url).path
     return flask.redirect(path)
 
@@ -23,17 +23,17 @@ def canRecoverFromRedirect():
         return flask.session["donePage"]
     return None
 
-#Decorator which checks if a user logged in and capable of using the specified permissions. 
+#Decorator which checks if a user logged in and capable of using the specified permissions.
 #If redirectPage is equal to none,
 #the target funciton MUST have the arguments authed and authMessage defined.
 def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE, requiredPermissions = None):
     def decorator(function):
         def decorated(*args, **kwargs):
-            session = checkForSession()	
+            session = checkForSession()
             if session != None:
                 username = session.user.username
                 result = True
-                #If we don't have any permissions necessary, a login is enough. 
+                #If we don't have any permissions necessary, a login is enough.
                 #Otherwise, we're going to check to make sure that all necessary permissions are in place.
                 if requiredPermissions != None:
                     if type(requiredPermissions) == str:
@@ -78,7 +78,7 @@ def getPostsParameters():
         "blogTitle": title,
         "blogSubtitle": subtitle,
         "displayName": displayName,
-    }	
+    }
 
 #Renders the theme's template if the theme contains one
 #Otherwise, it renders the default template
@@ -96,7 +96,7 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, b
         template = templateFile.read()
         templateFile.close()
 
-    return flask.render_template_string(template, pageTitle = pageTitle, 
-        pageNumber = pageNumber, pageCount = pageCount, 
+    return flask.render_template_string(template, pageTitle = pageTitle,
+        pageNumber = pageNumber, pageCount = pageCount,
         nextPageExists = nextPageExists, basePageUrl = basePageUrl,
         *args, **kwargs)

@@ -28,17 +28,17 @@ div.toolbar {
 			text-align: right;
 
 			button {
-				background-color: #36A6C9;	
+				background-color: #36A6C9;
 				color: white;
 			}
 		}
 
 		li:first-child {
-			padding-left: $toolbar-height * 5/8; 
+			padding-left: $toolbar-height * 5/8;
 		}
-		
+
 		li:last-child {
-			padding-right: $toolbar-height * 5/8; 
+			padding-right: $toolbar-height * 5/8;
 		}
 
 	}
