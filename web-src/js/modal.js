@@ -40,7 +40,8 @@ function Modal(element, config) {
 		document.addEventListener("keyup", function(event) {
 			if (_this.config.keyboard) {
 				if (event.keyCode === 27 && _this.element.classList.contains("active")) {
-					event.preventDefault();
+					//IE Proofing
+					event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 					_this.hide();
 				}
 			}
@@ -53,7 +54,8 @@ function Modal(element, config) {
 						if (_this.config.keyboard) {
 							if (event.keyCode === 13 && _this.element.classList.contains("active")) {
 								//Enter
-								event.preventDefault();
+								//IE Proofing
+								event.preventDefault ? event.preventDefault() : (event.returnValue = false);
 								button.click();
 							}
 						}
@@ -103,8 +105,8 @@ function Modal(element, config) {
 						secondaryEvent.el = this;
 						_this.element.dispatchEvent(secondaryEvent);
 					}
-
-					if (!(mainEvent.defaultPrevented || (secondaryEvent != null && secondaryEvent.defaultPrevented))) {
+					//event.returnValue is IE Proofing
+					if (!((mainEvent.defaultPrevented || !mainEvent.returnValue) || (secondaryEvent != null && (secondaryEvent.defaultPrevented || !secondaryEvent.returnValue)))) {
 						_this.hide();
 					}
 				});
@@ -127,7 +129,8 @@ Modal.prototype.show = function() {
 	}
 
 	this.element.dispatchEvent(event);
-	if (!event.defaultPrevented) {
+	//event.returnValue is IE Proofing
+	if (!event.defaultPrevented || event.returnValue) {
 		this.element.classList.add("active");
 		document.body.appendChild(this.overlay);
 		this.overlay.classList.add("active");
@@ -146,7 +149,8 @@ Modal.prototype.hide = function() {
 	}
 
 	this.element.dispatchEvent(event);
-	if (!event.defaultPrevented) {
+	//event.returnValue is IE Proofing
+	if (!event.defaultPrevented || event.returnValue) {
 		this.element.classList.remove("active");
 		var count = 0;
 		this.overlay.classList.remove("active");
