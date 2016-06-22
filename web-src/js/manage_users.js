@@ -2,6 +2,36 @@
 
 var PASSWORDS_DO_NOT_MATCH = "Passwords do not match.";
 
+function addInfoButtonListener(button) {
+	button.addEventListener("click", function(event){
+		userInfoModal.show();
+		var userId = this.parentNode.getAttribute("user_id");
+		var request = new XMLHttpRequest();
+		request.open("GET", "/get_user_info/" + userId);
+		request.addEventListener("load", function(event){
+			var res = JSON.parse(request.responseText);
+			if (res.error === 0) {
+				usernameDisplay.textContent = res.info.username;
+				fullNameDisplay.textContent = res.info.full_name;
+				if (res.info.permissions.length === 0) {
+					noPermissions.style.display = "";
+					permissionDisplayList.style.display = "none";
+				}
+				else {
+					noPermissions.style.display = "none";
+					permissionDisplayList.style.display = "";
+					canChangeSettingsDisplay.style.display = res.info.permissions.indexOf("can_write_posts") > -1 ? "" : "none";
+					canWritePostsDisplay.style.display = res.info.permissions.indexOf("can_change_settings") > -1 ? "" : "none";
+				}
+			}
+			else if (res.error === 1){
+				window.location = "/login";	
+			}
+		});
+		request.send();
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserModalElement = document.getElementById("add-user-modal");
 	var userInfoModalElement = document.getElementById("user-info-modal");
@@ -68,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				//Needs to be set to a variable so jshint doesn't complain about an expression.
 				var opacity = window.getComputedStyle(li).opacity;
 				li.style.opacity = 1;
-				//TODO: Add info button when added.
 				addUserModal.hide();
 			}
 			else if (res.error === 1) {
@@ -113,34 +142,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		usernameInput.setCustomValidity("");
 	});
 
-	Array.prototype.slice.call(userInfoButtons).forEach(function(button) {
-		button.addEventListener("click", function(event){
-			userInfoModal.show();
-			var userId = this.parentNode.getAttribute("user_id");
-			var request = new XMLHttpRequest();
-			request.open("GET", "/get_user_info/" + userId);
-			request.addEventListener("load", function(event){
-				var res = JSON.parse(request.responseText);
-				if (res.error === 0) {
-					usernameDisplay.textContent = res.info.username;
-					fullNameDisplay.textContent = res.info.full_name;
-					if (res.info.permissions.length === 0) {
-						noPermissions.style.display = "";
-						permissionDisplayList.style.display = "none";
-					}
-					else {
-						noPermissions.style.display = "none";
-						permissionDisplayList.style.display = "";
-						canChangeSettingsDisplay.style.display = res.info.permissions.indexOf("can_write_posts") > -1 ? "" : "none";
-						canWritePostsDisplay.style.display = res.info.permissions.indexOf("can_change_settings") > -1 ? "" : "none";
-					}
-				}
-				else if (res.error === 1){
-					window.location = "/login";	
-				}
-			});
-			request.send();
-		});
-	});
-
+	Array.prototype.slice.call(userInfoButtons).forEach(addInfoButtonListener);
 });
