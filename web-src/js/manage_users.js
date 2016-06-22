@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				li.classList.add("user");
 				var usernameSpan = document.createElement("span");
 				usernameSpan.classList.add("username");
-				usernameSpan.textContent = usernameInput.value;
+				usernameSpan.textContent = usernameInput.value + "\n";
 				li.appendChild(usernameSpan);
 				var infoButton = document.createElement("span");
 				infoButton.classList.add("user-info-button");
