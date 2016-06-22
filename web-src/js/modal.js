@@ -3,6 +3,10 @@
 function Modal(element, config) {
 	this.overlay = document.createElement("div");
 	this.overlay.classList.add("modal-overlay");
+	this.overlay.addEventListener("transitionend", function(event) {
+		this.parentNode.removeChild(this);
+	});
+
 	if (config == null) {
 		this.config = { keyboard: true };
 	}
@@ -100,7 +104,7 @@ function Modal(element, config) {
 						_this.element.dispatchEvent(secondaryEvent);
 					}
 
-					if (!(mainEvent.defaultPrevented || secondaryEvent != null && secondaryEvent.defaultPrevented)) {
+					if (!(mainEvent.defaultPrevented || (secondaryEvent != null && secondaryEvent.defaultPrevented))) {
 						_this.hide();
 					}
 				});
@@ -144,9 +148,7 @@ Modal.prototype.hide = function() {
 	this.element.dispatchEvent(event);
 	if (!event.defaultPrevented) {
 		this.element.classList.remove("active");
-		this.overlay.addEventListener("transitionend", function(event) {
-			this.parentNode.removeChild(this);
-		});
+		var count = 0;
 		this.overlay.classList.remove("active");
 	}
 };
