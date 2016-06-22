@@ -92,6 +92,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				usernameSpan.classList.add("username");
 				usernameSpan.textContent = usernameInput.value;
 				li.appendChild(usernameSpan);
+				var infoButton = document.createElement("span");
+				infoButton.classList.add("user-info-button");
+				infoButton.classList.add("fa");
+				infoButton.classList.add("fa-info-circle");
+				console.log(userInfoButtons);
+				userInfoButtons.push(infoButton);
+				addInfoButtonListener(infoButton);
+				li.appendChild(infoButton);
 				li.style.opacity = 0;
 				usersList.appendChild(li);
 				//Fixes race condition where element wouldn't fade
