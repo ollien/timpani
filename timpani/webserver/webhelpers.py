@@ -1,5 +1,6 @@
 import flask
 import functools
+import bs4
 import urllib.parse
 from .. import auth
 from .. import themes
@@ -100,3 +101,31 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, b
         pageNumber=pageNumber, pageCount=pageCount,
         nextPageExists=nextPageExists, basePageUrl=basePageUrl,
         *args, **kwargs)
+
+def xssFilter(postBody):
+    whitelistedTags = ["div", "span", "b", "i", "u", "a", "p", "img", "code",
+                        "ul", "li", "h1", "h2", "h3", "h4", "h5", "h6", "pre"]
+    #src and href must be checked seperately
+    whitelistedAttributes = ["id", "class"]
+    soupedBody = bs4.BeautifulSoup(postBody, "html.parser")
+    blockedTags = soupedBody.findAll(lambda tag: tag.name not in whitelistedTags)
+    #Check if element has any attriutes that are not allowed, but only if
+    #they are not already in blockedTags. Those will be escaped, anyway.
+    blockedAttrs = soupedBody.findAll(lambda tag:
+                        len(set(tag.attrs.keys()) - set(whitelistedAttributes)) != 0
+                        and tag.name in whitelistedTags)
+    for tag in blockedTags:
+        #Beautiful soup will escape HTML strings
+        tag.replace_with(str(tag))
+
+    for tag in blockedAttrs:
+        allowedAttrs = {}
+        for attr in tag.attrs:
+            if attr in whitelistedAttributes:
+                allowedAttrs[attr] = tag.attrs[attr]
+            elif attr == "src" or attr == "href":
+                scheme = urllib.parse.urlparse(tag.attrs[attr]).scheme
+                if scheme != "data" and scheme != "javascript":
+                    allowedAttrs[attr] = tag.attrs[attr]
+        tag.attrs = allowedAttrs
+    return str(soupedBody)
