@@ -8,9 +8,9 @@ from . import configmanager
 from . import webserver
 from . import settings
 
-CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs"))
+CONFIG_PATH=os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs"))
 
-def run(host = "0.0.0.0", port = 8080, startServer = True):
+def run(host="0.0.0.0", port=8080, startServer=True):
     #Setup Config manager
     configs = configmanager.ConfigManager(CONFIG_PATH)
     databaseConfig = configs["database"]
@@ -42,6 +42,6 @@ def run(host = "0.0.0.0", port = 8080, startServer = True):
     databaseConnection.closeSession()
 
     if startServer:
-        webserver.start(host = host, port = port)
+        webserver.start(host=host, port=port)
     else:
         return webserver.app

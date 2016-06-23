@@ -23,7 +23,7 @@ def _getDictFromJoin(results):
             key = lambda x: x["post"].time_posted,
             reverse = True)
 
-def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
+def _getPostQuery(limit=None, offset=0, tags=True, connection=None):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
     if tags:
@@ -57,22 +57,22 @@ def _getPostQuery(limit = None, offset = 0, tags = True, connection = None):
 
         return query
 
-def getPosts(limit = None, offset = 0, tags = True, connection = None):
+def getPosts(limit=None, offset=0, tags=True, connection=None):
     query = _getPostQuery(limit, offset, tags, connection)
     posts = query.all()
 
     if tags:
         return _getDictFromJoin(posts)
     else:
-        return sorted(posts, key = lambda x: x.time_posted, reverse = True)
+        return sorted(posts, key=lambda x: x.time_posted, reverse=True)
 
-def getPostCount(limit = None, offset = 0, connection = None):
+def getPostCount(limit=None, offset=0, connection=None):
     query = _getPostQuery(limit, offset, False, connection)
     return query.count()
 
 #Gets a post form the database
 #Returns None if there is no post with such an id
-def getPostById(postId, tags = True, connection = None):
+def getPostById(postId, tags=True, connection=None):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
     if tags:
@@ -98,7 +98,7 @@ def getPostById(postId, tags = True, connection = None):
             .filter(database.tables.Post.id == postId)
             .first())
 
-def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection = None):
+def _getPostsWithTagQuery(tag, limit=None, offset=0, tags=True, connection=None):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
 
@@ -139,16 +139,16 @@ def _getPostsWithTagQuery(tag, limit = None, offset = 0, tags = True, connection
 
     return postWithTagQuery
 
-def getPostsWithTag(tag, limit = None, offset = 0, tags = True, connection = None):
+def getPostsWithTag(tag, limit=None, offset=0, tags=True, connection=None):
     query = _getPostsWithTagQuery(tag, limit, offset, tags, connection)
     posts = query.all()
 
     if tags:
         return _getDictFromJoin(posts)
     else:
-        return sorted(posts, key = lambda x: x.time_posted, reverse = True)
+        return sorted(posts, key=lambda x: x.time_posted, reverse=True)
 
-def getPostWithTagCount(tag, limit = None, offset = 0, connection = None):
+def getPostWithTagCount(tag, limit=None, offset=0, connection=None):
     query = _getPostsWithTagQuery(tag, limit, offset, False, connection)
     return query.count()
 
@@ -158,7 +158,7 @@ def nextPageExists(postCount, pageLimit, pageNumber):
 def getPageCount(postCount, pageLimit):
     return int(math.ceil(postCount/pageLimit))
 
-def _addTags(post, tags, connection = None, commit = True):
+def _addTags(post, tags, connection=None, commit=True):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
     if type(tags) == str:
@@ -174,36 +174,36 @@ def _addTags(post, tags, connection = None, commit = True):
         if len(tag) > 0:
             tagId = -1
             if tag not in storedTags:
-                tag = database.tables.Tag(name = tag)
+                tag = database.tables.Tag(name=tag)
                 connection.session.add(tag)
                 #Without a flush, tagId will be None
                 connection.session.flush()
                 tagId = tag.id
             else:
                 tagId = storedTags[tag]
-            tagRelation = database.tables.TagRelation(post_id = post.id, tag_id = tagId)
+            tagRelation = database.tables.TagRelation(post_id=post.id, tag_id=tagId)
             connection.session.add(tagRelation)
     if commit:
         connection.session.commit()
 
-def addPost(title, body, time_posted, author, tags, connection = None):
+def addPost(title, body, time_posted, author, tags, connection=None):
     #Functions are not re-run if they are default arguments.
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
 
     #Create the post object
     post = database.tables.Post(
-        title = title,
-        body = body,
-        time_posted = time_posted,
-        author = author)
+        title=title,
+        body=body,
+        time_posted=time_posted,
+        author=author)
 
     connection.session.add(post)
     connection.session.flush()
     _addTags(post, tags, connection, False)
     connection.session.commit()
 
-def editPost(postId, title, body, tags, connection = None):
+def editPost(postId, title, body, tags, connection=None):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
 
@@ -220,12 +220,12 @@ def editPost(postId, title, body, tags, connection = None):
     _addTags(post, tags, connection, False)
     connection.session.commit()
 
-def deletePost(post, connection = None):
+def deletePost(post, connection=None):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
 
     if type(post) == int:
-        post = getPostById(post, tags = False)
+        post = getPostById(post, tags=False)
 
     if type(post) != database.tables.Post:
         raise ValueError("post must be of type int or Post, not {}".format(type(post)))

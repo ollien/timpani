@@ -6,14 +6,14 @@ from . import configmanager
 from . import tables
 
 CONFIG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../configs/"))
-configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
+configs = configmanager.ConfigManager(configPath=CONFIG_PATH)
 config = configs["database"]
 
 class ConnectionManager():
     _connections = {}
 
     @staticmethod
-    def addConnection(connection, connectionName = uuid.uuid4().hex):
+    def addConnection(connection, connectionName=uuid.uuid4().hex):
         if type(connectionName) == str:
             if type(connection) == DatabaseConnection:
                 ConnectionManager._connections[connectionName] = connection
@@ -53,7 +53,7 @@ class ConnectionManager():
             raise ValueError("connectionName must be of type str, not {}".format(type(name)))
 
 class DatabaseConnection():
-    def __init__(self, connectionString = config["connection_string"], createTables = True):
+    def __init__(self, connectionString=config["connection_string"], createTables=True):
         self.connectionString = connectionString
         self.engine = sqlalchemy.create_engine(self.connectionString)
         self._Session = sqlalchemy.orm.sessionmaker(bind = self.engine)

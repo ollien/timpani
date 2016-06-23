@@ -26,7 +26,7 @@ def canRecoverFromRedirect():
 #Decorator which checks if a user logged in and capable of using the specified permissions.
 #If redirectPage is equal to none,
 #the target funciton MUST have the arguments authed and authMessage defined.
-def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessage = INVALID_PERMISSIONS_FLASH_MESSAGE, requiredPermissions = None):
+def checkUserPermissions(redirectPage=None, saveRedirect=True, redirectMessage=INVALID_PERMISSIONS_FLASH_MESSAGE, requiredPermissions=None):
     def decorator(function):
         def decorated(*args, **kwargs):
             session = checkForSession()
@@ -47,7 +47,7 @@ def checkUserPermissions(redirectPage = None, saveRedirect = True, redirectMessa
                     if redirectPage != None:
                         return function(*args, **kwargs)
                     else:
-                        return function(authed = True, authMessage = redirectMessage, *args, **kwargs)
+                        return function(authed=True, authMessage=redirectMessage, *args, **kwargs)
                 else:
                     #We don't want to flash on thigns like ajax routes, so we use redirectPage != None
                     willFlash = redirectPage != None
@@ -66,7 +66,7 @@ def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash, func
         else:
             return redirectAndSave(redirectPage)
     else:
-        return function(authed = False, authMessage = redirectMessage, *args, **kwargs)
+        return function(authed=False, authMessage=redirectMessage, *args, **kwargs)
 
 #Will return all information that is needed to render a post.
 #Prevents fragmentation in various post display methods
@@ -82,7 +82,7 @@ def getPostsParameters():
 
 #Renders the theme's template if the theme contains one
 #Otherwise, it renders the default template
-def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, basePageUrl = "", *args, **kwargs):
+def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, basePageUrl="", *args, **kwargs):
     theme = themes.getCurrentTheme()
     template = theme["template"]
     postParams = getPostsParameters()
@@ -96,7 +96,7 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, b
         template = templateFile.read()
         templateFile.close()
 
-    return flask.render_template_string(template, pageTitle = pageTitle,
-        pageNumber = pageNumber, pageCount = pageCount,
-        nextPageExists = nextPageExists, basePageUrl = basePageUrl,
+    return flask.render_template_string(template, pageTitle=pageTitle,
+        pageNumber=pageNumber, pageCount=pageCount,
+        nextPageExists=nextPageExists, basePageUrl=basePageUrl,
         *args, **kwargs)
