@@ -11,12 +11,12 @@ import random
 
 TEMPLATE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../templates"))
 
-blueprint = flask.Blueprint("user", __name__, template_folder = TEMPLATE_PATH)
+blueprint = flask.Blueprint("user", __name__, template_folder=TEMPLATE_PATH)
 
 @blueprint.route("/")
 def showPosts():
     pageLimit = int(settings.getSettingValue("posts_per_page"))
-    posts = blog.getPosts(limit = pageLimit)
+    posts = blog.getPosts(limit=pageLimit)
     templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
     postParams = webhelpers.getPostsParameters()
     pageTitle = postParams["blogTitle"]
@@ -24,15 +24,15 @@ def showPosts():
     nextPageExists = (blog.nextPageExists(blog.getPostCount(),
         pageLimit, 1))
     return webhelpers.renderPosts(templatePath, pageTitle, 1,
-        pageCount, nextPageExists, posts = posts)
+        pageCount, nextPageExists, posts=posts)
 
 @blueprint.route("/page/<int:pageNumber>")
 def showPostWithPage(pageNumber):
     if pageNumber < 1:
         return flask.abort(400)
     pageLimit = int(settings.getSettingValue("posts_per_page"))
-    posts = blog.getPosts(limit = pageLimit,
-        offset = pageLimit * (pageNumber - 1))
+    posts = blog.getPosts(limit=pageLimit,
+        offset=pageLimit * (pageNumber - 1))
     templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
     postParams = webhelpers.getPostsParameters()
     pageTitle = "{} - page {}".format(postParams["blogTitle"], pageNumber)
@@ -40,7 +40,7 @@ def showPostWithPage(pageNumber):
     nextPageExists = (blog.nextPageExists(blog.getPostCount(),
         pageLimit, pageNumber))
     return webhelpers.renderPosts(templatePath, pageTitle, pageNumber,
-        pageCount, nextPageExists, posts = posts)
+        pageCount, nextPageExists, posts=posts)
 
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):
@@ -51,12 +51,12 @@ def showPost(postId):
     postParams = webhelpers.getPostsParameters()
     pageTitle = "{} - {}".format(postParams["blogTitle"], post["post"].title)
     return webhelpers.renderPosts(templatePath, pageTitle, 1,
-        1, False, posts = [post])
+        1, False, posts=[post])
 
 @blueprint.route("/tag/<tag>")
 def showPostsWithTag(tag):
     pageLimit = int(settings.getSettingValue("posts_per_page"))
-    posts = blog.getPostsWithTag(tag, limit = pageLimit)
+    posts = blog.getPostsWithTag(tag, limit=pageLimit)
     if len(posts) == 0:
         return flask.abort(404)
 
@@ -67,7 +67,7 @@ def showPostsWithTag(tag):
     nextPageExists = (blog.nextPageExists(blog.getPostWithTagCount(tag),
         pageLimit, 1))
     return webhelpers.renderPosts(templatePath, pageTitle, 1,
-        pageCount, nextPageExists, posts = posts,
+        pageCount, nextPageExists, posts=posts,
         pageBaseString="/tag/{}".format(tag))
 
 @blueprint.route("/tag/<tag>/page/<int:pageNumber>")
@@ -76,8 +76,8 @@ def showPostWithTagAndPage(tag, pageNumber):
         flask.abort(400)
 
     pageLimit = int(settings.getSettingValue("posts_per_page"))
-    posts = (blog.getPostsWithTag(tag, limit = pageLimit,
-        offset = pageLimit * (pageNumber - 1)))
+    posts = (blog.getPostsWithTag(tag, limit=pageLimit,
+        offset=pageLimit * (pageNumber - 1)))
     templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
     postParams = webhelpers.getPostsParameters()
     pageTitle = "{} - #{}".format(postParams["blogTitle"], tag)
@@ -85,7 +85,7 @@ def showPostWithTagAndPage(tag, pageNumber):
     nextPageExists = blog.nextPageExists(blog.getPostWithTagCount(tag),
         pageLimit, pageNumber)
     return webhelpers.renderPosts(templatePath, pageTitle, pageNumber,
-        pageCount, nextPageExists, posts = posts,
+        pageCount, nextPageExists, posts=posts,
         pageBaseString="/tag/{}".format(tag))
 
 @blueprint.route("/login", methods=["GET", "POST"])

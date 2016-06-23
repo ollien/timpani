@@ -8,4 +8,4 @@ def shutdown():
 
 atexit.register(shutdown)
 
-application = timpani.run(startServer = False)
+application = timpani.run(startServer=False)
