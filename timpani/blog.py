@@ -213,25 +213,11 @@ def editPost(postId, title, body, tags, connection = None):
     post = getPostById(postId)["post"]
     post.title = title
     post.body = body
-
-    currentTags = (connection.session
-        .query(database.tables.Tag)
-        .filter(database.tables.Tag.post_id == postId))
-
-    for tag in currentTags:
-        if tag.name not in currentTags:
-            connection.session.delete(tag)
-
-    connection.session.flush()
-    currentTagNames = (connection.session
-        .query(database.tables.Tag.name)
-        .filter(database.tables.Tag.post_id == postId))
-
-    for tag in tags:
-        if len(tag) > 0 and tag not in currentTagNames:
-            tag = database.tables.Tag(post_id = post.id, name = tag)
-            connection.session.add(tag)
-
+    (connection.session
+        .query(database.tables.TagRelation)
+        .filter(database.tables.TagRelation.post_id == postId)
+        .delete())
+    _addTags(post, tags, connection, False)
     connection.session.commit()
 
 def deletePost(post, connection = None):

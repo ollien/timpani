@@ -66,6 +66,7 @@ def editPost(postId):
         postTitle = flask.request.form["post-title"]
         postBody = flask.request.form["post-body"].replace("\t", "&emsp;")
         postBody = flask.request.form["post-body"].replace("    ", "&emsp;")
+        postTags = flask.request.form["post-tags"]
         blog.editPost(postId, postTitle, postBody, postTags)
         return flask.redirect("/")
 
