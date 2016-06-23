@@ -112,7 +112,7 @@ def _xssFilter(postBody):
     #Check if element has any attriutes that are not allowed, but only if
     #they are not already in blockedTags. Those will be escaped, anyway.
     blockedAttrs = soupedBody.findAll(lambda tag:
-                        len(set(tag.attrs) - set(whitelistedAttributes)) != 0
-                        and tag in whitelistedTags)
+                        len(set(tag.attrs.keys()) - set(whitelistedAttributes)) != 0
+                        and tag.name in whitelistedTags)
     for tag in blockedTags:
         tag.replace_with(cgi.escape(str(tag)))
