@@ -1,5 +1,6 @@
 import flask
 import functools
+import bs4
 import urllib.parse
 from .. import auth
 from .. import themes
@@ -100,3 +101,16 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, b
         pageNumber=pageNumber, pageCount=pageCount,
         nextPageExists=nextPageExists, basePageUrl=basePageUrl,
         *args, **kwargs)
+
+def _xssFilter(postBody):
+    whitelistedTags = ["div", "span", "b", "i", "u", "a", "img", "code"]
+    whitelistedAttributes = ["id", "class"]
+    soupedBody = bs4.BeautifulSoup(postBody, "html.parser")
+    checkForWhitelistedAttrs = lambda attrs: list(set(attrs) - set(whitelistedAttributes)) == []
+    allowedTags = soupedBody.findAll(lambda tag: tag.name in whitelistedTags
+                                    and checkForWhitelistedAttrs(tag.attrs))
+    blockedTags = soupedBody.findAll(lambda tag: tag.name not in whitelistedTags
+                                    or not checkForWhitelistedAttrs(tag.attrs))
+    print(allowedTags)
+    print(blockedTags)
+
