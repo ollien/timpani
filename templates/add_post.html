@@ -65,7 +65,7 @@
 				</div>
 
 				<div id="editor">
-					<div>{% if post is defined %}{{ post["post"].body }}{% endif %}</div>
+					<div>{% if post is defined %}{{post["post"].body|safe}}{% endif %}</div>
 				</div>
 				<!-- This is used to display an invalid message on the post body, since Quill doesn't act as an input, but rather as a div..-->
 				<input id="post-validity">

@@ -158,25 +158,15 @@ def nextPageExists(postCount, pageLimit, pageNumber):
 def getPageCount(postCount, pageLimit):
     return int(math.ceil(postCount/pageLimit))
 
-def addPost(title, body, time_posted, author, tags, connection = None):
-    #Functions are not re-run if they are default arguments.
+def _addTags(post, tags, connection = None, commit = True):
     if connection == None:
         connection = database.ConnectionManager.getMainConnection()
-
     if type(tags) == str:
         tags = tags.split(" ")
-    #Create the post object
-    post = database.tables.Post(
-        title = title,
-        body = body,
-        time_posted = time_posted,
-        author = author)
 
-    connection.session.add(post)
-    connection.session.flush()
     tagQuery = (connection.session
-        .query(database.tables.Tag.id, database.tables.Tag.name)
-        .filter(database.tables.Tag.name.in_(tags)))
+            .query(database.tables.Tag.id, database.tables.Tag.name)
+            .filter(database.tables.Tag.name.in_(tags)))
     storedTags = {tag.name: tag.id for tag in tagQuery.all()}
 
     #Parse the tags and add them to the table
@@ -193,6 +183,24 @@ def addPost(title, body, time_posted, author, tags, connection = None):
                 tagId = storedTags[tag]
             tagRelation = database.tables.TagRelation(post_id = post.id, tag_id = tagId)
             connection.session.add(tagRelation)
+    if commit:
+        connection.session.commit()
+
+def addPost(title, body, time_posted, author, tags, connection = None):
+    #Functions are not re-run if they are default arguments.
+    if connection == None:
+        connection = database.ConnectionManager.getMainConnection()
+
+    #Create the post object
+    post = database.tables.Post(
+        title = title,
+        body = body,
+        time_posted = time_posted,
+        author = author)
+
+    connection.session.add(post)
+    connection.session.flush()
+    _addTags(post, tags, connection, False)
     connection.session.commit()
 
 def editPost(postId, title, body, tags, connection = None):
@@ -205,25 +213,11 @@ def editPost(postId, title, body, tags, connection = None):
     post = getPostById(postId)["post"]
     post.title = title
     post.body = body
-
-    currentTags = (connection.session
-        .query(database.tables.Tag)
-        .filter(database.tables.Tag.post_id == postId))
-
-    for tag in currentTags:
-        if tag.name not in currentTags:
-            connection.session.delete(tag)
-
-    connection.session.flush()
-    currentTagNames = (connection.session
-        .query(database.tables.Tag.name)
-        .filter(database.tables.Tag.post_id == postId))
-
-    for tag in tags:
-        if len(tag) > 0 and tag not in currentTagNames:
-            tag = database.tables.Tag(post_id = post.id, name = tag)
-            connection.session.add(tag)
-
+    (connection.session
+        .query(database.tables.TagRelation)
+        .filter(database.tables.TagRelation.post_id == postId)
+        .delete())
+    _addTags(post, tags, connection, False)
     connection.session.commit()
 
 def deletePost(post, connection = None):
