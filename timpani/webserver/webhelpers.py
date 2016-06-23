@@ -116,3 +116,10 @@ def _xssFilter(postBody):
                         and tag.name in whitelistedTags)
     for tag in blockedTags:
         tag.replace_with(cgi.escape(str(tag)))
+
+    for tag in blockedAttrs:
+        allowedAttrs = {}
+        for attr in tag.attrs:
+            if attr in whitelistedAttributes:
+                allowedAttrs[attr] = tag.attrs[attr]
+        tag.attrs = allowedAttrs
