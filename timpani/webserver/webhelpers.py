@@ -115,6 +115,7 @@ def _xssFilter(postBody):
                         len(set(tag.attrs.keys()) - set(whitelistedAttributes)) != 0
                         and tag.name in whitelistedTags)
     for tag in blockedTags:
+        #Beautiful soup will escape HTML strings
         tag.replace_with(str(tag))
 
     for tag in blockedAttrs:
