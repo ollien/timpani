@@ -1,7 +1,6 @@
 import flask
 import functools
 import bs4
-import cgi
 import urllib.parse
 from .. import auth
 from .. import themes
@@ -115,7 +114,7 @@ def _xssFilter(postBody):
                         len(set(tag.attrs.keys()) - set(whitelistedAttributes)) != 0
                         and tag.name in whitelistedTags)
     for tag in blockedTags:
-        tag.replace_with(cgi.escape(str(tag)))
+        tag.replace_with(str(tag))
 
     for tag in blockedAttrs:
         allowedAttrs = {}
