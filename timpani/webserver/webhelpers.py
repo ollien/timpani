@@ -102,7 +102,7 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, b
         nextPageExists=nextPageExists, basePageUrl=basePageUrl,
         *args, **kwargs)
 
-def _xssFilter(postBody):
+def xssFilter(postBody):
     whitelistedTags = ["div", "span", "b", "i", "u", "a", "p", "img", "code",
                         "ul", "li", "h1", "h2", "h3", "h4", "h5", "h6", "pre"]
     #src and href must be checked seperately
