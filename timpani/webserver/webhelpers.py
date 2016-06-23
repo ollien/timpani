@@ -104,7 +104,8 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, b
         *args, **kwargs)
 
 def _xssFilter(postBody):
-    whitelistedTags = ["div", "span", "b", "i", "u", "a", "img", "code"]
+    whitelistedTags = ["div", "span", "b", "i", "u", "a", "p", "img", "code",
+                        "ul", "li", "h1", "h2", "h3", "h4", "h5", "h6", "pre"]
     whitelistedAttributes = ["id", "class"]
     soupedBody = bs4.BeautifulSoup(postBody, "html.parser")
     blockedTags = soupedBody.findAll(lambda tag: tag.name not in whitelistedTags)
