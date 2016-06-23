@@ -1,6 +1,7 @@
 import flask
 import functools
 import bs4
+import cgi
 import urllib.parse
 from .. import auth
 from .. import themes
@@ -106,11 +107,11 @@ def _xssFilter(postBody):
     whitelistedTags = ["div", "span", "b", "i", "u", "a", "img", "code"]
     whitelistedAttributes = ["id", "class"]
     soupedBody = bs4.BeautifulSoup(postBody, "html.parser")
-    checkForWhitelistedAttrs = lambda attrs: list(set(attrs) - set(whitelistedAttributes)) == []
-    allowedTags = soupedBody.findAll(lambda tag: tag.name in whitelistedTags
-                                    and checkForWhitelistedAttrs(tag.attrs))
-    blockedTags = soupedBody.findAll(lambda tag: tag.name not in whitelistedTags
-                                    or not checkForWhitelistedAttrs(tag.attrs))
-    print(allowedTags)
-    print(blockedTags)
-
+    blockedTags = soupedBody.findAll(lambda tag: tag.name not in whitelistedTags)
+    #Check if element has any attriutes that are not allowed, but only if
+    #they are not already in blockedTags. Those will be escaped, anyway.
+    blockedAttrs = soupedBody.findAll(lambda tag:
+                        len(set(tag.attrs) - set(whitelistedAttributes)) != 0
+                        and tag in whitelistedTags)
+    for tag in blockedTags:
+        tag.replace_with(cgi.escape(str(tag)))
