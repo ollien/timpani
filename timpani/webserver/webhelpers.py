@@ -128,3 +128,4 @@ def xssFilter(postBody):
                 if scheme != "data" and scheme != "javascript":
                     allowedAttrs[attr] = tag.attrs[attr]
         tag.attrs = allowedAttrs
+    return str(soupedBody)
