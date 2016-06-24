@@ -106,7 +106,7 @@ def xssFilter(postBody):
     whitelistedTags = ["div", "span", "b", "i", "u", "a", "p", "img", "code",
                         "ul", "li", "h1", "h2", "h3", "h4", "h5", "h6", "pre"]
     #src and href must be checked seperately
-    whitelistedAttributes = ["id", "class"]
+    whitelistedAttributes = ["id", "class", "style"]
     soupedBody = bs4.BeautifulSoup(postBody, "html.parser")
     blockedTags = soupedBody.findAll(lambda tag: tag.name not in whitelistedTags)
     #Check if element has any attriutes that are not allowed, but only if
