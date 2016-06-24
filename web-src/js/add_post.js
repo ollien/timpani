@@ -62,6 +62,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	editor.addFormat("code", { "class": "language-" });
 	codeEditor.getSession().setUseWorker(false);
 
+	function setPostValidity() {
+		if (editor.getLength() <= 1) {
+			validityInput.setCustomValidity("Please fill out a post body.");
+		}
+		else {
+			validityInput.setCustomValidity("");
+		}
+	}
+
+	setPostValidity();
+
 	editor.on("selection-change", function(range) {
 		if (range == null) {
 			editorDiv.classList.remove("focused");
@@ -92,12 +103,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			codeButton.disabled = true;
 		}
 
-		if (editor.getLength() <= 1) {
-			validityInput.setCustomValidity("Please fill out a post body.");
-		}
-		else {
-			validityInput.setCustomValidity("");
-		}
+		setPostValidity();
 	});
 
 	linkButton.addEventListener("click", function(event) {
