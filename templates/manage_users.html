@@ -15,8 +15,8 @@
 	<ul id="users-list">
 		{% for user in userList %}
 			<li user_id="{{user.id}}" class="user">
-				<span class="username">{{user.username}}</span>
-				<span class="user-info-button fa fa-info-circle"></span>
+				<!--Having this on it's own line prevents styling troubles that come from adding new buttons via JS-->
+				<span class="username">{{user.username}}</span><span class="user-info-button fa fa-info-circle"></span>
 			</li>
 		{% endfor %}
 	</ul>
