@@ -2,36 +2,6 @@
 
 var PASSWORDS_DO_NOT_MATCH = "Passwords do not match.";
 
-function addInfoButtonListener(button) {
-	button.addEventListener("click", function(event){
-		userInfoModal.show();
-		var userId = this.parentNode.getAttribute("user_id");
-		var request = new XMLHttpRequest();
-		request.open("GET", "/get_user_info/" + userId);
-		request.addEventListener("load", function(event){
-			var res = JSON.parse(request.responseText);
-			if (res.error === 0) {
-				usernameDisplay.textContent = res.info.username;
-				fullNameDisplay.textContent = res.info.full_name;
-				if (res.info.permissions.length === 0) {
-					noPermissions.style.display = "";
-					permissionDisplayList.style.display = "none";
-				}
-				else {
-					noPermissions.style.display = "none";
-					permissionDisplayList.style.display = "";
-					canChangeSettingsDisplay.style.display = res.info.permissions.indexOf("can_write_posts") > -1 ? "" : "none";
-					canWritePostsDisplay.style.display = res.info.permissions.indexOf("can_change_settings") > -1 ? "" : "none";
-				}
-			}
-			else if (res.error === 1){
-				window.location = "/login";
-			}
-		});
-		request.send();
-	});
-}
-
 document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserModalElement = document.getElementById("add-user-modal");
 	var userInfoModalElement = document.getElementById("user-info-modal");
@@ -59,6 +29,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var canWritePostsDisplay = document.getElementById("can-write-posts");
 	var noPermissions = document.getElementById("no-permissions");
 
+	function addInfoButtonListener(button) {
+		button.addEventListener("click", function(event){
+			userInfoModal.show();
+			var userId = this.parentNode.getAttribute("user_id");
+			var request = new XMLHttpRequest();
+			request.open("GET", "/get_user_info/" + userId);
+			request.addEventListener("load", function(event){
+				var res = JSON.parse(request.responseText);
+				if (res.error === 0) {
+					usernameDisplay.textContent = res.info.username;
+					fullNameDisplay.textContent = res.info.full_name;
+					if (res.info.permissions.length === 0) {
+						noPermissions.style.display = "";
+						permissionDisplayList.style.display = "none";
+					}
+					else {
+						noPermissions.style.display = "none";
+						permissionDisplayList.style.display = "";
+						canChangeSettingsDisplay.style.display = res.info.permissions.indexOf("can_write_posts") > -1 ? "" : "none";
+						canWritePostsDisplay.style.display = res.info.permissions.indexOf("can_change_settings") > -1 ? "" : "none";
+					}
+				}
+				else if (res.error === 1){
+					window.location = "/login";
+				}
+			});
+			request.send();
+		});
+	}
 
 	addUserButton.addEventListener("click", function(event) {
 		addUserModal.show();
