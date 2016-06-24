@@ -8,8 +8,11 @@ li.user {
 	transition-duration: $fade-time;
 	font-size: $font-size;
 
+	span.user-info-button {
+		margin-left: 5px;
+	}
 	span.user-info-button:hover {
-		color: #297AD4;	
+		color: #297AD4;
 	}
 }
 
