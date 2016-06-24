@@ -76,5 +76,19 @@
 		</div>
 	</div>
 
+	<div class="modal" id="change-password-modal">
+		<h3 class="modal-title">Change Password</h3>
+		<div class="modal-body">
+			<form id="change-password-form" class="pure-form" method="POST" action="/reset_password">
+				<input id="reset-password-input" placeholder="New Password" type="password" required>
+				<input id="confirm-password-reset-input" placeholder="Confirm Password" type="password" required>
+				<button></button>
+			</form>
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button neutral">Cancel</button>
+			<button class="pure-button primary">Reset</button>
+		</div>
+
 </body>
 </html>
