@@ -123,12 +123,12 @@ def manageUsers():
     saveRedirect=False)
 def createUser(authed, authMessage):
     if authed:
-        username = flask.request.form["username"]	
+        username = flask.request.form["username"]
         password = flask.request.form["password"]
         fullName = flask.request.form["full_name"]
         canChangeSettings = False
         canWritePosts = False
-        if ("can_change_settings" in flask.request.form 
+        if ("can_change_settings" in flask.request.form
             and flask.request.form["can_change_settings"][1] == "on"):
             canChangeSettings = True
         if ("can_write_posts" in flask.request.form
