@@ -17,10 +17,10 @@ CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../configs/"))
 TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../templates"))
 UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../static/uploads"))
 
-blueprint = flask.Blueprint("admin", __name__, template_folder = TEMPLATE_PATH)
+blueprint = flask.Blueprint("admin", __name__, template_folder=TEMPLATE_PATH)
 
 @blueprint.route("/manage")
-@webhelpers.checkUserPermissions("/login", saveRedirect = False)
+@webhelpers.checkUserPermissions("/login", saveRedirect=False)
 def manage():
     return flask.render_template("manage.html",
         user=webhelpers.checkForSession().user)
@@ -102,13 +102,13 @@ def settingsPage():
             storedSettings = settings.getAllSettings()
             #Since flask.request.form is an ImmutableMultiDict, we must call to_dict
             #flat = True means we will only get the first value in the dict (which should be fine).
-            storedSettings.update(flask.request.form.to_dict(flat = True))
+            storedSettings.update(flask.request.form.to_dict(flat=True))
             return flask.render_template("settings.html",
                 settings=storedSettings,
                 themes=themes.getAvailableThemes(),
                 user=webhelpers.checkForSession().user)
 
-@blueprint.route("/manage_users", methods = ["GET", "POST"])
+@blueprint.route("/manage_users", methods=["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage",
     requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
 def manageUsers():
@@ -118,9 +118,9 @@ def manageUsers():
             user = webhelpers.checkForSession().user)
 
 #Returns a JSON Object based on whether or not user is logged in and if creation was succuessful.
-@blueprint.route("/create_user", methods = ["POST"])
-@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION,
-    saveRedirect = False)
+@blueprint.route("/create_user", methods=["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION,
+    saveRedirect=False)
 def createUser(authed, authMessage):
     if authed:
         username = flask.request.form["username"]	
@@ -146,7 +146,7 @@ def createUser(authed, authMessage):
 #Returns a JSON object based on whether or not user is logged in and if a user is found.
 #Object contains user information
 @blueprint.route("/get_user_info/<int:userId>")
-@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION)
 def getUserInfo(userId, authed, authMessage):
     if authed:
         user = auth.getUserById(userId)
@@ -187,7 +187,7 @@ def uploadImage(authed, authMessage):
     ACCEPTED_FORMATS = ["image/jpeg", "image/png", "image/gif"]
     if authed:
         image = flask.request.files["image"]
-        mime = magic.from_buffer(image.stream.read(), mime = True)
+        mime = magic.from_buffer(image.stream.read(), mime=True)
         image.stream.seek(0,0)
 
         if type(mime) == bytes:
