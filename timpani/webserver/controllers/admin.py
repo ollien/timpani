@@ -16,7 +16,7 @@ CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../configs/"))
 TEMPLATE_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../../../templates"))
 UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../static/uploads"))
 
-blueprint = flask.Blueprint("admin", __name__, template_folder = TEMPLATE_PATH)
+blueprint = flask.Blueprint("admin", __name__, template_folder=TEMPLATE_PATH)
 
 @blueprint.route("/manage")
 @webhelpers.checkUserPermissions("/login", saveRedirect = False)
