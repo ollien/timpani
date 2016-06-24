@@ -4,4 +4,5 @@ sqlalchemy
 psycopg2
 bcrypt
 python-magic
+beautifulsoup4
 selenium==2.46.0

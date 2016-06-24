@@ -11,7 +11,7 @@ BCRYPT_ROUNDS = 10
 FILE_LOCATION = os.path.abspath(os.path.dirname(__file__))
 CONFIG_PATH = os.path.abspath(os.path.join(FILE_LOCATION, "../configs/"))
 
-configs = configmanager.ConfigManager(configPath = CONFIG_PATH)
+configs = configmanager.ConfigManager(configPath=CONFIG_PATH)
 authConfig = configs["auth"]
 
 CAN_CHANGE_SETTINGS_PERMISSION = "can_change_settings"
@@ -44,15 +44,15 @@ def getAllUsers():
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
     passwordAsBytes = bytes(password, "utf-8")
     passwordHash = bcrypt.hashpw(passwordAsBytes,
-        bcrypt.gensalt(rounds = BCRYPT_ROUNDS))
+        bcrypt.gensalt(rounds=BCRYPT_ROUNDS))
     passwordHash = passwordHash.decode("utf-8")
     databaseConnection = database.ConnectionManager.getMainConnection()
     userObject = database.tables.User(
-        username = username,
-        full_name = full_name,
-        password = passwordHash,
-        can_change_settings = can_change_settings,
-        can_write_posts = can_write_posts)
+        username=username,
+        full_name=full_name,
+        password=passwordHash,
+        can_change_settings=can_change_settings,
+        can_write_posts=can_write_posts)
 
     databaseConnection.session.add(userObject)
     databaseConnection.session.commit()
@@ -105,7 +105,7 @@ def generateSessionId():
     sessionId = binascii.hexlify(os.urandom(authConfig["session_id_length"]))
     return sessionId.decode("utf-8")
 
-def createSession(username, sessionId = None):
+def createSession(username, sessionId=None):
     if sessionId == None:
         sessionId = generateSessionId()
     databaseConnection = database.ConnectionManager.getMainConnection()
@@ -118,11 +118,11 @@ def createSession(username, sessionId = None):
         userObject = query.first()
         userId = userObject.id
         #Set expiry to the date of now + two weeks
-        expires = datetime.datetime.now() + datetime.timedelta(weeks = 2)
+        expires = datetime.datetime.now() + datetime.timedelta(weeks=2)
         sessionObj = database.tables.Session(
-            user_id = userId,
-            session_id = sessionId,
-            expires = expires)
+            user_id=userId,
+            session_id=sessionId,
+            expires=expires)
         databaseConnection.session.add(sessionObj)
         databaseConnection.session.commit()
         return (sessionId, expires)

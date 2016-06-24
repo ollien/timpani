@@ -23,62 +23,63 @@ blueprint = flask.Blueprint("admin", __name__, template_folder = TEMPLATE_PATH)
 @webhelpers.checkUserPermissions("/login", saveRedirect = False)
 def manage():
     return flask.render_template("manage.html",
-        user = webhelpers.checkForSession().user)
+        user=webhelpers.checkForSession().user)
 
 @blueprint.route("/add_post", methods=["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage",
-    requiredPermissions = auth.CAN_POST_PERMISSION)
+    requiredPermissions=auth.CAN_POST_PERMISSION)
 def addPost():
     if flask.request.method == "GET":
         return flask.render_template("add_post.html",
-            user = webhelpers.checkForSession().user)
+            user=webhelpers.checkForSession().user)
     elif flask.request.method == "POST":
         postTitle = flask.request.form["post-title"]
         postBody = flask.request.form["post-body"].replace("\t", "&emsp;")
         postBody = flask.request.form["post-body"].replace("    ", "&emsp;")
         postTags = flask.request.form["post-tags"]
         blog.addPost(
-            title = postTitle,
-            body = postBody,
-            time_posted = datetime.datetime.now(),
-            author = webhelpers.checkForSession().user,
-            tags = postTags)
+            title=postTitle,
+            body=postBody,
+            time_posted=datetime.datetime.now(),
+            author=webhelpers.checkForSession().user,
+            tags=postTags)
         return flask.redirect("/")
 
 @blueprint.route("/manage_posts")
 @webhelpers.checkUserPermissions("/manage",
-    requiredPermissions = auth.CAN_POST_PERMISSION)
+    requiredPermissions=auth.CAN_POST_PERMISSION)
 def managePosts():
-    posts = blog.getPosts(tags = False)
+    posts = blog.getPosts(tags=False)
     return flask.render_template("manage_posts.html",
-        posts = posts,
-            user = webhelpers.checkForSession().user)
+        posts=posts,
+        user=webhelpers.checkForSession().user)
 
-@blueprint.route("/edit_post/<int:postId>", methods = ["GET", "POST"])
+@blueprint.route("/edit_post/<int:postId>", methods=["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage",
-    requiredPermissions = auth.CAN_POST_PERMISSION)
+    requiredPermissions=auth.CAN_POST_PERMISSION)
 def editPost(postId):
     if flask.request.method == "GET":
         post = blog.getPostById(postId)
         return flask.render_template("add_post.html",
-            post = post,
-            user = webhelpers.checkForSession().user)
+            post=post,
+            user=webhelpers.checkForSession().user)
     elif flask.request.method == "POST":
         postTitle = flask.request.form["post-title"]
         postBody = flask.request.form["post-body"].replace("\t", "&emsp;")
         postBody = flask.request.form["post-body"].replace("    ", "&emsp;")
+        postTags = flask.request.form["post-tags"]
         blog.editPost(postId, postTitle, postBody, postTags)
         return flask.redirect("/")
 
-@blueprint.route("/settings", methods = ["GET", "POST"])
+@blueprint.route("/settings", methods=["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage",
-    requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+    requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION)
 def settingsPage():
     if flask.request.method == "GET":
         return flask.render_template("settings.html",
-            settings = settings.getAllSettings(),
-            themes = themes.getAvailableThemes(),
-            user = webhelpers.checkForSession().user)
+            settings=settings.getAllSettings(),
+            themes=themes.getAvailableThemes(),
+            user=webhelpers.checkForSession().user)
 
     if flask.request.method == "POST":
         invalidSettings = []
@@ -103,9 +104,9 @@ def settingsPage():
             #flat = True means we will only get the first value in the dict (which should be fine).
             storedSettings.update(flask.request.form.to_dict(flat = True))
             return flask.render_template("settings.html",
-                settings = storedSettings,
-                themes = themes.getAvailableThemes(),
-                user = webhelpers.checkForSession().user)
+                settings=storedSettings,
+                themes=themes.getAvailableThemes(),
+                user=webhelpers.checkForSession().user)
 
 @blueprint.route("/manage_users", methods = ["GET", "POST"])
 @webhelpers.checkUserPermissions("/manage",
@@ -167,9 +168,9 @@ def getUserInfo(userId, authed, authMessage):
         return json.dumps({"error": 1}), 403
 
 #Returns a JSON Object based on whether or not the user is logged in.
-@blueprint.route("/delete_post/<int:postId>", methods = ["POST"])
-@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION,
-    saveRedirect = False)
+@blueprint.route("/delete_post/<int:postId>", methods=["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_POST_PERMISSION,
+    saveRedirect=False)
 def deletePost(postId, authed, authMessage):
     if authed:
         blog.deletePost(postId)
@@ -179,9 +180,9 @@ def deletePost(postId, authed, authMessage):
 
 #Returns a JSON Object based on whether or not the user is logged in,
 #or if it's an invalid file type.
-@blueprint.route("/upload_image", methods = ["POST"])
-@webhelpers.checkUserPermissions(requiredPermissions = auth.CAN_POST_PERMISSION,
-    saveRedirect = False)
+@blueprint.route("/upload_image", methods=["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_POST_PERMISSION,
+    saveRedirect=False)
 def uploadImage(authed, authMessage):
     ACCEPTED_FORMATS = ["image/jpeg", "image/png", "image/gif"]
     if authed:

@@ -45,7 +45,7 @@ def setSettingValue(name, value):
     valid = validateSetting(name, value)
     if valid:
         databaseConnection = database.ConnectionManager.getMainConnection()
-        settingObj = database.tables.Setting(name = name, value = value)
+        settingObj = database.tables.Setting(name=name, value=value)
         databaseConnection.session.merge(settingObj)
         databaseConnection.session.commit()
         return True
