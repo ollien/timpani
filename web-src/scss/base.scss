@@ -88,7 +88,7 @@ div.modal-overlay {
 	opacity: 0;
 	transition-property: opacity;
 	transition-duration: $modal-transition-duration;
-	z-index: 99999;
+	z-index: 0;
 }
 
 div.modal-overlay.active {
