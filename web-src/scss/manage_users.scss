@@ -51,3 +51,23 @@ li.user.fading {
 		}
 	}
 }
+
+#change-password-modal {
+	min-width: 275px;
+	div.modal-body {
+		input {
+			display: block;
+			margin-bottom: 15px;
+			width: 100%;
+		}
+		button {
+			display: none;
+		}
+	}
+	div.modal-buttons {
+		button.primary {
+			color: white;
+			background-color: #CA3C3C;
+		}
+	}
+}
