@@ -28,10 +28,6 @@ function Modal(element, config) {
 		}
 	}
 
-	if (this.overlay.style.zIndex === undefined || this.overlay.style.zIndex === "") {
-		this.overlay.style.zIndex = 0;
-	}
-	this.element.style.zIndex = this.overlay.style.zIndex + 1;
 	buttonsEl = this.element.querySelector(".modal-buttons");
 
 	if (buttonsEl != null) {
@@ -117,11 +113,9 @@ function Modal(element, config) {
 
 Modal.prototype.show = function() {
 	var event = null;
-
 	try {
 		event = new Event("show", { cancelable: true });
 	}
-
 	catch (e) {
 		//Legacy support for IE and the likes.
 		event = document.createEvent("event");
@@ -131,6 +125,11 @@ Modal.prototype.show = function() {
 	this.element.dispatchEvent(event);
 	//event.returnValue is IE Proofing
 	if (!event.defaultPrevented || event.returnValue) {
+		if (!this.element.classList.contains("active")) {
+			this.overlay.style.zIndex = Modal.highestZIndex;
+			this.element.style.zIndex = Modal.highestZIndex + 1;
+			Modal.highestZIndex += 2;
+		}
 		this.element.classList.add("active");
 		document.body.appendChild(this.overlay);
 		this.overlay.classList.add("active");
@@ -151,6 +150,11 @@ Modal.prototype.hide = function() {
 	this.element.dispatchEvent(event);
 	//event.returnValue is IE Proofing
 	if (!event.defaultPrevented || event.returnValue) {
+		if (this.element.classList.contains("active")) {
+			this.overlay.style.zIndex = "";
+			this.element.style.zIndex = "";
+			Modal.highestZIndex -= 2;
+		}
 		this.element.classList.remove("active");
 		var count = 0;
 		this.overlay.classList.remove("active");
@@ -169,3 +173,6 @@ Modal.prototype.toggle = function() {
 Modal.prototype.addEventListener = function() {
 	this.element.addEventListener.apply(this, arguments);
 };
+
+//Stores the highest ZIndex of any modal. -1 indicates that there is no active modal.
+Modal.highestZIndex = 0;
