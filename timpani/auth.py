@@ -154,3 +154,12 @@ def invalidateSession(sessionId):
         .query(database.tables.Session)
         .filter(database.tables.Session.session_id == sessionId)
         .delete(synchronize_session=False))
+
+def resetPassword(user, newPassword):
+    if type(user) != database.tables.User:
+            raise TypeError("user must be of type User, not {}".format(type(user).__name__))
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    passwordHash = bcrypt.hashpw(bytes(newPassword),
+        bcrypt.gensalt(rounds=BCRYPT_ROUNDS)).decode("utf-8")
+    user.password = passwordHash
+    databaseConnection.commit()
