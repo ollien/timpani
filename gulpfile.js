@@ -9,6 +9,8 @@ var plumber = require("gulp-plumber");
 var glob = require("glob");
 var path = require("path");
 var colors = require("colors");
+var yargs = require("yargs");
+var gulpif = require("gulp-if");
 
 var SASS_SRC = "./web-src/scss/*.scss";
 var SASS_DEST = "./static/css";
@@ -40,7 +42,7 @@ gulp.task("sass", function() {
 				"IE 9"
 			]
 		}))
-		.pipe(minifyCss())
+		.pipe(gulpif(!(yargs.argv.nominify || yargs.argv.nouglify), minifyCss()))
 		.pipe(gulp.dest(SASS_DEST));
 });
 
@@ -52,7 +54,7 @@ gulp.task("js", function() {
 		.pipe(jshint())
 		.pipe(jshint.reporter(stylishJshint))
 		.pipe(jshint.reporter("fail"))
-		.pipe(uglify())
+		.pipe(gulpif(!(yargs.argv.nominify || yargs.argv.nouglify), uglify()))
 		.pipe(gulp.dest(JS_DEST));
 });
 
