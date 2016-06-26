@@ -31,13 +31,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var canChangeSettingsDisplay = document.getElementById("can-change-settings");
 	var canWritePostsDisplay = document.getElementById("can-write-posts");
 	var noPermissions = document.getElementById("no-permissions");
+	//Stores the current user id. If -1, no user's modal is currently open.
+	var currentUserId = -1;
 
 	function addInfoButtonListener(button) {
 		button.addEventListener("click", function(event) {
 			userInfoModal.show();
-			var userId = this.parentNode.getAttribute("user_id");
+			currentUserId = this.parentNode.getAttribute("user_id");
 			var request = new XMLHttpRequest();
-			request.open("GET", "/get_user_info/" + userId);
+			request.open("GET", "/get_user_info/" + currentUserId);
 			request.addEventListener("load", function(event) {
 				var res = JSON.parse(request.responseText);
 				if (res.error === 0) {
