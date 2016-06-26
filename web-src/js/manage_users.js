@@ -5,15 +5,18 @@ var PASSWORDS_DO_NOT_MATCH = "Passwords do not match.";
 document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserModalElement = document.getElementById("add-user-modal");
 	var userInfoModalElement = document.getElementById("user-info-modal");
+	var changePasswordModalElement = document.getElementById("change-password-modal");
 	var addUserModal = new Modal(addUserModalElement);
 	addUserModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var userInfoModal = new Modal(userInfoModalElement);
 	userInfoModal.positiveButton = addUserModal.element.querySelector("button.positive");
+	var changePasswordModal = new Modal(changePasswordModalElement);
 	var addUserButton = document.getElementById("add-user-button");
 	var usersList = document.getElementById("users-list");
 	var createUserForm = document.getElementById("create-user-form");
 	var fakeCreateSubmitButton = createUserForm.querySelector("button");
 	var userInfoButtons = Array.prototype.slice.call(document.querySelectorAll(".user-info-button"));
+	var changePasswordButton = document.getElementById("change-password-button");
 	//Inputs for add user modal
 	var usernameInput = document.getElementById("username-input");
 	var fullNameInput = document.getElementById("full-name-input");
@@ -150,4 +153,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	userInfoButtons.forEach(addInfoButtonListener);
+
+	changePasswordButton.addEventListener("click", function(event) {
+		changePasswordModal.show();
+	});
+
+	changePasswordModal.element.addEventListener("positive-pressed", function(event) {
+		
+	});
 });
