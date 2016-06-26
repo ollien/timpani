@@ -28,7 +28,6 @@ function Modal(element, config) {
 		}
 	}
 
-	this.element.style.zIndex = this.overlay.style.zIndex + 1;
 	buttonsEl = this.element.querySelector(".modal-buttons");
 
 	if (buttonsEl != null) {
@@ -127,6 +126,8 @@ Modal.prototype.show = function() {
 	//event.returnValue is IE Proofing
 	if (!event.defaultPrevented || event.returnValue) {
 		if (!this.element.classList.contains("active")) {
+			this.overlay.style.zIndex = Modal.highestZIndex;
+			this.element.style.zIndex = Modal.highestZIndex + 1;
 			Modal.highestZIndex += 2;
 		}
 		this.element.classList.add("active");
@@ -150,6 +151,8 @@ Modal.prototype.hide = function() {
 	//event.returnValue is IE Proofing
 	if (!event.defaultPrevented || event.returnValue) {
 		if (this.element.classList.contains("active")) {
+			this.overlay.style.zIndex = "";
+			this.element.style.zIndex = "";
 			Modal.highestZIndex -= 2;
 		}
 		this.element.classList.remove("active");
@@ -172,4 +175,4 @@ Modal.prototype.addEventListener = function() {
 };
 
 //Stores the highest ZIndex of any modal. -1 indicates that there is no active modal.
-Modal.highestZIndex = -1;
+Modal.highestZIndex = 0;
