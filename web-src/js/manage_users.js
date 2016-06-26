@@ -30,12 +30,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var noPermissions = document.getElementById("no-permissions");
 
 	function addInfoButtonListener(button) {
-		button.addEventListener("click", function(event){
+		button.addEventListener("click", function(event) {
 			userInfoModal.show();
 			var userId = this.parentNode.getAttribute("user_id");
 			var request = new XMLHttpRequest();
 			request.open("GET", "/get_user_info/" + userId);
-			request.addEventListener("load", function(event){
+			request.addEventListener("load", function(event) {
 				var res = JSON.parse(request.responseText);
 				if (res.error === 0) {
 					usernameDisplay.textContent = res.info.username;
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 						canWritePostsDisplay.style.display = res.info.permissions.indexOf("can_change_settings") > -1 ? "" : "none";
 					}
 				}
-				else if (res.error === 1){
+				else if (res.error === 1) {
 					window.location = "/login";
 				}
 			});
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			else if (res.error === 1) {
 				window.location = "/login";
 			}
-			else if (res.error === 2){
+			else if (res.error === 2) {
 				usernameInput.setCustomValidity("Username already in use!");
 				fakeCreateSubmitButton.click();
 			}
@@ -118,20 +118,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		request.send(formData);
 	});
 
-	usernameInput.addEventListener("input", function(event){
+	usernameInput.addEventListener("input", function(event) {
 		this.setCustomValidity("");
 	});
 
-	passwordInput.addEventListener("input", function(event){
+	passwordInput.addEventListener("input", function(event) {
 		this.setCustomValidity("");
 		if (this.value !== confirmPasswordInput.value) {
 			this.setCustomValidity(PASSWORDS_DO_NOT_MATCH);
 		}
 	});
 
-	confirmPasswordInput.addEventListener("input", function(event){
+	confirmPasswordInput.addEventListener("input", function(event) {
 		passwordInput.setCustomValidity("");
-		if (passwordInput.value !== this.value){
+		if (passwordInput.value !== this.value) {
 			passwordInput.setCustomValidity(PASSWORDS_DO_NOT_MATCH);
 		}
 	});
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		fakeCreateSubmitButton.click();
 	});
 
-	addUserModal.element.addEventListener("hide", function(event){
+	addUserModal.element.addEventListener("hide", function(event) {
 		createUserForm.reset();
 		passwordInput.setCustomValidity("");
 		confirmPasswordInput.setCustomValidity("");
