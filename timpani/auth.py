@@ -163,3 +163,11 @@ def resetPassword(user, newPassword):
         bcrypt.gensalt(rounds=BCRYPT_ROUNDS)).decode("utf-8")
     user.password = passwordHash
     databaseConnection.commit()
+
+def resetPasswordById(userId, newPassword):
+    user = getUserById(userId)
+    resetPassword(userId, newPassword)
+
+def resetPasswordByUsername(username, newPassword):
+    user = getUserByUsername(username)
+    resetPassword(username, newPassword)
