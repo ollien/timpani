@@ -33,6 +33,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var noPermissions = document.getElementById("no-permissions");
 	//Stores the current user id. If -1, no user's modal is currently open.
 	var currentUserId = -1;
+	//Inputs for reset password modal
+	var newPasswordInput = document.getElementById("reset-password-input");
+	var confirmNewPasswordInput = document.getElementById("confirm-password-reset-input");
+	var resetPasswordForm = document.getElementById("change-password-form");
+	var fakeResetSubmitButton = resetPasswordForm.querySelector("button");
 
 	function addInfoButtonListener(button) {
 		button.addEventListener("click", function(event) {
@@ -100,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				infoButton.classList.add("user-info-button");
 				infoButton.classList.add("fa");
 				infoButton.classList.add("fa-info-circle");
-				console.log(userInfoButtons);
 				userInfoButtons.push(infoButton);
 				addInfoButtonListener(infoButton);
 				li.appendChild(infoButton);
@@ -160,7 +164,48 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		changePasswordModal.show();
 	});
 
+	resetPasswordForm.addEventListener("submit", function(event) {
+		event.preventDefault();
+		createUserForm.checkValidity();
+		var formData = new FormData();
+		formData.append("userId", currentUserId);
+		formData.append(newPasswordInput.getAttribute("name"), newPasswordInput.value);
+		var request = new XMLHttpRequest();
+		request.open("POST", "/reset_password", true);
+		request.addEventListener("load", function(event) {
+			var res = JSON.parse(request.responseText);
+			if (res.error === 0) {
+				changePasswordModal.hide();
+			}
+			else {
+				window.location = "/login";
+			}
+		});
+		request.send(formData);
+	});
+
+	newPasswordInput.addEventListener("input", function(event) {
+		newPasswordInput.setCustomValidity("");
+		if (this.value !== confirmNewPasswordInput.value) {
+			newPasswordInput.setCustomValidity(PASSWORDS_DO_NOT_MATCH);
+		}
+	});
+
+	confirmNewPasswordInput.addEventListener("input", function(event) {
+		newPasswordInput.setCustomValidity("");
+		if (this.value !== newPasswordInput.value) {
+			newPasswordInput.setCustomValidity(PASSWORDS_DO_NOT_MATCH);
+		}
+	});
+
 	changePasswordModal.element.addEventListener("positive-pressed", function(event) {
-		
+		event.preventDefault();
+		//Through I would normally use createUserForm.submit(), this doesn't fire the "submit" event.
+		fakeResetSubmitButton.click();
+	});
+
+	changePasswordModal.element.addEventListener("hide", function(event) {
+		resetPasswordForm.reset();
+		newPasswordInput.setCustomValidity("");
 	});
 });
