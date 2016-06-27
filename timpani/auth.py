@@ -38,7 +38,8 @@ def getUserByUsername(username):
 def getAllUsers():
     databaseConnection = database.ConnectionManager.getMainConnection()
     query = (databaseConnection.session
-        .query(database.tables.User))
+        .query(database.tables.User)
+        .order_by(sqlalchemy.func.lower(database.tables.User.username)))
     return query.all()
 
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
