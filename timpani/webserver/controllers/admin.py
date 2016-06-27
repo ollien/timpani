@@ -213,7 +213,7 @@ def resetPassword(authed, authMessage):
     if authed:
         userId = flask.request.form["userId"]
         newPassword = flask.request.form["password"]
-        auth.resetPassword(userId, newPassword)
+        auth.resetPasswordById(userId, newPassword)
         return json.dumps({"error": 0})
     else:
         return json.dumps({"error": 1}), 403

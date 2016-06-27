@@ -159,15 +159,15 @@ def resetPassword(user, newPassword):
     if type(user) != database.tables.User:
             raise TypeError("user must be of type User, not {}".format(type(user).__name__))
     databaseConnection = database.ConnectionManager.getMainConnection()
-    passwordHash = bcrypt.hashpw(bytes(newPassword),
+    passwordHash = bcrypt.hashpw(bytes(newPassword, "utf-8"),
         bcrypt.gensalt(rounds=BCRYPT_ROUNDS)).decode("utf-8")
     user.password = passwordHash
-    databaseConnection.commit()
+    databaseConnection.session.commit()
 
 def resetPasswordById(userId, newPassword):
     user = getUserById(userId)
-    resetPassword(userId, newPassword)
+    resetPassword(user, newPassword)
 
 def resetPasswordByUsername(username, newPassword):
     user = getUserByUsername(username)
-    resetPassword(username, newPassword)
+    resetPassword(user, newPassword)
