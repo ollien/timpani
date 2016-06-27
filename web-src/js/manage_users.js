@@ -130,8 +130,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					usersList.insertBefore(li, before);
 				}
 				//Fixes race condition where element wouldn't fade
-				//Needs to be set to a variable so jshint doesn't complain about an expression.
-				var opacity = window.getComputedStyle(li).opacity;
+				window.getComputedStyle(li);
 				li.style.opacity = 1;
 				addUserModal.hide();
 			}
