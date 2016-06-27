@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var userInfoModal = new Modal(userInfoModalElement);
 	userInfoModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var changePasswordModal = new Modal(changePasswordModalElement);
+	changePasswordModal.positiveButton = changePasswordModal.element.querySelector("button.positive");
 	var addUserButton = document.getElementById("add-user-button");
 	var usersList = document.getElementById("users-list");
 	var createUserForm = document.getElementById("create-user-form");
@@ -165,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	resetPasswordForm.addEventListener("submit", function(event) {
+		changePasswordModal.positiveButton.classList.add("working");
 		event.preventDefault();
 		createUserForm.checkValidity();
 		var formData = new FormData();
@@ -173,6 +175,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		var request = new XMLHttpRequest();
 		request.open("POST", "/reset_password", true);
 		request.addEventListener("load", function(event) {
+			changePasswordModal.positiveButton.classList.add("working");
 			var res = JSON.parse(request.responseText);
 			if (res.error === 0) {
 				changePasswordModal.hide();
