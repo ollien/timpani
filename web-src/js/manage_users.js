@@ -122,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				addInfoButtonListener(infoButton);
 				li.appendChild(infoButton);
 				li.style.opacity = 0;
+				li.style.height = "0px";
 				var before = getInsertBeforeUsername(usernameInput.value);
 				if (before === null) {
 					usersList.appendChild(li);
@@ -130,8 +131,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					usersList.insertBefore(li, before);
 				}
 				//Fixes race condition where element wouldn't fade
-				window.getComputedStyle(li);
+				window.getComputedStyle(li).opacity;
+				window.getComputedStyle(li).height;
 				li.style.opacity = 1;
+				li.style.height = "";
 				addUserModal.hide();
 			}
 			else if (res.error === 1) {

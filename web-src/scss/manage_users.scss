@@ -2,11 +2,13 @@
 
 li.user {
 	$fade-time: 100ms;
+	$slide-time: 250ms;
 	$font-size: 15pt;
 	opacity: 1;
-	transition-property: opacity, visibility;
-	transition-duration: $fade-time;
+	transition-property: opacity, visibility, height;
+	transition-duration: $fade-time, $fade-time, $slide-time;
 	font-size: $font-size;
+	height: $font-size + 3pt;
 
 	span.user-info-button {
 		margin-left: 5px;
