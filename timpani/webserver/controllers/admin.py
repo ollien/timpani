@@ -205,3 +205,15 @@ def uploadImage(authed, authMessage):
             return json.dumps({"error": 2}), 400
     else:
         return json.dumps({"error": 1}), 403
+
+@blueprint.route("/reset_password", methods=["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION,
+    saveRedirect=False)
+def resetPassword(authed, authMessage):
+    if authed:
+        userId = flask.request.form["userId"]
+        newPassword = flask.request.form["password"]
+        auth.resetPassword(userId, newPassword)
+        return json.dumps({"error": 0})
+    else:
+        return json.dumps({"error": 1}), 403
