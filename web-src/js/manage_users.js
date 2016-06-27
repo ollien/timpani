@@ -70,6 +70,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	}
 
+	//Returns the appropriate element to insert before in order to preserve alphabetical order
+	//Returns null if there is no element. appendChild should be used in these cases.
+	function getInsertBeforeUsername(username) {
+		userElements = usersList.querySelectorAll("li.user");
+		for (var i = 0; i < userElements.length; i++) {
+			if (userElements[i].querySelector("span.username").textContent.toLowerCase() > username.toLowerCase()) {
+				return userElements[i];
+			}
+		}
+		return null;
+	}
+
 	addUserButton.addEventListener("click", function(event) {
 		addUserModal.show();
 	});
