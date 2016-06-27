@@ -1,4 +1,4 @@
-/*jshint eqnull: true, eqeqeq: true */
+/*jshint eqnull: true, eqeqeq: true, expr: true*/
 
 var PASSWORDS_DO_NOT_MATCH = "Passwords do not match.";
 
