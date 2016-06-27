@@ -122,7 +122,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				addInfoButtonListener(infoButton);
 				li.appendChild(infoButton);
 				li.style.opacity = 0;
-				usersList.appendChild(li);
+				var before = getInsertBeforeUsername(usernameInput.value);
+				if (before === null) {
+					usersList.appendChild(li);
+				}
+				else {
+					usersList.insertBefore(li, before);
+				}
 				//Fixes race condition where element wouldn't fade
 				//Needs to be set to a variable so jshint doesn't complain about an expression.
 				var opacity = window.getComputedStyle(li).opacity;
