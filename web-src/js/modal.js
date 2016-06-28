@@ -36,9 +36,11 @@ function Modal(element, config) {
 		var _this = this;
 		document.addEventListener("keyup", function(event) {
 			if (_this.config.keyboard) {
-				if (event.keyCode === 27 && _this.element.classList.contains("active")) {
+				if (event.keyCode === 27 && _this.element.classList.contains("active") && _this.zIndex === Modal.highestZIndex) {
+					//Escape
 					//IE Proofing
 					event.preventDefault ? event.preventDefault() : (event.returnValue = false);
+					event.stopImmediatePropagation();
 					_this.hide();
 				}
 			}
