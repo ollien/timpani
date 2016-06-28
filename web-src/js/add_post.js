@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var alignRightButton = document.getElementById("align-right");
 	var alignJustifyButton = document.getElementById("align-justify");
 	var linkModalElement = document.getElementById("link-modal");
-	linkModal = new Modal(linkModalElement);
+	var linkModal = new Modal(linkModalElement);
 	linkModal.input = document.getElementById("modal-link");
 	linkModal.errorDiv = linkModal.element.querySelector("div.modal-error");
 	linkModal.positiveButton = linkModal.element.querySelector("button.positive");
