@@ -6,6 +6,7 @@ function Modal(element, config) {
 	this.overlay.addEventListener("transitionend", function(event) {
 		this.parentNode.removeChild(this);
 	});
+	this.zIndex = -1;
 
 	if (config == null) {
 		this.config = { keyboard: true };
@@ -35,9 +36,11 @@ function Modal(element, config) {
 		var _this = this;
 		document.addEventListener("keyup", function(event) {
 			if (_this.config.keyboard) {
-				if (event.keyCode === 27 && _this.element.classList.contains("active")) {
+				if (event.keyCode === 27 && _this.element.classList.contains("active") && _this.zIndex === Modal.highestZIndex) {
+					//Escape
 					//IE Proofing
 					event.preventDefault ? event.preventDefault() : (event.returnValue = false);
+					event.stopImmediatePropagation();
 					_this.hide();
 				}
 			}
@@ -48,10 +51,15 @@ function Modal(element, config) {
 				if (button.classList.contains("positive")) {
 					document.addEventListener("keyup", function(event) {
 						if (_this.config.keyboard) {
-							if (event.keyCode === 13 && _this.element.classList.contains("active")) {
+							console.log(event.keyCode);
+							console.log(_this.element.classList.contains("active"));
+							console.log(_this.zIndex);
+							console.log(Modal.highestZIndex);
+							if (event.keyCode === 13 && _this.element.classList.contains("active") && _this.zIndex === Modal.highestZIndex) {
 								//Enter
 								//IE Proofing
 								event.preventDefault ? event.preventDefault() : (event.returnValue = false);
+								event.stopImmediatePropagation();
 								button.click();
 							}
 						}
@@ -129,6 +137,7 @@ Modal.prototype.show = function() {
 			this.overlay.style.zIndex = Modal.highestZIndex;
 			this.element.style.zIndex = Modal.highestZIndex + 1;
 			Modal.highestZIndex += 2;
+			this.zIndex = Modal.highestZIndex;
 		}
 		this.element.classList.add("active");
 		document.body.appendChild(this.overlay);

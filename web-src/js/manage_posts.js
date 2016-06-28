@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			var res = JSON.parse(request.responseText);
 			if (res.error === 0) {
 				modal.positiveButton.classList.remove("working");
+				modal.positiveButton.disabled = false;
 				modal.hide();
 				var li = document.querySelector("li[post-id=\"" + postId + "\"]");
 				li.addEventListener("transitionend", function(event) {
