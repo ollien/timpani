@@ -51,10 +51,6 @@ function Modal(element, config) {
 				if (button.classList.contains("positive")) {
 					document.addEventListener("keyup", function(event) {
 						if (_this.config.keyboard) {
-							console.log(event.keyCode);
-							console.log(_this.element.classList.contains("active"));
-							console.log(_this.zIndex);
-							console.log(Modal.highestZIndex);
 							if (event.keyCode === 13 && _this.element.classList.contains("active") && _this.zIndex === Modal.highestZIndex) {
 								//Enter
 								//IE Proofing
