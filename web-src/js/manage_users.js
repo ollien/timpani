@@ -6,12 +6,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserModalElement = document.getElementById("add-user-modal");
 	var userInfoModalElement = document.getElementById("user-info-modal");
 	var changePasswordModalElement = document.getElementById("change-password-modal");
+	var editPermissionsModalElement = document.getElementById("edit-permissions-modal");
 	var addUserModal = new Modal(addUserModalElement);
 	addUserModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var userInfoModal = new Modal(userInfoModalElement);
 	userInfoModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var changePasswordModal = new Modal(changePasswordModalElement);
 	changePasswordModal.positiveButton = changePasswordModal.element.querySelector("button.positive");
+	var editPermissionsModal = new Modal(editPermissionsModalElement);
+	editPermissionsModal.positiveButton = editPermissionsModal.element.querySelector("button.positive");
 	var addUserButton = document.getElementById("add-user-button");
 	var usersList = document.getElementById("users-list");
 	var createUserForm = document.getElementById("create-user-form");
@@ -39,6 +42,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var confirmNewPasswordInput = document.getElementById("confirm-password-reset-input");
 	var resetPasswordForm = document.getElementById("change-password-form");
 	var fakeResetSubmitButton = resetPasswordForm.querySelector("button");
+	//Inputs for edit permissions modal
+	var canChangeSettingsEditCheckbox = document.getElementById("can-change-settings-edit-checkbox");
+	var canWritePostsEditCheckbox = document.getElementById("can-write-posts-edit-checkbox");
 
 	function addInfoButtonListener(button) {
 		button.addEventListener("click", function(event) {
