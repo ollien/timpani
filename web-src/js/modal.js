@@ -83,8 +83,8 @@ function Modal(element, config) {
 						}
 						//Legacy support for IE and the likes
 						catch (e) {
-							mainEvent = document.createEvent("event");
-							mainEvent.initEvent("positive-pressed", false, true);
+							secondaryEvent = document.createEvent("event");
+							secondaryEvent.initEvent("positive-pressed", false, true);
 						}
 					}
 					else if (this.classList.contains("negative")) {
@@ -94,8 +94,8 @@ function Modal(element, config) {
 						}
 						//Legacy support for IE and the likes
 						catch (e) {
-							mainEvent = document.createEvent("event");
-							mainEvent.initEvent("negative-pressed", false, true);
+							secondaryEvent = document.createEvent("event");
+							secondaryEvent.initEvent("negative-pressed", false, true);
 						}
 					}
 
