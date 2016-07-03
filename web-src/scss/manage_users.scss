@@ -35,45 +35,18 @@ li.user.fading {
 		}
 	}
 	div.modal-buttons {
-		$initial-opacity: .8;
-		$initial-scale: .95;
 		$button-width: 80px;
 		$button-height: 34px;
-		$spinner-radius: $button-height;
-		$spinner-width: $button-width;
-		$spinner-height: $button-height;
-		$disable-duration: 350ms;
 
 		button.positive {
 			color: white;
 			background-color: #CA3C3C;
+			width: $button-width;
+			height: $button-height
 		}
 
 		button.positive.working:before {
-			position: fixed;
-			bottom: 20px;
-			right: 11px;
-			background-color: white;
-			content:"";
-			display: block;
-			width: $spinner-width;
-			height: $spinner-height;
-			transform: scale($spinner-height / $spinner-width * $initial-scale, $initial-scale);
-			border-radius: 100%;
-			opacity: $initial-opacity;
-			animation: ripple 1.25s cubic-bezier(0, 1.69, 0.7,-0.44) infinite;
-		}
-
-		@keyframes ripple {
-			0% {
-				opacity: $initial-opacity;
-				transform: scale($spinner-height / $spinner-width * $initial-scale, $initial-scale);
-			}
-			100% {
-				 opacity: 0;
-				 transform: scale(1);
-				 border-radius: 5px;
-			}
+			@include modal-spinner($spinner-width: $button-width, $spinner-height: $button-height);
 		}
 	}
 }
@@ -109,45 +82,18 @@ li.user.fading {
 		}
 	}
 	div.modal-buttons {
-		$initial-opacity: .8;
-		$initial-scale: .95;
 		$button-width: 80px;
 		$button-height: 34px;
-		$spinner-radius: $button-height;
-		$spinner-width: $button-width;
-		$spinner-height: $button-height;
-		$disable-duration: 350ms;
 
 		button.positive {
 			color: white;
 			background-color: #CA3C3C;
+			height: $button-height;
+			width: $button-width;
 		}
 
 		button.positive.working:before {
-			position: fixed;
-			bottom: 20px;
-			right: 17px;
-			background-color: white;
-			content:"";
-			display: block;
-			width: $spinner-width;
-			height: $spinner-height;
-			transform: scale($spinner-height / $spinner-width * $initial-scale, $initial-scale);
-			border-radius: 100%;
-			opacity: $initial-opacity;
-			animation: ripple 1.25s cubic-bezier(0, 1.69, 0.7,-0.44) infinite;
-		}
-
-		@keyframes ripple {
-			0% {
-				opacity: $initial-opacity;
-				transform: scale($spinner-height / $spinner-width * $initial-scale, $initial-scale);
-			}
-			100% {
-				 opacity: 0;
-				 transform: scale(1);
-				 border-radius: 5px;
-			}
+			@include modal-spinner($spinner-width: $button-width, $spinner-height: $button-height);
 		}
 	}
 }
