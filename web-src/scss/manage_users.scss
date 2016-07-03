@@ -105,3 +105,20 @@ li.user.fading {
 		}
 	}
 }
+
+#delete-modal {
+	span.can-not {
+		font-weight: 500;
+	}
+	div.modal-buttons {
+		$button-width: 80px;
+		$button-height: 34px;
+
+		button.positive {
+			color: white;
+			background-color: #CA3C3C;
+			height: $button-height;
+			width: $button-width;
+		}
+	}
+}
