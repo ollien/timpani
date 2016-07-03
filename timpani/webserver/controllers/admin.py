@@ -128,11 +128,11 @@ def createUser(authed, authMessage):
         fullName = flask.request.form["full_name"]
         canChangeSettings = False
         canWritePosts = False
-        if ("can_change_settings" in flask.request.form
-            and flask.request.form["can_change_settings"][1] == "on"):
+        if (auth.CAN_POST_PERMISSION in flask.request.form
+            and flask.request.form[auth.CAN_POST_PERMISSION] == "on"):
             canChangeSettings = True
-        if ("can_write_posts" in flask.request.form
-            and flask.request.form["can_write_posts"][1] == "on"):
+        if (auth.CAN_CHANGE_SETTINGS_PERMISSION in flask.request.form
+            and flask.request.form[auth.CAN_CHANGE_SETTINGS_PERMISSION] == "on"):
             canWritePosts = True
         user = None
         try:
