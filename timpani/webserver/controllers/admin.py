@@ -217,3 +217,25 @@ def resetPassword(authed, authMessage):
         return json.dumps({"error": 0})
     else:
         return json.dumps({"error": 1}), 403
+
+@blueprint.route("/change_user_permisisons", methods=["POST"])
+@webhelpers.checkUserPermissions(requirePermissions=user.CAN_CHANGE_SETTINGS_PERMISSION,
+    saveRedirect=False)
+def changePermissions(authed, authMessage):
+    if authed:
+        if (auth.CAN_POST_PERMISSION in flask.request.form
+            and flask.request.form[auth.CAN_POST_PERMISSION] == "on"):
+            auth.grantUserPermissionById(flask.request.form["userId"], auth.CAN_POST_PERMISSION)
+        else:
+            auth.revokeUserPermissionById(flask.request.form["userId"], auth.CAN_POST_PERMISSION)
+
+        if (auth.CAN_CHANGE_SETTINGS_PERMISSION in flask.request.form
+            and flask.request.form[CAN_CHANGE_SETTINGS_PERMISSION] == "on"):
+            auth.grantUserPermissionById(flask.request.form["userId"], auth.CAN_CHANGE_SETTINGS_PERMISSION)
+        else:
+            auth.revokeUserPermissionById(flask.request.form["userId"], auth.CAN_CHANGE_SETTINGS_PERMISSION)
+
+        return json.dumps({"error": 0})
+
+    else:
+        return json.dumps({"error": 1})
