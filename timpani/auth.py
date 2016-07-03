@@ -189,7 +189,7 @@ def grantUserPermissionById(userId, permission):
     user = getUserById(userId)
     grantUserPermission(user, permission)
 
-def grantUserPermissionByUsername(username, permission)
+def grantUserPermissionByUsername(username, permission):
     user = getUserByUsername(username)
     grantUserPermission(user, permission)
 
@@ -203,6 +203,7 @@ def revokeUserPermission(user, permission):
         user.can_change_settings = False
     else:
         raise ValueError("{} is not a valid permission".format(permission))
+    databaseConnection.session.commit()
 
 def revokeUserPermissionById(userId, permission):
     user = getUserById(userId)
