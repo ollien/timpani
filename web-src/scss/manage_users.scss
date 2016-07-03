@@ -44,10 +44,6 @@ li.user.fading {
 			width: $button-width;
 			height: $button-height
 		}
-
-		button.positive.working:before {
-			@include modal-spinner($spinner-width: $button-width, $spinner-height: $button-height);
-		}
 	}
 }
 
@@ -90,10 +86,6 @@ li.user.fading {
 			background-color: #CA3C3C;
 			height: $button-height;
 			width: $button-width;
-		}
-
-		button.positive.working:before {
-			@include modal-spinner($spinner-width: $button-width, $spinner-height: $button-height);
 		}
 	}
 }
