@@ -241,6 +241,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				imageModal.uploadRequest = null;
 			};
 
+			this.addEventListener("neutral-pressed", function(event) {
+				cancelRequest(imageModal.uploadRequest, imageModal.positiveButton);
+			});
+
 			imageModal.uploadRequest.send(formData);
 			imageModal.positiveButton.classList.add("working");
 			imageModal.positiveButton.disabled = true;
