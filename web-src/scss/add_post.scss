@@ -255,7 +255,7 @@ div#image-modal{
 			height: $button-height;
 		}
 
-		button.positive.uploading:before {
+		button.positive.working:before {
 			@include modal-spinner($spinner-height: $button-height, $spinner-width: $button-width);
 		}
 	}
