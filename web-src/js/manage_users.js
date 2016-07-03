@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var fakeCreateSubmitButton = createUserForm.querySelector("button");
 	var userInfoButtons = Array.prototype.slice.call(document.querySelectorAll(".user-info-button"));
 	var changePasswordButton = document.getElementById("change-password-button");
+	var editPermissionsButton = document.getElementById("edit-permissions-button");
 	//Inputs for add user modal
 	var usernameInput = document.getElementById("username-input");
 	var fullNameInput = document.getElementById("full-name-input");
@@ -236,5 +237,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	changePasswordModal.element.addEventListener("hide", function(event) {
 		resetPasswordForm.reset();
 		newPasswordInput.setCustomValidity("");
+	});
+
+	editPermissionsButton.addEventListener("click", function(event) {
+		editPermissionsModal.show();
+		var request = new XMLHttpRequest();
+		request.open("GET", "/get_user_info/" + currentUserId, true);
+		request.addEventListener("load", function(event) {
+			var res = JSON.parse(request.responseText);
+			canChangeSettingsEditCheckbox.checked = res.info.permissions.indexOf("can_change_settings") > -1;
+			canWritePostsEditCheckbox.checked = res.info.permissions.indexOf("can_write_posts") > -1;
+		});
+		request.send();
 	});
 });
