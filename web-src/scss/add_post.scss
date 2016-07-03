@@ -254,10 +254,6 @@ div#image-modal{
 			width: $button-width;
 			height: $button-height;
 		}
-
-		button.positive.working:before {
-			@include modal-spinner($spinner-height: $button-height, $spinner-width: $button-width);
-		}
 	}
 }
 
