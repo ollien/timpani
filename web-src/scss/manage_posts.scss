@@ -86,40 +86,16 @@ ul#posts-list {
 }
 
 div#deleteModal > div.modal-buttons{
-	$initial-opacity: .8;
-	$initial-scale: .95;
 	$button-width: 80px;
 	$button-height: 34px;
-	$spinner-radius: $button-height;
-	$spinner-width: $button-width;
-	$spinner-height: $button-height;
-	$disable-duration: 350ms;
 
-	button.positive.working:before {
-		position: fixed;
-		bottom: 20px;
-		right: 20px;
-		background-color: white;
-		content:"";
-		display: block;
-		width: $spinner-width;
-		height: $spinner-height;
-		transform: scale($spinner-height / $spinner-width * $initial-scale, $initial-scale);
-		border-radius: 100%;
-		opacity: $initial-opacity;
-		animation: ripple 1.25s cubic-bezier(0, 1.69, 0.7,-0.44) infinite;
+	button.positive {
+		width: $button-width;
+		height: $button-height;
 	}
 
-	@keyframes ripple {
-		0% {
-			opacity: $initial-opacity;
-			transform: scale($spinner-height / $spinner-width * $initial-scale, $initial-scale);
-		}
-		100% {
-			 opacity: 0;
-			 transform: scale(1);
-			 border-radius: 5px;
-		}
+	button.positive.working:before {
+		@include modal-spinner($spinner-height: $button-height, $spinner-width: $button-width)
 	}
 
 	button.positive {
