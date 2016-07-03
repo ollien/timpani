@@ -250,4 +250,24 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 		request.send();
 	});
+
+	editPermissionsModal.element.addEventListener("positive-pressed", function(event){
+		editPermissionsModal.positiveButton.classList.add("working");
+		event.preventDefault();
+		var formData = new FormData();
+		formData.append("userId", currentUserId);
+		if (canChangeSettingsEditCheckbox.checked) {
+			formData.append(canChangeSettingsCheckbox.getAttribute("name"), "on");
+		}
+		if (canWritePostsEditCheckbox.checked) {
+			formData.append(canWritePostsCheckbox.getAttribute("name"), "on");
+		}
+		var request = new XMLHttpRequest();
+		request.open("POST", "/change_user_permisisons", true);
+		request.addEventListener("load", function(event) {
+			editPermissionsModal.positiveButton.classList.remove("working");
+			editPermissionsModal.hide();
+		});
+		request.send(formData);
+	});
 });
