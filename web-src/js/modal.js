@@ -98,6 +98,17 @@ function Modal(element, config) {
 							secondaryEvent.initEvent("negative-pressed", false, true);
 						}
 					}
+					else if (this.classList.contains("neutral")) {
+						secondaryEvent = new Event("neutral-pressed", { cancelable: true });
+						try {
+							secondaryEvent = new Event("neutral-pressed", { cancelable: true });
+						}
+						//Legacy support for IE and the likes
+						catch (e) {
+							secondaryEvent = document.createEvent("event");
+							secondaryEvent.initEvent("neutral-pressed", false, true);
+						}
+					}
 
 					_this.element.dispatchEvent(mainEvent);
 
