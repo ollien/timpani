@@ -71,6 +71,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 	}
 
+	//For use with event listeners for when the cancel button is pressed on a pending ajax request
+	function cancelRequest(request, button) {
+		request.abort();
+		button.classList.remove("working");
+		button.disabled = false;
+	}
+
 	setPostValidity();
 
 	editor.on("selection-change", function(range) {
@@ -189,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		imageModal.linkInput.value = "";
 		imageModal.fileInput.disabled = false;
 		imageModal.fileInput.value = null;
-		imageModal.positiveButton.classList.remove("uploading");
+		imageModal.positiveButton.classList.remove("working");
 		imageModal.positiveButton.disabled = false;
 		imageModal.errorDiv.classList.remove("active");
 	});
@@ -228,14 +235,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				else if (data.error === 2) {
 					imageModal.errorDiv.textContent = "Image must be a JPG, PNG, or GIF.";
 					imageModal.errorDiv.classList.add("active");
-					imageModal.positiveButton.classList.remove("uploading");
+					imageModal.positiveButton.classList.remove("working");
 					imageModal.positiveButton.disabled = false;
 				}
 				imageModal.uploadRequest = null;
 			};
 
 			imageModal.uploadRequest.send(formData);
-			imageModal.positiveButton.classList.add("uploading");
+			imageModal.positiveButton.classList.add("working");
 			imageModal.positiveButton.disabled = true;
 		}
 	});
