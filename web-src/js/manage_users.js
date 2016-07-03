@@ -77,6 +77,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	}
 
+	//For use with event listeners for when the cancel button is pressed on a pending ajax request
+	function cancelRequest(request, button) {
+		request.abort();
+		button.classList.remove("working");
+		button.disabled = false;
+	}
+
 	//Returns the appropriate element to insert before in order to preserve alphabetical order
 	//Returns null if there is no element. appendChild should be used in these cases.
 	function getInsertBeforeUsername(username) {
