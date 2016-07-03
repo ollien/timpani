@@ -184,3 +184,11 @@ def grantUserPermission(user, permission):
     else:
         raise ValueError("{} is not a valid permission.".format(permission))
     databaseConnection.session.commit()
+
+def grantUserPermissionById(userId, permission):
+    user = getUserById(userId)
+    grantUserPermission(user, permission)
+
+def grantUserPermissionByUsername(username, permission)
+    user = getUserByUsername(username)
+    grantUserPermission(user, permission)
