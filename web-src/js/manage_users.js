@@ -161,6 +161,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				fakeCreateSubmitButton.click();
 			}
 		});
+
+		addUserModal.element.addEventListener("neutral-pressed", function(event) {
+			cancelRequest(request, addUserModal.positiveButton);
+		});
+
 		request.send(formData);
 	});
 
@@ -222,6 +227,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				window.location = "/login";
 			}
 		});
+
+		addUserModal.element.addEventListener("neutral-pressed", function(event) {
+			cancelRequest(request, addUserModal.positiveButton);
+		});
+
 		request.send(formData);
 	});
 
@@ -281,6 +291,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			addUserModal.positiveButton.disabled = false;
 			editPermissionsModal.hide();
 		});
+
+		addUserModal.element.addEventListener("neutral-pressed", function(event) {
+			cancelRequest(request, addUserModal.positiveButton);
+		});
+
 		request.send(formData);
 	});
 });
