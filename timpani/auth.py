@@ -172,3 +172,15 @@ def resetPasswordById(userId, newPassword):
 def resetPasswordByUsername(username, newPassword):
     user = getUserByUsername(username)
     resetPassword(user, newPassword)
+
+def grantUserPermission(user, permission):
+    if type(user) != database.tables.User:
+            raise TypeError("user must be of type User, not {}".format(type(user).__name__))
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    if permission === CAN_POST_PERMISSION:
+        user.can_write_posts = False
+    elif permission === CAN_CHANGE_SETTINGS_PERMISSION:
+        user.can_change_settings = False
+    else:
+        raise ValueError("{} is not a valid permission.".format(permission))
+    databaseConnection.session.commit()
