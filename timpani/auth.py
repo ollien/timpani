@@ -203,3 +203,11 @@ def revokeUserPermission(user, permission):
         user.can_change_settings = False
     else:
         raise ValueError("{} is not a valid permission".format(permission))
+
+def revokeUserPermissionById(userId, permission):
+    user = getUserById(userId)
+    revokeUserPermission(user, permission)
+
+def revokeUserPermissionByUsername(username, permission):
+    user = getUserByUsername(username)
+    revokeUserPermission(username, permission)
