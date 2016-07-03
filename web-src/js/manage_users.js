@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	createUserForm.addEventListener("submit", function(event) {
 		addUserModal.positiveButton.classList.add("working");
+		addUserModal.positiveButton.disabled = true;
 		event.preventDefault();
 		createUserForm.checkValidity();
 		var formData = new FormData();
@@ -112,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		request.addEventListener("load", function(event) {
 			var res = JSON.parse(request.responseText);
 			addUserModal.positiveButton.classList.remove("working");
+			addUserModal.positiveButton.disabled = false;
 			if (res.error === 0) {
 				var user_id = res.user_id;
 				var li = document.createElement("li");
@@ -194,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	resetPasswordForm.addEventListener("submit", function(event) {
 		changePasswordModal.positiveButton.classList.add("working");
+		addUserModal.positiveButton.disabled = true;
 		event.preventDefault();
 		createUserForm.checkValidity();
 		var formData = new FormData();
@@ -203,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		request.open("POST", "/reset_password", true);
 		request.addEventListener("load", function(event) {
 			changePasswordModal.positiveButton.classList.add("working");
+			addUserModal.positiveButton.disabled = false;
 			var res = JSON.parse(request.responseText);
 			if (res.error === 0) {
 				changePasswordModal.hide();
@@ -253,6 +257,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	editPermissionsModal.element.addEventListener("positive-pressed", function(event){
 		editPermissionsModal.positiveButton.classList.add("working");
+		addUserModal.positiveButton.disabled = true;
 		event.preventDefault();
 		var formData = new FormData();
 		formData.append("userId", currentUserId);
@@ -266,6 +271,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		request.open("POST", "/change_user_permisisons", true);
 		request.addEventListener("load", function(event) {
 			editPermissionsModal.positiveButton.classList.remove("working");
+			addUserModal.positiveButton.disabled = false;
 			editPermissionsModal.hide();
 		});
 		request.send(formData);
