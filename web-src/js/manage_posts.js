@@ -7,6 +7,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var deleteButtons = document.querySelectorAll("a.button.delete");
 	var deletePostTitle = document.querySelector("span.delete-post-title");
 
+	//For use with event listeners for when the cancel button is pressed on a pending ajax request
+	function cancelRequest(request, button) {
+		request.abort();
+		button.classList.remove("working");
+		button.disabled = false;
+	}
+
 	modal.element.addEventListener("positive-pressed", function(event) {
 		event.preventDefault();
 		var postId = modal.element.getAttribute("post-id");
@@ -32,6 +39,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 		modal.positiveButton.disabled = true;
 		modal.positiveButton.classList.add("working");
+		this.addEventListener("neutral-pressed", function(event) {
+			cancelRequest(request, modal.positiveButton);
+		});
 		request.send();
 	});
 
