@@ -97,3 +97,19 @@ li.user.fading {
 		}
 	}
 }
+
+#edit-permissions-modal {
+	div.modal-buttons {
+		$button-width: 80px;
+		$button-height: 34px;
+
+		button.positive {
+			height: $button-height;
+			width: $button-width;
+		}
+
+		button.positive.working:before {
+			@include modal-spinner($spinner-width: $button-width, $spinner-height: $button-height);
+		}
+	}
+}
