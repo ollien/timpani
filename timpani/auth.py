@@ -178,9 +178,9 @@ def grantUserPermission(user, permission):
             raise TypeError("user must be of type User, not {}".format(type(user).__name__))
     databaseConnection = database.ConnectionManager.getMainConnection()
     if permission == CAN_POST_PERMISSION:
-        user.can_write_posts = False
+        user.can_write_posts = True
     elif permission == CAN_CHANGE_SETTINGS_PERMISSION:
-        user.can_change_settings = False
+        user.can_change_settings = True
     else:
         raise ValueError("{} is not a valid permission.".format(permission))
     databaseConnection.session.commit()
