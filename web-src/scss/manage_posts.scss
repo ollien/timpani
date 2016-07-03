@@ -94,10 +94,6 @@ div#deleteModal > div.modal-buttons{
 		height: $button-height;
 	}
 
-	button.positive.working:before {
-		@include modal-spinner($spinner-height: $button-height, $spinner-width: $button-width)
-	}
-
 	button.positive {
 		width: $button-width;
 		height: $button-height;
