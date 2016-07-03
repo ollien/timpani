@@ -104,7 +104,8 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, b
 
 def xssFilter(postBody):
     whitelistedTags = ["div", "span", "b", "i", "u", "a", "p", "img", "code",
-                        "ul", "li", "h1", "h2", "h3", "h4", "h5", "h6", "pre"]
+                        "ul", "li", "h1", "h2", "h3", "h4", "h5", "h6", "pre",
+                        "br"]
     #src and href must be checked seperately
     whitelistedAttributes = ["id", "class", "style"]
     soupedBody = bs4.BeautifulSoup(postBody, "html.parser")
