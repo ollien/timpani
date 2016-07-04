@@ -11,7 +11,7 @@ INVALID_PERMISSIONS_FLASH_MESSAGE = "Sorry, you don't have permission to view th
 def checkForSession():
     if "uid" in flask.session:
         session = auth.validateSession(flask.session["uid"])
-        if session != None:
+        if session is not None:
             return session
     return None
 
@@ -31,12 +31,12 @@ def checkUserPermissions(redirectPage=None, saveRedirect=True, redirectMessage=I
     def decorator(function):
         def decorated(*args, **kwargs):
             session = checkForSession()
-            if session != None:
+            if session is not None:
                 username = session.user.username
                 result = True
                 #If we don't have any permissions necessary, a login is enough.
                 #Otherwise, we're going to check to make sure that all necessary permissions are in place.
-                if requiredPermissions != None:
+                if requiredPermissions is not None:
                     if type(requiredPermissions) == str:
                         result = auth.userHasPermission(username, requiredPermissions)
                     else:
@@ -45,13 +45,13 @@ def checkUserPermissions(redirectPage=None, saveRedirect=True, redirectMessage=I
                                 result = False
                 #If all permissions is valid, redirect as needed.
                 if result:
-                    if redirectPage != None:
+                    if redirectPage is not None:
                         return function(*args, **kwargs)
                     else:
                         return function(authed=True, authMessage=redirectMessage, *args, **kwargs)
                 else:
-                    #We don't want to flash on thigns like ajax routes, so we use redirectPage != None
-                    willFlash = redirectPage != None
+                    #We don't want to flash on thigns like ajax routes, so we use redirectPage is not None
+                    willFlash = redirectPage is not None
                     return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, willFlash, function, *args, **kwargs)
             else:
                 return _permissionRedirect(redirectPage, saveRedirect, redirectMessage, False, function, *args, **kwargs)
@@ -61,7 +61,7 @@ def checkUserPermissions(redirectPage=None, saveRedirect=True, redirectMessage=I
 def _permissionRedirect(redirectPage, saveRedirect, redirectMessage, flash, function, *args, **kwargs):
     if flash:
         flask.flash(redirectMessage)
-    if redirectPage != None:
+    if redirectPage is not None:
         if not saveRedirect:
             return flask.redirect(redirectPage)
         else:
@@ -92,7 +92,7 @@ def renderPosts(defaultPath, pageTitle, pageNumber, pageCount, nextPageExists, b
     postParams.update(kwargs)
     kwargs = postParams
 
-    if template == None:
+    if template is None:
         templateFile = open(defaultPath, "r")
         template = templateFile.read()
         templateFile.close()
