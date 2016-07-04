@@ -327,7 +327,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				deleteUserModal.hide();
 				userInfoModal.hide();
 				var element = usersList.querySelector("li.user[user_id = \"" + currentUserId +"\"]");
-				element.parentNode.removeChild(element);
+
+				element.addEventListener("transition-end", function(event) {
+					this.parentNode.removeChild(element);
+				});
+
+				element.style.opacity = 0;
+				element.style.height = "0px";
+				window.getComputedStyle(li).opacity;
+				window.getComputedStyle(li).height;
 			}
 			else {
 				window.location = "/login";

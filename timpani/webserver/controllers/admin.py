@@ -245,7 +245,7 @@ def changePermissions(authed, authMessage):
     saveRedirect=False)
 def deleteUser(userId, authed, authMessage):
     if authed:
-        auth.deleteUserById(userId)
+        # auth.deleteUserById(userId)
         return json.dumps({"error": 0})
     else:
         json.dumps({"error": 1})
