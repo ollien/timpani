@@ -312,4 +312,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		deleteUsernameSpan.textContent = currentUsername;
 		deleteUserModal.show();
 	});
+
+	deleteUserModal.element.addEventListener("positive-pressed", function(event) {
+		//TODO: Add working spinner
+		event.preventDefault();
+		var request = new XMLHttpRequest();
+		request.open("POST", "/delete_user/" + currentUserId, true);
+		request.addEventListener("load", function(event) {
+			var res = JSON.parse(request.responseText);
+			if (res.error === 0) {
+				deleteUserModal.hide();
+			}
+			else {
+				window.location = "/login";
+			}
+		});
+		request.send();
+	});
 });
