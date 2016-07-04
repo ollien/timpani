@@ -322,6 +322,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			var res = JSON.parse(request.responseText);
 			if (res.error === 0) {
 				deleteUserModal.hide();
+				userInfoModal.hide();
+				var element = usersList.querySelector("li.user[user_id = \"" + currentUserId +"\"]");
+				element.parentNode.removeChild(element);
 			}
 			else {
 				window.location = "/login";
