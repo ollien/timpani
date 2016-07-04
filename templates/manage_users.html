@@ -10,16 +10,21 @@
 </head>
 <body>
 	{% include "admin_toolbar.html" %}
-	<h1>Manage Users...</h1>
-	<button id="add-user-button" class="pure-button">Add User</button>
-	<ul id="users-list">
-		{% for user in userList %}
-			<li user_id="{{user.id}}" class="user">
-				<!--Having this on it's own line prevents styling troubles that come from adding new buttons via JS-->
-				<span class="username">{{user.username}}</span><span class="user-info-button fa fa-info-circle"></span>
-			</li>
-		{% endfor %}
-	</ul>
+	<div id="main-container">
+		<div id="content-container">
+			<h1>Manage Users...</h1>
+			<button id="add-user-button" class="pure-button">Add User</button>
+			<ul id="users-list">
+				{% for user in userList %}
+					<li user_id="{{user.id}}" class="user">
+						<!--Having this on it's own line prevents styling troubles that come from adding new buttons via JS-->
+						<span class="username">{{user.username}}</span><span class="user-info-button fa fa-info-circle"></span>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
 	<div class="modal pure-form" id="add-user-modal">
 		<h3 class="modal-title">Add User</h3>
 		<div class="modal-body">
