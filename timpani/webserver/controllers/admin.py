@@ -239,3 +239,13 @@ def changePermissions(authed, authMessage):
 
     else:
         return json.dumps({"error": 1})
+
+@blueprint.route("/delete_user/<int:user_id>", methods=["POST"])
+@webhelpers.checkUserPermission(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION,
+    saveRedirect=False)
+def deleteUser(userId, authed, authMessage):
+    if authed:
+        auth.deleteUserById(userId)
+        return json.dumps({"error": 0})
+    else:
+        json.dumps({"error": 1})
