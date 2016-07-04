@@ -107,7 +107,7 @@ def generateSessionId():
     return sessionId.decode("utf-8")
 
 def createSession(username, sessionId=None):
-    if sessionId == None:
+    if sessionId is None:
         sessionId = generateSessionId()
     databaseConnection = database.ConnectionManager.getMainConnection()
     query = (databaseConnection.session
