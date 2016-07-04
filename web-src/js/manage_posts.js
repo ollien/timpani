@@ -1,7 +1,7 @@
 /*jshint eqnull: true, eqeqeq: true */
 
 document.addEventListener("DOMContentLoaded", function(event) {
-	var modalElement = document.querySelector(".modal");
+	var modalElement = document.getElementById("delete-modal");
 	var modal = new Modal(modalElement);
 	modal.positiveButton = modal.element.querySelector("button.positive");
 	var deleteButtons = document.querySelectorAll("a.button.delete");
