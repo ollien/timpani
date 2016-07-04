@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var userInfoModalElement = document.getElementById("user-info-modal");
 	var changePasswordModalElement = document.getElementById("change-password-modal");
 	var editPermissionsModalElement = document.getElementById("edit-permissions-modal");
+	var deleteUserModalElement = document.getElementById("delete-modal");
 	var addUserModal = new Modal(addUserModalElement);
 	addUserModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var userInfoModal = new Modal(userInfoModalElement);
@@ -15,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	changePasswordModal.positiveButton = changePasswordModal.element.querySelector("button.positive");
 	var editPermissionsModal = new Modal(editPermissionsModalElement);
 	editPermissionsModal.positiveButton = editPermissionsModal.element.querySelector("button.positive");
+	var deleteUserModal = new Modal(deleteUserModalElement);
+	deleteUserModal.positiveButton = deleteUserModal.element.querySelector("button.positive");
 	var addUserButton = document.getElementById("add-user-button");
 	var usersList = document.getElementById("users-list");
 	var createUserForm = document.getElementById("create-user-form");
@@ -22,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var userInfoButtons = Array.prototype.slice.call(document.querySelectorAll(".user-info-button"));
 	var changePasswordButton = document.getElementById("change-password-button");
 	var editPermissionsButton = document.getElementById("edit-permissions-button");
+	var deleteUserButton = document.getElementById("delete-user-button");
 	//Inputs for add user modal
 	var usernameInput = document.getElementById("username-input");
 	var fullNameInput = document.getElementById("full-name-input");
@@ -38,6 +42,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var noPermissions = document.getElementById("no-permissions");
 	//Stores the current user id. If -1, no user's modal is currently open.
 	var currentUserId = -1;
+	//Stores the current username. If "", no user's modal is currently open.
+	var currentUsername = "";
 	//Inputs for reset password modal
 	var newPasswordInput = document.getElementById("reset-password-input");
 	var confirmNewPasswordInput = document.getElementById("confirm-password-reset-input");
@@ -46,11 +52,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//Inputs for edit permissions modal
 	var canChangeSettingsEditCheckbox = document.getElementById("can-change-settings-edit-checkbox");
 	var canWritePostsEditCheckbox = document.getElementById("can-write-posts-edit-checkbox");
+	//View for deleteUserModal
+	var deleteUsernameSpan = document.getElementById("delete-username");
 
 	function addInfoButtonListener(button) {
 		button.addEventListener("click", function(event) {
 			userInfoModal.show();
 			currentUserId = this.parentNode.getAttribute("user_id");
+			currentUsername = this.parentNode.querySelector(".username").textContent;
 			var request = new XMLHttpRequest();
 			request.open("GET", "/get_user_info/" + currentUserId);
 			request.addEventListener("load", function(event) {
@@ -297,5 +306,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 
 		request.send(formData);
+	});
+
+	deleteUserButton.addEventListener("click", function(event) {
+		deleteUsernameSpan.textContent = currentUsername;
+		deleteUserModal.show();
 	});
 });
