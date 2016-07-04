@@ -44,7 +44,7 @@ class ConnectionManager():
     def closeConnection(connectionName):
         if type(connectionName) == str:
             connection = ConnectionManager.getConnection(connectionName)
-            if connection != None:
+            if connection is not None:
                 connection.closeSession()
                 del ConnectionManager._connections[connectionName]
             else:
@@ -68,11 +68,11 @@ class DatabaseConnection():
 
     def getSelectedDatabase(self):
         result = self.session.execute("SELECT DATABASE()").fetchone()
-        if result != None:
+        if result is not None:
             return result[0]
         return None
 
     def closeSession(self):
-        if self.session != None:
+        if self.session is not None:
             self.session.close()
 

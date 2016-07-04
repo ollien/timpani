@@ -15,7 +15,7 @@ def _getDictFromJoin(results):
             posts[post.id]["tags"].append(tag)
         else:
             posts[post.id] = {"post": post, "tags": []}
-            if tag != None:
+            if tag is not None:
                 posts[post.id]["tags"].append(tag)
 
     return sorted(
@@ -24,7 +24,7 @@ def _getDictFromJoin(results):
             reverse = True)
 
 def _getPostQuery(limit=None, offset=0, tags=True, connection=None):
-    if connection == None:
+    if connection is None:
         connection = database.ConnectionManager.getMainConnection()
     if tags:
         #Gets all the posts using a join.
@@ -73,7 +73,7 @@ def getPostCount(limit=None, offset=0, connection=None):
 #Gets a post form the database
 #Returns None if there is no post with such an id
 def getPostById(postId, tags=True, connection=None):
-    if connection == None:
+    if connection is None:
         connection = database.ConnectionManager.getMainConnection()
     if tags:
         postsAndTags = (connection.session
@@ -91,7 +91,7 @@ def getPostById(postId, tags=True, connection=None):
 
         return {
                 "post": postsAndTags[0][0],
-                "tags": [item[1] for item in postsAndTags if item[1] != None]
+                "tags": [item[1] for item in postsAndTags if item[1] is not None]
             }
     else:
         return (connection.session.query(database.tables.Post)
@@ -99,7 +99,7 @@ def getPostById(postId, tags=True, connection=None):
             .first())
 
 def _getPostsWithTagQuery(tag, limit=None, offset=0, tags=True, connection=None):
-    if connection == None:
+    if connection is None:
         connection = database.ConnectionManager.getMainConnection()
 
     postQuery = (connection.session
@@ -159,7 +159,7 @@ def getPageCount(postCount, pageLimit):
     return int(math.ceil(postCount/pageLimit))
 
 def _addTags(post, tags, connection=None, commit=True):
-    if connection == None:
+    if connection is None:
         connection = database.ConnectionManager.getMainConnection()
     if type(tags) == str:
         tags = tags.split(" ")
@@ -188,7 +188,7 @@ def _addTags(post, tags, connection=None, commit=True):
 
 def addPost(title, body, time_posted, author, tags, connection=None):
     #Functions are not re-run if they are default arguments.
-    if connection == None:
+    if connection is None:
         connection = database.ConnectionManager.getMainConnection()
 
     #Create the post object
@@ -204,7 +204,7 @@ def addPost(title, body, time_posted, author, tags, connection=None):
     connection.session.commit()
 
 def editPost(postId, title, body, tags, connection=None):
-    if connection == None:
+    if connection is None:
         connection = database.ConnectionManager.getMainConnection()
 
     if type(tags) == str:
@@ -221,7 +221,7 @@ def editPost(postId, title, body, tags, connection=None):
     connection.session.commit()
 
 def deletePost(post, connection=None):
-    if connection == None:
+    if connection is None:
         connection = database.ConnectionManager.getMainConnection()
 
     if type(post) == int:

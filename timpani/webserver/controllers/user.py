@@ -45,7 +45,7 @@ def showPostWithPage(pageNumber):
 @blueprint.route("/post/<int:postId>")
 def showPost(postId):
     post = blog.getPostById(postId)
-    if post == None:
+    if post is None:
         return flask.abort(404)
     templatePath = os.path.join(TEMPLATE_PATH, "posts.html")
     postParams = webhelpers.getPostsParameters()

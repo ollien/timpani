@@ -37,7 +37,7 @@
 				</div>
 			{% else %}
 				<!--Minor stylistic thing to allow for even padding when a flash dissappears-->
-				<div id="flash-compensation"></div>	
+				<div id="flash-compensation"></div>
 			{% endif %}
 		</div>
 
@@ -47,7 +47,7 @@
 
 			<label for="blog-subtitle-input">Blog subtitle</label>
 			<input id="blog-subtitle-input" name="subtitle" value="{{settings.subtitle|default('')}}">
-			
+
 			<span>On post, display an author's</span>
 			<div>
 				<input type="radio" name="display_name" id="author-full-name" value="full_name" {% if settings["display_name"] == "full_name" or settings["display_name"] is not defined %} checked {% endif %}><label for="author-full-name" radio>Full name</label>
@@ -60,7 +60,7 @@
 
 			<label for="page-number-input">Posts per page</label>
 			<input id="page-number-input" name="posts_per_page" type="number" value={{settings.posts_per_page}} min="1" required>
-			
+
 			<label for="theme">Theme</label>
 			<select id="theme" name="theme">
 				{% for theme in themes %}
