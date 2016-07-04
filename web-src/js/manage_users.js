@@ -314,13 +314,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	deleteUserModal.element.addEventListener("positive-pressed", function(event) {
-		//TODO: Add working spinner
+		deleteUserModal.positiveButton.classList.add("working");
+		deleteUserModal.positiveButton.disabled = true;
 		event.preventDefault();
 		var request = new XMLHttpRequest();
 		request.open("POST", "/delete_user/" + currentUserId, true);
 		request.addEventListener("load", function(event) {
 			var res = JSON.parse(request.responseText);
 			if (res.error === 0) {
+				deleteUserModal.positiveButton.classList.remove("working");
+				deleteUserModal.positiveButton.disabled = false;
 				deleteUserModal.hide();
 				userInfoModal.hide();
 				var element = usersList.querySelector("li.user[user_id = \"" + currentUserId +"\"]");
