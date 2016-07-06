@@ -17,6 +17,31 @@ authConfig = configs["auth"]
 CAN_CHANGE_SETTINGS_PERMISSION = "can_change_settings"
 CAN_POST_PERMISSION = "can_write_posts"
 
+#Returns user object if exists, None if otherwise
+def getUserById(userId):
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    query = (databaseConnection.session
+        .query(database.tables.User)
+        .filter(database.tables.User.id == userId))
+    return query.first()
+
+#Returns user object if exists, None if otherwise
+def getUserByUsername(username):
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    query = (databaseConnection.session
+        .query(database.tables.User)
+        .filter(sqlalchemy.func.lower(database.tables.User.username)
+            == username.lower()))
+    return query.first()
+
+#Returns list of user objects.
+def getAllUsers():
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    query = (databaseConnection.session
+        .query(database.tables.User)
+        .order_by(sqlalchemy.func.lower(database.tables.User.username)))
+    return query.all()
+
 def createUser(username, full_name, password, can_change_settings, can_write_posts):
     passwordAsBytes = bytes(password, "utf-8")
     passwordHash = bcrypt.hashpw(passwordAsBytes,
@@ -32,6 +57,8 @@ def createUser(username, full_name, password, can_change_settings, can_write_pos
 
     databaseConnection.session.add(userObject)
     databaseConnection.session.commit()
+
+    return userObject
 
 def validateUser(username, password):
     passwordAsBytes = bytes(password, "utf-8")
@@ -58,6 +85,22 @@ def userHasPermission(username, permissionName):
         userObj = query.first()
         return getattr(userObj, permissionName)
     return False
+
+def deleteUser(user):
+    #user must be a user object
+    if type(user) != database.tables.User:
+        raise TypeError("user must be of type User, not {}".format(type(user).__name__))
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    databaseConnection.session.delete(user)
+    databaseConnection.session.commit()
+
+def deleteUserById(userId):
+    user = getUserById(userId)
+    deleteUser(user)
+
+def deleteUserByUsername(username):
+    user = getUserByUsername(username)
+    deleteUser(user)
 
 def generateSessionId():
     sessionId = binascii.hexlify(os.urandom(authConfig["session_id_length"]))
@@ -112,3 +155,60 @@ def invalidateSession(sessionId):
         .query(database.tables.Session)
         .filter(database.tables.Session.session_id == sessionId)
         .delete(synchronize_session=False))
+
+def resetPassword(user, newPassword):
+    if type(user) != database.tables.User:
+            raise TypeError("user must be of type User, not {}".format(type(user).__name__))
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    passwordHash = bcrypt.hashpw(bytes(newPassword, "utf-8"),
+        bcrypt.gensalt(rounds=BCRYPT_ROUNDS)).decode("utf-8")
+    user.password = passwordHash
+    databaseConnection.session.commit()
+
+def resetPasswordById(userId, newPassword):
+    user = getUserById(userId)
+    resetPassword(user, newPassword)
+
+def resetPasswordByUsername(username, newPassword):
+    user = getUserByUsername(username)
+    resetPassword(user, newPassword)
+
+def grantUserPermission(user, permission):
+    if type(user) != database.tables.User:
+            raise TypeError("user must be of type User, not {}".format(type(user).__name__))
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    if permission == CAN_POST_PERMISSION:
+        user.can_write_posts = True
+    elif permission == CAN_CHANGE_SETTINGS_PERMISSION:
+        user.can_change_settings = True
+    else:
+        raise ValueError("{} is not a valid permission.".format(permission))
+    databaseConnection.session.commit()
+
+def grantUserPermissionById(userId, permission):
+    user = getUserById(userId)
+    grantUserPermission(user, permission)
+
+def grantUserPermissionByUsername(username, permission):
+    user = getUserByUsername(username)
+    grantUserPermission(user, permission)
+
+def revokeUserPermission(user, permission):
+    if type(user) != database.tables.User:
+        raise TypeError("user must be of type User, not {}".format(type(user).__name__))
+    databaseConnection = database.ConnectionManager.getMainConnection()
+    if permission == CAN_POST_PERMISSION:
+        user.can_write_posts = False
+    elif permission == CAN_CHANGE_SETTINGS_PERMISSION:
+        user.can_change_settings = False
+    else:
+        raise ValueError("{} is not a valid permission".format(permission))
+    databaseConnection.session.commit()
+
+def revokeUserPermissionById(userId, permission):
+    user = getUserById(userId)
+    revokeUserPermission(user, permission)
+
+def revokeUserPermissionByUsername(username, permission):
+    user = getUserByUsername(username)
+    revokeUserPermission(username, permission)

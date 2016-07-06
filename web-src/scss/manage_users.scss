@@ -1,0 +1,219 @@
+@import "base";
+
+div#main-container {
+	width: 100%;
+	text-align: center;
+}
+
+div#content-container {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+ul#users-list {
+	padding: 0;
+}
+
+li.user {
+	$fade-time: 100ms;
+	$slide-time: 250ms;
+	$font-size: 15pt;
+	opacity: 1;
+	list-style: none;
+	transition-property: opacity, visibility, height;
+	transition-duration: $fade-time, $fade-time, $slide-time;
+	font-size: $font-size;
+	height: $font-size + 3pt;
+
+	span.username {
+		float: left;
+	}
+
+	span.user-info-button {
+		margin-left: 5px;
+		float: right;
+	}
+	span.user-info-button:hover {
+		color: #297AD4;
+	}
+}
+
+li.user.fading {
+	opacity: 0;
+}
+
+#add-user-modal {
+	width: 350px;
+	div.modal-body {
+		form > button {
+			display: none;
+		}
+		div.checkbox, input[type="text"], input[type="password"] {
+			display: block;
+			margin-bottom: 15px;
+			width: 100%;
+		}
+	}
+	div.modal-buttons {
+		$button-width: 80px;
+		$button-height: 34px;
+
+		button.positive {
+			color: white;
+			background-color: $delete-red;
+			width: $button-width;
+			height: $button-height
+		}
+	}
+}
+
+#user-info-modal {
+	$vertical-margin: 10px;
+	$fade-time: 250ms;
+	min-width: 350px;
+
+	div.fade {
+		transition-property: opacity;
+		transition-duration: $fade-time;
+	}
+
+	#spinner-container {
+		opacity: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	div.modal-body {
+		opacity: 1;
+	}
+
+	#loading-spinner {
+		position: relative;
+		height: 150px;
+		width: 150px;
+	}
+
+	h5 {
+		margin-top: $vertical-margin;
+		margin-bottom: 0;
+	}
+	#permissions-display {
+		margin: 0;
+		padding-left: 0;
+
+		li.permission {
+			list-style: none;
+			padding-left: 0px;
+		}
+	}
+	#delete-user-button {
+		display: block;
+		color: white;
+		background-color: $delete-red;
+	}
+	button {
+		margin-top: $vertical-margin;
+	}
+}
+
+#change-password-modal {
+	min-width: 275px;
+	div.modal-body {
+		input {
+			display: block;
+			margin-bottom: 15px;
+			width: 100%;
+		}
+		button {
+			display: none;
+		}
+	}
+	div.modal-buttons {
+		$button-width: 80px;
+		$button-height: 34px;
+
+		button.positive {
+			color: white;
+			background-color: $delete-red;
+			height: $button-height;
+			width: $button-width;
+		}
+	}
+}
+
+#edit-permissions-modal {
+	div.modal-buttons {
+		$button-width: 80px;
+		$button-height: 34px;
+
+		button.positive {
+			height: $button-height;
+			width: $button-width;
+		}
+	}
+}
+
+#delete-modal {
+	span.can-not {
+		font-weight: 500;
+	}
+	div.modal-buttons {
+		$button-width: 80px;
+		$button-height: 34px;
+
+		button.positive {
+			color: white;
+			background-color: $delete-red;
+			height: $button-height;
+			width: $button-width;
+		}
+	}
+}
+
+//Taken from Spkinkit
+//https://github.com/tobiasahlin/SpinKit
+
+//The MIT License (MIT)
+
+//Copyright (c) 2015 Tobias Ahlin
+
+//Permission is hereby granted, free of charge, to any person obtaining a copy of
+//this software and associated documentation files (the "Software"), to deal in
+//the Software without restriction, including without limitation the rights to
+//use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+//the Software, and to permit persons to whom the Software is furnished to do so,
+//subject to the following conditions:
+
+//The above copyright notice and this permission notice shall be included in all
+//copies or substantial portions of the Software.
+
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+//FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+//COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+//IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+//CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #000;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  animation-delay: -1.0s;
+}
+
+@keyframes sk-bounce {
+  0%, 100% { transform: scale(0.0); }
+  50% { transform: scale(1.0); }
+}

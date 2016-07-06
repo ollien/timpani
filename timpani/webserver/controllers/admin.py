@@ -5,6 +5,7 @@ import json
 import uuid
 import magic
 import mimetypes
+from sqlalchemy.exc import IntegrityError
 from .. import webhelpers
 from ... import blog
 from ... import auth
@@ -19,7 +20,7 @@ UPLOAD_LOCATION = os.path.abspath(os.path.join(FILE_LOCATION, "../../../static/u
 blueprint = flask.Blueprint("admin", __name__, template_folder=TEMPLATE_PATH)
 
 @blueprint.route("/manage")
-@webhelpers.checkUserPermissions("/login", saveRedirect = False)
+@webhelpers.checkUserPermissions("/login", saveRedirect=False)
 def manage():
     return flask.render_template("manage.html",
         user=webhelpers.checkForSession().user)
@@ -101,11 +102,70 @@ def settingsPage():
             storedSettings = settings.getAllSettings()
             #Since flask.request.form is an ImmutableMultiDict, we must call to_dict
             #flat = True means we will only get the first value in the dict (which should be fine).
-            storedSettings.update(flask.request.form.to_dict(flat = True))
+            storedSettings.update(flask.request.form.to_dict(flat=True))
             return flask.render_template("settings.html",
                 settings=storedSettings,
                 themes=themes.getAvailableThemes(),
                 user=webhelpers.checkForSession().user)
+
+@blueprint.route("/manage_users", methods=["GET", "POST"])
+@webhelpers.checkUserPermissions("/manage",
+    requiredPermissions = auth.CAN_CHANGE_SETTINGS_PERMISSION)
+def manageUsers():
+    if flask.request.method == "GET":
+        return flask.render_template("manage_users.html",
+            userList = auth.getAllUsers(),
+            user = webhelpers.checkForSession().user)
+
+#Returns a JSON Object based on whether or not user is logged in and if creation was succuessful.
+@blueprint.route("/create_user", methods=["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION,
+    saveRedirect=False)
+def createUser(authed, authMessage):
+    if authed:
+        username = flask.request.form["username"]
+        password = flask.request.form["password"]
+        fullName = flask.request.form["full_name"]
+        canChangeSettings = False
+        canWritePosts = False
+        if (auth.CAN_POST_PERMISSION in flask.request.form
+            and flask.request.form[auth.CAN_POST_PERMISSION] == "on"):
+            canChangeSettings = True
+        if (auth.CAN_CHANGE_SETTINGS_PERMISSION in flask.request.form
+            and flask.request.form[auth.CAN_CHANGE_SETTINGS_PERMISSION] == "on"):
+            canWritePosts = True
+        user = None
+        try:
+            user = auth.createUser(username, fullName, password, canChangeSettings, canWritePosts)
+        except IntegrityError:
+            return json.dumps({"error": 2}), 400
+        return json.dumps({"error": 0, "user_id": user.id})
+    else:
+        return json.dumps({"error": 1}), 403
+
+#Returns a JSON object based on whether or not user is logged in and if a user is found.
+#Object contains user information
+@blueprint.route("/get_user_info/<int:userId>")
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION)
+def getUserInfo(userId, authed, authMessage):
+    if authed:
+        user = auth.getUserById(userId)
+        if user is None:
+            return json.dumps({"error": 2})
+        userPermissions = []
+        if user.can_change_settings:
+            userPermissions.append(auth.CAN_CHANGE_SETTINGS_PERMISSION)
+        if user.can_write_posts:
+            userPermissions.append(auth.CAN_POST_PERMISSION)
+
+        userInfo = {
+            "username": user.username,
+            "full_name": user.full_name,
+            "permissions" : userPermissions
+        }
+        return json.dumps({"error": 0, "info": userInfo})
+    else:
+        return json.dumps({"error": 1}), 403
 
 #Returns a JSON Object based on whether or not the user is logged in.
 @blueprint.route("/delete_post/<int:postId>", methods=["POST"])
@@ -127,7 +187,7 @@ def uploadImage(authed, authMessage):
     ACCEPTED_FORMATS = ["image/jpeg", "image/png", "image/gif"]
     if authed:
         image = flask.request.files["image"]
-        mime = magic.from_buffer(image.stream.read(), mime = True)
+        mime = magic.from_buffer(image.stream.read(), mime=True)
         image.stream.seek(0,0)
 
         if type(mime) == bytes:
@@ -145,3 +205,47 @@ def uploadImage(authed, authMessage):
             return json.dumps({"error": 2}), 400
     else:
         return json.dumps({"error": 1}), 403
+
+@blueprint.route("/reset_password", methods=["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION,
+    saveRedirect=False)
+def resetPassword(authed, authMessage):
+    if authed:
+        userId = flask.request.form["userId"]
+        newPassword = flask.request.form["password"]
+        auth.resetPasswordById(userId, newPassword)
+        return json.dumps({"error": 0})
+    else:
+        return json.dumps({"error": 1}), 403
+
+@blueprint.route("/change_user_permisisons", methods=["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION,
+    saveRedirect=False)
+def changePermissions(authed, authMessage):
+    if authed:
+        if (auth.CAN_POST_PERMISSION in flask.request.form
+            and flask.request.form[auth.CAN_POST_PERMISSION] == "on"):
+            auth.grantUserPermissionById(flask.request.form["userId"], auth.CAN_POST_PERMISSION)
+        else:
+            auth.revokeUserPermissionById(flask.request.form["userId"], auth.CAN_POST_PERMISSION)
+
+        if (auth.CAN_CHANGE_SETTINGS_PERMISSION in flask.request.form
+            and flask.request.form[auth.CAN_CHANGE_SETTINGS_PERMISSION] == "on"):
+            auth.grantUserPermissionById(flask.request.form["userId"], auth.CAN_CHANGE_SETTINGS_PERMISSION)
+        else:
+            auth.revokeUserPermissionById(flask.request.form["userId"], auth.CAN_CHANGE_SETTINGS_PERMISSION)
+
+        return json.dumps({"error": 0})
+
+    else:
+        return json.dumps({"error": 1})
+
+@blueprint.route("/delete_user/<int:userId>", methods=["POST"])
+@webhelpers.checkUserPermissions(requiredPermissions=auth.CAN_CHANGE_SETTINGS_PERMISSION,
+    saveRedirect=False)
+def deleteUser(userId, authed, authMessage):
+    if authed:
+        # auth.deleteUserById(userId)
+        return json.dumps({"error": 0})
+    else:
+        json.dumps({"error": 1})

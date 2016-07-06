@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Manage Users - Timpani</title>
+	<link href="/static/libs/pure/pure-min.css" rel="stylesheet">
+	<link href="/static/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/static/css/manage_users.css" rel="stylesheet">
+	<script src="/static/js/modal.js"></script>
+	<script src="/static/js/manage_users.js"></script>
+</head>
+<body>
+	{% include "admin_toolbar.html" %}
+	<div id="main-container">
+		<div id="content-container">
+			<h1>Manage Users...</h1>
+			<button id="add-user-button" class="pure-button">Add User</button>
+			<ul id="users-list">
+				{% for user in userList %}
+					<li user_id="{{user.id}}" class="user">
+						<!--Having this on it's own line prevents styling troubles that come from adding new buttons via JS-->
+						<span class="username">{{user.username}}</span><span class="user-info-button fa fa-info-circle"></span>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="modal pure-form" id="add-user-modal">
+		<h3 class="modal-title">Add User</h3>
+		<div class="modal-body">
+			<form id="create-user-form" method="POST" action="/create_user">
+				<input id="username-input" name="username" placeholder="Username" type="text" required>
+				<input id="full-name-input" name="full_name" placeholder="Real name" type="text" required>
+				<input id="password-input" name="password" placeholder="Password" type="password" required>
+				<input id="confirm-password-input" name="confirm-password" placeholder="Confirm Password" type="password" required>
+				<div class="checkbox">
+					<input id="can-change-settings-checkbox" name="can_change_settings" type="checkbox">
+					<label for="can-change-settings-checkbox">User can change settings</label>
+				</div>
+				<div class="checkbox">
+					<input id="can-write-posts-checkbox" name="can_write_posts" type="checkbox">
+					<label for="can-write-posts-checkbox">User can write, edit and delete posts</label>
+				</div>
+				<button></button>
+			</form>
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button neutral">Cancel</button>
+			<button class="pure-button pure-button-primary positive">Add</button>
+		</div>
+	</div>
+
+	<div class="modal" id="user-info-modal">
+		<div id="spinner-container">
+			<div id="loading-spinner">
+				<div class="double-bounce1"></div>
+				<div class="double-bounce2"></div>
+			</div>
+		</div>
+		<h3 class="modal-title">User Info</h3>
+		<div class="modal-body">
+			<div id="username-info">
+				<h5>Username</h5>
+				<span id="username-display"></span>
+			</div>
+
+			<div id="full-name-info">
+				<h5>Real Name</h5>
+				<span id="full-name-display"></span>
+			</div>
+
+			<button id="change-password-button" class="pure-button">Change password</button>
+
+			<div id="permission-info">
+				<h5>Permissions</h5>
+				<ul id="permissions-display">
+					<li class="permission" id="can-change-settings">User can change settings</li>
+					<li class="permission" id="can-write-posts">User can write, edit and delete posts</li>
+				</ul>
+			</div>
+			<h5 id="no-permissions">User has no special permissions</h5>
+			<button id="edit-permissions-button" class="pure-button">Edit Permissions</button>
+			<button id="delete-user-button" class="pure-button">Delete User</button>
+
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button pure-button-primary positive">Done</button>
+		</div>
+	</div>
+
+	<div class="modal" id="change-password-modal">
+		<h3 class="modal-title">Change Password</h3>
+		<div class="modal-body">
+			<form id="change-password-form" class="pure-form" method="POST" action="/reset_password">
+				<input id="reset-password-input" placeholder="New Password" type="password" name="password" required>
+				<input id="confirm-password-reset-input" placeholder="Confirm Password" type="password" name="confirm-password" required>
+				<button></button>
+			</form>
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button neutral">Cancel</button>
+			<button class="pure-button positive">Reset</button>
+		</div>
+	</div>
+
+	<div class="modal" id="edit-permissions-modal">
+		<h3 class="modal-title">Edit permissions</h3>
+		<div class="modal-body">
+			<div class="checkbox">
+				<input id="can-change-settings-edit-checkbox" name="can_change_settings" type="checkbox">
+				<label for="can-change-settings-edit-checkbox">User can change settings</label>
+			</div>
+			<div class="checkbox">
+				<input id="can-write-posts-edit-checkbox" name="can_write_posts" type="checkbox">
+				<label for="can-write-posts-edit-checkbox">User can write, edit and delete posts</label>
+			</div>
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button neutral">Cancel</button>
+			<button class="pure-button pure-button-primary positive">Save</button>
+		</div>
+	</div>
+
+	<div class="modal" id="delete-modal">
+		<h3 class="modal-title">Delete user</h3>
+		<div class="modal-body">
+			Are you sure you want to delete <span id="delete-username"></span>? This action <span class="can-not">can not</span> be undone.
+		</div>
+		<div class="modal-buttons">
+			<button class="pure-button neutral">Cancel</button>
+			<button class="pure-button positive">Delete</button>
+		</div>
+	</div>
+
+</body>
+</html>
