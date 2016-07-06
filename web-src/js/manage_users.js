@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var addUserModal = new Modal(addUserModalElement);
 	addUserModal.positiveButton = addUserModal.element.querySelector("button.positive");
 	var userInfoModal = new Modal(userInfoModalElement);
-	userInfoModal.positiveButton = addUserModal.element.querySelector("button.positive");
+	userInfoModal.positiveButton = userInfoModal.element.querySelector("button.positive");
+	userInfoModal.body = userInfoModal.element.querySelector("div.modal-body");
 	var changePasswordModal = new Modal(changePasswordModalElement);
 	changePasswordModal.positiveButton = changePasswordModal.element.querySelector("button.positive");
 	var editPermissionsModal = new Modal(editPermissionsModalElement);
@@ -210,7 +211,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	userInfoButtons.forEach(addInfoButtonListener);
-
 	changePasswordButton.addEventListener("click", function(event) {
 		changePasswordModal.show();
 	});
