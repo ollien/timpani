@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var canChangeSettingsCheckbox = document.getElementById("can-change-settings-checkbox");
 	var canWritePostsCheckbox = document.getElementById("can-write-posts-checkbox");
 	//Spans for user info modal
+	var userInfoSpinner = document.getElementById("spinner-container");
 	var usernameDisplay = document.getElementById("username-display");
 	var fullNameDisplay = document.getElementById("full-name-display");
 	var permissionDisplayList = document.getElementById("permission-info");
@@ -58,6 +59,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	function addInfoButtonListener(button) {
 		button.addEventListener("click", function(event) {
+			userInfoSpinner.classList.remove("fade");
+			userInfoModal.body.classList.remove("fade");
+			userInfoSpinner.style.opacity = 1;
+			userInfoModal.body.style.opacity = 0;
 			userInfoModal.show();
 			currentUserId = this.parentNode.getAttribute("user_id");
 			currentUsername = this.parentNode.querySelector(".username").textContent;
@@ -78,6 +83,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 						canChangeSettingsDisplay.style.display = res.info.permissions.indexOf("can_write_posts") > -1 ? "" : "none";
 						canWritePostsDisplay.style.display = res.info.permissions.indexOf("can_change_settings") > -1 ? "" : "none";
 					}
+
+					userInfoSpinner.classList.add("fade");
+					userInfoModal.body.classList.add("fade");
+					userInfoSpinner.style.opacity = "";
+					userInfoModal.body.style.opacity = "";
+					window.getComputedStyle(userInfoSpinner).opacity;
+					window.getComputedStyle(userInfoModal.body).opacity;
 				}
 				else if (res.error === 1) {
 					window.location = "/login";
