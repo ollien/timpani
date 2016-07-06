@@ -8,10 +8,12 @@ div#main-container {
 	display: table;
 	width: 100%;
 	height: 100%;
+
 	div#content-wrapper {
 		display: table-cell;
 		vertical-align: middle;
 		$vertical-margin: 15px;
+
 		h2#title {
 			text-align: center;
 			margin-top: $vertical-margin;
