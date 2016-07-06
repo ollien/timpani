@@ -11,7 +11,7 @@ def test(driver, username, password):
 
     (WebDriverWait(driver, 10)
         .until(expected_conditions.title_contains("Timpani")))
-    
+
     assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
 
     loginForm = driver.find_element_by_id("login-form")

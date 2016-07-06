@@ -43,7 +43,7 @@ def test(driver):
         .limit(settings.getSettingValue("posts_per_page")))
 
     #There must be at least one post with a tag
-    assert query.count() > 0 
+    assert query.count() > 0
 
     postIds = query.all()
     #Resolve sqlalchemy tuples
@@ -57,4 +57,4 @@ def test(driver):
         postIds.remove(int(postId))
 
     assert len(postIds) == 0, "postIds is " % str(postIds)
-        
+

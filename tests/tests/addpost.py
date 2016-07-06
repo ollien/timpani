@@ -11,7 +11,7 @@ from timpani import database
 LOGIN_TITLE = "Login - Timpani"
 ADD_POST_TITLE = "Add Post - Timpani"
 #A random constant used to varify that a unique post was made
-POST_RANDOM = binascii.hexlify(os.urandom(16)).decode() 
+POST_RANDOM = binascii.hexlify(os.urandom(16)).decode()
 POST_TITLE = "Test post, please ignore."
 POST_BODY = ("This is a test post. "
     "There is no reason you should be paying attention to it. %s" % POST_RANDOM)
@@ -19,12 +19,12 @@ POST_TAGS = ["test", "post", "selenium"]
 
 def test(driver, username, password):
     databaseConnection = database.DatabaseConnection()
-    driver.get("http://127.0.0.1:8080/add_post")	
+    driver.get("http://127.0.0.1:8080/add_post")
 
     (WebDriverWait(driver, 10)
         .until(expected_conditions.title_contains("Timpani")))
 
-    #Check that we were redirected to the login page, as we are not logged in.	
+    #Check that we were redirected to the login page, as we are not logged in.
     assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
 
     loginForm = driver.find_element_by_id("login-form")
@@ -39,7 +39,7 @@ def test(driver, username, password):
 
     #We should have been redirected to the add_post page.
     assert driver.title == ADD_POST_TITLE, "Title is %s" % driver.title
- 
+
     postForm = driver.find_element_by_id("post-form")
     titleInput = driver.find_element_by_id("title-input")
     editorField = driver.find_element_by_css_selector("#editor > .ql-editor")
@@ -47,7 +47,7 @@ def test(driver, username, password):
 
     titleInput.click()
     titleInput.send_keys(POST_TITLE)
-    
+
     editorField.click()
     actionChain = selenium.webdriver.ActionChains(driver)
     actionChain.send_keys(POST_BODY)
@@ -59,7 +59,7 @@ def test(driver, username, password):
         actionChain.send_keys(tag)
         actionChain.send_keys(keys.Keys.SPACE)
     actionChain.perform()
-    
+
     postForm.submit()
 
     post = (databaseConnection.session
@@ -68,7 +68,7 @@ def test(driver, username, password):
         .first())
     tags = (databaseConnection.session
         .query(database.tables.Tag.name)
-        .join(database.tables.TagRelation, 
+        .join(database.tables.TagRelation,
             database.tables.TagRelation.tag_id == database.tables.Tag.id)
         .filter(database.tables.TagRelation.post_id == post.id)
         .all())
