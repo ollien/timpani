@@ -154,7 +154,8 @@ def invalidateSession(sessionId):
     query = (databaseConnection.session
         .query(database.tables.Session)
         .filter(database.tables.Session.session_id == sessionId)
-        .delete(synchronize_session=False))
+        .delete())
+    databaseConnection.session.commit()
 
 def resetPassword(user, newPassword):
     if type(user) != database.tables.User:
