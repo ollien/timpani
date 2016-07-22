@@ -8,9 +8,9 @@ from selenium.webdriver.support import expected_conditions
 LOGIN_TITLE = "Login - Timpani"
 SETTINGS_TITLE = "Settings - Timpani"
 
-TITLE = "Timpani! %s" % binascii.hexlify(os.urandom(32)).decode()
-SUBTITLE = ("Your subtitle, set using unit testing. %s" %
-    binascii.hexlify(os.urandom(32)).decode())
+TITLE = "Timpani! {}".format(binascii.hexlify(os.urandom(32)).decode())
+SUBTITLE = ("Your subtitle, set using unit testing. {}".format(
+    binascii.hexlify(os.urandom(32)).decode()))
 
 def test(driver, username, password):
     driver.get("http://127.0.0.1:8080/settings")
@@ -18,7 +18,7 @@ def test(driver, username, password):
     (WebDriverWait(driver, 10)
         .until(expected_conditions.title_contains("Timpani")))
 
-    assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
+    assert driver.title == LOGIN_TITLE, "Title is {}".format(driver.title)
 
     loginForm = driver.find_element_by_id("login-form")
     usernameField = driver.find_element_by_id("username-field")
@@ -30,7 +30,7 @@ def test(driver, username, password):
     (WebDriverWait(driver, 10)
         .until_not(expected_conditions.title_is(LOGIN_TITLE)))
 
-    assert driver.title == SETTINGS_TITLE, "Title is %s" % driver.title
+    assert driver.title == SETTINGS_TITLE, "Title is {}".format(driver.title)
 
     settingsForm = driver.find_element_by_id("settings-form")
     titleField = driver.find_element_by_id("blog-title-input")
@@ -52,5 +52,5 @@ def test(driver, username, password):
     blogTitle = driver.find_element_by_css_selector("h2.title")
     blogSubtitle = driver.find_element_by_css_selector("h3.subtitles")
 
-    assert blogTitle.text == TITLE, "Element text is %s" % blogTitle.text
-    assert blogSubtitle.text == SUBTITLE, "Element text is %s" % blogSubtitle.text
+    assert blogTitle.text == TITLE, "Element text is {}".format(blogTitle.text)
+    assert blogSubtitle.text == SUBTITLE, "Element text is {}".format(blogSubtitle.text)
