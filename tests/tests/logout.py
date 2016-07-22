@@ -12,7 +12,7 @@ def test(driver, username, password):
     (WebDriverWait(driver, 10)
         .until(expected_conditions.title_contains("Timpani")))
 
-    assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
+    assert driver.title == LOGIN_TITLE, "Title is {}".format(driver.title)
 
     loginForm = driver.find_element_by_id("login-form")
     usernameField = driver.find_element_by_id("username-field")
@@ -24,7 +24,7 @@ def test(driver, username, password):
     (WebDriverWait(driver, 10)
         .until_not(expected_conditions.title_is(LOGIN_TITLE)))
 
-    assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
+    assert driver.title == MANAGE_TITLE, "Title is {}".fomrat(driver.title)
 
     logoutButton = driver.find_element_by_css_selector("button.logout-button")
     logoutButton.click()
@@ -32,7 +32,7 @@ def test(driver, username, password):
     (WebDriverWait(driver, 10)
         .until_not(expected_conditions.title_is(MANAGE_TITLE)))
 
-    assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
+    assert driver.title == LOGIN_TITLE, "Title is {}".format(driver.title)
 
     #Check that the user has no session in their cache.
     #This can be confirmed by accessing a restricted page,
@@ -41,4 +41,4 @@ def test(driver, username, password):
     (WebDriverWait(driver, 10)
         .until(expected_conditions.title_contains("Timpani")))
 
-    assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
+    assert driver.title == LOGIN_TITLE, "Title is {}".format(driver.title)
