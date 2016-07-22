@@ -19,7 +19,7 @@ def test(driver, authorUsername, authorPassword, adminUsername, adminPassword):
         .until(expected_conditions.title_contains("Timpani")))
 
     #Check that we were redirected to the login page, as we are not logged in.
-    assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
+    assert driver.title == LOGIN_TITLE, "Title is {}".format(driver.title)
 
     #Log in as author and make sure we can access addPosts, but not settings
     loginForm = driver.find_element_by_id("login-form")
@@ -32,11 +32,11 @@ def test(driver, authorUsername, authorPassword, adminUsername, adminPassword):
     (WebDriverWait(driver, 10)
         .until_not(expected_conditions.title_is(LOGIN_TITLE)))
 
-    assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
+    assert driver.title == MANAGE_TITLE, "Title is {}".format(driver.title)
 
     driver.get("http://127.0.0.1:8080/add_post")
 
-    assert driver.title == ADD_POST_TITLE, "Title is %s" % driver.title
+    assert driver.title == ADD_POST_TITLE, "Title is {}".format(driver.title)
 
     driver.get("http://127.0.0.1:8080/settings")
 
@@ -53,7 +53,7 @@ def test(driver, authorUsername, authorPassword, adminUsername, adminPassword):
     (WebDriverWait(driver, 10)
         .until(expected_conditions.title_is(LOGIN_TITLE)))
 
-    assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
+    assert driver.title == LOGIN_TITLE, "Title is {}".format(driver.title)
 
     #Log in as admin and make sure we can access settings, but not addPosts
     loginForm = driver.find_element_by_id("login-form")
@@ -65,15 +65,15 @@ def test(driver, authorUsername, authorPassword, adminUsername, adminPassword):
 
     (WebDriverWait(driver, 10)
         .until_not(expected_conditions.title_is(LOGIN_TITLE)))
-    assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
+    assert driver.title == MANAGE_TITLE, "Title is {}".format(driver.title)
 
     driver.get("http://127.0.0.1:8080/settings")
 
-    assert driver.title == SETTINGS_TITLE, "Title is %s" % driver.title
+    assert driver.title == SETTINGS_TITLE, "Title is {}".format(driver.title)
 
     driver.get("http://127.0.0.1:8080/add_post")
 
-    assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
+    assert driver.title == MANAGE_TITLE, "Title is {}".format(driver.title)
     #Will throw a timeout exception if the
     #page doesn't load, or it can't find the element.
     (WebDriverWait(driver, 10)
