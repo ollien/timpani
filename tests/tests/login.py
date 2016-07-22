@@ -12,7 +12,7 @@ def test(driver, username, password):
     (WebDriverWait(driver, 10)
         .until(expected_conditions.title_contains("Timpani")))
 
-    assert driver.title == LOGIN_TITLE, "Title is %s" % driver.title
+    assert driver.title == LOGIN_TITLE, "Title is {}".format(driver.title)
 
     loginForm = driver.find_element_by_id("login-form")
     usernameField = driver.find_element_by_id("username-field")
@@ -36,4 +36,4 @@ def test(driver, username, password):
     (WebDriverWait(driver, 10)
         .until_not(expected_conditions.title_is(LOGIN_TITLE)))
 
-    assert driver.title == MANAGE_TITLE, "Title is %s" % driver.title
+    assert driver.title == MANAGE_TITLE, "Title is {}".format(driver.title)
