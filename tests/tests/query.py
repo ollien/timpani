@@ -56,5 +56,5 @@ def test(driver):
         assert int(postId) in postIds
         postIds.remove(int(postId))
 
-    assert len(postIds) == 0, "postIds is " % str(postIds)
+    assert len(postIds) == 0, "postIds is {}".format(str(postIds))
 
